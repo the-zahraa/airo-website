@@ -1,0 +1,747 @@
+<script>
+  export let initialTab = 'Game';
+
+  const tabs = ['Game', 'UGC', 'Careers'];
+
+  function normalizeTab(tab) {
+    return tabs.includes(tab) ? tab : tabs[0];
+  }
+
+  let selectedTab = normalizeTab(initialTab);
+  let syncedInitialTab = initialTab;
+
+  $: if (initialTab !== syncedInitialTab) {
+    selectedTab = normalizeTab(initialTab);
+    syncedInitialTab = initialTab;
+  }
+
+  $: helperText = selectedTab === 'Careers'
+    ? 'Applying to join the Airo team'
+    : 'Selling or partnering on a Roblox';
+
+  $: linkLabel = selectedTab === 'Careers' ? 'Portfolio / resume link' : 'Group link';
+  $: linkPlaceholder = selectedTab === 'Careers' ? 'https://your-portfolio.com' : 'https://www-roblox.com/groups/...';
+  $: priceLabel = selectedTab === 'Careers' ? 'Salary expectation' : 'Asking price';
+  $: pricePlaceholder = selectedTab === 'Careers' ? '$ 3,000 / month' : '$ 10,000';
+  $: messagePlaceholder = selectedTab === 'Careers'
+    ? 'Tell us about your skills, experience, portfolio, and what role you want...'
+    : 'Tell us a bit about your game, audience, and goals...';
+</script>
+
+<section id="work-with-us" class="work-form-section" aria-labelledby="work-form-title">
+  <div class="work-form-lighting" aria-hidden="true">
+    <svg class="work-footer-light" viewBox="-265 585.549 1970 1011.291" fill="none" preserveAspectRatio="none">
+      <g filter="url(#work_light_blur_main)" opacity="0.82" style="mix-blend-mode:screen">
+        <path d="M-265 585.549C-84.3875 708.484 180.521 915.542 737.335 1014.35C1087.87 949.711 1338.2 833.864 1704.3 612.243V1596.84C1523.69 1473.91 1258.78 1266.84 701.961 1168.03C351.424 1232.68 101.097 1348.53 -265 1570.15V585.549Z" fill="#7300FF" />
+      </g>
+      <g filter="url(#work_light_blur_mid)" opacity="0.72" style="mix-blend-mode:screen">
+        <path d="M-265 697.663C-169.03 762.986 21.8951 864.014 273.708 946.925C543.527 1035.76 835.01 1035.02 1108.62 958.637C1315.08 900.999 1527.24 821.29 1705 713.68V1477.12C1607.33 1410.64 1383.32 1307.17 1106.95 1223.46C835.083 1141.11 543.595 1137.83 272.493 1222.67C90.0909 1279.75 -93.8502 1357.5 -265 1461.1V697.663Z" fill="#AF8BF9" />
+      </g>
+      <g filter="url(#work_light_blur_edge_left)" opacity="0.96" style="mix-blend-mode:screen">
+        <path d="M642.588 1084.72C213.352 1074.05 -141.319 904.095 -265 820.455V1338.31C29.6992 1161.07 462.85 1095.4 642.588 1084.72Z" fill="#E8E4FF" />
+      </g>
+      <g filter="url(#work_light_blur_edge_right)" opacity="0.96" style="mix-blend-mode:screen">
+        <path d="M797.412 1074.05C1226.65 1084.72 1581.32 1254.67 1705 1338.31L1705 820.454C1410.3 997.701 977.15 1063.37 797.412 1074.05Z" fill="#E8E4FF" />
+      </g>
+      <g filter="url(#work_light_blur_edge_core_left)" opacity="0.46" style="mix-blend-mode:screen">
+        <path d="M642.588 1084.72C213.352 1074.05 -141.319 904.095 -265 820.455V1338.31C29.6992 1161.07 462.85 1095.4 642.588 1084.72Z" fill="#E8E4FF" />
+      </g>
+      <g filter="url(#work_light_blur_edge_core_right)" opacity="0.46" style="mix-blend-mode:screen">
+        <path d="M797.412 1074.05C1226.65 1084.72 1581.32 1254.67 1705 1338.31L1705 820.454C1410.3 997.701 977.15 1063.37 797.412 1074.05Z" fill="#E8E4FF" />
+      </g>
+      <defs>
+        <filter id="work_light_blur_main" x="-850.549" y="-0.000183105" width="3140.4" height="2182.39" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feGaussianBlur stdDeviation="330" result="effect1_foregroundBlur" />
+        </filter>
+        <filter id="work_light_blur_mid" x="-512.883" y="449.78" width="2465.77" height="1275.22" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feGaussianBlur stdDeviation="175" result="effect1_foregroundBlur" />
+        </filter>
+        <filter id="work_light_blur_edge_left" x="-362.592" y="722.863" width="1102.77" height="713.042" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feGaussianBlur stdDeviation="72" result="effect1_foregroundBlur" />
+        </filter>
+        <filter id="work_light_blur_edge_right" x="699.82" y="722.863" width="1102.77" height="713.042" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feGaussianBlur stdDeviation="72" result="effect1_foregroundBlur" />
+        </filter>
+        <filter id="work_light_blur_edge_core_left" x="-328.592" y="756.863" width="1034.77" height="645.042" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feGaussianBlur stdDeviation="38" result="effect1_foregroundBlur" />
+        </filter>
+        <filter id="work_light_blur_edge_core_right" x="733.82" y="756.863" width="1034.77" height="645.042" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feGaussianBlur stdDeviation="38" result="effect1_foregroundBlur" />
+        </filter>
+      </defs>
+    </svg>
+  </div>
+  <div class="work-form-heading">
+    <div class="section-kicker" aria-label="Work with us">
+      <span class="corner corner-tl"></span>
+      <span class="corner corner-tr"></span>
+      <strong>Work with us</strong>
+      <span class="corner corner-bl"></span>
+      <span class="corner corner-br"></span>
+    </div>
+
+    <h2 id="work-form-title">Want to work with us ?</h2>
+    <p>Tell us about project, we read submission and reach out<br class="desktop-break" /> to candidates we find suitable to work with us.</p>
+  </div>
+
+  <form class="work-form-card" aria-label="Work with us enquiry form">
+    <div class="tabs-block">
+      <span class="field-label">What are you applying for ?</span>
+      <div class="work-tabs" role="tablist" aria-label="Application type">
+        {#each tabs as tab}
+          <button
+            type="button"
+            class:selected={selectedTab === tab}
+            role="tab"
+            aria-selected={selectedTab === tab}
+            onclick={() => selectedTab = tab}
+          >
+            {tab}
+          </button>
+        {/each}
+      </div>
+      <small>{helperText}</small>
+    </div>
+
+    <div class="form-grid two-col">
+      <div class="field-group">
+        <label for="work-full-name"><span></span>Full name</label>
+        <input id="work-full-name" type="text" placeholder="Jane Doe" />
+      </div>
+
+      <div class="field-group">
+        <label for="work-discord"><span></span>Discord username</label>
+        <input id="work-discord" type="text" placeholder="Discord username" />
+      </div>
+
+      <div class="field-group">
+        <label for="work-roblox"><span></span>Roblox username</label>
+        <input id="work-roblox" type="text" placeholder="Roblox username" />
+      </div>
+
+      <div class="field-group">
+        <label for="work-group-link"><span></span>{linkLabel}</label>
+        <input id="work-group-link" type="url" placeholder={linkPlaceholder} />
+      </div>
+    </div>
+
+    <div class="field-group price-field">
+      <label for="work-asking-price"><span></span>{priceLabel}</label>
+      <div class="price-row">
+        <div class="currency-select">
+          <span>us</span>
+          <strong>USD</strong>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
+        </div>
+        <input id="work-asking-price" type="text" placeholder={pricePlaceholder} />
+      </div>
+    </div>
+
+    <div class="field-group message-field">
+      <label for="work-message"><span></span>Why are you contacting us ?</label>
+      <textarea id="work-message" placeholder={messagePlaceholder}></textarea>
+    </div>
+
+    <div class="consent-list">
+      <label class="check-row">
+        <input type="checkbox" />
+        <span class="box"></span>
+        <span>By submitting your enquiry, you agree to our <a href="/legal">Privacy Policy</a> &amp; <a href="/legal">Terms &amp; Conditions</a>.</span>
+      </label>
+
+      <label class="check-row">
+        <input type="checkbox" />
+        <span class="box"></span>
+        <span>I am over the age of 13.</span>
+      </label>
+    </div>
+
+    <div class="form-submit-row">
+      <p>We typically respond within 2–3 business days.</p>
+      <button type="submit" class="submit-btn">
+        <span>SUBMIT ENQUIRY</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10M17 7 7 17" /></svg>
+      </button>
+    </div>
+  </form>
+</section>
+
+<style>
+  .work-form-section {
+    position: relative;
+    z-index: 5;
+    width: min(820px, calc(100vw - 56px));
+    margin: clamp(30px, 4.2vw, 54px) auto clamp(76px, 7.2vw, 112px);
+    color: #fff;
+    scroll-margin-top: 118px;
+  }
+
+  .work-form-lighting {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: clamp(190px, 18vw, 252px);
+    width: min(1970px, 136vw);
+    aspect-ratio: 1970 / 1011.291;
+    transform: translateX(-50%);
+    overflow: hidden;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    filter: blur(6px);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.18) 9%, #000 25%, #000 75%, rgba(0,0,0,.18) 91%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.18) 9%, #000 25%, #000 75%, rgba(0,0,0,.18) 91%, transparent 100%);
+  }
+
+  .work-footer-light {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    opacity: .92;
+  }
+
+  .work-form-heading,
+  .work-form-card {
+    position: relative;
+    z-index: 2;
+  }
+
+  .work-form-heading {
+    text-align: center;
+    margin: 0 auto clamp(28px, 3.1vw, 40px);
+  }
+
+  .section-kicker {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 156px;
+    height: 38px;
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: clamp(12px, 1.05vw, 15px);
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: .06em;
+  }
+
+  .section-kicker .corner {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-color: rgba(255,255,255,.95);
+  }
+
+  .corner-tl { left: 0; top: 5px; border-left: 2px solid; border-top: 2px solid; }
+  .corner-tr { right: 0; top: 5px; border-right: 2px solid; border-top: 2px solid; }
+  .corner-bl { left: 0; bottom: 5px; border-left: 2px solid; border-bottom: 2px solid; }
+  .corner-br { right: 0; bottom: 5px; border-right: 2px solid; border-bottom: 2px solid; }
+
+  .section-kicker strong {
+    font: inherit;
+  }
+
+  .work-form-heading h2 {
+    margin: 0;
+    font-size: clamp(30px, 3.05vw, 43px);
+    line-height: 1.14;
+    font-weight: 600;
+    letter-spacing: -.045em;
+  }
+
+  .work-form-heading p {
+    width: min(560px, 100%);
+    margin: clamp(10px, 1vw, 14px) auto 0;
+    color: rgba(255,255,255,.6);
+    font-size: clamp(12px, .98vw, 15px);
+    line-height: 1.5;
+    font-weight: 400;
+    letter-spacing: -.03em;
+  }
+
+  .work-form-card {
+    width: 100%;
+    padding: clamp(30px, 3.3vw, 42px) clamp(26px, 3.7vw, 46px) clamp(28px, 3.3vw, 40px);
+    border-radius: clamp(34px, 4.4vw, 58px);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.032), rgba(255,255,255,.014)),
+      rgba(19, 16, 21, .35);
+    border: 1px solid rgba(202, 158, 255, .22);
+    box-shadow:
+      inset 0 0 0 1px rgba(202,158,255,.08),
+      inset 0 -1px 0 rgba(255,255,255,.06),
+      0 20px 92px rgba(115,0,255,.16);
+    backdrop-filter: blur(2px);
+    overflow: hidden;
+  }
+
+  .work-form-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(57, 0, 114, .42) 1px, transparent 1.15px);
+    background-size: 31px 31px;
+    opacity: .42;
+  }
+
+  .work-form-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .tabs-block > .field-label,
+  .field-group > label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0 0 13px;
+    color: #fff;
+    font-size: clamp(13px, 1.05vw, 15.5px);
+    line-height: 1.2;
+    font-weight: 400;
+    letter-spacing: -.035em;
+  }
+
+  .field-group > label span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #C697FF;
+    flex: 0 0 auto;
+  }
+
+  .work-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    width: 100%;
+    height: clamp(44px, 3.8vw, 54px);
+    padding: 5px;
+    border-radius: 169px;
+    background: rgba(255,255,255,.055);
+    border: 1.5px solid rgba(180,180,180,.72);
+    box-shadow: inset 0 0 30px rgba(115,0,255,.12);
+  }
+
+  .work-tabs button {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 165px;
+    background: transparent;
+    color: #9C9C9C;
+    font: inherit;
+    font-size: clamp(13px, 1.08vw, 16px);
+    font-weight: 400;
+    cursor: pointer;
+    transition: color .25s ease, background .25s ease, box-shadow .25s ease;
+  }
+
+  .work-tabs button.selected {
+    color: #fff;
+    font-weight: 500;
+    background: #7300FF;
+    box-shadow: 0 0 18px rgba(115,0,255,.45);
+  }
+
+  .tabs-block small {
+    display: block;
+    margin: 8px 0 clamp(18px, 2.4vw, 30px);
+    color: rgba(255,255,255,.8);
+    font-size: clamp(11px, .95vw, 14px);
+    line-height: 1.55;
+    font-weight: 400;
+    letter-spacing: -.03em;
+  }
+
+  .form-grid.two-col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(24px, 3.6vw, 42px);
+    row-gap: clamp(18px, 2.35vw, 27px);
+  }
+
+  .field-group input,
+  .field-group textarea,
+  .currency-select {
+    width: 100%;
+    border: 1px solid rgba(237,237,237,.62);
+    border-radius: 219px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03)),
+      rgba(26,26,26,.72);
+    color: #fff;
+    font-family: inherit;
+    font-size: clamp(11px, .95vw, 13.5px);
+    font-weight: 400;
+    outline: none;
+    box-shadow: inset 0 0 34px rgba(202,158,255,.08);
+    transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+
+  .field-group input,
+  .currency-select {
+    height: clamp(44px, 3.7vw, 52px);
+    padding: 0 clamp(17px, 2.1vw, 26px);
+  }
+
+  .field-group input::placeholder,
+  .field-group textarea::placeholder {
+    color: rgba(255,255,255,.5);
+  }
+
+  .field-group input:focus,
+  .field-group textarea:focus {
+    border-color: rgba(202,151,255,.95);
+    box-shadow: inset 0 0 38px rgba(202,158,255,.12), 0 0 0 3px rgba(115,0,255,.18);
+  }
+
+  .price-field {
+    margin-top: clamp(18px, 2.4vw, 28px);
+  }
+
+  .price-row {
+    display: grid;
+    grid-template-columns: minmax(110px, 176px) 1fr;
+    gap: clamp(16px, 1.9vw, 24px);
+  }
+
+  .currency-select {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding-inline: 18px;
+  }
+
+  .currency-select span {
+    font-size: clamp(12px, 1vw, 15px);
+    color: #fff;
+  }
+
+  .currency-select strong {
+    padding-left: 12px;
+    border-left: 1px solid rgba(47,30,47,.95);
+    font-size: clamp(15px, 1.32vw, 19px);
+    line-height: 1;
+    font-weight: 600;
+  }
+
+  .currency-select svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: rgba(255,255,255,.78);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .message-field {
+    margin-top: clamp(18px, 2.4vw, 28px);
+  }
+
+  .field-group textarea {
+    height: clamp(140px, 13.4vw, 184px);
+    padding: clamp(15px, 1.6vw, 22px) clamp(17px, 2.1vw, 26px);
+    border-radius: clamp(22px, 2.6vw, 34px);
+    resize: vertical;
+  }
+
+  .consent-list {
+    display: grid;
+    gap: 12px;
+    margin-top: clamp(24px, 3.2vw, 38px);
+  }
+
+  .check-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    font-size: clamp(11px, 1vw, 14.5px);
+    line-height: 1.55;
+    letter-spacing: -.035em;
+  }
+
+  .check-row input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .check-row .box {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    flex: 0 0 auto;
+    border-radius: 7px;
+    background: #060506;
+    border: 1px solid #5B5165;
+  }
+
+  .check-row input:checked + .box {
+    background: #7300FF;
+    border-color: rgba(202,158,255,.8);
+  }
+
+  .check-row input:checked + .box::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 3px;
+    width: 7px;
+    height: 12px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .check-row a {
+    color: #C697FF;
+  }
+
+  .form-submit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: clamp(28px, 3.7vw, 44px);
+  }
+
+  .form-submit-row p {
+    margin: 0;
+    color: rgba(255,255,255,.5);
+    font-size: clamp(11px, .86vw, 12.5px);
+    line-height: 2;
+    font-weight: 500;
+    letter-spacing: -.035em;
+  }
+
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    width: clamp(166px, 13.8vw, 196px);
+    height: clamp(42px, 3.35vw, 50px);
+    border: 5px solid rgba(115, 0, 255, .5);
+    border-radius: 999px;
+    background: #7300FF;
+    color: #fff;
+    font-family: inherit;
+    font-size: clamp(12px, 1.08vw, 15.5px);
+    line-height: 1;
+    font-weight: 400;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(115,0,255,.42);
+    transition: transform .22s ease, box-shadow .22s ease;
+  }
+
+  .submit-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 42px rgba(115,0,255,.58);
+  }
+
+  @media (max-width: 900px) {
+    .work-form-section {
+      width: min(570px, calc(100vw - 34px));
+      margin-top: 46px;
+      margin-bottom: 78px;
+      scroll-margin-top: 96px;
+    }
+
+    .work-form-lighting {
+      top: 230px;
+      width: 158vw;
+    }
+
+    .work-form-card {
+      padding: 32px 24px 34px;
+      border-radius: 38px;
+    }
+
+    .form-grid.two-col {
+      grid-template-columns: 1fr;
+    }
+
+    .price-row {
+      grid-template-columns: 1fr;
+    }
+
+    .currency-select {
+      width: min(210px, 100%);
+    }
+
+    .form-submit-row {
+      align-items: stretch;
+      flex-direction: column;
+      margin-top: 38px;
+    }
+
+    .submit-btn {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .work-form-section {
+      width: calc(100vw - 28px);
+      margin-top: 50px;
+      margin-bottom: 56px;
+      scroll-margin-top: 86px;
+    }
+
+    .work-form-lighting {
+      top: 245px;
+      width: 190vw;
+      opacity: .9;
+    }
+
+    .desktop-break {
+      display: none;
+    }
+
+    .section-kicker {
+      min-width: 142px;
+      height: 36px;
+    }
+
+    .work-form-heading {
+      margin-bottom: 28px;
+    }
+
+    .work-form-heading h2 {
+      font-size: 30px;
+      line-height: 1.15;
+    }
+
+    .work-form-heading p {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .work-form-card {
+      padding: 30px 18px 28px;
+      border-radius: 32px;
+    }
+
+    .tabs-block > .field-label,
+    .field-group > label {
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+
+    .field-group > label span {
+      width: 6px;
+      height: 6px;
+    }
+
+    .work-tabs {
+      height: 46px;
+      padding: 4px;
+      border-width: 1px;
+    }
+
+    .work-tabs button {
+      font-size: 12px;
+    }
+
+    .tabs-block small {
+      margin: 8px 0 24px;
+      font-size: 11px;
+    }
+
+    .form-grid.two-col {
+      row-gap: 22px;
+    }
+
+    .field-group input,
+    .currency-select {
+      height: 48px;
+      padding-inline: 16px;
+      font-size: 12px;
+    }
+
+    .price-field,
+    .message-field {
+      margin-top: 24px;
+    }
+
+    .currency-select {
+      gap: 10px;
+    }
+
+    .currency-select strong {
+      padding-left: 10px;
+      font-size: 15px;
+    }
+
+    .field-group textarea {
+      height: 164px;
+      padding: 14px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .consent-list {
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .check-row {
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .check-row .box {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      margin-top: 1px;
+    }
+
+    .form-submit-row {
+      gap: 18px;
+      margin-top: 32px;
+    }
+
+    .form-submit-row p {
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .submit-btn {
+      height: 48px;
+      border-width: 4px;
+      font-size: 13px;
+    }
+  }
+</style>
