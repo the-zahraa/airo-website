@@ -121,9 +121,9 @@
   ];
 
   const brandBadges = [
-    { value: '+4M', label: 'Monthly players' },
-    { value: '20+', label: 'Partner studios' },
-    { value: '1B+', label: 'Visits generated' }
+    { value: '12+', label: 'Brand Partners' },
+    { value: '84+', label: 'Countries Reached' },
+    { value: 'Fully Owned', label: 'Content' }
   ];
 
   const topHitFallbackExtensions = ['png', 'jpeg', 'jpg', 'webp', 'avif'];
@@ -766,13 +766,12 @@
     <section class="hero-section" class:empty-route-section={currentPath !== '/'}>
       {#if currentPath === '/'}
       <div class="hero-copy">
-        <h1>Play Create Innovate</h1>
-        <p>Airo is an exclusive acquisition studio embracing Creativity and innovation amongst young developers and creators.</p>
+        <h1>Your Game Could Be Next</h1>
+        <p>Airo backs Roblox games others overlook, helping them reach more players, stronger revenue,<br/>and real momentum.</p>
         <button type="button" class="video-btn" on:click={scrollToStory}>
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path class="arrow-main" pathLength="100" d="M20.3 3.7L3.7 20.3" />
-            <path class="arrow-head" pathLength="100" d="M3.7 20.3H17.2" />
-            <path class="arrow-head" pathLength="100" d="M3.7 20.3V6.8" />
+          <svg class="reel-play-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="play-ring" cx="12" cy="12" r="9.2" />
+            <path class="play-triangle" d="M10.2 8.3L16.3 12L10.2 15.7V8.3Z" />
           </svg>
           <span>Watch reel</span>
         </button>
@@ -803,30 +802,16 @@
           <article class="stat-item">
             <div class="stat-icon connected-stat-box">
               {#if item.icon === 'ccu'}
-                <svg class="connected-stat-icon stats-motion-icon stats-icon-team" viewBox="0 0 48 48" aria-hidden="true">
-                  <path class="stats-line stats-line-a" pathLength="1" d="M24 9.8a5.2 5.2 0 1 1 0 10.4 5.2 5.2 0 0 1 0-10.4Z" />
-                  <path class="stats-line stats-line-b" pathLength="1" d="M13.8 15.7a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z" />
-                  <path class="stats-line stats-line-c" pathLength="1" d="M34.2 15.7a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z" />
-                  <path class="stats-line stats-line-d" pathLength="1" d="M12 36.2c2.4-6.2 6.4-9.3 12-9.3s9.6 3.1 12 9.3" />
-                  <path class="stats-line stats-line-e" pathLength="1" d="M5.9 34.2c1.4-4 4.2-6.1 8.1-6.1" />
-                  <path class="stats-line stats-line-f" pathLength="1" d="M42.1 34.2c-1.4-4-4.2-6.1-8.1-6.1" />
+                <svg class="connected-stat-icon solid-stat-icon stats-icon-team" viewBox="0 0 64 64" aria-hidden="true">
+                  <path fill="currentColor" d="M24.5 30.5a10.5 10.5 0 1 0 0-21 10.5 10.5 0 0 0 0 21Zm19.5-2a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17ZM24.5 36C12.8 36 6 43.1 6 52.1 6 55.8 8.6 58 12.4 58h24.2c3.8 0 6.4-2.2 6.4-5.9C43 43.1 36.2 36 24.5 36Zm19.4.8c-2.9 0-5.6.6-7.9 1.9 4.2 3.1 6.8 7.5 7.2 12.8h8.2c3.1 0 5.6-2.2 5.6-5.3 0-5.8-4.5-9.4-13.1-9.4Z" />
                 </svg>
               {:else if item.icon === 'visits'}
-                <svg class="connected-stat-icon stats-motion-icon stats-icon-visits" viewBox="0 0 48 48" aria-hidden="true">
-                  <path class="stats-line stats-line-a" pathLength="1" d="M8.2 34.4h31.6" />
-                  <path class="stats-line stats-line-b" pathLength="1" d="M12.3 28.9l7.6-7.6 6.1 6.1 10-11" />
-                  <path class="stats-line stats-line-c" pathLength="1" d="M30.3 16.4H36v5.7" />
-                  <path class="stats-dot stats-dot-a" d="M12.3 28.9a2 2 0 1 0 0 .1" />
-                  <path class="stats-dot stats-dot-b" d="M19.9 21.3a2 2 0 1 0 0 .1" />
-                  <path class="stats-dot stats-dot-c" d="M26 27.4a2 2 0 1 0 0 .1" />
+                <svg class="connected-stat-icon solid-stat-icon stats-icon-visits" viewBox="0 0 64 64" aria-hidden="true">
+                  <path fill="currentColor" d="M13 8h38c3.9 0 7 3.1 7 7v26c0 3.9-3.1 7-7 7H13c-3.9 0-7-3.1-7-7V15c0-3.9 3.1-7 7-7Zm15.4 13.6v12.8c0 2.2 2.4 3.6 4.3 2.4l10.1-6.4c1.8-1.1 1.8-3.7 0-4.8l-10.1-6.4c-1.9-1.2-4.3.2-4.3 2.4ZM22 54h20a4 4 0 0 1 0 8H22a4 4 0 0 1 0-8Z" />
                 </svg>
               {:else}
-                <svg class="connected-stat-icon stats-motion-icon stats-icon-game" viewBox="0 0 48 48" aria-hidden="true">
-                  <path class="stats-line stats-line-a" pathLength="1" d="M15.4 18.2h17.2c4 0 6.8 2.6 7.5 6.5l1.1 6.3c.5 3-1.5 5.8-4.5 6-2 .2-3.7-.7-5-2.6l-2.1-3.2H18.4l-2.1 3.2c-1.3 1.9-3 2.8-5 2.6-3-.2-5-3-4.5-6l1.1-6.3c.7-3.9 3.5-6.5 7.5-6.5Z" />
-                  <path class="stats-line stats-line-b" pathLength="1" d="M15.2 27h8.2" />
-                  <path class="stats-line stats-line-c" pathLength="1" d="M19.3 22.9v8.2" />
-                  <path class="stats-line stats-line-d" pathLength="1" d="M30.6 25.1h.1" />
-                  <path class="stats-line stats-line-e" pathLength="1" d="M35.1 29.3h.1" />
+                <svg class="connected-stat-icon solid-stat-icon stats-icon-game" viewBox="0 0 64 64" aria-hidden="true">
+                  <path fill="currentColor" d="M20.7 19h22.6c7.6 0 13.2 5.1 14.2 12.6l1 7.2C59.6 47 54.2 54 46.1 54c-4.5 0-8.1-2.1-10.5-5.9L33.8 45h-3.6l-1.8 3.1C26 51.9 22.4 54 17.9 54 9.8 54 4.4 47 5.5 38.8l1-7.2C7.5 24.1 13.1 19 20.7 19Zm1.8 13.5h-5v5h5v5h5v-5h5v-5h-5v-5h-5v5ZM42 32a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8.5 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
                 </svg>
               {/if}
             </div>
@@ -848,9 +833,9 @@
   {#if currentPath === '/'}
   <section class="story-section" id="story">
     <div class="section-title title-with-icon">
-      <h2>OUR STORY</h2>
+      <h2>Meet Airo</h2>
     </div>
-    <p class="section-lead">This section will showcase our studio, vision, and featured projects through video content</p>
+    <p class="section-lead">We back overlooked Roblox games and help them grow into something bigger.</p>
     <div
       class="video-card"
       class:is-playing={storyVideoStarted}
@@ -925,8 +910,8 @@
       <span class="brands-corner brands-corner-bl"></span>
       <span class="brands-corner brands-corner-br"></span>
     </div>
-    <h2><span class="trusted-word">Trusted</span> by global brands</h2>
-    <p>From studios to global tech leaders, our team has collaborated with partners<br class="brand-copy-break" /> who care about polished products and memorable experiences.</p>
+    <h2>Trusted By Teams Worldwide</h2>
+    <p>From brand partners to owned content, Airo works across games, studios, and creator-led experiences built to reach players around the world.</p>
 
     <div class="brand-badges">
       {#each brandBadges as badge}
@@ -1012,7 +997,7 @@
     <div class="mini-panels">
       <article>
         <strong>+1B</strong>
-        <span>Total visit across all our experiences ROBLOX.</span>
+        <span>Total visits across all our experiences on ROBLOX.</span>
       </article>
       <article>
         <strong>+41</strong>
@@ -1092,7 +1077,7 @@
         <img class="launch-logo" src="/logos/airo.svg" alt="Airo"/>
         <h3>Looking to launch<br/>Your game?</h3>
       </div>
-      <a class="shine-btn launch-action" href="#contact" on:click={scrollToContact}>
+      <a class="launch-action" href="#contact" on:click={scrollToContact}>
         <span>Pitch us</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17h10V7M17 17 7 7"/></svg>
       </a>

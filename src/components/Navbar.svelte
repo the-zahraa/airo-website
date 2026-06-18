@@ -305,23 +305,33 @@
         {/each}
       </div>
 
+      <a class="airo-contact airo-contact-menu" href="#work-with-us" aria-label="Contact us" onclick={goToWorkForm}>
+        <span>Contact us</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="arrow-main" pathLength="100" d="M20.3 3.7L3.7 20.3" />
+          <path class="arrow-head" pathLength="100" d="M3.7 20.3H17.2" />
+          <path class="arrow-head" pathLength="100" d="M3.7 20.3V6.8" />
+        </svg>
+      </a>
+
       <div class="airo-mobile-info">
         <img src="/logos/airo.svg" alt="Airo" />
-        <p>Airo is an exclusive acquisition studio embracing creativity and innovation amongst young developers and creators.</p>
-        <div class="airo-mobile-info-row">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" />
-            <circle cx="12" cy="10" r="2.25" />
-          </svg>
-          <span>London, United Kingdom</span>
+        <div class="airo-mobile-contact-details">
+          <div class="airo-mobile-info-row">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" />
+              <circle cx="12" cy="10" r="2.25" />
+            </svg>
+            <span>London, United Kingdom</span>
+          </div>
+          <a class="airo-mobile-info-row airo-mobile-info-link" href="mailto:hello@airo.gg">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3.5" y="5.5" width="17" height="13" rx="2.5" />
+              <path d="m5 8 7 5 7-5" />
+            </svg>
+            <span>hello@airo.gg</span>
+          </a>
         </div>
-        <a class="airo-mobile-info-row airo-mobile-info-link" href="mailto:hello@airo.gg">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="3.5" y="5.5" width="17" height="13" rx="2.5" />
-            <path d="m5 8 7 5 7-5" />
-          </svg>
-          <span>hello@airo.gg</span>
-        </a>
       </div>
     </div>
   </div>
@@ -777,17 +787,55 @@
     }
 
     .airo-contact-mobile {
-      width: 104px;
-      height: 34px;
-      font-size: 12px;
-      line-height: 1;
-      gap: 6px;
-      border-radius: 999px;
+      display: none;
     }
 
-    .airo-contact-mobile svg {
-      width: 13px;
-      height: 13px;
+    .airo-contact-menu {
+      width: fit-content;
+      height: auto;
+      margin: 18px 0 0 0;
+      padding: 8px 14px 8px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      border-radius: 0;
+      font-size: 32px;
+      line-height: 1.08;
+      font-weight: 500;
+      color: #fff;
+      text-decoration: none;
+      white-space: nowrap;
+      background: transparent;
+      box-shadow: none;
+      overflow: visible;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition:
+        color 200ms ease,
+        opacity 200ms ease,
+        transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .menu-open .airo-contact-menu {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 390ms;
+    }
+
+    .airo-contact-menu::before {
+      display: block;
+      box-shadow: 0 0 18px rgba(115, 0, 255, 0.94);
+      opacity: 1;
+    }
+
+    .airo-contact-menu svg {
+      display: block;
+      width: 19px;
+      height: 19px;
+      margin-top: -6px;
+      transform: rotate(180deg);
+      filter: drop-shadow(0 0 8px rgba(115, 0, 255, 0.65));
     }
 
     .airo-menu-toggle {
@@ -934,6 +982,11 @@
       opacity: 0.85;
     }
 
+    .airo-mobile-menu .airo-contact-menu::before {
+      opacity: 1;
+      box-shadow: 0 0 12px rgba(115, 0, 255, 0.92), 0 0 28px rgba(115, 0, 255, 0.64);
+    }
+
     .airo-mobile-menu a:hover {
       color: rgba(255, 255, 255, 0.72);
       opacity: 1;
@@ -953,7 +1006,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
       color: #fff;
       font-family: 'Poppins', system-ui, sans-serif;
     }
@@ -979,11 +1032,36 @@
       white-space: normal;
     }
 
+    .airo-mobile-info-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 340px;
+    }
+
+    .airo-mobile-info-copy span {
+      display: block;
+      max-width: none;
+      font-size: inherit;
+      line-height: inherit;
+      font-weight: inherit;
+      color: inherit;
+    }
+
+    .airo-mobile-contact-details {
+      margin-top: 9px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
     .airo-mobile-info-row {
       display: inline-flex;
       align-items: center;
       gap: 9px;
       width: fit-content;
+      margin-left: 0;
     }
 
     .airo-mobile-info-row svg {
@@ -1001,6 +1079,8 @@
       width: fit-content;
       border-bottom: 0;
       padding-bottom: 0;
+      margin-left: 0;
+      transform: none;
     }
 
     .airo-mobile-info a::before {
@@ -1024,16 +1104,18 @@
       gap: 10px;
     }
 
-    .airo-contact-mobile {
-      width: 88px;
-      height: 30px;
-      font-size: 10.5px;
-      gap: 4px;
+    .airo-contact-menu {
+      width: fit-content;
+      height: auto;
+      margin-top: 16px;
+      font-size: 30px;
+      gap: 9px;
     }
 
-    .airo-contact-mobile svg {
-      width: 11px;
-      height: 11px;
+    .airo-contact-menu svg {
+      width: 18px;
+      height: 18px;
+      margin-top: -5px;
     }
 
     .airo-menu-toggle {
@@ -1066,7 +1148,7 @@
 
     .airo-mobile-info {
       padding: 20px 18px 0;
-      gap: 10px;
+      gap: 9px;
     }
 
     .airo-mobile-info img {
@@ -1078,6 +1160,15 @@
     .airo-mobile-info a {
       max-width: 300px;
       font-size: 12.5px;
+    }
+
+    .airo-mobile-info-copy {
+      max-width: 310px;
+    }
+
+    .airo-mobile-contact-details {
+      margin-top: 8px;
+      gap: 3px;
     }
   }
 

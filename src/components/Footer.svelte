@@ -30,9 +30,14 @@
     const targetId = (hash || '').replace('#', '');
     const target = document.getElementById(targetId);
 
-    if (!target) return;
+    if (!target || typeof window === 'undefined') return;
 
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const page = document.documentElement;
+    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+    const maxScroll = Math.max(0, page.scrollHeight - window.innerHeight);
+    const safeTop = Math.min(Math.max(targetTop, 0), maxScroll);
+
+    window.scrollTo({ top: safeTop, behavior: 'smooth' });
   }
 
   async function handleLinkClick(event, href) {
@@ -40,6 +45,7 @@
 
     if (href.startsWith('#')) {
       event.preventDefault();
+      event.stopPropagation();
       scrollToAnchor(href);
       return;
     }
@@ -84,7 +90,8 @@
         </a>
 
         <p>
-          Airo is an exclusive acquisition studio embracing creativity and innovation amongst young developers and creators.
+          Airo backs Roblox games others overlook,<br />
+          helping them reach more players, stronger revenue, and real momentum.
         </p>
 
         <div class="footer-details" aria-label="Airo contact details">
@@ -128,6 +135,24 @@
           {/each}
         </div>
       </nav>
+
+      <div class="footer-details footer-details-mobile" aria-label="Airo contact details">
+        <a class="detail-row" href="https://maps.google.com/?q=London%2C%20United%20Kingdom" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 22s7-6.15 7-13A7 7 0 0 0 5 9c0 6.85 7 13 7 13Z" />
+            <circle cx="12" cy="9" r="2.45" />
+          </svg>
+          <span>London, United Kingdom</span>
+        </a>
+
+        <a class="detail-row" href="mailto:hello@airo.gg">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3.75 6.75h16.5v11H3.75v-11Z" />
+            <path d="m4.25 7.25 7.75 6 7.75-6" />
+          </svg>
+          <span>hello@airo.gg</span>
+        </a>
+      </div>
     </div>
 
     <div class="footer-bottom">
@@ -354,6 +379,10 @@
     margin-top: clamp(26px, 2.7vw, 38px);
   }
 
+  .footer-details-mobile {
+    display: none;
+  }
+
   .detail-row {
     display: inline-flex;
     align-items: center;
@@ -502,18 +531,7 @@
 
     .footer-light-stage {
       inset: 0;
-      transform: translate3d(0, 0, 0);
-      -webkit-transform: translate3d(0, 0, 0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-
-    .footer-light,
-    .footer-ellipse {
-      transform: translate3d(0, 0, 0);
-      -webkit-transform: translate3d(0, 0, 0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
+      transform: none;
     }
 
     .footer-ellipse-2 {
@@ -580,11 +598,10 @@
 
     .footer-light {
       background: transparent;
-      transform: translate3d(0, 0, 0);
-      -webkit-transform: translate3d(0, 0, 0);
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      will-change: transform, opacity;
     }
 
     .footer-light::before {
@@ -597,11 +614,7 @@
 
     .footer-light-stage {
       inset: 0;
-      transform: translate3d(0, 0, 0);
-      -webkit-transform: translate3d(0, 0, 0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      will-change: transform, opacity;
+      transform: none;
     }
 
     .footer-ellipse-2 {
@@ -611,9 +624,7 @@
       bottom: -560px;
       filter: blur(250px);
       opacity: 1;
-      transform: translate3d(0, 0, 0) rotate(-90deg);
-      -webkit-transform: translate3d(0, 0, 0) rotate(-90deg);
-      will-change: transform, filter, opacity;
+      transform: translateZ(0) rotate(-90deg);
     }
 
     .footer-ellipse-3 {
@@ -623,9 +634,7 @@
       bottom: -545px;
       filter: blur(124px);
       opacity: 1;
-      transform: translate3d(0, 0, 0) rotate(-90deg);
-      -webkit-transform: translate3d(0, 0, 0) rotate(-90deg);
-      will-change: transform, filter, opacity;
+      transform: translateZ(0) rotate(-90deg);
     }
 
     .footer-ellipse-4 {
@@ -635,9 +644,7 @@
       bottom: -420px;
       filter: blur(72px);
       opacity: 1;
-      transform: translate3d(0, 0, 0) rotate(-90deg);
-      -webkit-transform: translate3d(0, 0, 0) rotate(-90deg);
-      will-change: transform, filter, opacity;
+      transform: translateZ(0) rotate(-90deg);
     }
 
     .footer-vector-dots {
@@ -652,7 +659,7 @@
     .footer-brand p {
       width: min(330px, 92vw);
       margin-top: 18px;
-      font-size: 17px;
+      font-size: 15px;
       line-height: 1.78;
     }
 
@@ -661,9 +668,19 @@
       margin-top: 18px;
     }
 
+    .footer-brand > .footer-details {
+      display: none;
+    }
+
+    .footer-details-mobile {
+      display: grid;
+      gap: 10px;
+      margin-top: 0;
+    }
+
     .detail-row {
       gap: 10px;
-      font-size: 15px;
+      font-size: 13px;
       line-height: 1.5;
     }
 
@@ -685,12 +702,12 @@
 
     .footer-column h2 {
       margin-bottom: 12px;
-      font-size: 17px;
+      font-size: 15px;
       line-height: 1.2;
     }
 
     .footer-column a {
-      font-size: 15px;
+      font-size: 13px;
       line-height: 2.05;
     }
 
@@ -699,7 +716,7 @@
       padding-top: 14px;
       border-top-width: 1px;
       gap: 16px;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 500;
     }
 
@@ -724,15 +741,15 @@
     }
 
     .footer-column h2 {
-      font-size: 15px;
+      font-size: 13px;
     }
 
     .footer-column a {
-      font-size: 13px;
+      font-size: 11px;
     }
 
     .footer-bottom {
-      font-size: 13px;
+      font-size: 11px;
     }
   }
 </style>
