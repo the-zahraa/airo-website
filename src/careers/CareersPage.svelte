@@ -179,8 +179,8 @@
 
   function cardActive(index) {
     const phase = cardPhase(index);
-    const focusIn = smooth((phase - 0.46) / 0.2);
-    const focusOut = smooth((0.86 - phase) / 0.18);
+    const focusIn = smooth((phase - 0.34) / 0.18);
+    const focusOut = smooth((0.74 - phase) / 0.18);
     const clarity = clamp(Math.min(focusIn, focusOut));
 
     return clarity > 0.72;
@@ -193,23 +193,33 @@
 
     // Self-contained motion: the cards scroll inside the perks stage only.
     // No page-scroll binding, no layout-height changes, only transform/opacity/filter.
-    const fadeIn = smooth(phase / 0.16);
-    const fadeOut = smooth((1 - phase) / 0.16);
+    const fadeIn = smooth(phase / 0.12);
+    const fadeOut = smooth((1 - phase) / 0.14);
     const visible = Math.min(fadeIn, fadeOut);
-    const focusIn = smooth((phase - 0.46) / 0.2);
-    const focusOut = smooth((0.86 - phase) / 0.18);
+    const focusIn = smooth((phase - 0.34) / 0.18);
+    const focusOut = smooth((0.74 - phase) / 0.18);
     const clarity = clamp(Math.min(focusIn, focusOut));
 
-    const y = (4 + phase * 328).toFixed(3);
+    const y = (-4 + phase * 270).toFixed(3);
+    const mobileY = (-18 + phase * 505).toFixed(3);
+    const mobileFadeIn = smooth((phase - 0.015) / 0.14);
+    const mobileFadeOut = smooth((0.69 - phase) / 0.16);
+    const visibleMobile = Math.min(mobileFadeIn, mobileFadeOut);
+    const mobileFocusIn = smooth((phase - 0.08) / 0.16);
+    const mobileFocusOut = smooth((0.62 - phase) / 0.15);
+    const mobileClarity = clamp(Math.min(mobileFocusIn, mobileFocusOut));
+    const mobileScale = (0.9 + mobileClarity * 0.1).toFixed(4);
+    const mobileBlur = (3.8 * (1 - mobileClarity)).toFixed(3);
     const drift = Math.sin((phase * Math.PI * 2) + column * 0.85);
-    const x = (drift * (10 - clarity * 4)).toFixed(3);
-    const scale = (0.86 + clarity * 0.16).toFixed(4);
-    const blur = (7.25 * (1 - clarity)).toFixed(3);
-    const opacity = (visible * (0.18 + clarity * 0.72)).toFixed(4);
+    const x = (drift * (8 - clarity * 3)).toFixed(3);
+    const scale = (0.88 + clarity * 0.13).toFixed(4);
+    const blur = (5.1 * (1 - clarity)).toFixed(3);
+    const opacity = (visible * (0.16 + clarity * 0.74)).toFixed(4);
+    const mobileOpacity = (visibleMobile * (0.025 + mobileClarity * 0.9)).toFixed(4);
     const tilt = '0.000';
     const zIndex = Math.floor(4 + clarity * 18 + phase * 2);
 
-    return `--perk-row:${row}; --perk-col:${column}; --perk-phase:${phase.toFixed(4)}; --perk-clarity:${clarity.toFixed(4)}; --loop-x:${x}px; --loop-y:${y}px; --loop-scale:${scale}; --loop-blur:${blur}px; --loop-opacity:${opacity}; --loop-tilt:${tilt}deg; --loop-zindex:${zIndex};`;
+    return `--perk-row:${row}; --perk-col:${column}; --perk-phase:${phase.toFixed(4)}; --perk-clarity:${clarity.toFixed(4)}; --loop-x:${x}px; --loop-y:${y}px; --loop-y-mobile:${mobileY}px; --loop-scale:${scale}; --loop-blur:${blur}px; --loop-opacity:${opacity}; --loop-opacity-mobile:${mobileOpacity}; --loop-scale-mobile:${mobileScale}; --loop-blur-mobile:${mobileBlur}px; --loop-tilt:${tilt}deg; --loop-zindex:${zIndex};`;
   }
 
   function iconPath(name) {
@@ -468,7 +478,6 @@
         </div>
       </article>
 
-      <img class="values-logo" src="/logos/airo.svg" alt="Airo" />
     </div>
 
   </section>
@@ -2063,7 +2072,8 @@
       width: min(100% - 28px, 430px);
       height: clamp(104px, 25vw, 132px);
       padding: clamp(14px, 4vw, 20px);
-      transform: translate3d(calc(-50% + var(--loop-x)), var(--loop-y), 0) translateZ(0) scale(var(--loop-scale)) rotate(calc(var(--loop-tilt) * .35));
+      opacity: var(--loop-opacity-mobile);
+      transform: translate3d(calc(-50% + var(--loop-x)), var(--loop-y-mobile), 0) translateZ(0) scale(var(--loop-scale)) rotate(calc(var(--loop-tilt) * .35));
     }
 
     .perks-stage .perk-card h3 {
@@ -2686,6 +2696,38 @@
     .culture-stage-built .values-logo {
       top: clamp(118px, 33vw, 152px);
       width: clamp(86px, 24vw, 112px);
+    }
+  }
+
+
+  @media (max-width: 980px) {
+    .culture-stage-built {
+      padding-top: clamp(132px, 34vw, 182px);
+    }
+
+    .culture-stage-built .culture-art,
+    .culture-stage-built .culture-floor-glow,
+    .culture-stage-built .culture-beams-combined,
+    .culture-stage-built .culture-beam {
+      display: none !important;
+    }
+
+    .culture-stage-built .values-logo {
+      top: clamp(58px, 15vw, 86px);
+      width: clamp(86px, 22vw, 124px);
+      opacity: .94;
+      z-index: 6;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .culture-stage-built {
+      padding-top: 126px;
+    }
+
+    .culture-stage-built .values-logo {
+      top: 54px;
+      width: 92px;
     }
   }
 
@@ -6202,6 +6244,408 @@
     content: none !important;
     display: none !important;
     opacity: 0 !important;
+  }
+
+
+  /* v59: responsive perks stack only — matches the compact mobile reference without touching desktop */
+  @media (max-width: 860px) {
+    .perks-section {
+      width: min(100% - 34px, 720px) !important;
+      margin-top: 0 !important;
+      overflow: visible !important;
+    }
+
+    .perks-sticky {
+      padding: 8px 0 52px !important;
+    }
+
+    .perks-heading {
+      width: min(100%, 690px) !important;
+      margin-bottom: 22px !important;
+    }
+
+    .perks-heading h2 {
+      width: min(100%, 680px) !important;
+      max-width: 100% !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      transform: none !important;
+      white-space: normal !important;
+      font-size: clamp(32px, 8.2vw, 48px) !important;
+      line-height: 1.06 !important;
+      letter-spacing: -.035em !important;
+    }
+
+    .perks-heading p {
+      width: min(100%, 660px) !important;
+      margin-top: 16px !important;
+      font-size: clamp(14px, 3.45vw, 18px) !important;
+      line-height: 1.42 !important;
+      color: rgba(255,255,255,.72) !important;
+    }
+
+    .perks-stage {
+      width: min(100%, 620px) !important;
+      height: clamp(620px, 136vw, 720px) !important;
+      margin-top: -2px !important;
+      border-radius: 34px !important;
+      overflow: visible !important;
+      perspective: 900px !important;
+      contain: layout size !important;
+    }
+
+    .perks-stage::after {
+      content: '' !important;
+      display: block !important;
+      position: absolute !important;
+      inset: 7% -8% -5% !important;
+      border-radius: 38px !important;
+      background-image: radial-gradient(circle, rgba(115,0,255,.55) 1.05px, transparent 1.3px) !important;
+      background-size: 34px 34px !important;
+      opacity: .42 !important;
+      filter: none !important;
+      mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 88%, transparent 100%) !important;
+      -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 88%, transparent 100%) !important;
+      pointer-events: none !important;
+      z-index: 0 !important;
+    }
+
+    .perks-progress {
+      display: none !important;
+    }
+
+    .perks-stage .perk-card,
+    .perks-stage .perk-card:nth-of-type(odd),
+    .perks-stage .perk-card:nth-of-type(even) {
+      left: 50% !important;
+      top: 0 !important;
+      width: min(100% - 28px, 470px) !important;
+      height: clamp(112px, 26vw, 138px) !important;
+      min-height: 0 !important;
+      padding: clamp(15px, 4vw, 22px) clamp(16px, 4.2vw, 24px) !important;
+      gap: clamp(14px, 3.8vw, 20px) !important;
+      border-radius: clamp(26px, 6vw, 34px) !important;
+      transform: translate3d(calc(-50% + var(--loop-x)), var(--loop-y-mobile), 0) translateZ(0) scale(var(--loop-scale)) rotate(calc(var(--loop-tilt) * .25)) !important;
+    }
+
+    .perks-stage .card-icon {
+      width: clamp(54px, 13vw, 72px) !important;
+      height: clamp(54px, 13vw, 72px) !important;
+      border-radius: clamp(16px, 4vw, 22px) !important;
+    }
+
+    .perks-stage .card-icon svg {
+      width: clamp(27px, 6.4vw, 36px) !important;
+      height: clamp(27px, 6.4vw, 36px) !important;
+    }
+
+    .perks-stage .perk-card h3 {
+      font-size: clamp(14px, 4vw, 20px) !important;
+      line-height: 1.05 !important;
+    }
+
+    .perks-stage .perk-card p {
+      margin-top: 8px !important;
+      font-size: clamp(11px, 3.2vw, 13.5px) !important;
+      line-height: 1.38 !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .perks-section {
+      width: min(100% - 24px, 440px) !important;
+    }
+
+    .perks-sticky {
+      padding-bottom: 46px !important;
+    }
+
+    .perks-heading {
+      margin-bottom: 18px !important;
+    }
+
+    .perks-heading h2 {
+      font-size: clamp(30px, 8.7vw, 40px) !important;
+      line-height: 1.08 !important;
+    }
+
+    .perks-heading p {
+      margin-top: 14px !important;
+      font-size: clamp(13.5px, 4vw, 16px) !important;
+      line-height: 1.43 !important;
+    }
+
+    .perks-stage {
+      width: min(100%, 430px) !important;
+      height: clamp(590px, 151vw, 680px) !important;
+    }
+
+    .perks-stage::after {
+      inset: 6% -5% -4% !important;
+      background-size: 30px 30px !important;
+      opacity: .36 !important;
+    }
+
+    .perks-stage .perk-card,
+    .perks-stage .perk-card:nth-of-type(odd),
+    .perks-stage .perk-card:nth-of-type(even) {
+      width: min(100% - 16px, 412px) !important;
+      height: clamp(108px, 29vw, 128px) !important;
+      padding: 14px 16px !important;
+    }
+  }
+
+
+
+  /* v60: requested only — remove perks border light popups and keep cards compact/early on all screens */
+  .perks-stage {
+    height: clamp(388px, 31vw, 430px) !important;
+  }
+
+  .perks-stage .perk-card {
+    border-color: rgba(213,184,255,.22) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.08),
+      0 18px 46px rgba(0,0,0,.46) !important;
+  }
+
+  .perks-stage .perk-card::after {
+    content: none !important;
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  .perks-stage .perk-card::before {
+    background: linear-gradient(110deg, transparent 0 24%, rgba(255,255,255,.1) 38%, transparent 58%) !important;
+    opacity: calc(var(--perk-clarity) * .16) !important;
+  }
+
+  .perks-stage .perk-active {
+    border-color: rgba(213,184,255,.22) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.08),
+      0 18px 46px rgba(0,0,0,.46) !important;
+  }
+
+  .perks-stage .card-icon {
+    box-shadow:
+      0 12px 30px rgba(115,0,255,.24),
+      inset 0 2px 0 rgba(255,255,255,.2) !important;
+  }
+
+  @media (max-width: 860px) {
+    .perks-stage {
+      height: clamp(455px, 100vw, 520px) !important;
+    }
+
+    .perks-stage .perk-card,
+    .perks-stage .perk-card:nth-of-type(odd),
+    .perks-stage .perk-card:nth-of-type(even) {
+      height: clamp(104px, 24vw, 124px) !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .perks-stage {
+      height: 455px !important;
+    }
+  }
+
+
+  /* v61: requested only — remove culture logo, pull mobile culture cards up, and lighten mobile perks handoff */
+  .culture-stage-built .values-logo {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  @media (max-width: 980px) {
+    .values-section > .section-heading {
+      margin-bottom: 8px !important;
+    }
+
+    .culture-stage-built {
+      padding-top: 10px !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .values-section > .section-heading {
+      margin-bottom: 6px !important;
+    }
+
+    .culture-stage-built {
+      padding-top: 8px !important;
+    }
+  }
+
+
+
+  /* v62: requested only — culture starts higher/shorter + mobile task ring beside stats */
+  .culture-stage-built {
+    height: clamp(360px, 38vw, 430px) !important;
+    margin-top: -4px !important;
+    --reveal-from: translateY(-14px) !important;
+    --reveal-to: translateY(0) !important;
+  }
+
+  .culture-stage-built .value-top {
+    top: 0 !important;
+  }
+
+  .culture-stage-built .value-left,
+  .culture-stage-built .value-right {
+    bottom: clamp(6px, 1.2vw, 18px) !important;
+  }
+
+  .task-ring {
+    transform-origin: center !important;
+    animation: taskRingFloatV62 2.9s ease-in-out infinite !important;
+  }
+
+  @keyframes taskRingFloatV62 {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-5px) scale(1.025); }
+  }
+
+  @media (max-width: 980px) {
+    .culture-stage-built {
+      height: auto !important;
+      min-height: 0 !important;
+      padding-top: 0 !important;
+      gap: 10px !important;
+      margin-top: -2px !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .culture-stage-built {
+      padding-top: 0 !important;
+      gap: 10px !important;
+    }
+
+    .process-card-checklist .process-craft {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) 92px !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+
+    .process-card-checklist .task-list {
+      grid-column: 1 !important;
+      grid-row: 1 !important;
+      min-width: 0 !important;
+    }
+
+    .process-card-checklist .task-ring {
+      grid-column: 2 !important;
+      grid-row: 1 !important;
+      justify-self: end !important;
+      align-self: center !important;
+      width: 88px !important;
+      height: 88px !important;
+      margin-top: 0 !important;
+    }
+
+    .process-card-checklist .task-ring strong {
+      font-size: 9.5px !important;
+    }
+
+    .process-card-checklist .task-ring b {
+      font-size: 11px !important;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .process-card-checklist .process-craft {
+      grid-template-columns: minmax(0, 1fr) 82px !important;
+      gap: 9px !important;
+    }
+
+    .process-card-checklist .task-ring {
+      width: 80px !important;
+      height: 80px !important;
+    }
+
+    .process-card-checklist .task-list span {
+      font-size: 11px !important;
+      letter-spacing: .02em !important;
+    }
+  }
+
+
+
+  /* v63: requested only — smaller-screen culture starts higher/smoother, perks handoff smoother, task ring fills instead of floating */
+  .task-ring {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .task-ring .ring-progress {
+    animation: taskRingLineFillV63 3.25s cubic-bezier(.42, 0, .2, 1) infinite !important;
+    stroke-dasharray: 283 !important;
+    stroke-dashoffset: 17 !important;
+    transform: none !important;
+  }
+
+  @keyframes taskRingLineFillV63 {
+    0%, 8% { stroke-dashoffset: 283; opacity: .72; }
+    54%, 88% { stroke-dashoffset: 17; opacity: 1; }
+    100% { stroke-dashoffset: 17; opacity: 1; }
+  }
+
+  @media (max-width: 860px) {
+    .perks-stage .perk-card,
+    .perks-stage .perk-card:nth-of-type(odd),
+    .perks-stage .perk-card:nth-of-type(even) {
+      filter: blur(var(--loop-blur-mobile)) saturate(calc(.9 + var(--perk-clarity) * .16)) !important;
+      transform: translate3d(calc(-50% + var(--loop-x)), var(--loop-y-mobile), 0) translateZ(0) scale(var(--loop-scale-mobile)) rotate(calc(var(--loop-tilt) * .25)) !important;
+    }
+  }
+
+  @media (max-width: 980px) {
+    .values-section > .section-heading {
+      margin-bottom: 2px !important;
+    }
+
+    .culture-stage-built {
+      margin-top: -16px !important;
+      padding-top: 0 !important;
+      padding-bottom: 18px !important;
+      gap: 8px !important;
+      align-content: start !important;
+      --reveal-from: translateY(-10px) !important;
+      --reveal-to: translateY(0) !important;
+      transition: opacity .56s cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0ms), transform .56s cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0ms) !important;
+    }
+
+    .culture-stage-built .value-card,
+    .culture-stage-built .value-top,
+    .culture-stage-built .value-left,
+    .culture-stage-built .value-right {
+      min-height: 118px !important;
+      padding: 18px !important;
+      gap: 13px !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .values-section > .section-heading {
+      margin-bottom: 0 !important;
+    }
+
+    .culture-stage-built {
+      margin-top: -18px !important;
+      padding-bottom: 14px !important;
+      gap: 8px !important;
+    }
+
+    .culture-stage-built .value-card,
+    .culture-stage-built .value-top,
+    .culture-stage-built .value-left,
+    .culture-stage-built .value-right {
+      min-height: 112px !important;
+      padding: 16px !important;
+    }
   }
 
 </style>

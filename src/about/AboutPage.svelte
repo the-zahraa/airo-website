@@ -5486,7 +5486,7 @@
 
   <section class="about-cta reveal-block">
     <div class="cta-copy">
-      <h2>Build the next viral<br />experience with us</h2>
+      <h2><span class="cta-title-keep">Build the next viral experience</span> with us</h2>
       <p>We’re always looking to amplify creators and partners.</p>
     </div>
 
@@ -7245,7 +7245,7 @@
   /* responsive refinement: hero + what we do only */
   @media (max-width: 900px) {
     .about-hero {
-      min-height: clamp(590px, 112vw, 790px);
+      min-height: clamp(690px, 126vw, 920px);
       padding-top: clamp(94px, 12vw, 118px);
     }
 
@@ -7261,24 +7261,39 @@
 
     .hero-art {
       width: 100%;
-      height: clamp(370px, 78vw, 560px);
-      margin-top: clamp(-14px, -1.2vw, -6px);
+      height: clamp(880px, 116vw, 1030px);
+      margin-top: clamp(8px, 1vw, 14px);
       transform: none;
     }
 
     .hero-first-card-wrap,
     .hero-rest-cards-svg {
-      --hero-card-scale: .60;
-      left: calc(50% - 374px);
-      top: clamp(98px, 14.5vw, 136px);
+      --hero-card-scale: .9;
+      left: calc(50% - 334px);
+      top: clamp(88px, 10vw, 112px);
       transform: scale(var(--hero-card-scale));
-      transform-origin: top left;
+      transform-origin: 334px top;
+    }
+
+    .hero-high-engagement-card-svg {
+      left: 169.53px;
+      top: -99.3px;
+    }
+
+    .hero-long-retention-card-svg {
+      left: -29px;
+      top: 482px;
+    }
+
+    .hero-proven-brand-card-svg {
+      left: 243.05px;
+      top: 376px;
     }
   }
 
   @media (max-width: 680px) {
     .about-hero {
-      min-height: clamp(590px, 132vw, 740px);
+      min-height: clamp(920px, 206vw, 1040px);
       padding-top: 102px;
     }
 
@@ -7287,20 +7302,21 @@
     }
 
     .hero-art {
-      height: clamp(350px, 94vw, 510px);
-      margin-top: -14px;
+      height: clamp(930px, 206vw, 1040px);
+      margin-top: 2px;
     }
 
     .hero-first-card-wrap,
     .hero-rest-cards-svg {
-      --hero-card-scale: .48;
-      left: calc(50% - 300px);
-      top: clamp(108px, 20vw, 138px);
+      --hero-card-scale: .8;
+      left: calc(50% - 334px);
+      top: clamp(94px, 14vw, 110px);
+      transform-origin: 334px top;
     }
 
     .about-copy-section {
       width: min(420px, 100%);
-      margin-top: clamp(-78px, -10vw, -42px);
+      margin-top: clamp(18px, 6vw, 40px);
     }
 
     .about-copy-section h2 {
@@ -7377,7 +7393,7 @@
 
   @media (max-width: 560px) {
     .about-hero {
-      min-height: clamp(600px, 150vw, 740px);
+      min-height: clamp(900px, 214vw, 1010px);
       padding-top: 104px;
     }
 
@@ -7405,19 +7421,20 @@
     }
 
     .hero-art {
-      height: clamp(345px, 104vw, 485px);
-      margin-top: -12px;
+      height: clamp(900px, 214vw, 1000px);
+      margin-top: 0;
     }
 
     .hero-first-card-wrap,
     .hero-rest-cards-svg {
-      --hero-card-scale: .40;
-      left: calc(50% - 250px);
-      top: clamp(108px, 23vw, 134px);
+      --hero-card-scale: .72;
+      left: calc(50% - 334px);
+      top: clamp(92px, 16vw, 104px);
+      transform-origin: 334px top;
     }
 
     .about-copy-section {
-      margin-top: clamp(-70px, -13vw, -42px);
+      margin-top: clamp(18px, 6vw, 36px);
     }
 
     .feature-row {
@@ -7439,9 +7456,27 @@
     }
   }
 
+  @media (max-width: 480px) {
+    .hero-first-card-wrap,
+    .hero-rest-cards-svg {
+      --hero-card-scale: .62;
+      left: calc(50% - 334px);
+      transform-origin: 334px top;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .hero-first-card-wrap,
+    .hero-rest-cards-svg {
+      --hero-card-scale: .55;
+      left: calc(50% - 334px);
+      transform-origin: 334px top;
+    }
+  }
+
   @media (max-width: 390px) {
     .about-hero {
-      min-height: 610px;
+      min-height: 860px;
       padding-top: 100px;
     }
 
@@ -7450,19 +7485,20 @@
     }
 
     .hero-art {
-      height: 350px;
-      margin-top: -10px;
+      height: 850px;
+      margin-top: 0;
     }
 
     .hero-first-card-wrap,
     .hero-rest-cards-svg {
-      --hero-card-scale: .36;
-      left: calc(50% - 225px);
-      top: 112px;
+      --hero-card-scale: .5;
+      left: calc(50% - 334px);
+      top: 92px;
+      transform-origin: 334px top;
     }
 
     .about-copy-section {
-      margin-top: -56px;
+      margin-top: 18px;
     }
 
     .feature-copy h3 {
@@ -7543,6 +7579,662 @@
   @media (max-width: 390px) {
     .about-features .feature-row:nth-child(3) {
       gap: 54px;
+    }
+  }
+
+
+  /* smaller screens only: tighten hero-to-What-we-do spacing, solid row-one icon plates, and narrower bottom-aligned team cards */
+  @media (max-width: 680px) {
+    .about-hero {
+      min-height: clamp(820px, 188vw, 930px);
+    }
+
+    .hero-art {
+      height: clamp(820px, 188vw, 930px);
+    }
+
+    .about-copy-section {
+      margin-top: clamp(-84px, -13vw, -46px);
+    }
+
+    .svg-feature-1 :global(circle[r="36.7268"]) {
+      opacity: 1 !important;
+      fill: #09070f !important;
+      fill-opacity: 1 !important;
+      stroke-opacity: 1 !important;
+    }
+
+    .svg-feature-1 :global(g[filter*="filter23"]),
+    .svg-feature-1 :global(g[filter*="filter25"]),
+    .svg-feature-1 :global(g[filter*="filter27"]) {
+      opacity: 1 !important;
+    }
+
+    .team-section {
+      width: min(420px, 100%);
+    }
+
+    .team-grid {
+      width: min(326px, 86vw);
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: 18px;
+      margin: 34px auto 0;
+    }
+
+    .team-card {
+      width: 100%;
+      min-height: clamp(392px, 106vw, 468px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(172px, 42vw, 220px) 22px 30px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .about-hero {
+      min-height: clamp(760px, 190vw, 870px);
+    }
+
+    .hero-art {
+      height: clamp(760px, 190vw, 870px);
+    }
+
+    .about-copy-section {
+      margin-top: clamp(-94px, -16vw, -58px);
+    }
+
+    .team-grid {
+      width: min(312px, 84vw);
+      margin-top: 30px;
+    }
+
+    .team-card {
+      min-height: clamp(404px, 116vw, 472px);
+      padding: clamp(184px, 50vw, 232px) 22px 30px;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .about-hero {
+      min-height: 730px;
+    }
+
+    .hero-art {
+      height: 720px;
+    }
+
+    .about-copy-section {
+      margin-top: -64px;
+    }
+
+    .team-grid {
+      width: min(296px, 84vw);
+    }
+
+    .team-card {
+      min-height: 420px;
+      padding: 198px 20px 28px;
+    }
+  }
+
+
+  /* targeted refinements: desktop CTA grid, solid first-row icons, bottom-aligned team text */
+  .svg-feature-1 :global(circle[r="36.7268"]) {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    fill: #09070f !important;
+    fill-opacity: 1 !important;
+    stroke: rgba(255,255,255,.34) !important;
+    stroke-opacity: 1 !important;
+  }
+
+  .svg-feature-1 :global(path[stroke-linecap="round"]),
+  .svg-feature-1 :global(line[stroke-linecap="round"]),
+  .svg-feature-1 :global(polyline[stroke-linecap="round"]),
+  .svg-feature-1 :global(g[mask] path[stroke]) {
+    animation: none !important;
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  .svg-feature-1 :global(g[filter*="filter23"]),
+  .svg-feature-1 :global(g[filter*="filter25"]),
+  .svg-feature-1 :global(g[filter*="filter27"]) {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  .team-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .team-card span {
+    margin-bottom: clamp(20px, 2vw, 30px);
+  }
+
+  .team-card h3 {
+    margin: 0 0 6px;
+  }
+
+  @media (min-width: 901px) {
+    .about-cta::after {
+      display: none;
+    }
+
+    .cta-tiles {
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 49%;
+      transform: none;
+      transform-origin: center;
+    }
+
+    .cta-tile {
+      width: clamp(58px, 6.8vw, 98px);
+      height: clamp(86px, 9vw, 124px);
+      border-radius: clamp(16px, 1.75vw, 24px);
+      border-width: 1.4px;
+      box-shadow: 0 18px 46px rgba(2,0,4,.72);
+    }
+
+    .cta-tile-1 { left: 4%; top: 12%; }
+    .cta-tile-2 { left: 32%; top: 12%; }
+    .cta-tile-3 { left: calc(100% - clamp(26px, 3.2vw, 46px)); top: 12%; }
+    .cta-tile-4 { left: 4%; top: 58%; }
+    .cta-tile-5 { left: 32%; top: 58%; }
+    .cta-tile-6 { left: calc(100% - clamp(26px, 3.2vw, 46px)); top: 58%; }
+    .cta-tile-7 { display: none; }
+  }
+
+  @media (max-width: 680px) {
+    .team-card span {
+      margin-bottom: 24px;
+    }
+  }
+
+
+  /* focused requested refinements: team title level, smaller mobile cards, desktop CTA layout, solid first-row What-we-do icons */
+  .svg-feature-1 .svg-shell,
+  .svg-feature-1 .svg-shell :global(*) {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .svg-feature-1 :global(circle[r="36.7268"]) {
+    opacity: 1 !important;
+    fill: #09070f !important;
+    fill-opacity: 1 !important;
+    stroke: rgba(255,255,255,.34) !important;
+    stroke-opacity: 1 !important;
+  }
+
+  .svg-feature-1 :global(g[filter*="filter23"]),
+  .svg-feature-1 :global(g[filter*="filter25"]),
+  .svg-feature-1 :global(g[filter*="filter27"]) {
+    opacity: 1 !important;
+  }
+
+  @media (min-width: 901px) {
+    .team-card span {
+      margin-bottom: clamp(22px, 1.9vw, 30px);
+    }
+
+    .team-card h3 {
+      display: flex;
+      align-items: flex-end;
+      min-height: clamp(26px, 2.2vw, 34px);
+      margin: 0 0 clamp(12px, 1.15vw, 18px);
+    }
+
+    .team-card p {
+      min-height: clamp(72px, 5.8vw, 88px);
+    }
+
+    .cta-tiles {
+      left: 54%;
+      right: -2%;
+    }
+
+    .cta-tile {
+      width: clamp(70px, 7.7vw, 112px);
+      height: clamp(102px, 10.4vw, 146px);
+    }
+
+    .cta-tile-1 { left: 24%; top: 7%; }
+    .cta-tile-2 { left: 51%; top: 7%; }
+    .cta-tile-3 { left: calc(100% - clamp(34px, 4vw, 58px)); top: 7%; }
+    .cta-tile-4 { left: 24%; top: 55%; }
+    .cta-tile-5 { left: 51%; top: 55%; }
+    .cta-tile-6 { left: calc(100% - clamp(34px, 4vw, 58px)); top: 55%; }
+    .cta-tile-7 { display: block; left: 0; top: 31%; }
+  }
+
+  @media (max-width: 680px) {
+    .team-section {
+      width: min(390px, 100%);
+    }
+
+    .team-grid {
+      width: min(292px, 80vw);
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .team-card {
+      min-height: clamp(330px, 92vw, 390px);
+      padding: clamp(140px, 38vw, 184px) 20px 26px;
+    }
+
+    .team-card span {
+      margin-bottom: 24px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .team-grid {
+      width: min(276px, 78vw);
+    }
+
+    .team-card {
+      min-height: clamp(324px, 98vw, 382px);
+      padding: clamp(134px, 44vw, 178px) 19px 25px;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .team-grid {
+      width: min(260px, 78vw);
+    }
+
+    .team-card {
+      min-height: 340px;
+      padding: 150px 18px 24px;
+    }
+  }
+
+
+  /* focused CTA text/card positioning refinements */
+  .about-cta h2 {
+    white-space: nowrap;
+  }
+
+  @media (min-width: 901px) {
+    .cta-tile-3 { left: calc(100% - clamp(70px, 6.5vw, 92px)); }
+    .cta-tile-6 { left: calc(100% - clamp(70px, 6.5vw, 92px)); }
+  }
+
+  @media (max-width: 680px) {
+    .about-cta h2 {
+      font-size: clamp(20px, 6vw, 28px);
+      letter-spacing: -.058em;
+    }
+
+    .cta-tiles {
+      left: 50%;
+      right: auto;
+      top: 42%;
+      bottom: auto;
+      width: min(350px, calc(100% - 18px));
+      height: 218px;
+      transform: translateX(-50%);
+      transform-origin: center top;
+    }
+
+    .cta-tile {
+      width: clamp(58px, 18vw, 78px);
+      height: clamp(84px, 26vw, 112px);
+      border-radius: clamp(15px, 4.8vw, 22px);
+    }
+
+    .cta-tile-1 { left: 18%; top: 0; }
+    .cta-tile-2 { left: 46%; top: 0; }
+    .cta-tile-3 { left: calc(100% - clamp(50px, 15.8vw, 68px)); top: 0; }
+    .cta-tile-7 { display: block; left: 2%; top: 34%; }
+    .cta-tile-4 { left: 18%; top: 62%; }
+    .cta-tile-5 { left: 46%; top: 62%; }
+    .cta-tile-6 { left: calc(100% - clamp(50px, 15.8vw, 68px)); top: 62%; }
+  }
+
+  @media (max-width: 420px) {
+    .about-cta h2 {
+      font-size: clamp(17px, 5.2vw, 21px);
+    }
+
+    .cta-tiles {
+      top: 44%;
+      width: min(320px, calc(100% - 12px));
+      height: 198px;
+    }
+  }
+
+
+  /* final focused CTA + team alignment refinements */
+  .about-cta h2 {
+    font-size: clamp(24px, 2.35vw, 36px);
+    line-height: 1.12;
+  }
+
+  .about-cta p {
+    white-space: nowrap;
+    font-size: clamp(13px, 1.08vw, 17px);
+  }
+
+  .cta-button {
+    background:
+      linear-gradient(135deg, rgba(255,255,255,.22), rgba(255,255,255,.06) 28%, rgba(115,0,255,.44) 100%);
+    border-color: rgba(255,255,255,.68);
+    backdrop-filter: blur(18px) saturate(1.35);
+    -webkit-backdrop-filter: blur(18px) saturate(1.35);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.34),
+      inset 0 -18px 34px rgba(115,0,255,.22),
+      0 14px 38px rgba(0,0,0,.34),
+      0 0 28px rgba(115,0,255,.22);
+  }
+
+  .cta-button:hover {
+    background:
+      linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,255,255,.08) 28%, rgba(115,0,255,.56) 100%);
+    border-color: rgba(255,255,255,.88);
+  }
+
+  @media (min-width: 901px) {
+    .team-card {
+      display: grid;
+      grid-template-rows: 1fr auto auto auto;
+      justify-content: stretch;
+      align-content: end;
+    }
+
+    .team-card span {
+      align-self: end;
+      justify-self: start;
+      margin: 0 0 clamp(18px, 1.55vw, 24px);
+    }
+
+    .team-card h3 {
+      display: flex;
+      align-items: flex-end;
+      height: clamp(42px, 3.1vw, 52px);
+      min-height: 0;
+      margin: 0 0 clamp(12px, 1vw, 16px);
+    }
+
+    .team-card p {
+      height: clamp(78px, 6vw, 96px);
+      min-height: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .cta-copy {
+      width: min(540px, 52%);
+    }
+
+    .cta-tile-3,
+    .cta-tile-6 {
+      left: calc(100% - clamp(116px, 10.4vw, 148px));
+    }
+  }
+
+  @media (max-width: 680px) {
+    .about-cta h2 {
+      font-size: clamp(14px, 4.15vw, 18px);
+      line-height: 1.08;
+      letter-spacing: -.06em;
+    }
+
+    .about-cta p {
+      white-space: nowrap;
+      font-size: clamp(10px, 2.95vw, 13px);
+      line-height: 1.2;
+      margin-top: 12px;
+      letter-spacing: -.015em;
+    }
+  }
+
+
+  /* final focused refinements: CTA balance, top-right tile tint, hero card centering, team spacing */
+  .about-cta {
+    width: min(1260px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .about-cta::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .cta-tile-3 {
+    background: #06020A !important;
+  }
+
+  .cta-tile-3::after {
+    background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(6,2,10,.30)) !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .cta-tile-3 img {
+    filter: saturate(.92) contrast(1.04) !important;
+  }
+
+  .team-card span {
+    margin-bottom: clamp(10px, .9vw, 14px) !important;
+  }
+
+  @media (min-width: 901px) {
+    .hero-first-card-wrap,
+    .hero-rest-cards-svg {
+      left: clamp(-40px, 1vw, 10px);
+    }
+
+    .cta-tiles {
+      left: 53%;
+      right: -1%;
+    }
+
+    .cta-tile-3,
+    .cta-tile-6 {
+      left: calc(100% - clamp(98px, 9vw, 126px));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-first-card-wrap,
+    .hero-rest-cards-svg {
+      left: calc(50% - 348px);
+    }
+  }
+
+  @media (max-width: 680px) {
+    .about-cta {
+      align-items: center;
+      padding-top: 42px;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .cta-copy {
+      width: min(360px, 100%);
+      margin-top: 10px;
+      text-align: left;
+      align-self: flex-start;
+    }
+
+    .about-cta h2 {
+      font-size: clamp(17px, 5.1vw, 22px);
+      line-height: 1.1;
+    }
+
+    .about-cta p {
+      font-size: clamp(11.5px, 3.35vw, 14px);
+      line-height: 1.22;
+      margin-top: 12px;
+    }
+
+    .cta-tiles {
+      left: 50%;
+      width: min(350px, calc(100% - 10px));
+      transform: translateX(-50%);
+    }
+
+    .cta-tile-3,
+    .cta-tile-6 {
+      left: calc(100% - clamp(62px, 18vw, 76px));
+    }
+
+    .team-card span {
+      margin-bottom: 14px !important;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .cta-copy {
+      margin-top: 12px;
+    }
+
+    .about-cta h2 {
+      font-size: clamp(16.5px, 5.35vw, 20px);
+    }
+
+    .about-cta p {
+      font-size: clamp(10.8px, 3.45vw, 12.8px);
+    }
+
+    .cta-tiles {
+      width: min(326px, calc(100% - 8px));
+    }
+  }
+
+
+  /* final requested CTA size/text/mobile-button refinements */
+  .cta-title-keep {
+    white-space: nowrap;
+  }
+
+  @media (min-width: 901px) {
+    .about-cta {
+      width: min(1120px, 94%);
+      min-height: clamp(184px, 17.2vw, 236px);
+      padding: clamp(24px, 3.1vw, 40px) clamp(34px, 4.6vw, 58px);
+      border-radius: clamp(34px, 5.2vw, 76px);
+    }
+
+    .cta-copy {
+      width: min(560px, 55%);
+    }
+
+    .about-cta h2 {
+      max-width: 600px;
+      white-space: normal;
+      font-size: clamp(32px, 3.1vw, 48px);
+      line-height: 1.04;
+      letter-spacing: -.058em;
+    }
+
+    .about-cta p {
+      margin-top: clamp(18px, 1.5vw, 24px);
+      white-space: nowrap;
+      font-size: clamp(15px, 1.3vw, 20px);
+      line-height: 1.22;
+    }
+
+    .cta-tiles {
+      transform: scale(.9);
+      transform-origin: center right;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .cta-button {
+      align-self: flex-start;
+      margin-left: 0;
+    }
+  }
+
+
+  /* final focused CTA card strength + mobile text refinements */
+  .cta-tile {
+    box-shadow: 0 14px 38px rgba(2, 0, 4, .54) !important;
+  }
+
+  .cta-tile::after {
+    background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(6,2,10,.06)) !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .cta-tile img {
+    opacity: 1 !important;
+    filter: saturate(1.2) contrast(1.08) brightness(1.04) !important;
+  }
+
+  .cta-tile-3 img {
+    filter: saturate(1.02) contrast(1.08) brightness(1.03) !important;
+  }
+
+  @media (max-width: 680px) {
+    .about-cta h2 {
+      font-size: clamp(20px, 6.35vw, 26px);
+      line-height: 1.08;
+    }
+
+    .about-cta p {
+      font-size: clamp(13px, 3.85vw, 16px);
+      line-height: 1.24;
+    }
+  }
+
+
+  /* final requested hero centering + mobile CTA title wrap */
+  .hero-art {
+    width: min(1248px, calc(100vw - 2 * clamp(20px, 4vw, 68px)));
+    transform: none !important;
+    animation: none !important;
+  }
+
+  @media (min-width: 901px) {
+    .hero-first-card-wrap,
+    .hero-rest-cards-svg {
+      left: 0 !important;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-art {
+      width: 100%;
+      transform: none !important;
+      animation: none !important;
+    }
+
+    .hero-first-card-wrap,
+    .hero-rest-cards-svg {
+      left: calc(50% - 334px) !important;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .hero-first-card-wrap,
+    .hero-rest-cards-svg {
+      left: calc(50% - 334px) !important;
+    }
+
+    .about-cta h2 {
+      max-width: 100%;
+      white-space: normal !important;
+      overflow: visible;
+    }
+
+    .cta-title-keep {
+      display: block;
+      max-width: 100%;
+      white-space: normal !important;
     }
   }
 
