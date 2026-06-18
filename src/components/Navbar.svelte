@@ -42,6 +42,11 @@
     menuOpen = false;
   }
 
+  $: if (typeof document !== 'undefined') {
+    document.documentElement.classList.toggle('airo-mobile-menu-locked', menuOpen);
+    document.body.classList.toggle('airo-mobile-menu-locked', menuOpen);
+  }
+
   function clearNavTimer() {
     if (navTimer) {
       clearTimeout(navTimer);
@@ -206,6 +211,8 @@
     window.addEventListener('load', handleScroll, { passive: true });
 
     return () => {
+      document.documentElement.classList.remove('airo-mobile-menu-locked');
+      document.body.classList.remove('airo-mobile-menu-locked');
       clearNavTimer();
 
       window.removeEventListener('scroll', handleScroll);
@@ -284,9 +291,39 @@
   </div>
 
   <div class="airo-mobile-menu" aria-hidden={!menuOpen}>
-    {#each navItems as item}
-      <a class:active={activeNavPath === item.path} href={item.path} onclick={(event) => goToPage(event, item.path)}>{item.label}</a>
-    {/each}
+    <div class="airo-mobile-menu-background" aria-hidden="true"></div>
+
+    <div class="airo-mobile-menu-content">
+      <div class="airo-mobile-nav-list">
+        {#each navItems as item, index}
+          <a
+            class:active={activeNavPath === item.path}
+            href={item.path}
+            style={`--mobile-link-index: ${index}`}
+            onclick={(event) => goToPage(event, item.path)}
+          >{item.label}</a>
+        {/each}
+      </div>
+
+      <div class="airo-mobile-info">
+        <img src="/logos/airo.svg" alt="Airo" />
+        <p>Airo is an exclusive acquisition studio embracing creativity and innovation amongst young developers and creators.</p>
+        <div class="airo-mobile-info-row">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" />
+            <circle cx="12" cy="10" r="2.25" />
+          </svg>
+          <span>London, United Kingdom</span>
+        </div>
+        <a class="airo-mobile-info-row airo-mobile-info-link" href="mailto:hello@airo.gg">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3.5" y="5.5" width="17" height="13" rx="2.5" />
+            <path d="m5 8 7 5 7-5" />
+          </svg>
+          <span>hello@airo.gg</span>
+        </a>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -522,7 +559,7 @@
   }
 
   .airo-nav-links a.active::after {
-    opacity: 0.36;
+    opacity: 1;
   }
 
   .airo-nav-links a:hover::after,
@@ -567,7 +604,7 @@
     font-family: 'Poppins', system-ui, sans-serif;
     font-size: 15px;
     line-height: 22px;
-    font-weight: 400;
+    font-weight: 600;
     overflow: hidden;
     box-shadow: none;
   }
@@ -676,23 +713,46 @@
   }
 
   @media (max-width: 860px) {
+    :global(html.airo-mobile-menu-locked),
+    :global(body.airo-mobile-menu-locked) {
+      overflow: hidden;
+      overscroll-behavior: none;
+      touch-action: none;
+    }
+
     .airo-navbar,
     .airo-navbar.scrolled {
-      top: 12px;
+      top: 0;
+      left: 0;
+      right: 0;
       translate: 0 0;
-      width: min(100% - 24px, 720px);
-      height: 60px;
-      gap: 10px;
+      width: 100%;
+      max-width: none;
+      height: 72px;
+      margin: 0;
+      padding: 0 24px;
+      gap: 0;
+      justify-content: space-between;
+      background: #000;
+      border-radius: 0;
+      box-shadow: 0 10px 34px rgba(0, 0, 0, 0.28);
+      transition:
+        transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+        background 260ms ease,
+        box-shadow 260ms ease;
     }
 
     .airo-navbar.nav-hidden {
-      transform: translateY(calc(-100% - 34px));
+      transform: translateY(-100%);
     }
 
     .airo-logo,
     .airo-navbar.scrolled .airo-logo {
-      width: clamp(102px, 29vw, 128px);
+      position: relative;
+      z-index: 5;
+      width: 78px;
       height: auto;
+      aspect-ratio: 141 / 40;
       opacity: 1;
       transform: none;
       pointer-events: auto;
@@ -708,37 +768,38 @@
     }
 
     .airo-mobile-actions {
+      position: relative;
+      z-index: 5;
       margin-left: auto;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .airo-contact-mobile {
-      width: clamp(122px, 34vw, 142px);
-      height: 44px;
-      font-size: clamp(14px, 3.8vw, 15.5px);
+      width: 104px;
+      height: 34px;
+      font-size: 12px;
       line-height: 1;
-      gap: 8px;
+      gap: 6px;
+      border-radius: 999px;
     }
 
     .airo-contact-mobile svg {
-      width: 16px;
-      height: 16px;
+      width: 13px;
+      height: 13px;
     }
 
     .airo-menu-toggle {
-      width: 48px;
-      height: 48px;
+      width: 26px;
+      height: 22px;
       padding: 0;
       border: 0;
-      border-radius: 999px;
-      background: rgba(2, 0, 4, 0.45);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        0 12px 34px rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -746,30 +807,20 @@
       gap: 6px;
       cursor: pointer;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .airo-menu-toggle::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      padding: 1px;
-      border-radius: inherit;
-      background: linear-gradient(115deg, rgba(24,1,48,.92), rgba(231,211,255,.46), rgba(24,1,48,.78));
-      -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
+      display: none;
     }
 
     .airo-menu-toggle span {
-      width: 18px;
+      width: 24px;
       height: 2px;
       border-radius: 99px;
       background: #fff;
-      transition: transform 260ms cubic-bezier(.2, .8, .2, 1), opacity 220ms ease;
+      transform-origin: center;
+      transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), opacity 220ms ease;
     }
 
     .menu-open .airo-menu-toggle span:first-child {
@@ -781,112 +832,252 @@
     }
 
     .airo-mobile-menu {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: calc(100% + 12px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 18px 20px 19px;
-      border-radius: 28px;
-      background: rgba(2, 0, 4, 0.72);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.05),
-        0 22px 58px rgba(0, 0, 0, 0.42);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      opacity: 0;
-      transform: translateY(-8px) scale(0.98);
-      pointer-events: none;
-      transition:
-        opacity 260ms ease,
-        transform 300ms cubic-bezier(.2, .8, .2, 1);
-      overflow: hidden;
-    }
-
-    .airo-mobile-menu::before {
-      content: '';
-      position: absolute;
+      position: fixed;
       inset: 0;
-      padding: 1px;
-      border-radius: inherit;
-      background: linear-gradient(115deg, rgba(24,1,48,.9), rgba(231,211,255,.38), rgba(24,1,48,.8));
-      -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
+      z-index: 4;
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
       pointer-events: none;
+      visibility: hidden;
+      transition: visibility 0s linear 520ms;
     }
 
     .menu-open .airo-mobile-menu {
-      opacity: 1;
-      transform: translateY(0) scale(1);
       pointer-events: auto;
+      visibility: visible;
+      transition-delay: 0s;
+    }
+
+    .airo-mobile-menu-background {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: #000;
+      transform: translateY(-100%);
+      will-change: transform;
+      transition: transform 420ms cubic-bezier(0.4, 0, 0.2, 1) 110ms;
+    }
+
+    .menu-open .airo-mobile-menu-background {
+      transform: translateY(0);
+      transition-delay: 0s;
+    }
+
+    .airo-mobile-menu-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      padding: 92px 18px 26px;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition:
+        opacity 180ms ease,
+        transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .menu-open .airo-mobile-menu-content {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 160ms ease 210ms,
+        transform 260ms cubic-bezier(0.4, 0, 0.2, 1) 210ms;
+    }
+
+    .airo-mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
     }
 
     .airo-mobile-menu a {
+      position: relative;
       z-index: 1;
-      font-size: clamp(14px, 3.6vw, 17px);
-      line-height: 1;
+      width: fit-content;
+      font-family: 'Poppins', system-ui, sans-serif;
+      font-size: 32px;
+      line-height: 1.08;
+      font-weight: 400;
+      color: #fff;
+      text-decoration: none;
+      white-space: nowrap;
+      padding: 8px 14px 8px 18px;
+      transition: color 200ms ease, opacity 200ms ease, transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .airo-mobile-nav-list a {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+
+    .menu-open .airo-mobile-nav-list a {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: calc(230ms + (var(--mobile-link-index) * 30ms));
+    }
+
+    .airo-mobile-menu a::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 12px;
+      bottom: 10px;
+      width: 3px;
+      border-radius: 999px;
+      background: #7300ff;
+      opacity: 0.85;
+    }
+
+    .airo-mobile-menu a:hover {
+      color: rgba(255, 255, 255, 0.72);
+      opacity: 1;
+    }
+
+    .airo-mobile-menu a.active {
+      font-weight: 500;
     }
 
     .airo-mobile-menu a.active::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      bottom: -10px;
-      width: 31px;
-      height: 3px;
-      border-radius: 999px;
-      background: #7300ff;
-      opacity: 0.36;
-      transform: translateX(-50%);
+      display: none;
+    }
+
+    .airo-mobile-info {
+      margin-top: auto;
+      padding: 22px 18px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      color: #fff;
+      font-family: 'Poppins', system-ui, sans-serif;
+    }
+
+    .airo-mobile-info img {
+      width: 82px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      margin-bottom: 4px;
+    }
+
+    .airo-mobile-info p,
+    .airo-mobile-info span,
+    .airo-mobile-info a {
+      max-width: 330px;
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.86);
+      white-space: normal;
+    }
+
+    .airo-mobile-info-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: fit-content;
+    }
+
+    .airo-mobile-info-row svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: #7300ff;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .airo-mobile-info-link {
+      width: fit-content;
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .airo-mobile-info a::before {
+      display: none;
     }
   }
 
   @media (max-width: 480px) {
     .airo-navbar,
     .airo-navbar.scrolled {
-      top: 8px;
-      width: calc(100vw - 16px);
-      height: 54px;
+      height: 64px;
+      padding: 0 16px;
     }
 
     .airo-logo,
     .airo-navbar.scrolled .airo-logo {
-      width: clamp(86px, 27vw, 104px);
+      width: 66px;
     }
 
     .airo-mobile-actions {
-      gap: 8px;
+      gap: 10px;
     }
 
     .airo-contact-mobile {
-      width: 116px;
-      height: 40px;
-      font-size: 13.5px;
-      gap: 7px;
+      width: 88px;
+      height: 30px;
+      font-size: 10.5px;
+      gap: 4px;
+    }
+
+    .airo-contact-mobile svg {
+      width: 11px;
+      height: 11px;
     }
 
     .airo-menu-toggle {
-      width: 42px;
-      height: 42px;
+      width: 22px;
+      height: 20px;
       gap: 5px;
     }
 
     .airo-menu-toggle span {
-      width: 16px;
+      width: 21px;
+      height: 2px;
     }
 
-    .airo-mobile-menu {
-      flex-wrap: wrap;
-      justify-content: center;
-      row-gap: 20px;
-      column-gap: 24px;
-      padding: 17px 18px 20px;
+    .menu-open .airo-menu-toggle span:first-child {
+      transform: translateY(3.5px) rotate(45deg);
+    }
+
+    .menu-open .airo-menu-toggle span:last-child {
+      transform: translateY(-3.5px) rotate(-45deg);
+    }
+
+    .airo-mobile-menu-content {
+      padding: 82px 16px 24px;
+    }
+
+    .airo-mobile-menu a {
+      font-size: 30px;
+      padding: 8px 12px 8px 18px;
+    }
+
+    .airo-mobile-info {
+      padding: 20px 18px 0;
+      gap: 10px;
+    }
+
+    .airo-mobile-info img {
+      width: 74px;
+    }
+
+    .airo-mobile-info p,
+    .airo-mobile-info span,
+    .airo-mobile-info a {
+      max-width: 300px;
+      font-size: 12.5px;
     }
   }
 
@@ -899,6 +1090,8 @@
     .airo-nav-links a,
     .airo-nav-links a::after,
     .airo-mobile-menu,
+    .airo-mobile-menu-background,
+    .airo-mobile-menu-content,
     .airo-menu-toggle span {
       transition: none;
       animation: none;

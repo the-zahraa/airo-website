@@ -15,7 +15,22 @@
     return t * t * (3 - 2 * t);
   };
 
+  const loadTgsPlayer = () => {
+    if (typeof document === 'undefined' || customElements.get('tgs-player')) return;
+
+    const existing = document.querySelector('script[data-tgs-player-loader]');
+    if (existing) return;
+
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/@lottiefiles/lottie-player@2.0.8/dist/tgs-player.js';
+    script.async = true;
+    script.dataset.tgsPlayerLoader = 'true';
+    document.head.appendChild(script);
+  };
+
   onMount(() => {
+    loadTgsPlayer();
+
     reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (reduceMotion) {
@@ -185,7 +200,7 @@
     const focusOut = smooth((0.86 - phase) / 0.18);
     const clarity = clamp(Math.min(focusIn, focusOut));
 
-    const y = (22 + phase * 408).toFixed(3);
+    const y = (4 + phase * 328).toFixed(3);
     const drift = Math.sin((phase * Math.PI * 2) + column * 0.85);
     const x = (drift * (10 - clarity * 4)).toFixed(3);
     const scale = (0.86 + clarity * 0.16).toFixed(4);
@@ -324,8 +339,6 @@
     <span class="glow glow-left"></span>
     <span class="glow glow-right"></span>
     <span class="glow glow-center"></span>
-    <span class="career-dots career-dots-top"></span>
-    <span class="career-dots career-dots-main"></span>
     <span class="career-lines"></span>
   </div>
 
@@ -343,6 +356,10 @@
       <p>
         Airo builds and operates a portfolio of Roblox experiences played by millions. We're looking for sharp, kind, ambitious people to help us build the next wave.
       </p>
+
+      <div class="hero-careers-sticker" aria-hidden="true">
+        <tgs-player src="/stickers/careers.tgs" autoplay loop mode="normal"></tgs-player>
+      </div>
 
       <div class="hero-actions" aria-label="Career quick actions">
         <button class="primary-btn" type="button" onclick={scrollToJobs}>
@@ -426,7 +443,7 @@
           <svg viewBox="0 0 24 24"><path d={valueIconPath(values[0].icon)} /></svg>
         </span>
         <div>
-          <h3><span>{values[0].number}</span>{values[0].title}</h3>
+          <h3><span>{values[0].number}</span> {values[0].title}</h3>
           <p>{values[0].copy}</p>
         </div>
       </article>
@@ -436,7 +453,7 @@
           <svg viewBox="0 0 24 24"><path d={valueIconPath(values[1].icon)} /></svg>
         </span>
         <div>
-          <h3><span>{values[1].number}</span>{values[1].title}</h3>
+          <h3><span>{values[1].number}</span> {values[1].title}</h3>
           <p>{values[1].copy}</p>
         </div>
       </article>
@@ -446,7 +463,7 @@
           <svg viewBox="0 0 24 24"><path d={valueIconPath(values[2].icon)} /></svg>
         </span>
         <div>
-          <h3><span>{values[2].number}</span>{values[2].title}</h3>
+          <h3><span>{values[2].number}</span> {values[2].title}</h3>
           <p>{values[2].copy}</p>
         </div>
       </article>
@@ -454,10 +471,6 @@
       <img class="values-logo" src="/logos/airo.svg" alt="Airo" />
     </div>
 
-    <div class="wide-placeholder" use:reveal>
-      <span>Airo</span>
-      <small>Culture video placeholder</small>
-    </div>
   </section>
 
   <section class="process-section" aria-labelledby="process-title">
@@ -593,7 +606,6 @@
     <div class={`jobs-grid jobs-grid-figma ${showAllRoles ? 'expanded' : ''}`}>
       {#each jobs.slice(0, showAllRoles ? 5 : 3) as job, index}
         <article class="job-card job-card-figma" use:reveal={index * 35}>
-          <div class="job-brand">Airo.gg</div>
           <h3>{job.title}</h3>
           <div class="job-tags">
             <span class="tag-growth">{job.team}</span>
@@ -616,11 +628,6 @@
       </button>
       <span></span>
     </div>
-  </section>
-
-  <section class="careers-video" aria-label="Career video placeholder" use:reveal>
-    <span>Airo</span>
-    <small>Work team video</small>
   </section>
 </div>
 
@@ -698,29 +705,6 @@
     opacity: .82;
   }
 
-  .career-dots {
-    left: 50%;
-    transform: translateX(-50%);
-    background-image: radial-gradient(circle, rgba(255,255,255,.2) 1px, transparent 1.35px);
-    background-size: 24px 24px;
-    opacity: .44;
-  }
-
-  .career-dots-top {
-    top: 80px;
-    width: min(1180px, 94vw);
-    height: 960px;
-    mask-image: radial-gradient(ellipse at 50% 18%, #000 0 26%, rgba(0,0,0,.72) 42%, transparent 78%);
-  }
-
-  .career-dots-main {
-    top: 1040px;
-    width: min(1080px, 92vw);
-    height: 2700px;
-    opacity: .33;
-    mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 78%, transparent 100%);
-  }
-
   .career-lines {
     left: 50%;
     top: 240px;
@@ -747,8 +731,8 @@
   .career-hero {
     width: 100%;
     max-width: none;
-    height: 665px;
-    min-height: 665px;
+    height: 760px;
+    min-height: 760px;
     text-align: center;
     scroll-margin-top: 0;
   }
@@ -758,7 +742,7 @@
     left: 50%;
     top: 136px;
     width: min(710px, calc(100vw - 40px));
-    height: 360px;
+    height: 560px;
     transform: translateX(-50%);
     --reveal-from: translate(-50%, 18px);
     --reveal-to: translate(-50%, 0);
@@ -838,7 +822,7 @@
   .career-hero h1 {
     position: absolute;
     left: 50%;
-    top: 54px;
+    top: 88px;
     width: min(660px, 100%);
     height: auto;
     transform: translateX(-50%);
@@ -853,7 +837,7 @@
   .career-hero p {
     position: absolute;
     left: 50%;
-    top: 142px;
+    top: 178px;
     width: min(690px, 100%);
     height: auto;
     margin: 0;
@@ -866,10 +850,28 @@
     text-align: center;
   }
 
-  .hero-actions {
+  .hero-careers-sticker {
     position: absolute;
     left: 50%;
     top: 278px;
+    z-index: 3;
+    width: clamp(132px, 12.8vw, 168px);
+    height: clamp(132px, 12.8vw, 168px);
+    transform: translateX(-50%);
+    pointer-events: none;
+    filter: drop-shadow(0 16px 42px rgba(115, 0, 255, .44)) drop-shadow(0 0 22px rgba(232, 228, 255, .2));
+  }
+
+  .hero-careers-sticker :global(tgs-player) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-actions {
+    position: absolute;
+    left: 50%;
+    top: 472px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1922,8 +1924,14 @@
       line-height: 1.55;
     }
 
+    .hero-careers-sticker {
+      top: clamp(222px, 50vw, 252px);
+      width: clamp(62px, 15vw, 74px);
+      height: clamp(62px, 15vw, 74px);
+    }
+
     .hero-actions {
-      top: clamp(278px, 62vw, 316px);
+      top: clamp(322px, 72vw, 354px);
       width: 100%;
       max-width: 400px;
       height: clamp(42px, 10vw, 50px);
@@ -2079,17 +2087,24 @@
     }
 
     .career-hero {
-      height: 520px;
-      min-height: 520px;
+      height: 570px;
+      min-height: 570px;
     }
 
     .hero-content {
       top: 78px;
       width: min(100% - 34px, 390px);
+      height: 445px;
+    }
+
+    .hero-careers-sticker {
+      top: 254px;
+      width: 58px;
+      height: 58px;
     }
 
     .hero-actions {
-      top: 286px;
+      top: 330px;
       width: 100%;
       height: auto;
       flex-direction: column;
@@ -5595,6 +5610,598 @@
       height: 5px !important;
       transform: translateX(-50%) !important;
     }
+  }
+
+
+  /* v49: Careers typography consistency + bigger hero sticker + page-dot cleanup only */
+  .career-bg .career-dots,
+  .career-dots {
+    display: none !important;
+  }
+
+  .section-heading,
+  .perks-heading,
+  .process-section .section-heading,
+  .jobs-section-figma .jobs-heading,
+  .values-section > .section-heading {
+    width: min(760px, 100%) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: clamp(34px, 4.6vw, 58px) !important;
+    text-align: center !important;
+  }
+
+  .section-kicker.small,
+  .perks-heading .section-kicker.small,
+  .process-section .section-kicker.small,
+  .jobs-section-figma .section-kicker.small {
+    min-width: 138px !important;
+    height: 42px !important;
+    margin-bottom: clamp(20px, 2.4vw, 30px) !important;
+    font-size: clamp(15px, 1.25vw, 19px) !important;
+    line-height: 42px !important;
+    font-weight: 600 !important;
+    letter-spacing: .035em !important;
+  }
+
+  .section-kicker.small .corner,
+  .perks-heading .section-kicker.small .corner,
+  .process-section .section-kicker.small .corner,
+  .jobs-section-figma .section-kicker.small .corner {
+    width: 10px !important;
+    height: 10px !important;
+    border-width: 2px !important;
+  }
+
+  .section-heading h2,
+  .perks-heading h2,
+  .process-section h2,
+  .jobs-section-figma h2,
+  .values-section > .section-heading h2 {
+    font-size: clamp(40px, 4.65vw, 64px) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -.018em !important;
+    font-weight: 600 !important;
+    text-shadow: 0 0 42px rgba(255,255,255,.2) !important;
+  }
+
+  .section-heading p,
+  .perks-heading p,
+  .process-section > .section-heading > p,
+  .jobs-section-figma .jobs-heading p {
+    width: min(690px, 100%) !important;
+    margin: clamp(16px, 1.8vw, 24px) auto 0 !important;
+    color: rgba(255,255,255,.7) !important;
+    font-size: clamp(14px, 1.34vw, 18.5px) !important;
+    line-height: 1.58 !important;
+    font-weight: 400 !important;
+    letter-spacing: 0 !important;
+  }
+
+  @media (max-width: 860px) {
+    .career-hero {
+      height: clamp(680px, 132vw, 760px) !important;
+      min-height: clamp(680px, 132vw, 760px) !important;
+    }
+
+    .hero-content {
+      height: 590px !important;
+    }
+
+    .career-hero h1 {
+      top: clamp(78px, 17vw, 94px) !important;
+    }
+
+    .career-hero p {
+      top: clamp(156px, 34vw, 184px) !important;
+    }
+
+    .hero-careers-sticker {
+      top: clamp(274px, 56vw, 322px) !important;
+      width: clamp(116px, 27vw, 144px) !important;
+      height: clamp(116px, 27vw, 144px) !important;
+    }
+
+    .hero-actions {
+      top: clamp(432px, 86vw, 486px) !important;
+    }
+
+    .section-heading h2,
+    .perks-heading h2,
+    .process-section h2,
+    .jobs-section-figma h2,
+    .values-section > .section-heading h2 {
+      font-size: clamp(34px, 9.8vw, 52px) !important;
+      line-height: 1.08 !important;
+      white-space: normal !important;
+      letter-spacing: -.035em !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .career-hero {
+      height: 710px !important;
+      min-height: 710px !important;
+    }
+
+    .hero-content {
+      height: 590px !important;
+    }
+
+    .career-hero h1 {
+      top: 78px !important;
+    }
+
+    .career-hero p {
+      top: 164px !important;
+    }
+
+    .hero-careers-sticker {
+      top: 304px !important;
+      width: 122px !important;
+      height: 122px !important;
+    }
+
+    .hero-actions {
+      top: 452px !important;
+    }
+
+    .section-heading,
+    .perks-heading,
+    .process-section .section-heading,
+    .jobs-section-figma .jobs-heading,
+    .values-section > .section-heading {
+      margin-bottom: 34px !important;
+    }
+  }
+
+
+  /* v50: requested micro-adjustment only — kicker/title spacing, kicker scale, sticker size/no glow */
+  .hero-kicker {
+    font-size: 21px !important;
+  }
+
+  .career-hero h1 {
+    top: 85px !important;
+  }
+
+  .hero-careers-sticker {
+    width: clamp(150px, 14.4vw, 190px) !important;
+    height: clamp(150px, 14.4vw, 190px) !important;
+    filter: none !important;
+  }
+
+  .section-kicker.small,
+  .perks-heading .section-kicker.small,
+  .process-section .section-kicker.small,
+  .jobs-section-figma .section-kicker.small {
+    margin-bottom: clamp(18px, 2.1vw, 26px) !important;
+    font-size: clamp(16.5px, 1.38vw, 20.9px) !important;
+  }
+
+  @media (max-width: 860px) {
+    .hero-kicker {
+      font-size: clamp(18px, 4.3vw, 21px) !important;
+    }
+
+    .career-hero h1 {
+      top: clamp(75px, 16vw, 90px) !important;
+    }
+
+    .hero-careers-sticker {
+      width: clamp(136px, 31vw, 166px) !important;
+      height: clamp(136px, 31vw, 166px) !important;
+      filter: none !important;
+    }
+
+    .section-kicker.small,
+    .perks-heading .section-kicker.small,
+    .process-section .section-kicker.small,
+    .jobs-section-figma .section-kicker.small {
+      margin-bottom: clamp(16px, 3.6vw, 23px) !important;
+      font-size: clamp(15px, 3.7vw, 18.5px) !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .career-hero h1 {
+      top: 75px !important;
+    }
+
+    .hero-careers-sticker {
+      width: 144px !important;
+      height: 144px !important;
+      filter: none !important;
+    }
+
+    .section-kicker.small,
+    .perks-heading .section-kicker.small,
+    .process-section .section-kicker.small,
+    .jobs-section-figma .section-kicker.small {
+      margin-bottom: 18px !important;
+      font-size: 15px !important;
+    }
+  }
+
+
+  /* v51: requested focused fixes — kicker/title spacing, fit-content labels, larger sticker, closer perks, removed placeholders */
+  .hero-kicker,
+  .section-kicker.small,
+  .perks-heading .section-kicker.small,
+  .process-section .section-kicker.small,
+  .jobs-section-figma .section-kicker.small {
+    width: fit-content !important;
+    min-width: 0 !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    white-space: nowrap !important;
+  }
+
+  .hero-kicker {
+    height: 66px !important;
+    font-size: 21px !important;
+    line-height: 66px !important;
+  }
+
+  .career-hero {
+    height: clamp(980px, 84vw, 1080px) !important;
+    min-height: clamp(980px, 84vw, 1080px) !important;
+  }
+
+  .hero-content {
+    height: 900px !important;
+  }
+
+  .career-hero h1 {
+    top: 82px !important;
+  }
+
+  .hero-careers-sticker {
+    top: 250px !important;
+    width: clamp(300px, 28.8vw, 380px) !important;
+    height: clamp(300px, 28.8vw, 380px) !important;
+    filter: none !important;
+  }
+
+  .hero-actions {
+    top: 700px !important;
+  }
+
+  .section-kicker.small,
+  .perks-heading .section-kicker.small,
+  .process-section .section-kicker.small,
+  .jobs-section-figma .section-kicker.small {
+    height: 42px !important;
+    margin-bottom: clamp(15px, 1.8vw, 22px) !important;
+    font-size: clamp(16.5px, 1.38vw, 20.9px) !important;
+    line-height: 42px !important;
+  }
+
+  .section-heading,
+  .perks-heading,
+  .process-section .section-heading,
+  .jobs-section-figma .jobs-heading,
+  .values-section > .section-heading {
+    margin-bottom: clamp(28px, 3.9vw, 50px) !important;
+  }
+
+  .perks-heading {
+    margin-bottom: clamp(18px, 2.3vw, 30px) !important;
+  }
+
+  .perks-heading h2 {
+    white-space: nowrap !important;
+    width: max-content !important;
+    max-width: none !important;
+    margin-left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .perks-stage {
+    height: clamp(405px, 34vw, 455px) !important;
+    margin-top: clamp(-8px, -0.7vw, -4px) !important;
+  }
+
+  .perks-stage::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  @media (max-width: 860px) {
+    .career-hero {
+      height: 940px !important;
+      min-height: 940px !important;
+    }
+
+    .hero-content {
+      height: 850px !important;
+    }
+
+    .career-hero h1 {
+      top: clamp(72px, 15vw, 86px) !important;
+    }
+
+    .hero-careers-sticker {
+      top: clamp(250px, 52vw, 292px) !important;
+      width: clamp(250px, 58vw, 330px) !important;
+      height: clamp(250px, 58vw, 330px) !important;
+      filter: none !important;
+    }
+
+    .hero-actions {
+      top: clamp(650px, 122vw, 690px) !important;
+    }
+
+    .section-kicker.small,
+    .perks-heading .section-kicker.small,
+    .process-section .section-kicker.small,
+    .jobs-section-figma .section-kicker.small {
+      margin-bottom: clamp(14px, 3vw, 20px) !important;
+    }
+
+    .perks-heading h2 {
+      white-space: normal !important;
+      width: min(100%, 680px) !important;
+      max-width: 100% !important;
+      margin-left: auto !important;
+      transform: none !important;
+    }
+
+    .perks-stage {
+      height: clamp(440px, 92vw, 520px) !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .career-hero {
+      height: 900px !important;
+      min-height: 900px !important;
+    }
+
+    .hero-content {
+      height: 820px !important;
+    }
+
+    .career-hero h1 {
+      top: 72px !important;
+    }
+
+    .hero-careers-sticker {
+      top: 270px !important;
+      width: 270px !important;
+      height: 270px !important;
+      filter: none !important;
+    }
+
+    .hero-actions {
+      top: 650px !important;
+    }
+
+    .section-kicker.small,
+    .perks-heading .section-kicker.small,
+    .process-section .section-kicker.small,
+    .jobs-section-figma .section-kicker.small {
+      margin-bottom: 15px !important;
+    }
+
+    .perks-stage {
+      height: 455px !important;
+    }
+  }
+
+
+  /* v53: only core-values card color consistency + solid numbers */
+  .culture-stage-built .tone-green,
+  .culture-stage-built .tone-gold {
+    --value-glow-1: rgba(232,228,255,.9);
+    --value-glow-2: rgba(115,0,255,.8);
+    --value-edge-glow: rgba(115,0,255,.28);
+    --value-glass-tint: rgba(152,70,255,.42);
+    --icon-color: linear-gradient(180deg, rgba(174,113,255,.98) 0%, rgba(115,0,255,.92) 100%);
+    --icon-glow: rgba(115,0,255,.72);
+    --value-hot-x: 62%;
+    --value-hot-y: 78%;
+  }
+
+  .culture-stage-built .value-card h3 span {
+    color: #fff !important;
+    opacity: 1 !important;
+  }
+
+
+  /* v54: requested only — tighter section spacing, remove center light, lower/larger values logo */
+  .perks-section {
+    margin-top: clamp(10px, 1.7vw, 28px) !important;
+  }
+
+  .values-section {
+    margin-top: clamp(48px, 5.2vw, 76px) !important;
+  }
+
+  .process-section {
+    margin-top: clamp(48px, 5.2vw, 76px) !important;
+  }
+
+  .jobs-section,
+  .jobs-section-figma {
+    margin-top: clamp(54px, 5.8vw, 88px) !important;
+  }
+
+  .culture-stage-built .culture-floor-glow {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  .culture-stage-built .values-logo {
+    top: 55.5% !important;
+    width: clamp(104px, 9.89vw, 129px) !important;
+  }
+
+  @media (max-width: 980px) {
+    .perks-section {
+      margin-top: clamp(8px, 2.4vw, 22px) !important;
+    }
+
+    .values-section,
+    .process-section,
+    .jobs-section,
+    .jobs-section-figma {
+      margin-top: clamp(42px, 8vw, 70px) !important;
+    }
+
+    .culture-stage-built .values-logo {
+      top: clamp(152px, 31vw, 226px) !important;
+      width: clamp(115px, 27.6vw, 163px) !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .values-section,
+    .process-section,
+    .jobs-section,
+    .jobs-section-figma {
+      margin-top: 42px !important;
+    }
+
+    .culture-stage-built .values-logo {
+      top: clamp(130px, 36vw, 167px) !important;
+      width: clamp(99px, 27.6vw, 129px) !important;
+    }
+  }
+
+
+  /* v55: requested only — remove process bulb, add value number spacing, remove connector-line shadow */
+  .glow-center {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  .culture-stage-built .culture-beams-combined {
+    filter: none !important;
+  }
+
+
+  /* v56: requested only — perks bottom light removal, purple rail, tighter hero/perks gap, process-card theme for core values */
+  .perks-section {
+    margin-top: clamp(0px, .6vw, 10px) !important;
+  }
+
+  .perks-sticky {
+    padding-top: 0 !important;
+  }
+
+  .perks-stage::before,
+  .perks-aurora {
+    content: none !important;
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  .perks-progress {
+    background: linear-gradient(180deg, transparent, rgba(115,0,255,.28), rgba(169,84,255,.22), transparent) !important;
+  }
+
+  .perks-progress span {
+    background: linear-gradient(180deg, rgba(115,0,255,0), #7300ff, #a954ff, rgba(115,0,255,0)) !important;
+    box-shadow: 0 0 18px rgba(115,0,255,.72), 0 0 34px rgba(169,84,255,.34) !important;
+  }
+
+  .culture-stage-built .value-card {
+    border: 1.8px solid rgba(218,183,255,.5) !important;
+    background:
+      radial-gradient(circle at 7% 12%, rgba(115,0,255,.24), transparent 28%),
+      radial-gradient(circle at 94% 88%, rgba(115,0,255,.18), transparent 36%),
+      linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012)),
+      rgba(4, 2, 8, .86) !important;
+    background-blend-mode: normal !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.12),
+      inset 0 -1px 0 rgba(255,255,255,.04),
+      0 26px 90px rgba(0,0,0,.34) !important;
+    backdrop-filter: blur(18px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(140%) !important;
+  }
+
+  .culture-stage-built .value-card::before {
+    inset: 0 !important;
+    height: auto !important;
+    background:
+      radial-gradient(circle at 6% 9%, rgba(255,255,255,.22), transparent 10%),
+      radial-gradient(circle at 2% 18%, rgba(139,35,255,.9), rgba(115,0,255,.2) 17%, transparent 35%) !important;
+    filter: blur(7px) !important;
+    opacity: .72 !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .culture-stage-built .value-card::after {
+    inset: auto auto -24px -60px !important;
+    width: 250px !important;
+    height: 150px !important;
+    border-radius: 50% !important;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,.7), rgba(115,0,255,.7) 32%, transparent 70%) !important;
+    filter: blur(18px) !important;
+    opacity: .35 !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .culture-stage-built .value-card > div::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  .culture-stage-built .value-card h3 span {
+    color: #fff !important;
+    opacity: 1 !important;
+  }
+
+
+  /* v57: requested only — no hero text glow/lines */
+  .career-hero h1 {
+    text-shadow: none !important;
+  }
+
+  .career-lines {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+
+
+  /* v58: restore the staggered perks motion shape, remove requested job glows only */
+  .jobs-view-all button {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.22) !important;
+  }
+
+  .open-roles-pill {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.36) !important;
+  }
+
+
+  /* final requested only — navbar CTA purple for purple buttons */
+
+  .primary-btn,
+  .ghost-btn,
+  .job-card button,
+  .jobs-more button,
+  .job-card-figma button,
+  .jobs-view-all button,
+  .jobs-filter button,
+  .jobs-filter button.active {
+    background: #7300ff !important;
+    background-image: none !important;
+    background-blend-mode: normal !important;
+    color: #fff !important;
+  }
+
+  .primary-btn::before,
+  .ghost-btn::before,
+  .job-card button::before,
+  .jobs-more button::before,
+  .job-card-figma button::before,
+  .jobs-view-all button::before {
+    content: none !important;
+    display: none !important;
+    opacity: 0 !important;
   }
 
 </style>

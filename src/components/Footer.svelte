@@ -260,8 +260,9 @@
     z-index: 1;
     left: 50%;
     top: -560px;
+    bottom: 0;
     width: min(1500px, 112vw);
-    height: calc(100% + 1120px);
+    height: auto;
     transform: translateX(-50%);
     pointer-events: none;
     overflow: hidden;
@@ -391,7 +392,6 @@
     display: grid;
     grid-template-columns: 0.78fr 1.06fr 1fr;
     gap: clamp(38px, 5vw, 72px);
-    opacity: .7;
   }
 
   .footer-column {
@@ -410,16 +410,17 @@
 
   .footer-column a {
     width: fit-content;
-    color: #fff;
+    color: rgba(255,255,255,.7);
     font-size: clamp(13px, 1.09vw, 16px);
     line-height: 2.33;
     font-weight: 300;
     letter-spacing: -0.035em;
-    transition: opacity .22s ease, transform .22s ease;
+    transition: color .22s ease, transform .22s ease;
   }
 
   .footer-column a:hover {
-    opacity: 1;
+    color: #fff;
+    font-weight: 700;
     transform: translateX(3px);
   }
 

@@ -10,7 +10,7 @@
 
   const modes = ['Most active', 'Least active'];
 
-  const gameCards = [
+  const baseGameCards = [
     {
       title: 'Bubble Gum Simulator Infinity',
       studio: 'Airo',
@@ -60,6 +60,10 @@
       metric: 'Active users'
     }
   ];
+
+  const gameCards = Array.from({ length: 35 }, (_, index) => ({
+    ...baseGameCards[index % baseGameCards.length]
+  }));
 
   let selectedMode = modes[0];
   let catStickerEl;
@@ -126,9 +130,6 @@
 <div class="games-page">
   <div class="games-light games-light-left"></div>
   <div class="games-light games-light-right"></div>
-  <div class="games-light games-light-center"></div>
-  <div class="games-dots games-dots-top"></div>
-  <div class="games-dots games-dots-grid"></div>
 
   <section class="games-hero" aria-label="Airo games hero">
     <div class="games-label" aria-label="Games">
@@ -140,10 +141,9 @@
     </div>
 
     <h1>Our experiences</h1>
-    <p>Airo operates a portfolio of<br class="mobile-break" /> games played by millions worldwide.</p>
+    <p>Airo operates a portfolio of games played by millions worldwide.</p>
 
     <div class="games-mascot-stage" class:has-sticker={catStickerLoaded} aria-label="Games cat sticker placeholder">
-      <div class="games-mascot-glow"></div>
       <div class="games-mascot-sticker" bind:this={catStickerEl}></div>
 
       {#if !catStickerLoaded}
@@ -159,22 +159,24 @@
   <section class="games-list-section" aria-label="Airo game cards">
     <div class="games-sort" role="tablist" aria-label="Sort games">
       <span>Sort by</span>
-      {#each modes as mode}
-        <button
-          type="button"
-          class:active={selectedMode === mode}
-          role="tab"
-          aria-selected={selectedMode === mode}
-          onclick={() => selectedMode = mode}
-        >
-          {mode}
-        </button>
-      {/each}
+      <div class="games-sort-pill">
+        {#each modes as mode}
+          <button
+            type="button"
+            class:active={selectedMode === mode}
+            role="tab"
+            aria-selected={selectedMode === mode}
+            onclick={() => selectedMode = mode}
+          >
+            {mode}
+          </button>
+        {/each}
+      </div>
     </div>
 
     <div class="games-grid">
       {#each sortedGames as game, index}
-        <article class="portfolio-card" style={`--card-delay:${index * 72}ms`}>
+        <article class="portfolio-card">
           <div class="portfolio-card-sheen"></div>
           <div class={`portfolio-status ${game.tone}`}>
             <span></span>
@@ -184,13 +186,12 @@
             <div class="portfolio-card-lines" aria-hidden="true"></div>
           </div>
           <div class="portfolio-copy">
-            <span>{game.metric}</span>
             <h2>{game.title}</h2>
-            <p>by {game.studio}</p>
+            <div class="portfolio-brand" aria-label={`By ${game.studio}`}>
+              <span>By</span>
+              <img src="/logos/airo.svg" alt={game.studio} />
+            </div>
           </div>
-          <a class="portfolio-link" href="https://www.roblox.com/" target="_blank" rel="noreferrer" aria-label={`Open ${game.title}`}>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M10 7h7v7" /></svg>
-          </a>
         </article>
       {/each}
     </div>
@@ -208,37 +209,12 @@
     color: #fff;
     overflow: hidden;
     background:
-      radial-gradient(circle at 50% 0%, rgba(115, 0, 255, .28), transparent 31%),
-      linear-gradient(180deg, rgba(6, 1, 11, .3) 0%, rgba(3, 0, 6, .64) 38%, rgba(3, 0, 6, .94) 100%);
+      radial-gradient(circle at 50% 0%, rgba(115, 0, 255, .22), transparent 31%),
+      linear-gradient(180deg, rgba(6, 1, 11, .18) 0%, rgba(3, 0, 6, .46) 38%, rgba(3, 0, 6, .76) 100%);
   }
 
   .games-page::before {
-    content: '';
-    position: absolute;
-    z-index: -3;
-    inset: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(circle at 3% 15%, rgba(115, 0, 255, .44), transparent 20%),
-      radial-gradient(circle at 99% 16%, rgba(142, 63, 255, .46), transparent 21%),
-      radial-gradient(circle at 50% 24%, rgba(92, 0, 160, .32), transparent 32%),
-      linear-gradient(180deg, #050107 0%, #030005 74%, #030005 100%);
-  }
-
-  .games-page::after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    left: 50%;
-    top: 0;
-    width: min(1120px, 96vw);
-    height: 100%;
-    transform: translateX(-50%);
-    pointer-events: none;
-    background-image: radial-gradient(circle, rgba(232, 228, 255, .14) 1px, transparent 1.32px);
-    background-size: 24px 24px;
-    opacity: .34;
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,.75), rgba(0,0,0,.42) 54%, transparent 96%);
+    content: none;
   }
 
   .games-light {
@@ -276,34 +252,6 @@
     filter: blur(108px);
   }
 
-  .games-dots {
-    position: absolute;
-    pointer-events: none;
-    z-index: -1;
-    background-image: radial-gradient(circle, rgba(255, 255, 255, .18) 1px, transparent 1.4px);
-    background-size: 22px 22px;
-  }
-
-  .games-dots-top {
-    left: 50%;
-    top: 108px;
-    width: min(1180px, 96vw);
-    height: 410px;
-    transform: translateX(-50%);
-    opacity: .42;
-    mask-image: radial-gradient(ellipse at 50% 50%, #000 0 34%, rgba(0,0,0,.48) 61%, transparent 86%);
-  }
-
-  .games-dots-grid {
-    left: 50%;
-    top: 520px;
-    width: min(1180px, 96vw);
-    height: 1160px;
-    transform: translateX(-50%);
-    opacity: .2;
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 72%, transparent 100%);
-  }
-
   .games-hero {
     position: relative;
     z-index: 2;
@@ -317,64 +265,63 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 82px;
-    min-height: 26px;
-    padding: 2px 14px;
-    margin-bottom: 20px;
+    width: fit-content;
+    min-width: 0;
+    height: 66px;
+    padding: 0 24px;
+    margin: 0 auto 16px;
     color: rgba(255,255,255,.96);
-    font-size: 13px;
-    line-height: 1;
-    letter-spacing: .025em;
+    font-size: 21px;
+    line-height: 66px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    white-space: nowrap;
   }
 
   .games-label strong {
     position: relative;
     z-index: 2;
-    font-weight: 500;
+    font: inherit;
   }
 
   .games-label::before,
   .games-label::after {
-    content: '';
-    position: absolute;
-    left: 14px;
-    right: 14px;
-    height: 1px;
-    background: rgba(255,255,255,.46);
+    content: none;
+    display: none;
   }
-
-  .games-label::before { top: 2px; }
-  .games-label::after { bottom: 2px; }
 
   .games-label .corner {
     position: absolute;
-    width: 7px;
-    height: 7px;
-    border-color: rgba(255,255,255,.68);
+    width: 9px;
+    height: 9px;
+    border-color: rgba(255,255,255,.9);
     border-style: solid;
   }
 
-  .games-label .corner-tl { left: 5px; top: 0; border-width: 1px 0 0 1px; }
-  .games-label .corner-tr { right: 5px; top: 0; border-width: 1px 1px 0 0; }
-  .games-label .corner-bl { left: 5px; bottom: 0; border-width: 0 0 1px 1px; }
-  .games-label .corner-br { right: 5px; bottom: 0; border-width: 0 1px 1px 0; }
+  .games-label .corner-tl { left: 0; top: 19px; border-width: 2.25px 0 0 2.25px; }
+  .games-label .corner-tr { right: 0; top: 19px; border-width: 2.25px 2.25px 0 0; }
+  .games-label .corner-bl { left: 0; bottom: 14px; border-width: 0 0 2.25px 2.25px; }
+  .games-label .corner-br { right: 0; bottom: 14px; border-width: 0 2.25px 2.25px 0; }
 
   .games-hero h1 {
     margin: 0;
-    font-size: clamp(46px, 5.85vw, 76px);
-    line-height: .98;
-    letter-spacing: -.06em;
-    font-weight: 700;
-    text-shadow: 0 20px 70px rgba(115,0,255,.28);
+    font-size: clamp(40px, 4.65vw, 64px);
+    line-height: 1.12;
+    letter-spacing: -.018em;
+    font-weight: 600;
+    text-shadow: none;
+    white-space: nowrap;
   }
 
   .games-hero p {
-    width: min(360px, 90vw);
+    width: min(760px, calc(100vw - 40px));
     margin: 18px auto 0;
-    color: rgba(255,255,255,.68);
-    font-size: clamp(14px, 1.2vw, 17px);
+    color: rgba(255,255,255,.7);
+    font-size: clamp(14px, 1.34vw, 18.5px);
     line-height: 1.58;
     font-weight: 400;
+    letter-spacing: 0;
+    white-space: nowrap;
   }
 
   .games-mascot-stage {
@@ -413,26 +360,13 @@
     mask-image: linear-gradient(to bottom, #000, transparent 72%);
   }
 
-  .games-mascot-glow {
-    position: absolute;
-    left: 50%;
-    bottom: 18px;
-    width: min(420px, 76vw);
-    height: 170px;
-    transform: translateX(-50%);
-    background: radial-gradient(ellipse at 50% 58%, rgba(115, 0, 255, .34), rgba(115, 0, 255, .1) 42%, transparent 76%);
-    filter: blur(34px);
-    opacity: .78;
-    pointer-events: none;
-  }
-
   .games-mascot-sticker {
     position: absolute;
     z-index: 2;
     left: 50%;
     bottom: 0;
-    width: clamp(230px, 24vw, 340px);
-    height: clamp(230px, 24vw, 340px);
+    width: clamp(207px, 21.6vw, 306px);
+    height: clamp(207px, 21.6vw, 306px);
     transform: translateX(-50%);
     filter: drop-shadow(0 28px 42px rgba(0,0,0,.62));
   }
@@ -492,36 +426,50 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 9px;
     margin: 0 auto clamp(22px, 2.4vw, 34px);
     color: rgba(255,255,255,.62);
-    font-size: 12px;
+    font-size: 13.8px;
   }
 
   .games-sort span {
-    margin-right: 6px;
+    margin-right: 0;
+  }
+
+  .games-sort-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 4.4px;
+    border: 0;
+    border-radius: 999px;
+    background: #7300ff;
+    box-shadow: none;
   }
 
   .games-sort button {
     appearance: none;
-    min-width: 112px;
-    height: 36px;
-    border: 1px solid rgba(255,255,255,.1);
+    min-width: 111px;
+    height: 43px;
+    padding: 0 13px;
+    border: 0;
     border-radius: 999px;
-    color: rgba(255,255,255,.62);
-    background: rgba(255,255,255,.035);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+    color: rgba(255,255,255,.42);
+    background: transparent;
+    box-shadow: none;
     cursor: pointer;
-    transition: transform .25s ease, color .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
+    font-size: 15.2px;
+    font-weight: 700;
+    transition: color .25s ease, opacity .25s ease;
   }
 
   .games-sort button:hover,
   .games-sort button.active {
     color: #fff;
-    border-color: rgba(255,255,255,.22);
-    background: linear-gradient(135deg, #7300FF, #9B42FF);
-    box-shadow: 0 14px 38px rgba(115,0,255,.34), inset 0 1px 0 rgba(255,255,255,.24);
-    transform: translateY(-1px);
+    background: transparent;
+    box-shadow: none;
+    transform: none;
   }
 
   .games-grid {
@@ -536,57 +484,11 @@
     overflow: hidden;
     border: 1px solid rgba(255,255,255,.13);
     border-radius: 22px;
-    background:
-      radial-gradient(circle at 50% 0%, rgba(115,0,255,.08), transparent 48%),
-      linear-gradient(180deg, rgba(10, 8, 16, .92), rgba(4, 3, 8, .82));
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.1),
-      0 28px 70px rgba(0,0,0,.28);
-    animation: cardReveal .55s cubic-bezier(.16,1,.3,1) backwards;
-    animation-delay: var(--card-delay);
+    background: linear-gradient(180deg, rgba(10, 8, 16, .92), rgba(4, 3, 8, .82));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+    animation: none;
   }
-
-  @keyframes cardReveal {
-    from { opacity: 0; transform: translateY(18px) scale(.985); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-
-  .portfolio-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image: radial-gradient(circle, rgba(255,255,255,.09) 1px, transparent 1.3px);
-    background-size: 18px 18px;
-    opacity: .1;
-    mask-image: linear-gradient(to bottom, #000, transparent 72%);
-  }
-
-  .portfolio-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    border-radius: inherit;
-    background: linear-gradient(135deg, rgba(255,255,255,.13), transparent 32%, rgba(115,0,255,.12) 72%, transparent);
-    opacity: .38;
-  }
-
-  .portfolio-card-sheen {
-    position: absolute;
-    inset: -1px;
-    pointer-events: none;
-    border-radius: inherit;
-    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.12) 38%, transparent 54%);
-    opacity: .16;
-    transform: translateX(-36%);
-    transition: transform .75s ease, opacity .4s ease;
-  }
-
-  .portfolio-card:hover .portfolio-card-sheen {
-    transform: translateX(36%);
-    opacity: .32;
-  }
+  .portfolio-card-sheen { display: none; }
 
   .portfolio-status {
     position: absolute;
@@ -595,20 +497,21 @@
     right: 12px;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    height: 18px;
-    padding: 0 8px;
+    gap: 5.5px;
+    height: 22px;
+    padding: 0 10px;
     border-radius: 999px;
     color: #fff;
-    font-size: 9px;
+    font-size: 11px;
     line-height: 1;
     letter-spacing: -.01em;
+    font-weight: 700;
     box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 8px 24px rgba(0,0,0,.32);
   }
 
   .portfolio-status span {
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
     border-radius: 999px;
     background: currentColor;
     box-shadow: 0 0 10px currentColor;
@@ -627,9 +530,7 @@
     inset: 1px 1px 72px;
     border-radius: 21px 21px 14px 14px;
     overflow: hidden;
-    background:
-      radial-gradient(circle at 50% 10%, rgba(123,54,255,.22), transparent 52%),
-      linear-gradient(180deg, rgba(255,255,255,.035), transparent 76%);
+    background: linear-gradient(180deg, rgba(255,255,255,.035), transparent 76%);
   }
 
   .portfolio-card-lines {
@@ -650,64 +551,44 @@
     bottom: 16px;
   }
 
-  .portfolio-copy span {
-    display: block;
-    margin-bottom: 7px;
-    color: rgba(255,255,255,.43);
-    font-size: 10px;
-    line-height: 1.3;
-  }
-
   .portfolio-copy h2 {
-    margin: 0 0 5px;
+    margin: 0 0 7px;
     color: #fff;
-    font-size: clamp(13px, 1.08vw, 16px);
-    line-height: 1.2;
+    font-size: clamp(16.5px, 1.36vw, 20.25px);
+    line-height: 1.18;
     letter-spacing: -.035em;
-    font-weight: 600;
+    font-weight: 700;
   }
 
-  .portfolio-copy p {
-    margin: 0;
-    color: rgba(255,255,255,.58);
-    font-size: 11px;
-    line-height: 1.2;
+  .portfolio-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 16px;
+    margin-top: 0;
+    color: rgba(255,255,255,.42);
+    vertical-align: middle;
   }
 
-  .portfolio-link {
-    position: absolute;
-    z-index: 5;
-    left: 15px;
-    bottom: 14px;
-    width: 21px;
-    height: 21px;
-    display: grid;
-    place-items: center;
-    color: rgba(255,255,255,.72);
-    opacity: 0;
-    transform: translateX(-5px);
-    transition: opacity .25s ease, transform .25s ease, color .25s ease;
+  .portfolio-brand span {
+    display: inline-flex;
+    align-items: center;
+    color: rgba(255,255,255,.42);
+    font-size: 10.5px;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -.01em;
   }
 
-  .portfolio-link svg {
-    width: 15px;
-    height: 15px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+  .portfolio-brand img {
+    display: block;
+    width: auto;
+    height: 13px;
+    object-fit: contain;
+    opacity: .46;
+    filter: grayscale(1) brightness(.74);
   }
 
-  .portfolio-card:hover .portfolio-link {
-    opacity: 1;
-    transform: translateX(0);
-    color: #fff;
-  }
-
-  .portfolio-card:hover {
-    border-color: rgba(255,255,255,.22);
-  }
 
   @media (max-width: 900px) {
     .games-grid {
@@ -724,6 +605,11 @@
       width: min(420px, calc(100vw - 30px));
     }
 
+    .games-hero p {
+      width: min(420px, calc(100vw - 30px));
+      white-space: normal;
+    }
+
     .games-sort {
       flex-wrap: wrap;
       gap: 7px;
@@ -735,8 +621,12 @@
       text-align: center;
     }
 
+    .games-sort-pill {
+      width: 100%;
+    }
+
     .games-sort button {
-      flex: 1 1 126px;
+      flex: 1 1 0;
       min-width: 0;
     }
 

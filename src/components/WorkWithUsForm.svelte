@@ -2,18 +2,26 @@
   export let initialTab = 'Game';
 
   const tabs = ['Game', 'UGC', 'Careers'];
+  const currencies = [
+    { code: 'USD', symbol: '$', label: 'US Dollar' },
+    { code: 'EUR', symbol: '€', label: 'Euro' },
+    { code: 'GBP', symbol: '£', label: 'British Pound' }
+  ];
 
   function normalizeTab(tab) {
     return tabs.includes(tab) ? tab : tabs[0];
   }
 
   let selectedTab = normalizeTab(initialTab);
+  let selectedCurrency = 'USD';
   let syncedInitialTab = initialTab;
 
   $: if (initialTab !== syncedInitialTab) {
     selectedTab = normalizeTab(initialTab);
     syncedInitialTab = initialTab;
   }
+
+  $: selectedCurrencyData = currencies.find((currency) => currency.code === selectedCurrency) || currencies[0];
 
   $: helperText = selectedTab === 'Careers'
     ? 'Applying to join the Airo team'
@@ -22,7 +30,7 @@
   $: linkLabel = selectedTab === 'Careers' ? 'Portfolio / resume link' : 'Group link';
   $: linkPlaceholder = selectedTab === 'Careers' ? 'https://your-portfolio.com' : 'https://www-roblox.com/groups/...';
   $: priceLabel = selectedTab === 'Careers' ? 'Salary expectation' : 'Asking price';
-  $: pricePlaceholder = selectedTab === 'Careers' ? '$ 3,000 / month' : '$ 10,000';
+  $: pricePlaceholder = selectedTab === 'Careers' ? `${selectedCurrencyData.symbol} 3,000 / month` : `${selectedCurrencyData.symbol} 10,000`;
   $: messagePlaceholder = selectedTab === 'Careers'
     ? 'Tell us about your skills, experience, portfolio, and what role you want...'
     : 'Tell us a bit about your game, audience, and goals...';
@@ -32,22 +40,22 @@
   <div class="work-form-lighting" aria-hidden="true">
     <svg class="work-footer-light" viewBox="-265 585.549 1970 1011.291" fill="none" preserveAspectRatio="none">
       <g filter="url(#work_light_blur_main)" opacity="0.82" style="mix-blend-mode:screen">
-        <path d="M-265 585.549C-84.3875 708.484 180.521 915.542 737.335 1014.35C1087.87 949.711 1338.2 833.864 1704.3 612.243V1596.84C1523.69 1473.91 1258.78 1266.84 701.961 1168.03C351.424 1232.68 101.097 1348.53 -265 1570.15V585.549Z" fill="#7300FF" />
+        <path d="M-265 585.549C-84.3875 708.484 180.521 915.542 737.335 1014.35C1087.87 949.711 1338.2 833.864 1704.3 612.243V1596.84C1523.69 1473.91 1258.78 1266.84 701.961 1168.03C351.424 1232.68 101.097 1348.53 -265 1570.15V585.549Z" fill="#7300ff" />
       </g>
       <g filter="url(#work_light_blur_mid)" opacity="0.72" style="mix-blend-mode:screen">
-        <path d="M-265 697.663C-169.03 762.986 21.8951 864.014 273.708 946.925C543.527 1035.76 835.01 1035.02 1108.62 958.637C1315.08 900.999 1527.24 821.29 1705 713.68V1477.12C1607.33 1410.64 1383.32 1307.17 1106.95 1223.46C835.083 1141.11 543.595 1137.83 272.493 1222.67C90.0909 1279.75 -93.8502 1357.5 -265 1461.1V697.663Z" fill="#AF8BF9" />
+        <path d="M-265 697.663C-169.03 762.986 21.8951 864.014 273.708 946.925C543.527 1035.76 835.01 1035.02 1108.62 958.637C1315.08 900.999 1527.24 821.29 1705 713.68V1477.12C1607.33 1410.64 1383.32 1307.17 1106.95 1223.46C835.083 1141.11 543.595 1137.83 272.493 1222.67C90.0909 1279.75 -93.8502 1357.5 -265 1461.1V697.663Z" fill="#af8bf9" />
       </g>
       <g filter="url(#work_light_blur_edge_left)" opacity="0.96" style="mix-blend-mode:screen">
-        <path d="M642.588 1084.72C213.352 1074.05 -141.319 904.095 -265 820.455V1338.31C29.6992 1161.07 462.85 1095.4 642.588 1084.72Z" fill="#E8E4FF" />
+        <path d="M642.588 1084.72C213.352 1074.05 -141.319 904.095 -265 820.455V1338.31C29.6992 1161.07 462.85 1095.4 642.588 1084.72Z" fill="#e8e4ff" />
       </g>
       <g filter="url(#work_light_blur_edge_right)" opacity="0.96" style="mix-blend-mode:screen">
-        <path d="M797.412 1074.05C1226.65 1084.72 1581.32 1254.67 1705 1338.31L1705 820.454C1410.3 997.701 977.15 1063.37 797.412 1074.05Z" fill="#E8E4FF" />
+        <path d="M797.412 1074.05C1226.65 1084.72 1581.32 1254.67 1705 1338.31L1705 820.454C1410.3 997.701 977.15 1063.37 797.412 1074.05Z" fill="#e8e4ff" />
       </g>
       <g filter="url(#work_light_blur_edge_core_left)" opacity="0.46" style="mix-blend-mode:screen">
-        <path d="M642.588 1084.72C213.352 1074.05 -141.319 904.095 -265 820.455V1338.31C29.6992 1161.07 462.85 1095.4 642.588 1084.72Z" fill="#E8E4FF" />
+        <path d="M642.588 1084.72C213.352 1074.05 -141.319 904.095 -265 820.455V1338.31C29.6992 1161.07 462.85 1095.4 642.588 1084.72Z" fill="#e8e4ff" />
       </g>
       <g filter="url(#work_light_blur_edge_core_right)" opacity="0.46" style="mix-blend-mode:screen">
-        <path d="M797.412 1074.05C1226.65 1084.72 1581.32 1254.67 1705 1338.31L1705 820.454C1410.3 997.701 977.15 1063.37 797.412 1074.05Z" fill="#E8E4FF" />
+        <path d="M797.412 1074.05C1226.65 1084.72 1581.32 1254.67 1705 1338.31L1705 820.454C1410.3 997.701 977.15 1063.37 797.412 1074.05Z" fill="#e8e4ff" />
       </g>
       <defs>
         <filter id="work_light_blur_main" x="-850.549" y="-0.000183105" width="3140.4" height="2182.39" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
@@ -141,8 +149,12 @@
       <label for="work-asking-price"><span></span>{priceLabel}</label>
       <div class="price-row">
         <div class="currency-select">
-          <span>us</span>
-          <strong>USD</strong>
+          <span class="currency-icon" aria-hidden="true">{selectedCurrencyData.symbol}</span>
+          <select aria-label="Currency" bind:value={selectedCurrency}>
+            {#each currencies as currency}
+              <option value={currency.code}>{currency.symbol} {currency.code}</option>
+            {/each}
+          </select>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
         </div>
         <input id="work-asking-price" type="text" placeholder={pricePlaceholder} />
@@ -171,7 +183,7 @@
     <div class="form-submit-row">
       <p>We typically respond within 2–3 business days.</p>
       <button type="submit" class="submit-btn">
-        <span>SUBMIT ENQUIRY</span>
+        <span>Submit inquiry</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10M17 7 7 17" /></svg>
       </button>
     </div>
@@ -219,8 +231,9 @@
   }
 
   .work-form-heading {
+    width: min(760px, 100%);
     text-align: center;
-    margin: 0 auto clamp(28px, 3.1vw, 40px);
+    margin: 0 auto clamp(28px, 3.9vw, 50px);
   }
 
   .section-kicker {
@@ -228,27 +241,32 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 156px;
-    height: 38px;
-    margin-bottom: 10px;
+    width: fit-content;
+    min-width: 0;
+    height: 42px;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-bottom: clamp(15px, 1.8vw, 22px);
     color: #fff;
-    font-size: clamp(12px, 1.05vw, 15px);
-    line-height: 1;
-    font-weight: 500;
-    letter-spacing: .06em;
+    font-size: clamp(16.5px, 1.38vw, 20.9px);
+    line-height: 42px;
+    font-weight: 600;
+    letter-spacing: .035em;
+    white-space: nowrap;
   }
 
   .section-kicker .corner {
     position: absolute;
-    width: 9px;
-    height: 9px;
-    border-color: rgba(255,255,255,.95);
+    width: 10px;
+    height: 10px;
+    border-color: rgba(255,255,255,.9);
+    border-width: 2px;
   }
 
-  .corner-tl { left: 0; top: 5px; border-left: 2px solid; border-top: 2px solid; }
-  .corner-tr { right: 0; top: 5px; border-right: 2px solid; border-top: 2px solid; }
-  .corner-bl { left: 0; bottom: 5px; border-left: 2px solid; border-bottom: 2px solid; }
-  .corner-br { right: 0; bottom: 5px; border-right: 2px solid; border-bottom: 2px solid; }
+  .corner-tl { left: 0; top: 4px; border-left: 2px solid; border-top: 2px solid; }
+  .corner-tr { right: 0; top: 4px; border-right: 2px solid; border-top: 2px solid; }
+  .corner-bl { left: 0; bottom: 4px; border-left: 2px solid; border-bottom: 2px solid; }
+  .corner-br { right: 0; bottom: 4px; border-right: 2px solid; border-bottom: 2px solid; }
 
   .section-kicker strong {
     font: inherit;
@@ -256,20 +274,21 @@
 
   .work-form-heading h2 {
     margin: 0;
-    font-size: clamp(30px, 3.05vw, 43px);
-    line-height: 1.14;
+    font-size: clamp(40px, 4.65vw, 64px);
+    line-height: 1.12;
+    letter-spacing: -.018em;
     font-weight: 600;
-    letter-spacing: -.045em;
+    text-shadow: 0 0 42px rgba(255,255,255,.2);
   }
 
   .work-form-heading p {
-    width: min(560px, 100%);
-    margin: clamp(10px, 1vw, 14px) auto 0;
-    color: rgba(255,255,255,.6);
-    font-size: clamp(12px, .98vw, 15px);
-    line-height: 1.5;
+    width: min(690px, 100%);
+    margin: clamp(16px, 1.8vw, 24px) auto 0;
+    color: rgba(255,255,255,.7);
+    font-size: clamp(14px, 1.34vw, 18.5px);
+    line-height: 1.58;
     font-weight: 400;
-    letter-spacing: -.03em;
+    letter-spacing: 0;
   }
 
   .work-form-card {
@@ -288,16 +307,6 @@
     overflow: hidden;
   }
 
-  .work-form-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    background-image: radial-gradient(rgba(57, 0, 114, .42) 1px, transparent 1.15px);
-    background-size: 31px 31px;
-    opacity: .42;
-  }
 
   .work-form-card > * {
     position: relative;
@@ -321,7 +330,7 @@
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #C697FF;
+    background: #7300ff;
     flex: 0 0 auto;
   }
 
@@ -334,8 +343,18 @@
     padding: 5px;
     border-radius: 169px;
     background: rgba(255,255,255,.055);
-    border: 1.5px solid rgba(180,180,180,.72);
-    box-shadow: inset 0 0 30px rgba(115,0,255,.12);
+    border: 0;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .work-tabs:hover,
+  .work-tabs:active,
+  .work-tabs:focus-within {
+    background: rgba(255,255,255,.055);
+    border: 0;
+    outline: none;
+    box-shadow: none;
   }
 
   .work-tabs button {
@@ -349,14 +368,37 @@
     font-size: clamp(13px, 1.08vw, 16px);
     font-weight: 400;
     cursor: pointer;
-    transition: color .25s ease, background .25s ease, box-shadow .25s ease;
+    outline: none;
+    box-shadow: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: color .25s ease, font-weight .25s ease;
   }
 
-  .work-tabs button.selected {
+  .work-tabs button:hover,
+  .work-tabs button:active,
+  .work-tabs button:focus,
+  .work-tabs button:focus-visible {
+    background: transparent;
+    border: 0;
+    outline: none;
+    box-shadow: none;
+    filter: none;
+  }
+
+  .work-tabs button.selected,
+  .work-tabs button.selected:hover,
+  .work-tabs button.selected:active,
+  .work-tabs button.selected:focus,
+  .work-tabs button.selected:focus-visible {
     color: #fff;
-    font-weight: 500;
-    background: #7300FF;
-    box-shadow: 0 0 18px rgba(115,0,255,.45);
+    font-weight: 600;
+    background: #7300ff;
+    border: 0;
+    outline: none;
+    box-shadow: none;
+    filter: none;
   }
 
   .tabs-block small {
@@ -391,7 +433,7 @@
     font-weight: 400;
     outline: none;
     box-shadow: inset 0 0 34px rgba(202,158,255,.08);
-    transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    transition: border-color .2s ease, box-shadow .2s ease, background .2s ease, font-weight .2s ease;
   }
 
   .field-group input,
@@ -406,9 +448,24 @@
   }
 
   .field-group input:focus,
-  .field-group textarea:focus {
-    border-color: rgba(202,151,255,.95);
-    box-shadow: inset 0 0 38px rgba(202,158,255,.12), 0 0 0 3px rgba(115,0,255,.18);
+  .field-group textarea:focus,
+  .field-group input:focus-visible,
+  .field-group textarea:focus-visible {
+    outline: none;
+    border-color: rgba(237,237,237,.62);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03)),
+      rgba(26,26,26,.72);
+    box-shadow: inset 0 0 34px rgba(202,158,255,.08);
+    font-weight: 600;
+  }
+
+  .currency-select:focus-within {
+    border-color: rgba(237,237,237,.62);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03)),
+      rgba(26,26,26,.72);
+    box-shadow: inset 0 0 34px rgba(202,158,255,.08);
   }
 
   .price-field {
@@ -429,20 +486,44 @@
     padding-inline: 18px;
   }
 
-  .currency-select span {
-    font-size: clamp(12px, 1vw, 15px);
+  .currency-select .currency-icon {
+    width: 18px;
+    text-align: center;
+    font-size: clamp(15px, 1.18vw, 18px);
+    line-height: 1;
+    font-weight: 600;
     color: #fff;
   }
 
-  .currency-select strong {
+  .currency-select select {
+    width: 100%;
+    min-width: 0;
+    grid-column: 2 / 4;
+    grid-row: 1;
     padding-left: 12px;
+    padding-right: 24px;
+    border: 0;
     border-left: 1px solid rgba(47,30,47,.95);
+    background: transparent;
+    color: #fff;
+    font: inherit;
     font-size: clamp(15px, 1.32vw, 19px);
     line-height: 1;
     font-weight: 600;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .currency-select option {
+    color: #111;
   }
 
   .currency-select svg {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    pointer-events: none;
     width: 16px;
     height: 16px;
     fill: none;
@@ -495,9 +576,16 @@
     border: 1px solid #5B5165;
   }
 
+  .check-row input:focus + .box,
+  .check-row input:focus-visible + .box {
+    outline: none;
+    box-shadow: none;
+  }
+
   .check-row input:checked + .box {
-    background: #7300FF;
-    border-color: rgba(202,158,255,.8);
+    background: #7300ff;
+    border-color: #7300ff;
+    box-shadow: none;
   }
 
   .check-row input:checked + .box::after {
@@ -513,7 +601,8 @@
   }
 
   .check-row a {
-    color: #C697FF;
+    color: #7300ff;
+    font-weight: 600;
   }
 
   .form-submit-row {
@@ -540,16 +629,16 @@
     gap: 11px;
     width: clamp(166px, 13.8vw, 196px);
     height: clamp(42px, 3.35vw, 50px);
-    border: 5px solid rgba(115, 0, 255, .5);
+    border: 5px solid #7300ff;
     border-radius: 999px;
-    background: #7300FF;
+    background: #7300ff;
     color: #fff;
     font-family: inherit;
     font-size: clamp(12px, 1.08vw, 15.5px);
     line-height: 1;
-    font-weight: 400;
+    font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 0 30px rgba(115,0,255,.42);
+    box-shadow: none;
     transition: transform .22s ease, box-shadow .22s ease;
   }
 
@@ -565,7 +654,7 @@
 
   .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 42px rgba(115,0,255,.58);
+    box-shadow: none;
   }
 
   @media (max-width: 900px) {
@@ -628,8 +717,10 @@
     }
 
     .section-kicker {
-      min-width: 142px;
-      height: 36px;
+      height: 42px;
+      margin-bottom: 15px;
+      font-size: 15px;
+      line-height: 42px;
     }
 
     .work-form-heading {
@@ -637,13 +728,16 @@
     }
 
     .work-form-heading h2 {
-      font-size: 30px;
-      line-height: 1.15;
+      font-size: clamp(34px, 9.8vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -.035em;
     }
 
     .work-form-heading p {
-      font-size: 13px;
-      line-height: 1.55;
+      font-size: clamp(14px, 3.65vw, 18px);
+      line-height: 1.43;
+      font-weight: 400;
+      color: rgba(255,255,255,.7);
     }
 
     .work-form-card {
@@ -665,7 +759,6 @@
     .work-tabs {
       height: 46px;
       padding: 4px;
-      border-width: 1px;
     }
 
     .work-tabs button {
@@ -697,8 +790,9 @@
       gap: 10px;
     }
 
-    .currency-select strong {
+    .currency-select select {
       padding-left: 10px;
+      padding-right: 24px;
       font-size: 15px;
     }
 
