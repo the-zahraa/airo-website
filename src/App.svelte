@@ -10,7 +10,7 @@
     '/games': () => import('./games/GamesPage.svelte'),
     '/careers': () => import('./careers/CareersPage.svelte'),
     '/legal': () => import('./legal/LegalPage.svelte'),
-    '/work-with-us': () => import('./WorkWithUs/WorkWithUsPage.svelte')
+    '/work-with-us': () => import('./work-with-us/WorkWithUsPage.svelte')
   };
 
   let RoutePage = null;
