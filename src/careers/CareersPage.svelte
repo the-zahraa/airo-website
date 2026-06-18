@@ -5544,11 +5544,11 @@
   }
 
   .task-ring .ring-progress {
-    animation: taskRingCleanV49 3.25s cubic-bezier(.42,0,.2,1) infinite !important;
+    animation: taskRingCleanV49 2.4s cubic-bezier(.22,.8,.22,1) infinite !important;
     stroke: #8c16ff !important;
-    stroke-dasharray: 283 !important;
-    stroke-dashoffset: 17 !important;
-    stroke-linecap: round !important;
+    stroke-dasharray: 282.743 !important;
+    stroke-dashoffset: 16.965 !important;
+    stroke-linecap: butt !important;
     stroke-linejoin: round !important;
     filter: drop-shadow(0 0 10px rgba(115,0,255,.62)) !important;
   }
@@ -5583,10 +5583,10 @@
   }
 
   @keyframes taskRingCleanV49 {
-    0% { stroke-dashoffset: 283; opacity: .72; }
-    46% { stroke-dashoffset: 17; opacity: 1; }
-    78% { stroke-dashoffset: 17; opacity: 1; }
-    100% { stroke-dashoffset: 283; opacity: .72; }
+    0% { stroke-dashoffset: 282.743; opacity: .72; }
+    46% { stroke-dashoffset: 16.965; opacity: 1; }
+    78% { stroke-dashoffset: 16.965; opacity: 1; }
+    100% { stroke-dashoffset: 282.743; opacity: .72; }
   }
 
 
@@ -6410,9 +6410,10 @@
     }
 
     .task-ring .ring-progress {
-      stroke-dasharray: 283 !important;
-      stroke-dashoffset: 17 !important;
-      animation: taskRingPhone94 1.35s cubic-bezier(.22,.8,.22,1) forwards !important;
+      stroke-dasharray: 282.743 !important;
+      stroke-dashoffset: 16.965 !important;
+      stroke-linecap: butt !important;
+      animation: taskRingCleanV49 2.4s cubic-bezier(.22,.8,.22,1) infinite !important;
       filter: none !important;
     }
 
@@ -6533,7 +6534,7 @@
       stroke-dashoffset: 16.965 !important;
       stroke-linecap: butt !important;
       stroke-linejoin: round !important;
-      animation: taskRingPhoneExact94V60 1.35s cubic-bezier(.22,.8,.22,1) forwards !important;
+      animation: taskRingCleanV49 2.4s cubic-bezier(.22,.8,.22,1) infinite !important;
       filter: none !important;
     }
 
@@ -6569,4 +6570,39 @@
     100% { left: calc(100% - 12px); opacity: 0; transform: scale(.92); }
   }
 
+
+  @media (max-width: 860px) {
+    :global(.site-shell.careers-route) {
+      background: linear-gradient(180deg, #050107 0%, #030005 100%);
+    }
+
+    .career-bg .glow {
+      display: none;
+    }
+
+    .perks-stage .perk-card.perk-active {
+      border-color: rgba(213,184,255,.22) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 18px 46px rgba(0,0,0,.46),
+        0 0 0 1px rgba(115,0,255,.05),
+        0 0 26px rgba(145,62,255,.11) !important;
+    }
+
+    .perks-stage .perk-card.perk-active::before {
+      opacity: .18 !important;
+      transform: none !important;
+    }
+
+    .perks-stage .perk-card.perk-active::after {
+      opacity: .2 !important;
+    }
+
+    .perks-stage .card-icon {
+      box-shadow:
+        0 12px 34px rgba(115,0,255,.43),
+        inset 0 1px 0 rgba(255,255,255,.22) !important;
+      transition: none !important;
+    }
+  }
 </style>

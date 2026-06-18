@@ -9,8 +9,8 @@
 
   const companyLinks = [
     { label: 'Careers', href: '/careers' },
-    { label: 'Contact', href: '#work-with-us' },
-    { label: 'Pitch a Game', href: '#work-with-us' }
+    { label: 'Contact', href: '/work-with-us' },
+    { label: 'Pitch a Game', href: '/work-with-us' }
   ];
 
   const legalLinks = [
@@ -157,7 +157,7 @@
 
     <div class="footer-bottom">
       <span>Copyright ©2026 All Rights Reserved by Airo</span>
-      <a class="footer-touch" href="#work-with-us" onclick={(event) => handleLinkClick(event, '#work-with-us')}>
+      <a class="footer-touch" href="/work-with-us" onclick={(event) => handleLinkClick(event, '/work-with-us')}>
         <span>Get in touch</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M5 19 19 5M8 5h11v11" />

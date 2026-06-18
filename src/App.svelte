@@ -3,12 +3,51 @@
   import Navbar from './components/Navbar.svelte';
   import Footer from './components/Footer.svelte';
   import WorkWithUsForm from './components/WorkWithUsForm.svelte';
-  import AboutPage from './about/AboutPage.svelte';
-  import GamesPage from './games/GamesPage.svelte';
-  import CareersPage from './careers/CareersPage.svelte';
-  import LegalPage from './legal/LegalPage.svelte';
 
-  const pagePaths = new Set(['/', '/about', '/games', '/careers', '/legal']);
+  const pagePaths = new Set(['/', '/about', '/games', '/careers', '/legal', '/work-with-us']);
+  const pageLoaders = {
+    '/about': () => import('./about/AboutPage.svelte'),
+    '/games': () => import('./games/GamesPage.svelte'),
+    '/careers': () => import('./careers/CareersPage.svelte'),
+    '/legal': () => import('./legal/LegalPage.svelte'),
+    '/work-with-us': () => import('./WorkWithUs/WorkWithUsPage.svelte')
+  };
+
+  let RoutePage = null;
+  let routeLoadToken = 0;
+
+  async function loadRoutePage(path) {
+    const token = ++routeLoadToken;
+
+    if (path === '/') {
+      RoutePage = null;
+      return;
+    }
+
+    const loader = pageLoaders[path];
+
+    if (!loader) {
+      RoutePage = null;
+      return;
+    }
+
+    RoutePage = null;
+
+    try {
+      const module = await loader();
+
+      if (token === routeLoadToken) {
+        RoutePage = module.default;
+      }
+    } catch (error) {
+      console.error(`Could not load route: ${path}`, error);
+
+      if (token === routeLoadToken) {
+        RoutePage = null;
+      }
+    }
+  }
+
 
   function normalizePath(path) {
     const clean = (path || '/').split('#')[0].split('?')[0];
@@ -86,6 +125,7 @@
 
     if (typeof window === 'undefined') {
       currentPath = nextPath;
+      await loadRoutePage(nextPath);
       return;
     }
 
@@ -100,6 +140,7 @@
 
     currentPath = nextPath;
 
+    await loadRoutePage(nextPath);
     await svelteTick();
 
     requestAnimationFrame(() => {
@@ -629,6 +670,7 @@
 
   onMount(() => {
     unlockPageScroll();
+    loadRoutePage(currentPath);
 
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
@@ -646,8 +688,9 @@
       });
     }
 
-    const handlePopState = () => {
+    const handlePopState = async () => {
       currentPath = normalizePath(window.location.pathname);
+      await loadRoutePage(currentPath);
       requestAnimationFrame(() => scrollToRouteHero(currentPath, 'auto'));
     };
 
@@ -749,7 +792,7 @@
 </svelte:head>
 
 
-<main class="site-shell" class:about-route={currentPath === '/about'} class:careers-route={currentPath === '/careers'} class:games-route={currentPath === '/games'} class:legal-route={currentPath === '/legal'}>
+<main class="site-shell" class:about-route={currentPath === '/about'} class:careers-route={currentPath === '/careers'} class:games-route={currentPath === '/games'} class:legal-route={currentPath === '/legal'} class:work-with-us-route={currentPath === '/work-with-us'}>
   <Navbar activePath={currentPath} onNavigate={handleNavbarNavigate} />
 
   {#if currentPath === '/'}
@@ -758,10 +801,10 @@
     <div class="soft-columns"></div>
   {/if}
 
-  {#if currentPath === '/careers'}
-    <CareersPage />
-  {:else if currentPath === '/games'}
-    <GamesPage />
+  {#if currentPath === '/careers' || currentPath === '/games' || currentPath === '/work-with-us'}
+    {#if RoutePage}
+      <svelte:component this={RoutePage} />
+    {/if}
   {:else}
     <section class="hero-section" class:empty-route-section={currentPath !== '/'}>
       {#if currentPath === '/'}
@@ -822,10 +865,10 @@
           </article>
         {/each}
       </div>
-      {:else if currentPath === '/about'}
-      <AboutPage />
-      {:else if currentPath === '/legal'}
-      <LegalPage onNavigate={handleNavbarNavigate} />
+      {:else if currentPath === '/about' && RoutePage}
+        <svelte:component this={RoutePage} />
+      {:else if currentPath === '/legal' && RoutePage}
+        <svelte:component this={RoutePage} onNavigate={handleNavbarNavigate} />
       {/if}
     </section>
   {/if}
@@ -1085,8 +1128,8 @@
   </section>
   {/if}
 
-  {#if currentPath === '/' || currentPath === '/about' || currentPath === '/games' || currentPath === '/careers' || currentPath === '/legal'}
-    {#if currentPath !== '/legal'}
+  {#if currentPath === '/' || currentPath === '/about' || currentPath === '/games' || currentPath === '/careers' || currentPath === '/legal' || currentPath === '/work-with-us'}
+    {#if currentPath !== '/legal' && currentPath !== '/work-with-us'}
       <WorkWithUsForm initialTab={currentPath === '/careers' ? 'Careers' : 'Game'} />
     {/if}
     <Footer onNavigate={handleNavbarNavigate} />

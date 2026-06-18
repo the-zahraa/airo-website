@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte';
   export let initialTab = 'Game';
 
   const tabs = ['Game', 'UGC', 'Careers'];
@@ -34,8 +35,65 @@
   $: messagePlaceholder = selectedTab === 'Careers'
     ? 'Tell us about your skills, experience, portfolio, and what role you want...'
     : 'Tell us a bit about your game, audience, and goals...';
+
+
+  let contactStickerEl;
+  let contactStickerAnimation;
+
+  async function loadContactSticker() {
+    if (!contactStickerEl) return;
+
+    try {
+      const module = await import('lottie-web');
+      const lottie = module.default || module;
+      const path = '/stickers/contact.tgs';
+      const baseOptions = {
+        container: contactStickerEl,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        rendererSettings: {
+          preserveAspectRatio: 'xMidYMid meet',
+          progressiveLoad: true
+        }
+      };
+
+      if (typeof DecompressionStream !== 'undefined') {
+        try {
+          const response = await fetch(path, { cache: 'force-cache' });
+          const buffer = await response.arrayBuffer();
+          const stream = new Blob([buffer]).stream().pipeThrough(new DecompressionStream('gzip'));
+          const animationData = await new Response(stream).json();
+
+          contactStickerAnimation = lottie.loadAnimation({
+            ...baseOptions,
+            animationData
+          });
+          return;
+        } catch (error) {
+          // Fall back to a JSON export with the same filename when the browser cannot decode .tgs.
+        }
+      }
+
+      contactStickerAnimation = lottie.loadAnimation({
+        ...baseOptions,
+        path: path.replace(/\.tgs$/i, '.json')
+      });
+    } catch (error) {
+      // Keep the page responsive even if the sticker asset is missing or delayed.
+    }
+  }
+
+  onMount(() => {
+    loadContactSticker();
+
+    return () => {
+      contactStickerAnimation?.destroy?.();
+    };
+  });
 </script>
 
+<main class="work-with-us-page">
 <section id="work-with-us" class="work-form-section" aria-labelledby="work-form-title">
   <div class="work-form-lighting" aria-hidden="true">
     <svg class="work-footer-light" viewBox="-265 585.549 1970 1011.291" fill="none" preserveAspectRatio="none">
@@ -99,6 +157,8 @@
       <span class="corner corner-bl"></span>
       <span class="corner corner-br"></span>
     </div>
+
+    <div class="contact-sticker" bind:this={contactStickerEl} aria-label="Contact sticker animation"></div>
 
     <h2 id="work-form-title">Want to work with Airo?</h2>
     <p>Tell us what you’re building, selling, or applying for.<br class="desktop-break" /> We’ll review it and reach out if there’s a strong fit.</p>
@@ -189,8 +249,23 @@
     </div>
   </form>
 </section>
+</main>
 
 <style>
+  .work-with-us-page {
+    min-height: 100vh;
+    padding-top: clamp(120px, 10vw, 154px);
+    padding-bottom: clamp(30px, 4vw, 60px);
+    background: #030006;
+    overflow-x: clip;
+  }
+
+  @supports not (overflow: clip) {
+    .work-with-us-page {
+      overflow-x: hidden;
+    }
+  }
+
   .work-form-section {
     position: relative;
     z-index: 5;
@@ -198,13 +273,14 @@
     margin: clamp(30px, 4.2vw, 54px) auto clamp(76px, 7.2vw, 112px);
     color: #fff;
     scroll-margin-top: 118px;
+    --contact-sticker-light-offset: calc(clamp(207px, 21.6vw, 306px) + clamp(2px, .35vw, 6px) + clamp(14px, 1.55vw, 20px));
   }
 
   .work-form-lighting {
     position: absolute;
     z-index: 1;
     left: 50%;
-    top: clamp(190px, 18vw, 252px);
+    top: calc(clamp(190px, 18vw, 252px) + var(--contact-sticker-light-offset));
     width: min(1970px, 136vw);
     aspect-ratio: 1970 / 1011.291;
     transform: translateX(-50%);
@@ -270,6 +346,20 @@
 
   .section-kicker strong {
     font: inherit;
+  }
+
+  .contact-sticker {
+    width: clamp(207px, 21.6vw, 306px);
+    height: clamp(207px, 21.6vw, 306px);
+    margin: clamp(2px, .35vw, 6px) auto clamp(14px, 1.55vw, 20px);
+    pointer-events: none;
+    filter: drop-shadow(0 28px 42px rgba(0,0,0,.62));
+  }
+
+  .contact-sticker :global(svg) {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   .work-form-heading h2 {
@@ -666,7 +756,7 @@
     }
 
     .work-form-lighting {
-      top: 230px;
+      top: calc(230px + var(--contact-sticker-light-offset));
       width: 158vw;
     }
 
@@ -707,7 +797,7 @@
     }
 
     .work-form-lighting {
-      top: 245px;
+      top: calc(245px + var(--contact-sticker-light-offset));
       width: 190vw;
       opacity: .9;
     }

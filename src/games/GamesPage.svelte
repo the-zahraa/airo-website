@@ -644,4 +644,36 @@
       display: none;
     }
   }
+
+
+  @media (max-width: 640px) {
+    .games-page {
+      background: linear-gradient(180deg, rgba(6, 1, 11, .18) 0%, rgba(3, 0, 6, .46) 38%, rgba(3, 0, 6, .76) 100%);
+    }
+
+    .games-light {
+      display: none;
+    }
+
+    .games-sort button,
+    .games-sort button:hover,
+    .games-sort button:focus,
+    .games-sort button:focus-visible,
+    .games-sort button:active,
+    .games-sort button.active {
+      background: transparent !important;
+      box-shadow: none !important;
+      outline: none !important;
+      transform: none !important;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .games-sort button {
+      color: rgba(255,255,255,.42) !important;
+    }
+
+    .games-sort button.active {
+      color: #fff !important;
+    }
+  }
 </style>

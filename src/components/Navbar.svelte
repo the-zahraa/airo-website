@@ -63,30 +63,8 @@
   }
 
 
-  function scrollToWorkForm() {
-    const target = document.getElementById('work-with-us');
-    if (!target) return;
-
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
   function goToWorkForm(event) {
-    event.preventDefault();
-    clearNavTimer();
-    pendingPath = null;
-    drawingPath = null;
-    closeMenu();
-    showNavbar();
-
-    const current = normalizePath(activePath || visualPath);
-
-    if (current === '/' || current === '/about' || current === '/games' || current === '/careers' || current === '/legal') {
-      scrollToWorkForm();
-      return;
-    }
-
-    onNavigate('/');
-    setTimeout(scrollToWorkForm, 90);
+    goToPage(event, '/work-with-us');
   }
 
   function goToPage(event, path) {
@@ -258,7 +236,7 @@
       {/each}
     </div>
 
-    <a class="airo-contact" href="#work-with-us" aria-label="Contact us" onclick={goToWorkForm}>
+    <a class="airo-contact" href="/work-with-us" aria-label="Contact us" onclick={goToWorkForm}>
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path class="arrow-main" pathLength="100" d="M20.3 3.7L3.7 20.3" />
         <path class="arrow-head" pathLength="100" d="M3.7 20.3H17.2" />
@@ -269,7 +247,7 @@
   </nav>
 
   <div class="airo-mobile-actions">
-    <a class="airo-contact airo-contact-mobile" href="#work-with-us" aria-label="Contact us" onclick={goToWorkForm}>
+    <a class="airo-contact airo-contact-mobile" href="/work-with-us" aria-label="Contact us" onclick={goToWorkForm}>
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path class="arrow-main" pathLength="100" d="M20.3 3.7L3.7 20.3" />
         <path class="arrow-head" pathLength="100" d="M3.7 20.3H17.2" />
@@ -305,7 +283,7 @@
         {/each}
       </div>
 
-      <a class="airo-contact airo-contact-menu" href="#work-with-us" aria-label="Contact us" onclick={goToWorkForm}>
+      <a class="airo-contact airo-contact-menu" href="/work-with-us" aria-label="Contact us" onclick={goToWorkForm}>
         <span>Contact us</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path class="arrow-main" pathLength="100" d="M20.3 3.7L3.7 20.3" />
