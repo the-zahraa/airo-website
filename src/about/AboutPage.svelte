@@ -24,6 +24,13 @@
     '/top-hits/A8.avif'
   ];
 
+  const mobileHeroCards = [
+    { label: '01', title: 'Gameplay Quality', copy: 'Stronger loops, cleaner sessions, better play.' },
+    { label: '02', title: 'High Engagement', copy: 'Keep players active with sharper progression.' },
+    { label: '03', title: 'Long Retention', copy: 'Improve the reasons players come back.' },
+    { label: '04', title: 'Proven Brand', copy: 'Build a game identity that scales.' }
+  ];
+
   const updateMax = 75;
   let updateProgress = 0;
   let chartProgress = 0;
@@ -75,9 +82,22 @@
     return response.text();
   }
 
-  async function loadInlineSvgAssets() {
+  async function loadRowOneSvgAsset() {
+    try {
+      rowOneSvg = await fetchInlineSvg(rowOneSvgUrl);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  let desktopHeroLoaded = false;
+  let isDesktopHero = true;
+
+  async function loadDesktopHeroAssets() {
+    if (desktopHeroLoaded) return;
+    desktopHeroLoaded = true;
+
     const results = await Promise.allSettled([
-      fetchInlineSvg(rowOneSvgUrl),
       fetchInlineSvg(heroGameplayCardUrl),
       fetchInlineSvg(heroNeerUrl),
       fetchInlineSvg(heroHighEngagementNeerUrl),
@@ -101,22 +121,36 @@
       }
     };
 
-    assignSvg(0, (value) => { rowOneSvg = value; });
-    assignSvg(1, (value) => { heroGameplayCardSvg = value; });
-    assignSvg(2, (value) => { heroNeerSvg = value; });
-    assignSvg(3, (value) => { heroHighEngagementNeerSvg = value; });
-    assignSvg(4, (value) => { heroLongRetentionNeerSvg = value; });
-    assignSvg(5, (value) => { heroProvenBrandNeerSvg = value; });
-    assignSvg(6, (value) => { heroThirdShadowCardSvg = value; });
-    assignSvg(7, (value) => { heroFirstShadowCardSvg = value; });
-    assignSvg(8, (value) => { heroHighEngagementCardSvg = value; });
-    assignSvg(9, (value) => { heroLongRetentionCardSvg = value; });
-    assignSvg(10, (value) => { heroProvenBrandCardSvg = value; });
-    assignSvg(11, (value) => { heroRestCardsSvg = value; });
+    assignSvg(0, (value) => { heroGameplayCardSvg = value; });
+    assignSvg(1, (value) => { heroNeerSvg = value; });
+    assignSvg(2, (value) => { heroHighEngagementNeerSvg = value; });
+    assignSvg(3, (value) => { heroLongRetentionNeerSvg = value; });
+    assignSvg(4, (value) => { heroProvenBrandNeerSvg = value; });
+    assignSvg(5, (value) => { heroThirdShadowCardSvg = value; });
+    assignSvg(6, (value) => { heroFirstShadowCardSvg = value; });
+    assignSvg(7, (value) => { heroHighEngagementCardSvg = value; });
+    assignSvg(8, (value) => { heroLongRetentionCardSvg = value; });
+    assignSvg(9, (value) => { heroProvenBrandCardSvg = value; });
+    assignSvg(10, (value) => { heroRestCardsSvg = value; });
   }
 
   onMount(() => {
-    loadInlineSvgAssets();
+    loadRowOneSvgAsset();
+
+    const mobileHeroQuery = window.matchMedia('(max-width: 680px)');
+    const syncHeroMode = () => {
+      isDesktopHero = !mobileHeroQuery.matches;
+      if (isDesktopHero) loadDesktopHeroAssets();
+    };
+
+    syncHeroMode();
+
+    if (mobileHeroQuery.addEventListener) {
+      mobileHeroQuery.addEventListener('change', syncHeroMode);
+    } else {
+      mobileHeroQuery.addListener(syncHeroMode);
+    }
+
     let frame;
     const cycle = 5600;
 
@@ -132,7 +166,14 @@
     };
 
     frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(frame);
+      if (mobileHeroQuery.removeEventListener) {
+        mobileHeroQuery.removeEventListener('change', syncHeroMode);
+      } else {
+        mobileHeroQuery.removeListener(syncHeroMode);
+      }
+    };
   });
 
   let rowOneSvg = '';
@@ -175,36 +216,50 @@
       <h1>Shaping the<br />Future of play</h1>
     </div>
     <div class="hero-art hero-composition" aria-label="Airo strategy cards and engagement system">
-      <div class="hero-rest-cards-svg" aria-hidden="true">
-        <div class="hero-rest-cards-base">
-          {@html heroRestCardsSvg}
+      {#if isDesktopHero}
+        <div class="hero-rest-cards-svg" aria-hidden="true">
+          <div class="hero-rest-cards-base">
+            {@html heroRestCardsSvg}
+          </div>
+          <div class="hero-shadow-near-first-card-svg">
+            {@html heroFirstShadowCardSvg}
+          </div>
+          <div class="hero-shadow-near-third-card-svg">
+            {@html heroThirdShadowCardSvg}
+          </div>
+          <div class="hero-high-engagement-card-svg">
+            <div class="hero-high-engagement-neer">{@html heroHighEngagementNeerSvg}</div>
+            {@html heroHighEngagementCardSvg}
+          </div>
+          <div class="hero-long-retention-card-svg">
+            <div class="hero-long-retention-neer">{@html heroLongRetentionNeerSvg}</div>
+            {@html heroLongRetentionCardSvg}
+          </div>
+          <div class="hero-proven-brand-card-svg">
+            <div class="hero-proven-brand-neer">{@html heroProvenBrandNeerSvg}</div>
+            {@html heroProvenBrandCardSvg}
+          </div>
         </div>
-        <div class="hero-shadow-near-first-card-svg">
-          {@html heroFirstShadowCardSvg}
+        <div class="hero-first-card-wrap" aria-hidden="true">
+          <div class="hero-first-card-neer">{@html heroNeerSvg}</div>
+          <div class="hero-first-card-neer-right">{@html heroNeerSvg}</div>
+          <div class="hero-gameplay-svg-card">
+            {@html heroGameplayCardSvg}
+          </div>
         </div>
-        <div class="hero-shadow-near-third-card-svg">
-          {@html heroThirdShadowCardSvg}
+      {:else}
+        <div class="hero-mobile-straight-cards" aria-hidden="true">
+          {#each mobileHeroCards as card}
+            <article class="hero-mobile-straight-card">
+              <span>{card.label}</span>
+              <div>
+                <h3>{card.title}</h3>
+                <p>{card.copy}</p>
+              </div>
+            </article>
+          {/each}
         </div>
-        <div class="hero-high-engagement-card-svg">
-          <div class="hero-high-engagement-neer">{@html heroHighEngagementNeerSvg}</div>
-          {@html heroHighEngagementCardSvg}
-        </div>
-        <div class="hero-long-retention-card-svg">
-          <div class="hero-long-retention-neer">{@html heroLongRetentionNeerSvg}</div>
-          {@html heroLongRetentionCardSvg}
-        </div>
-        <div class="hero-proven-brand-card-svg">
-          <div class="hero-proven-brand-neer">{@html heroProvenBrandNeerSvg}</div>
-          {@html heroProvenBrandCardSvg}
-        </div>
-      </div>
-      <div class="hero-first-card-wrap" aria-hidden="true">
-        <div class="hero-first-card-neer">{@html heroNeerSvg}</div>
-        <div class="hero-first-card-neer-right">{@html heroNeerSvg}</div>
-        <div class="hero-gameplay-svg-card">
-          {@html heroGameplayCardSvg}
-        </div>
-      </div>
+      {/if}
     </div>
   </section>
 
@@ -466,6 +521,10 @@
   .hero-composition {
     overflow: visible;
     pointer-events: none;
+  }
+
+  .hero-mobile-straight-cards {
+    display: none;
   }
 
   .hero-first-card-wrap {
@@ -3064,6 +3123,114 @@
       display: block;
       max-width: 100%;
       white-space: normal !important;
+    }
+  }
+
+
+  /* mobile hero performance + straight-card replacement */
+  @media (max-width: 680px) {
+    .about-hero {
+      min-height: auto !important;
+      padding-bottom: clamp(42px, 12vw, 70px);
+    }
+
+    .hero-art {
+      width: 100% !important;
+      height: auto !important;
+      margin: clamp(26px, 7vw, 40px) auto 0 !important;
+      filter: none !important;
+      transform: none !important;
+      animation: none !important;
+    }
+
+    .hero-mobile-straight-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(14px, 3.8vw, 18px);
+      width: min(360px, 92vw);
+      margin: 0 auto;
+      pointer-events: none;
+    }
+
+    .hero-mobile-straight-card {
+      position: relative;
+      min-height: clamp(132px, 38vw, 164px);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(18px, 5vw, 24px);
+      border-radius: clamp(24px, 7vw, 34px);
+      border: 1px solid rgba(202, 158, 255, .28);
+      background:
+        radial-gradient(120% 100% at 18% 0%, rgba(188, 139, 255, .26), transparent 48%),
+        linear-gradient(140deg, rgba(115, 0, 255, .76), rgba(31, 12, 57, .92) 48%, rgba(5, 2, 11, .98));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.18),
+        inset 0 -18px 34px rgba(0,0,0,.30),
+        0 18px 42px rgba(0,0,0,.36);
+      transform: none !important;
+      rotate: 0deg !important;
+    }
+
+    .hero-mobile-straight-card:nth-child(2) {
+      background:
+        radial-gradient(120% 100% at 18% 0%, rgba(213, 184, 255, .22), transparent 50%),
+        linear-gradient(140deg, rgba(92, 37, 190, .82), rgba(22, 12, 39, .94) 52%, rgba(5, 2, 11, .98));
+    }
+
+    .hero-mobile-straight-card:nth-child(3) {
+      background:
+        radial-gradient(120% 100% at 18% 0%, rgba(157, 225, 255, .14), transparent 50%),
+        linear-gradient(140deg, rgba(69, 40, 150, .82), rgba(19, 12, 34, .94) 52%, rgba(5, 2, 11, .98));
+    }
+
+    .hero-mobile-straight-card:nth-child(4) {
+      background:
+        radial-gradient(120% 100% at 18% 0%, rgba(216, 255, 134, .12), transparent 50%),
+        linear-gradient(140deg, rgba(115, 0, 255, .68), rgba(24, 12, 44, .95) 52%, rgba(5, 2, 11, .98));
+    }
+
+    .hero-mobile-straight-card span {
+      width: fit-content;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: rgba(255,255,255,.72);
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -.03em;
+    }
+
+    .hero-mobile-straight-card h3 {
+      margin: 0 0 8px;
+      color: #fff;
+      font-size: clamp(22px, 6.4vw, 30px);
+      line-height: .98;
+      letter-spacing: -.06em;
+      font-weight: 900;
+    }
+
+    .hero-mobile-straight-card p {
+      margin: 0;
+      max-width: 250px;
+      color: rgba(255,255,255,.68);
+      font-size: clamp(13px, 3.45vw, 15px);
+      line-height: 1.25;
+      letter-spacing: -.025em;
+      font-weight: 600;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .hero-mobile-straight-cards {
+      width: min(332px, 91vw);
+    }
+
+    .hero-mobile-straight-card {
+      min-height: 128px;
     }
   }
 

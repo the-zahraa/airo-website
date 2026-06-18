@@ -502,7 +502,18 @@
 
     .footer-light-stage {
       inset: 0;
-      transform: none;
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .footer-light,
+    .footer-ellipse {
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
     .footer-ellipse-2 {
@@ -569,6 +580,11 @@
 
     .footer-light {
       background: transparent;
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      will-change: transform, opacity;
     }
 
     .footer-light::before {
@@ -581,7 +597,11 @@
 
     .footer-light-stage {
       inset: 0;
-      transform: none;
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      will-change: transform, opacity;
     }
 
     .footer-ellipse-2 {
@@ -591,6 +611,9 @@
       bottom: -560px;
       filter: blur(250px);
       opacity: 1;
+      transform: translate3d(0, 0, 0) rotate(-90deg);
+      -webkit-transform: translate3d(0, 0, 0) rotate(-90deg);
+      will-change: transform, filter, opacity;
     }
 
     .footer-ellipse-3 {
@@ -600,6 +623,9 @@
       bottom: -545px;
       filter: blur(124px);
       opacity: 1;
+      transform: translate3d(0, 0, 0) rotate(-90deg);
+      -webkit-transform: translate3d(0, 0, 0) rotate(-90deg);
+      will-change: transform, filter, opacity;
     }
 
     .footer-ellipse-4 {
@@ -609,6 +635,9 @@
       bottom: -420px;
       filter: blur(72px);
       opacity: 1;
+      transform: translate3d(0, 0, 0) rotate(-90deg);
+      -webkit-transform: translate3d(0, 0, 0) rotate(-90deg);
+      will-change: transform, filter, opacity;
     }
 
     .footer-vector-dots {
@@ -623,7 +652,7 @@
     .footer-brand p {
       width: min(330px, 92vw);
       margin-top: 18px;
-      font-size: 13px;
+      font-size: 17px;
       line-height: 1.78;
     }
 
@@ -634,7 +663,7 @@
 
     .detail-row {
       gap: 10px;
-      font-size: 11px;
+      font-size: 15px;
       line-height: 1.5;
     }
 
@@ -656,12 +685,12 @@
 
     .footer-column h2 {
       margin-bottom: 12px;
-      font-size: 12px;
+      font-size: 17px;
       line-height: 1.2;
     }
 
     .footer-column a {
-      font-size: 10px;
+      font-size: 15px;
       line-height: 2.05;
     }
 
@@ -670,7 +699,7 @@
       padding-top: 14px;
       border-top-width: 1px;
       gap: 16px;
-      font-size: 10px;
+      font-size: 14px;
       font-weight: 500;
     }
 
@@ -695,15 +724,15 @@
     }
 
     .footer-column h2 {
-      font-size: 10px;
+      font-size: 15px;
     }
 
     .footer-column a {
-      font-size: 8px;
+      font-size: 13px;
     }
 
     .footer-bottom {
-      font-size: 8px;
+      font-size: 13px;
     }
   }
 </style>

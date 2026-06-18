@@ -767,14 +767,14 @@
       {#if currentPath === '/'}
       <div class="hero-copy">
         <h1>Play Create Innovate</h1>
-        <p>Pumped is an exclusive acquisition studio embracing Creativity and innovation amongst young developers and creators.</p>
+        <p>Airo is an exclusive acquisition studio embracing Creativity and innovation amongst young developers and creators.</p>
         <button type="button" class="video-btn" on:click={scrollToStory}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path class="arrow-main" pathLength="100" d="M20.3 3.7L3.7 20.3" />
             <path class="arrow-head" pathLength="100" d="M3.7 20.3H17.2" />
             <path class="arrow-head" pathLength="100" d="M3.7 20.3V6.8" />
           </svg>
-          <span>Go to video</span>
+          <span>Watch reel</span>
         </button>
       </div>
 
