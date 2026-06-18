@@ -1170,6 +1170,17 @@
       margin-top: 8px;
       gap: 3px;
     }
+
+    .airo-mobile-info .airo-mobile-info-row,
+    .airo-mobile-info .airo-mobile-info-link {
+      margin-left: 0;
+      padding-left: 0;
+      transform: none;
+    }
+
+    .airo-mobile-info .airo-mobile-info-link {
+      padding: 0;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
