@@ -25,6 +25,43 @@
     return pagePaths.has(normalized) ? normalized : '/';
   }
 
+  function routeRecoveryKey(path) {
+    return `airo-route-recovery:${path}`;
+  }
+
+  function isRecoverableRouteLoadError(error) {
+    const message = String(error?.message || error || '');
+
+    return /Failed to fetch dynamically imported module|Importing a module script failed|error loading dynamically imported module|Loading chunk|ChunkLoadError|Load failed|NetworkError/i.test(message);
+  }
+
+  function recoverRouteLoad(path, error) {
+    if (typeof window === 'undefined' || !isRecoverableRouteLoadError(error)) return false;
+
+    try {
+      const key = routeRecoveryKey(path);
+
+      if (window.sessionStorage.getItem(key) === '1') return false;
+
+      window.sessionStorage.setItem(key, '1');
+      window.location.reload();
+      return true;
+    } catch (storageError) {
+      window.location.reload();
+      return true;
+    }
+  }
+
+  function clearRouteRecovery(path) {
+    if (typeof window === 'undefined') return;
+
+    try {
+      window.sessionStorage.removeItem(routeRecoveryKey(path));
+    } catch (error) {
+      // Session storage can be blocked in some browsers. It is only used for one safe reload guard.
+    }
+  }
+
   function prefersReducedMotion() {
     return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
@@ -38,7 +75,8 @@
     document.body.style.overflowY = '';
     document.body.style.position = '';
     document.body.style.top = '';
-    document.body.classList.remove('no-scroll', 'scroll-locked', 'is-locked', 'menu-open', 'modal-open');
+    document.body.classList.remove('no-scroll', 'scroll-locked', 'is-locked', 'menu-open', 'modal-open', 'airo-mobile-menu-locked');
+    document.documentElement.classList.remove('airo-mobile-menu-locked');
   }
 
   function getRouteHeroTop(path) {
@@ -90,9 +128,12 @@
       if (token === routeLoadToken) {
         RoutePage = module.default;
         routeReady = true;
+        clearRouteRecovery(path);
       }
     } catch (error) {
       console.error(`Could not load route: ${path}`, error);
+
+      if (recoverRouteLoad(path, error)) return;
 
       if (token === routeLoadToken) {
         RoutePage = null;
@@ -132,23 +173,25 @@
 
   onMount(() => {
     unlockPageScroll();
-    loadRoutePage(currentPath);
 
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
 
-    if (currentPath === '/') {
-      const initialHash = window.location.hash;
+    const initialPath = currentPath;
+    const initialHash = window.location.hash;
+
+    loadRoutePage(currentPath).then(async () => {
+      await svelteTick();
 
       requestAnimationFrame(() => {
-        if (initialHash) {
+        if (initialPath === '/' && initialHash) {
           window.history.replaceState({}, '', '/');
         }
 
-        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        scrollToRouteHero(initialPath, 'auto');
       });
-    }
+    });
 
     const handlePopState = async () => {
       const nextPath = normalizePath(window.location.pathname);
