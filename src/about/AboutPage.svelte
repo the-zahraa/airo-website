@@ -189,6 +189,40 @@
     }
   }
 
+  function aboutReveal(node, options = 0) {
+    if (typeof window === 'undefined') return {};
+
+    const settings = typeof options === 'number' ? { delay: options } : options || {};
+    const delay = Number(settings.delay || 0);
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    node.style.setProperty('--about-reveal-delay', `${delay}ms`);
+    node.classList.add('about-scroll-reveal');
+
+    if (reduce) {
+      node.classList.add('about-visible');
+      return {};
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          node.classList.add('about-visible');
+          observer.unobserve(node);
+        }
+      },
+      { threshold: 0.16, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    observer.observe(node);
+
+    return {
+      destroy() {
+        observer.disconnect();
+      }
+    };
+  }
+
   onMount(() => {
     let frame;
     let mobileHeroCardsRaf;
@@ -5596,7 +5630,7 @@
     {/if}
   </section>
 
-  <section class="about-copy-section reveal-block">
+  <section class="about-copy-section reveal-block" use:aboutReveal>
     <div class="section-kicker small" aria-label="What we do">
       <span class="corner corner-tl"></span>
       <span class="corner corner-tr"></span>
@@ -5610,7 +5644,7 @@
 
   <section class="about-features" aria-label="Airo services">
     {#each featureRows as feature, index}
-      <article class="feature-row reveal-block" style={`--delay:${index * 140}ms`}>
+      <article class="feature-row reveal-block" style={`--delay:${index * 140}ms`} use:aboutReveal={index * 110}>
         <div class="feature-copy">
           <h3>{displayFeatureTitle(feature.title)}</h3>
           <p>{feature.copy}</p>
@@ -5678,7 +5712,7 @@
     {/each}
   </section>
 
-  <section class="team-section reveal-block">
+  <section class="team-section reveal-block" use:aboutReveal>
     <div class="section-kicker small" aria-label="Our Team">
       <span class="corner corner-tl"></span>
       <span class="corner corner-tr"></span>
@@ -5691,7 +5725,7 @@
 
     <div class="team-grid">
       {#each team as member, index}
-        <article class={`team-card ${member.tone}`} style={`--delay:${index * 90}ms`}>
+        <article class={`team-card ${member.tone}`} style={`--delay:${index * 90}ms`} use:aboutReveal={index * 95}>
           <span>{member.badge}</span>
           <h3>{member.name}</h3>
           <strong>{member.role}</strong>
@@ -5701,7 +5735,7 @@
     </div>
   </section>
 
-  <section class="about-cta reveal-block">
+  <section class="about-cta reveal-block" use:aboutReveal>
     <div class="cta-copy">
       <h2><span class="cta-title-keep">Build the next viral experience</span> with us</h2>
       <p>We’re always looking to amplify creators and partners.</p>
@@ -6850,8 +6884,21 @@
   .cta-tile-7 { left: 47%; top: 51%; background: rgba(169,87,255,.24); opacity: .72; }
 
   .reveal-block {
-    animation: revealUp .8s both;
-    animation-delay: var(--delay,0ms);
+    animation: none;
+  }
+
+  :global(.about-scroll-reveal) {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    transition:
+      opacity .68s ease var(--about-reveal-delay, 0ms),
+      transform .68s cubic-bezier(.19, 1, .22, 1) var(--about-reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  :global(.about-scroll-reveal.about-visible) {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 
   @keyframes teamSideGlow {
@@ -7066,6 +7113,13 @@
       animation-duration: .001ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: .001ms !important;
+    }
+
+    :global(.about-scroll-reveal) {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+      will-change: auto !important;
     }
   }
 

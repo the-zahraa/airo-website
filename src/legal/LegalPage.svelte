@@ -965,6 +965,24 @@
   }
 
   @media (max-width: 860px) {
+    :global(.site-shell.legal-route .airo-footer) {
+      margin-top: -96px;
+      padding-top: calc(100px + 78px);
+      background: linear-gradient(to bottom,
+        rgba(3, 0, 6, 0) 0px,
+        rgba(3, 0, 6, .18) 24px,
+        rgba(3, 0, 6, .66) 70px,
+        #030006 120px,
+        #030006 100%);
+    }
+
+    :global(.site-shell.legal-route .airo-footer::before) {
+      top: calc(-1 * var(--footer-top-bleed) - 74px);
+      height: calc(100% + var(--footer-top-bleed) + 74px);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0px, rgba(0,0,0,.22) 28px, rgba(0,0,0,.76) 74px, #000 124px, #000 100%);
+      mask-image: linear-gradient(to bottom, transparent 0px, rgba(0,0,0,.22) 28px, rgba(0,0,0,.76) 74px, #000 124px, #000 100%);
+    }
+
     .legal-page {
       padding-top: 88px;
     }
@@ -1041,20 +1059,32 @@
       width: 100%;
       max-width: none;
       margin: 0;
-      padding-bottom: 128px;
+      padding-bottom: 180px;
       text-align: left;
     }
   }
 
   @media (max-width: 700px) {
     :global(.site-shell.legal-route .airo-footer) {
-      margin-top: -64px;
-      padding-top: calc(82px + 46px);
+      margin-top: -108px;
+      padding-top: calc(108px + 78px);
+      background: linear-gradient(to bottom,
+        rgba(3, 0, 6, 0) 0px,
+        rgba(3, 0, 6, .2) 22px,
+        rgba(3, 0, 6, .72) 72px,
+        #030006 122px,
+        #030006 100%);
     }
 
     :global(.site-shell.legal-route .airo-footer::before) {
-      top: calc(-1 * var(--footer-top-bleed) - 46px);
-      height: calc(100% + var(--footer-top-bleed) + 46px);
+      top: calc(-1 * var(--footer-top-bleed) - 84px);
+      height: calc(100% + var(--footer-top-bleed) + 84px);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0px, rgba(0,0,0,.18) 24px, rgba(0,0,0,.74) 78px, #000 132px, #000 100%);
+      mask-image: linear-gradient(to bottom, transparent 0px, rgba(0,0,0,.18) 24px, rgba(0,0,0,.74) 78px, #000 132px, #000 100%);
+    }
+
+    .legal-content {
+      padding-bottom: 208px;
     }
   }
 
