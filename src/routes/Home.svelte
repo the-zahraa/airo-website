@@ -851,7 +851,7 @@
 
 <section class="hero-section">
   <div class="hero-copy">
-    <h1>Your Game Could Be Next</h1>
+    <h1 class="hero-main-title"><span class="hero-title-line hero-title-line-one">Your Game</span> <span class="hero-title-line hero-title-line-two">Could Be Next</span></h1>
     <p>Airo backs Roblox games others overlook, helping them reach more players, stronger revenue,<br/>and real momentum.</p>
     <button type="button" class="video-btn" on:click={scrollToStory}>
       <span
@@ -1161,3 +1161,52 @@
     </a>
   </article>
 </section>
+
+<style>
+  .reel-lottie-icon {
+    width: 28px !important;
+    height: 28px !important;
+    transform: scale(1.28) !important;
+  }
+
+  .stat-lottie-icon {
+    width: 62px !important;
+    height: 62px !important;
+    transform: scale(1.26) !important;
+  }
+
+  @media (max-width: 560px) {
+    .hero-main-title .hero-title-line {
+      display: block;
+      white-space: nowrap;
+      font-size: 1em;
+      line-height: .98;
+    }
+
+    .hero-main-title .hero-title-line-two {
+      margin-top: 2px;
+    }
+
+    .reel-lottie-icon {
+      width: 34px !important;
+      height: 34px !important;
+      transform: scale(1.36) !important;
+    }
+
+    .stat-lottie-icon {
+      width: 68px !important;
+      height: 68px !important;
+      transform: scale(1.34) !important;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .growth-card,
+    .growth-card.is-visible {
+      transform: translateY(0) scale(1) !important;
+      animation: none !important;
+      filter: none !important;
+    }
+  }
+
+</style>
