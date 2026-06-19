@@ -54,26 +54,6 @@
     return mobileHeroStickerModulePromise;
   }
 
-  async function readMobileHeroTgs(path) {
-    const response = await fetch(path, { cache: 'force-cache' });
-    if (!response.ok) throw new Error(`Unable to load sticker: ${path}`);
-
-    const buffer = await response.arrayBuffer();
-    const bytes = new Uint8Array(buffer);
-    const isGzip = bytes[0] === 0x1f && bytes[1] === 0x8b;
-
-    if (isGzip) {
-      if (typeof DecompressionStream === 'undefined') {
-        throw new Error('TGS gzip decompression is not available in this browser.');
-      }
-
-      const stream = new Blob([buffer]).stream().pipeThrough(new DecompressionStream('gzip'));
-      return new Response(stream).json();
-    }
-
-    return JSON.parse(new TextDecoder().decode(buffer));
-  }
-
   function mobileHeroSticker(node, path) {
     let animation;
     let destroyed = false;
@@ -82,7 +62,6 @@
     async function load(nextPath) {
       const currentVersion = ++version;
       node.innerHTML = '';
-      node.dataset.stickerState = 'loading';
 
       try {
         animation?.destroy?.();
@@ -107,29 +86,32 @@
           }
         };
 
-        if (/\.tgs$/i.test(nextPath)) {
+        if (/\.tgs$/i.test(nextPath) && typeof DecompressionStream !== 'undefined') {
           try {
-            const animationData = await readMobileHeroTgs(nextPath);
+            const response = await fetch(nextPath, { cache: 'force-cache' });
+            const buffer = await response.arrayBuffer();
+            const stream = new Blob([buffer]).stream().pipeThrough(new DecompressionStream('gzip'));
+            const animationData = await new Response(stream).json();
+
             if (destroyed || currentVersion !== version || !node.isConnected) return;
 
             animation = lottie.loadAnimation({
               ...options,
               animationData
             });
-            node.dataset.stickerState = 'ready';
             return;
           } catch (error) {
-            if (destroyed || currentVersion !== version || !node.isConnected) return;
+            // Fall through to JSON fallback.
           }
         }
+
+        if (destroyed || currentVersion !== version || !node.isConnected) return;
 
         animation = lottie.loadAnimation({
           ...options,
           path: nextPath.replace(/\.tgs$/i, '.json')
         });
-        node.dataset.stickerState = 'ready';
       } catch (error) {
-        node.dataset.stickerState = 'error';
         node.innerHTML = '';
       }
     }
@@ -152,7 +134,6 @@
         }
         animation = null;
         node.innerHTML = '';
-        delete node.dataset.stickerState;
       }
     };
   }
@@ -5601,7 +5582,7 @@
                           class:hot={chartIndex === chartItems.length - 1}
                           style={`height:${Math.max(4, item.height * barProgress(chartIndex, chartProgress))}px`}
                         ></i>
-                        <label>{item.label}</label>
+                        <span class="chart-label">{item.label}</span>
                       </div>
                     {/each}
                   </div>
@@ -6366,21 +6347,6 @@
     overflow: visible;
   }
 
-  .update-bottom button i {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #fff;
-    opacity: 0;
-    animation: updatePop 5.6s ease-in-out infinite;
-  }
-
-  .update-bottom button i:nth-child(1) { transform: translate(18px,-20px); animation-delay: .12s; }
-  .update-bottom button i:nth-child(2) { transform: translate(30px,2px); animation-delay: .22s; }
-  .update-bottom button i:nth-child(3) { transform: translate(12px,18px); animation-delay: .32s; }
 
   .chart-widget { width: min(450px, 96%); animation-name: visualDriftThree; }
 
@@ -6514,7 +6480,7 @@
     transition: none;
   }
 
-  .chart-column label {
+  .chart-column .chart-label {
     display: none;
     position: absolute;
     left: 50%;
@@ -7361,9 +7327,6 @@
     box-shadow: inset 0 0 0 1px rgba(202,158,255,.12), 0 8px 24px rgba(0,0,0,.22);
   }
 
-  .update-bottom button i {
-    display: none !important;
-  }
 
   .chart-card::before,
   .chart-column i.hot {
@@ -8404,7 +8367,7 @@
   }
 
 
-  /* cleaned final pass: mobile hero cards, team pills, mobile CTA, and first-row icon plates */
+  /* requested final pass: mobile hero cards, team job-title pill, and mobile-only home CTA card */
   .mobile-hero-card-stack,
   .about-mobile-launch-card {
     display: none;
@@ -8416,12 +8379,11 @@
 
   .team-card span {
     order: 2;
-    align-self: flex-start !important;
-    justify-self: start !important;
+    align-self: flex-start;
+    justify-self: start;
     justify-content: flex-start !important;
     width: fit-content !important;
     min-width: 0 !important;
-    max-width: 100% !important;
     min-height: clamp(20px, 1.45vw, 23px) !important;
     padding: 0 clamp(15px, 1.1vw, 20px) !important;
     margin: clamp(9px, .85vw, 13px) 0 0 !important;
@@ -8440,76 +8402,34 @@
   }
 
   @media (min-width: 901px) {
-    .team-card {
-      display: grid !important;
-      grid-template-rows: 1fr clamp(44px, 3.5vw, 58px) clamp(22px, 1.6vw, 26px) clamp(92px, 6.7vw, 114px) !important;
-      align-content: end !important;
-      justify-content: stretch !important;
-    }
-
     .team-card h3 {
       order: 1 !important;
-      display: flex !important;
-      align-items: flex-end !important;
-      align-self: end !important;
+      display: block !important;
       height: auto !important;
       min-height: 0 !important;
-      margin: 0 0 clamp(5px, .45vw, 8px) !important;
+      margin: 0 !important;
     }
 
     .team-card span {
       order: 2 !important;
       align-self: start !important;
       justify-self: start !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: flex-start !important;
-      margin: 0 !important;
-      text-align: left !important;
+      margin: clamp(10px, .95vw, 14px) 0 0 !important;
     }
 
     .team-card p {
       order: 3 !important;
-      align-self: start !important;
       height: auto !important;
       min-height: 0 !important;
-      margin: clamp(14px, 1vw, 18px) 0 0 !important;
+      margin: clamp(15px, 1.22vw, 20px) 0 0 !important;
       overflow: visible !important;
     }
   }
 
   @media (max-width: 680px) {
-    .about-page,
-    .about-hero,
-    .about-copy-section {
-      background: #030006 !important;
-    }
-
-    .about-page::after {
-      content: none !important;
-      display: none !important;
-      background: none !important;
-    }
-
     .about-hero {
       min-height: auto !important;
       padding-bottom: clamp(34px, 8vw, 52px) !important;
-      overflow: hidden !important;
-    }
-
-    .about-hero::before {
-      content: '' !important;
-      position: absolute !important;
-      inset: 0 !important;
-      z-index: 0 !important;
-      display: block !important;
-      background: #030006 !important;
-      pointer-events: none !important;
-    }
-
-    .about-hero > * {
-      position: relative;
-      z-index: 2;
     }
 
     .hero-art {
@@ -8517,173 +8437,73 @@
     }
 
     .mobile-hero-card-stack {
-      position: relative !important;
-      z-index: 3 !important;
-      display: grid !important;
-      grid-template-columns: 1fr !important;
-      gap: 16px !important;
-      width: min(302px, 78vw) !important;
-      margin: clamp(30px, 7vw, 42px) auto 0 !important;
-      perspective: 900px;
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      width: min(336px, 86vw);
+      margin: clamp(28px, 7vw, 40px) auto 0;
     }
 
     .mobile-hero-card {
-      position: relative !important;
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: flex-end !important;
-      align-items: flex-start !important;
-      width: 100% !important;
-      min-height: 0 !important;
-      aspect-ratio: 1 / 1 !important;
-      padding: 24px 24px 25px !important;
-      border-radius: clamp(31px, 10vw, 43px) !important;
-      overflow: hidden !important;
-      isolation: isolate !important;
-      text-align: left !important;
-      opacity: 0;
-      transform: translate3d(0, 22px, 0) scale(.965) !important;
-      rotate: 0deg !important;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: clamp(92px, 25vw, 112px);
+      padding: 18px 22px;
+      border-radius: 26px;
+      overflow: hidden;
+      isolation: isolate;
       background:
-        radial-gradient(97% 97% at 50% 3%, rgba(115,0,255,.62) 0%, rgba(202,158,255,.28) 100%),
-        linear-gradient(141deg, rgba(115,0,255,.58) 14%, rgba(115,0,255,.46) 94%) !important;
-      border: 1.35px solid rgba(219,190,255,.46) !important;
-      box-shadow:
-        inset 0 -12px 18px rgba(0,0,0,.58),
-        inset 0 0 22px 3px rgba(216,255,134,.13),
-        0 20px 48px rgba(0,0,0,.42) !important;
-      will-change: transform, opacity, filter;
-      filter: blur(8px);
-      transition:
-        opacity .76s cubic-bezier(.19, 1, .22, 1),
-        transform .76s cubic-bezier(.19, 1, .22, 1),
-        filter .76s cubic-bezier(.19, 1, .22, 1);
-      transition-delay: 0s;
-    }
-
-    .mobile-hero-card-stack.is-ready .mobile-hero-card {
-      opacity: 1;
-      transform: translate3d(0, 0, 0) scale(1) !important;
-      filter: blur(0);
-    }
-
-    .mobile-hero-card-stack.is-ready .mobile-hero-card:nth-child(1) { transition-delay: .06s; }
-    .mobile-hero-card-stack.is-ready .mobile-hero-card:nth-child(2) { transition-delay: .18s; }
-    .mobile-hero-card-stack.is-ready .mobile-hero-card:nth-child(3) { transition-delay: .30s; }
-    .mobile-hero-card-stack.is-ready .mobile-hero-card:nth-child(4) { transition-delay: .42s; }
-
-    .mobile-hero-card-one,
-    .mobile-hero-card-two,
-    .mobile-hero-card-three,
-    .mobile-hero-card-four {
-      background:
-        radial-gradient(97% 97% at 50% 3%, rgba(115,0,255,.62) 0%, rgba(202,158,255,.28) 100%),
-        linear-gradient(141deg, rgba(115,0,255,.58) 14%, rgba(115,0,255,.46) 94%) !important;
-      border-color: rgba(219,190,255,.46) !important;
-      box-shadow:
-        inset 0 -12px 18px rgba(0,0,0,.58),
-        inset 0 0 22px 3px rgba(216,255,134,.13),
-        0 20px 48px rgba(0,0,0,.42) !important;
+        radial-gradient(circle at 8% 20%, rgba(255,255,255,.12), transparent 28%),
+        linear-gradient(180deg, rgba(23, 15, 36, .98), rgba(8, 5, 12, .98));
+      border: 1px solid rgba(221, 200, 255, .24);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 16px 38px rgba(0,0,0,.36);
+      transform: none !important;
     }
 
     .mobile-hero-card::before {
-      content: '' !important;
-      position: absolute !important;
-      inset: 12px !important;
-      z-index: 1 !important;
-      width: auto !important;
-      height: auto !important;
-      border-radius: clamp(22px, 7.5vw, 31px) !important;
-      border: 1px solid rgba(255,255,255,.13) !important;
-      background: repeating-linear-gradient(125deg, rgba(255,255,255,.11) 0 1px, transparent 1px 11px) !important;
-      box-shadow: inset 0 0 0 1px rgba(115,0,255,.20) !important;
-      opacity: .24 !important;
-      transform: none !important;
-      pointer-events: none !important;
+      content: '';
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, transparent, rgba(115,0,255,.95), transparent);
+      box-shadow: 0 0 18px rgba(115,0,255,.45);
     }
 
-    .mobile-hero-card::after {
-      content: '' !important;
-      position: absolute !important;
-      inset: 0 !important;
-      z-index: 1 !important;
-      border: 0 !important;
-      border-radius: 0 !important;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(252,255,224,.30), transparent 17%),
-        linear-gradient(180deg, rgba(255,255,255,.13), transparent 38%) !important;
-      box-shadow: none !important;
-      opacity: 1 !important;
-      pointer-events: none !important;
-    }
-
-    .mobile-hero-card > * {
-      position: relative !important;
-      z-index: 2 !important;
+    .mobile-hero-card-one::before,
+    .mobile-hero-card-three::before {
+      background: linear-gradient(180deg, transparent, rgba(255,174,0,.95), transparent);
+      box-shadow: 0 0 18px rgba(255,174,0,.35);
     }
 
     .mobile-hero-card span {
-      position: absolute !important;
-      top: 24px !important;
-      left: 24px !important;
-      color: rgba(255,255,255,.56) !important;
-      font-size: 12px !important;
-      line-height: 1 !important;
-      letter-spacing: .16em !important;
-      font-weight: 900 !important;
+      color: rgba(255,255,255,.46);
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: .12em;
     }
 
     .mobile-hero-card strong {
-      width: min(210px, 100%) !important;
-      max-width: 210px !important;
-      margin: 0 !important;
-      color: #fff !important;
-      font-size: clamp(23px, 7.15vw, 31px) !important;
-      line-height: .98 !important;
-      letter-spacing: -.055em !important;
-      font-weight: 900 !important;
+      margin-top: 8px;
+      color: #fff;
+      font-size: clamp(18px, 5.2vw, 23px);
+      line-height: 1.08;
+      letter-spacing: -.025em;
+      font-weight: 800;
     }
 
     .mobile-hero-card small {
-      max-width: 225px !important;
-      margin-top: 11px !important;
-      color: rgba(255,255,255,.72) !important;
-      font-size: clamp(12px, 3.55vw, 14px) !important;
-      line-height: 1.2 !important;
-      font-weight: 650 !important;
-      letter-spacing: -.01em !important;
-    }
-
-    .mobile-hero-card .mobile-hero-sticker {
-      position: absolute !important;
-      top: clamp(18px, 5.5vw, 24px) !important;
-      right: clamp(18px, 5.5vw, 24px) !important;
-      z-index: 4 !important;
-      display: block !important;
-      width: clamp(58px, 19vw, 82px) !important;
-      height: clamp(58px, 19vw, 82px) !important;
-      min-width: clamp(58px, 19vw, 82px) !important;
-      min-height: clamp(58px, 19vw, 82px) !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      line-height: 0 !important;
-      pointer-events: none !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      filter: drop-shadow(0 12px 24px rgba(0,0,0,.28));
-    }
-
-    .mobile-hero-sticker :global(div),
-    .mobile-hero-sticker :global(svg),
-    .mobile-hero-sticker :global(canvas) {
-      display: block !important;
-      width: 100% !important;
-      height: 100% !important;
-      max-width: none !important;
-      max-height: none !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      overflow: visible !important;
+      margin-top: 7px;
+      color: rgba(255,255,255,.66);
+      font-size: clamp(11px, 3.15vw, 13px);
+      line-height: 1.2;
+      font-weight: 600;
+      letter-spacing: .02em;
     }
 
     .about-copy-section {
@@ -8701,12 +8521,8 @@
 
     .team-card span {
       order: 2 !important;
-      display: inline-flex !important;
       align-self: flex-start !important;
-      justify-self: start !important;
-      width: fit-content !important;
-      min-width: 0 !important;
-      max-width: 100% !important;
+      min-width: clamp(154px, 54vw, 216px) !important;
       min-height: clamp(19px, 5vw, 23px) !important;
       padding: 0 clamp(16px, 4.8vw, 22px) !important;
       margin: 12px 0 0 !important;
@@ -8756,20 +8572,37 @@
       overflow: hidden;
       isolation: isolate;
       text-align: center;
-      background: #7300FF !important;
-      background-image: none !important;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.18),
-        0 18px 52px rgba(115,0,255,.24) !important;
+      background:
+        radial-gradient(circle at 8% 50%, rgba(126,0,255,.92), transparent 34%),
+        linear-gradient(100deg, #8300ff 0%, #8b19ee 46%, #8e3be2 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.17), 0 18px 52px rgba(115,0,255,.2);
     }
 
-    .about-mobile-launch-card::before,
+    .about-mobile-launch-card::before {
+      content: '';
+      position: absolute;
+      inset: -20% -4% -20% 35%;
+      z-index: 0;
+      background:
+        linear-gradient(108deg, transparent 0 10%, rgba(55,0,104,.28) 11% 24%, rgba(255,255,255,.07) 25% 26%, transparent 27% 39%, rgba(55,0,104,.23) 40% 55%, rgba(255,255,255,.07) 56% 57%, transparent 58% 100%);
+      transform: skewX(-12deg);
+      opacity: .88;
+      pointer-events: none;
+    }
+
     .about-mobile-launch-card::after {
-      content: none !important;
-      display: none !important;
-      background: none !important;
-      border: 0 !important;
-      box-shadow: none !important;
+      content: '';
+      position: absolute;
+      right: 6%;
+      top: 12%;
+      z-index: 0;
+      width: 34%;
+      height: 82%;
+      border-radius: 22px;
+      border: 2px solid rgba(255,255,255,.1);
+      transform: rotate(-8deg);
+      opacity: .45;
+      pointer-events: none;
     }
 
     .about-mobile-launch-card > * {
@@ -8860,6 +8693,595 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
+  }
+
+  @media (max-width: 390px) {
+    .mobile-hero-card-stack {
+      width: min(306px, 84vw);
+      gap: 12px;
+    }
+
+    .mobile-hero-card {
+      min-height: 88px;
+      padding: 16px 19px;
+      border-radius: 23px;
+    }
+
+    .about-mobile-launch-card {
+      min-height: 210px;
+      padding: 22px 20px 66px;
+      border-radius: 30px;
+    }
+
+    .about-mobile-launch-card > div {
+      min-height: 128px;
+    }
+
+    .about-mobile-launch-card h3 {
+      font-size: clamp(23px, 7vw, 30px);
+    }
+
+    .about-mobile-launch-card p {
+      font-size: clamp(11px, 3.35vw, 13px);
+    }
+
+    .about-mobile-launch-action,
+    .about-mobile-launch-action:hover,
+    .about-mobile-launch-action:focus,
+    .about-mobile-launch-action:active {
+      min-width: 124px;
+      height: 42px;
+      bottom: 17px;
+      font-size: 13px;
+    }
+  }
+
+
+  /* final correction: requested CTA, mobile hero cards, and desktop team text alignment only */
+  @media (min-width: 901px) {
+    .team-card {
+      display: grid !important;
+      grid-template-rows: 1fr clamp(44px, 3.5vw, 58px) clamp(22px, 1.6vw, 26px) clamp(92px, 6.7vw, 114px) !important;
+      align-content: end !important;
+      justify-content: stretch !important;
+    }
+
+    .team-card h3 {
+      order: 1 !important;
+      display: flex !important;
+      align-items: flex-end !important;
+      align-self: end !important;
+      height: auto !important;
+      min-height: 0 !important;
+      margin: 0 0 clamp(5px, .45vw, 8px) !important;
+    }
+
+    .team-card span {
+      order: 2 !important;
+      align-self: start !important;
+      justify-self: start !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      margin: 0 !important;
+      text-align: left !important;
+    }
+
+    .team-card p {
+      order: 3 !important;
+      align-self: start !important;
+      height: auto !important;
+      min-height: 0 !important;
+      margin: clamp(14px, 1vw, 18px) 0 0 !important;
+      overflow: visible !important;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .about-hero {
+      background: #030006 !important;
+      overflow: hidden !important;
+    }
+
+    .about-hero::before {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 0 !important;
+      display: block !important;
+      background: #030006 !important;
+      pointer-events: none !important;
+    }
+
+    .about-hero > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .mobile-hero-card-stack {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 14px !important;
+      width: min(342px, 86vw) !important;
+      margin: clamp(30px, 7vw, 42px) auto 0 !important;
+    }
+
+    .mobile-hero-card {
+      position: relative !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      min-height: clamp(106px, 29vw, 124px) !important;
+      padding: 18px 22px !important;
+      border-radius: 30px !important;
+      overflow: hidden !important;
+      isolation: isolate !important;
+      transform: none !important;
+      rotate: 0deg !important;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(202,158,255,.22), transparent 38%),
+        radial-gradient(circle at 10% 15%, rgba(255,255,255,.12), transparent 28%),
+        linear-gradient(135deg, rgba(115,0,255,.78) 0%, rgba(72,0,158,.78) 42%, rgba(18,11,30,.98) 100%) !important;
+      border: 1.4px solid rgba(219,190,255,.42) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.16),
+        inset 0 -28px 54px rgba(0,0,0,.24),
+        0 16px 38px rgba(0,0,0,.34) !important;
+    }
+
+    .mobile-hero-card::before {
+      content: '' !important;
+      position: absolute !important;
+      inset: 10px !important;
+      width: auto !important;
+      border-radius: 23px !important;
+      background: none !important;
+      border: 1px solid rgba(255,255,255,.12) !important;
+      box-shadow: inset 0 0 0 1px rgba(115,0,255,.22) !important;
+      pointer-events: none !important;
+    }
+
+    .mobile-hero-card::after {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 0 !important;
+      background: linear-gradient(118deg, transparent 0 30%, rgba(255,255,255,.08) 31% 32%, transparent 33% 100%) !important;
+      pointer-events: none !important;
+    }
+
+    .mobile-hero-card-one,
+    .mobile-hero-card-three {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,248,228,.18), transparent 38%),
+        radial-gradient(circle at 10% 15%, rgba(255,255,255,.11), transparent 28%),
+        linear-gradient(135deg, rgba(255,174,0,.68) 0%, rgba(130,83,0,.72) 40%, rgba(18,12,5,.98) 100%) !important;
+      border-color: rgba(255,210,119,.40) !important;
+    }
+
+    .mobile-hero-card > * {
+      position: relative !important;
+      z-index: 2 !important;
+    }
+
+    .mobile-hero-card span {
+      color: rgba(255,255,255,.54) !important;
+      font-size: 11px !important;
+      line-height: 1 !important;
+      font-weight: 800 !important;
+      letter-spacing: .14em !important;
+    }
+
+    .mobile-hero-card strong {
+      margin-top: 8px !important;
+      color: #fff !important;
+      font-size: clamp(19px, 5.25vw, 24px) !important;
+      line-height: 1.05 !important;
+      letter-spacing: -.035em !important;
+      font-weight: 900 !important;
+    }
+
+    .mobile-hero-card small {
+      margin-top: 7px !important;
+      color: rgba(255,255,255,.72) !important;
+      font-size: clamp(11px, 3.15vw, 13px) !important;
+      line-height: 1.2 !important;
+      font-weight: 600 !important;
+    }
+
+    .about-mobile-launch-card {
+      background: #7300FF !important;
+      background-image: none !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.18),
+        0 18px 52px rgba(115,0,255,.24) !important;
+    }
+
+    .about-mobile-launch-card::before,
+    .about-mobile-launch-card::after {
+      content: none !important;
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .mobile-hero-card-stack {
+      width: min(314px, 84vw) !important;
+      gap: 12px !important;
+    }
+
+    .mobile-hero-card {
+      min-height: 100px !important;
+      padding: 16px 19px !important;
+      border-radius: 27px !important;
+    }
+  }
+
+
+  /* final requested mobile hero cards + black mobile background only */
+  @media (max-width: 680px) {
+    .about-page {
+      background: #030006 !important;
+    }
+
+    .about-page::after {
+      content: none !important;
+      display: none !important;
+      background: none !important;
+    }
+
+    .about-hero,
+    .about-copy-section {
+      background: #030006 !important;
+    }
+
+    .about-hero::before {
+      background: #030006 !important;
+    }
+
+    .mobile-hero-card-stack {
+      gap: 14px !important;
+      margin: clamp(30px, 7vw, 42px) auto 0 !important;
+      perspective: 900px;
+    }
+
+    .mobile-hero-card {
+      justify-content: flex-end !important;
+      align-items: flex-start !important;
+      text-align: left !important;
+      min-height: clamp(124px, 33vw, 148px) !important;
+      padding: 46px 22px 20px !important;
+      border-radius: 31px !important;
+      opacity: 0;
+      transform: translate3d(0, 22px, 0) scale(.965) !important;
+      rotate: 0deg !important;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(235,214,255,.26), transparent 34%),
+        radial-gradient(circle at 12% 12%, rgba(255,255,255,.14), transparent 27%),
+        linear-gradient(141.33deg, rgba(115,0,255,.88) 13.73%, rgba(126,35,255,.82) 54%, rgba(35,13,68,.98) 100%) !important;
+      border: 1.45px solid rgba(219,190,255,.46) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.17),
+        inset 0 -16px 28px rgba(0,0,0,.32),
+        0 16px 38px rgba(0,0,0,.35) !important;
+      will-change: transform, opacity, filter;
+      filter: blur(8px);
+      transition:
+        opacity .76s cubic-bezier(.19, 1, .22, 1),
+        transform .76s cubic-bezier(.19, 1, .22, 1),
+        filter .76s cubic-bezier(.19, 1, .22, 1);
+      transition-delay: 0s;
+    }
+
+    .mobile-hero-card-stack.is-ready .mobile-hero-card {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1) !important;
+      filter: blur(0);
+    }
+
+    .mobile-hero-card-stack.is-ready .mobile-hero-card:nth-child(1) { transition-delay: .06s; }
+    .mobile-hero-card-stack.is-ready .mobile-hero-card:nth-child(2) { transition-delay: .18s; }
+    .mobile-hero-card-stack.is-ready .mobile-hero-card:nth-child(3) { transition-delay: .30s; }
+    .mobile-hero-card-stack.is-ready .mobile-hero-card:nth-child(4) { transition-delay: .42s; }
+
+    .mobile-hero-card-one,
+    .mobile-hero-card-three {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(235,214,255,.26), transparent 34%),
+        radial-gradient(circle at 12% 12%, rgba(255,255,255,.14), transparent 27%),
+        linear-gradient(141.33deg, rgba(115,0,255,.88) 13.73%, rgba(126,35,255,.82) 54%, rgba(35,13,68,.98) 100%) !important;
+      border-color: rgba(219,190,255,.46) !important;
+    }
+
+    .mobile-hero-card::before {
+      content: '' !important;
+      position: absolute !important;
+      left: 50% !important;
+      top: -34px !important;
+      z-index: 1 !important;
+      width: 154px !important;
+      height: 70px !important;
+      border: 0 !important;
+      border-radius: 0 0 999px 999px !important;
+      background: rgba(232,214,255,.94) !important;
+      box-shadow: 0 10px 26px rgba(255,255,255,.10) !important;
+      transform: translateX(-50%) !important;
+      pointer-events: none !important;
+    }
+
+    .mobile-hero-card::after {
+      content: '' !important;
+      position: absolute !important;
+      inset: 10px !important;
+      z-index: 1 !important;
+      border-radius: 24px !important;
+      border: 1px solid rgba(255,255,255,.13) !important;
+      background:
+        linear-gradient(118deg, transparent 0 30%, rgba(255,255,255,.075) 31% 32%, transparent 33% 100%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,.052) 0 1px, transparent 1px 6px) !important;
+      box-shadow: inset 0 0 0 1px rgba(115,0,255,.24) !important;
+      opacity: .82;
+      pointer-events: none !important;
+    }
+
+    .mobile-hero-card span {
+      color: rgba(255,255,255,.58) !important;
+    }
+
+    .mobile-hero-card strong {
+      max-width: 270px;
+      font-size: clamp(20px, 5.35vw, 25px) !important;
+      line-height: 1.03 !important;
+      letter-spacing: -.04em !important;
+    }
+
+    .mobile-hero-card small {
+      max-width: 286px;
+      color: rgba(255,255,255,.76) !important;
+      font-size: clamp(11px, 3.12vw, 13px) !important;
+      line-height: 1.27 !important;
+      letter-spacing: -.005em !important;
+    }
+  }
+
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-hero-card,
+    .mobile-hero-card-stack.is-ready .mobile-hero-card {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      filter: none !important;
+    }
+  }
+
+
+
+  /* final correction: use the purple square mobile card style from the sent version only */
+  @media (max-width: 680px) {
+    .mobile-hero-card-stack {
+      width: min(302px, 78vw) !important;
+      gap: 16px !important;
+      margin: clamp(30px, 7vw, 42px) auto 0 !important;
+      perspective: 900px;
+    }
+
+    .mobile-hero-card {
+      aspect-ratio: 1 / 1 !important;
+      min-height: 0 !important;
+      width: 100% !important;
+      padding: 24px 24px 25px !important;
+      justify-content: flex-end !important;
+      align-items: flex-start !important;
+      text-align: left !important;
+      border-radius: clamp(31px, 10vw, 43px) !important;
+      overflow: hidden !important;
+      isolation: isolate !important;
+      opacity: 0;
+      transform: translate3d(0, 22px, 0) scale(.965) !important;
+      rotate: 0deg !important;
+      background:
+        radial-gradient(97% 97% at 50% 3%, rgba(115,0,255,.62) 0%, rgba(202,158,255,.28) 100%),
+        linear-gradient(141deg, rgba(115,0,255,.58) 14%, rgba(115,0,255,.46) 94%) !important;
+      border: 1.35px solid rgba(219,190,255,.46) !important;
+      box-shadow:
+        inset 0 -12px 18px rgba(0,0,0,.58),
+        inset 0 0 22px 3px rgba(216,255,134,.13),
+        0 20px 48px rgba(0,0,0,.42) !important;
+      will-change: transform, opacity, filter;
+      filter: blur(8px);
+      transition:
+        opacity .76s cubic-bezier(.19, 1, .22, 1),
+        transform .76s cubic-bezier(.19, 1, .22, 1),
+        filter .76s cubic-bezier(.19, 1, .22, 1);
+      transition-delay: 0s;
+    }
+
+    .mobile-hero-card-stack.is-ready .mobile-hero-card {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1) !important;
+      filter: blur(0);
+    }
+
+    .mobile-hero-card-stack.is-ready .mobile-hero-card:nth-child(1) { transition-delay: .06s; }
+    .mobile-hero-card-stack.is-ready .mobile-hero-card:nth-child(2) { transition-delay: .18s; }
+    .mobile-hero-card-stack.is-ready .mobile-hero-card:nth-child(3) { transition-delay: .30s; }
+    .mobile-hero-card-stack.is-ready .mobile-hero-card:nth-child(4) { transition-delay: .42s; }
+
+    .mobile-hero-card-one,
+    .mobile-hero-card-two,
+    .mobile-hero-card-three,
+    .mobile-hero-card-four {
+      background:
+        radial-gradient(97% 97% at 50% 3%, rgba(115,0,255,.62) 0%, rgba(202,158,255,.28) 100%),
+        linear-gradient(141deg, rgba(115,0,255,.58) 14%, rgba(115,0,255,.46) 94%) !important;
+      border-color: rgba(219,190,255,.46) !important;
+      box-shadow:
+        inset 0 -12px 18px rgba(0,0,0,.58),
+        inset 0 0 22px 3px rgba(216,255,134,.13),
+        0 20px 48px rgba(0,0,0,.42) !important;
+    }
+
+    .mobile-hero-card::before {
+      content: '' !important;
+      position: absolute !important;
+      inset: 12px !important;
+      left: 12px !important;
+      top: 12px !important;
+      z-index: 1 !important;
+      width: auto !important;
+      height: auto !important;
+      border-radius: clamp(22px, 7.5vw, 31px) !important;
+      border: 1px solid rgba(255,255,255,.13) !important;
+      background:
+        repeating-linear-gradient(125deg, rgba(255,255,255,.11) 0 1px, transparent 1px 11px) !important;
+      box-shadow: inset 0 0 0 1px rgba(115,0,255,.20) !important;
+      opacity: .24 !important;
+      transform: none !important;
+      pointer-events: none !important;
+    }
+
+    .mobile-hero-card::after {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 1 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(252,255,224,.30), transparent 17%),
+        linear-gradient(180deg, rgba(255,255,255,.13), transparent 38%) !important;
+      box-shadow: none !important;
+      opacity: 1 !important;
+      pointer-events: none !important;
+    }
+
+    .mobile-hero-card > * {
+      position: relative !important;
+      z-index: 2 !important;
+    }
+
+    .mobile-hero-card span {
+      position: absolute !important;
+      top: 24px !important;
+      left: 24px !important;
+      color: rgba(255,255,255,.56) !important;
+      font-size: 12px !important;
+      line-height: 1 !important;
+      letter-spacing: .16em !important;
+      font-weight: 900 !important;
+    }
+
+    .mobile-hero-card strong {
+      width: min(210px, 100%) !important;
+      max-width: 210px !important;
+      margin: 0 !important;
+      color: #fff !important;
+      font-size: clamp(23px, 7.15vw, 31px) !important;
+      line-height: .98 !important;
+      letter-spacing: -.055em !important;
+      font-weight: 900 !important;
+    }
+
+    .mobile-hero-card small {
+      max-width: 225px !important;
+      margin-top: 11px !important;
+      color: rgba(255,255,255,.72) !important;
+      font-size: clamp(12px, 3.55vw, 14px) !important;
+      line-height: 1.2 !important;
+      font-weight: 650 !important;
+      letter-spacing: -.01em !important;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .mobile-hero-card-stack {
+      width: min(286px, 76vw) !important;
+      gap: 14px !important;
+    }
+
+    .mobile-hero-card {
+      min-height: 0 !important;
+      padding: 22px !important;
+      border-radius: 34px !important;
+    }
+  }
+
+
+  /* final tiny fix: mobile first-row stray circle only */
+  @media (max-width: 680px) {
+    .about-features .feature-row:first-child .feature-visual,
+    .about-features .feature-row:first-child .svg-shell {
+      overflow: hidden !important;
+    }
+
+    .about-features .feature-row:first-child .svg-shell :global(svg) {
+      overflow: hidden !important;
+    }
+  }
+
+  /* final correction: keep team pill alignment only, and make mobile CTA solid with the desktop CTA copy */
+  .team-card span {
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+
+  @media (max-width: 680px) {
+    .about-mobile-launch-card {
+      background: #7300FF !important;
+      background-image: none !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.18),
+        0 18px 52px rgba(115,0,255,.24) !important;
+    }
+
+    .about-mobile-launch-card::before,
+    .about-mobile-launch-card::after {
+      content: none !important;
+      display: none !important;
+      background: none !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+  }
+
+
+  /* final tiny fix: reduce team job-title pill length on smaller screens only */
+  @media (max-width: 680px) {
+    .team-card span {
+      width: fit-content !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+      display: inline-flex !important;
+      align-self: flex-start !important;
+      justify-self: start !important;
+    }
+  }
+
+
+  /* final focused patch: mobile hero .tgs stickers + phone first-row icon plates */
+  @media (max-width: 680px) {
+    .mobile-hero-sticker {
+      position: absolute !important;
+      top: clamp(18px, 5.5vw, 24px) !important;
+      right: clamp(18px, 5.5vw, 24px) !important;
+      z-index: 3 !important;
+      display: block !important;
+      width: clamp(58px, 19vw, 82px) !important;
+      height: clamp(58px, 19vw, 82px) !important;
+      line-height: 0 !important;
+      pointer-events: none !important;
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,.28));
+    }
+
+    .mobile-hero-sticker :global(div),
+    .mobile-hero-sticker :global(svg),
+    .mobile-hero-sticker :global(canvas) {
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+      overflow: visible !important;
+    }
 
     .about-features .feature-row:first-child .feature-visual,
     .about-features .feature-row:first-child .svg-shell {
@@ -8895,60 +9317,9 @@
   }
 
   @media (max-width: 390px) {
-    .mobile-hero-card-stack {
-      width: min(286px, 76vw) !important;
-      gap: 14px !important;
-    }
-
-    .mobile-hero-card {
-      min-height: 0 !important;
-      padding: 22px !important;
-      border-radius: 34px !important;
-    }
-
-    .mobile-hero-card .mobile-hero-sticker {
+    .mobile-hero-sticker {
       width: clamp(52px, 18vw, 64px) !important;
       height: clamp(52px, 18vw, 64px) !important;
-      min-width: clamp(52px, 18vw, 64px) !important;
-      min-height: clamp(52px, 18vw, 64px) !important;
-    }
-
-    .about-mobile-launch-card {
-      min-height: 210px;
-      padding: 22px 20px 66px;
-      border-radius: 30px;
-    }
-
-    .about-mobile-launch-card > div {
-      min-height: 128px;
-    }
-
-    .about-mobile-launch-card h3 {
-      font-size: clamp(23px, 7vw, 30px);
-    }
-
-    .about-mobile-launch-card p {
-      font-size: clamp(11px, 3.35vw, 13px);
-    }
-
-    .about-mobile-launch-action,
-    .about-mobile-launch-action:hover,
-    .about-mobile-launch-action:focus,
-    .about-mobile-launch-action:active {
-      min-width: 124px;
-      height: 42px;
-      bottom: 17px;
-      font-size: 13px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .mobile-hero-card,
-    .mobile-hero-card-stack.is-ready .mobile-hero-card {
-      opacity: 1 !important;
-      transform: none !important;
-      animation: none !important;
-      filter: none !important;
     }
   }
 
