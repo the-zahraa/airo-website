@@ -921,7 +921,8 @@
 </script>
 
 <svelte:head>
-  <link rel="preload" as="image" href="/hero.png?v=2" fetchpriority="high" type="image/png" />
+  <link rel="preload" as="image" href="/hero-mobile.webp?v=3" fetchpriority="high" type="image/webp" media="(max-width: 560px)" />
+  <link rel="preload" as="image" href="/hero.webp?v=3" fetchpriority="high" type="image/webp" media="(min-width: 561px)" />
   <link rel="prefetch" href="/stickers/stats.tgs" as="fetch" crossorigin="anonymous" />
   <link rel="prefetch" href="/stickers/panther-award.json" as="fetch" crossorigin="anonymous" />
   <link rel="prefetch" href="/stickers/wr.tgs" as="fetch" crossorigin="anonymous" />
@@ -931,16 +932,19 @@
   <link rel="prefetch" href="/stickers/pu.tgs" as="fetch" crossorigin="anonymous" />
 </svelte:head>
 
-<img
-  class="home-hero-bg-art"
-  src="/hero.png?v=2"
-  alt=""
-  aria-hidden="true"
-  loading="eager"
-  fetchpriority="high"
-  decoding="async"
-  draggable="false"
-/>
+<picture aria-hidden="true">
+  <source media="(max-width: 560px)" srcset="/hero-mobile.webp?v=3" type="image/webp" />
+  <source srcset="/hero.webp?v=3" type="image/webp" />
+  <img
+    class="home-hero-bg-art"
+    src="/hero.webp?v=3"
+    alt=""
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+    draggable="false"
+  />
+</picture>
 
 <div class="dot-field dot-field-main"></div>
 <div class="dot-field dot-field-lower"></div>

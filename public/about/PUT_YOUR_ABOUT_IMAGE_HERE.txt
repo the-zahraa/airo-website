@@ -1,3 +1,0 @@
-Put your exported Figma background here and name it exactly: about.png
-Path must be: public/about/about.png
-Do not rename header.svg.
