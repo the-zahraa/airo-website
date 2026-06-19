@@ -18,109 +18,6 @@
   let chartProgress = 0;
   let mobileHeroCardsReady = false;
 
-
-  let lottieModulePromise;
-
-  function getLottieModule() {
-    if (!lottieModulePromise) {
-      lottieModulePromise = import('lottie-web').then((module) => module.default || module);
-    }
-
-    return lottieModulePromise;
-  }
-
-  function lottieSticker(node, path) {
-    let animation;
-    let destroyed = false;
-    let loadId = 0;
-
-    async function load(nextPath) {
-      if (!node || !nextPath) return;
-
-      loadId += 1;
-      const currentLoadId = loadId;
-
-      try {
-        animation?.destroy?.();
-      } catch (error) {
-        // Ignore cleanup issues from route changes.
-      }
-
-      animation = null;
-      node.innerHTML = '';
-
-      const mount = document.createElement('span');
-      mount.className = 'mobile-hero-card-sticker-mount';
-      node.appendChild(mount);
-
-      try {
-        const lottie = await getLottieModule();
-        if (destroyed || currentLoadId !== loadId || !node.isConnected) return;
-
-        const baseOptions = {
-          container: mount,
-          renderer: 'svg',
-          loop: true,
-          autoplay: true,
-          rendererSettings: {
-            preserveAspectRatio: 'xMidYMid meet',
-            progressiveLoad: false
-          }
-        };
-
-        if (/\.tgs$/i.test(nextPath) && typeof DecompressionStream !== 'undefined') {
-          try {
-            const response = await fetch(nextPath, { cache: 'force-cache' });
-            const buffer = await response.arrayBuffer();
-            const stream = new Blob([buffer]).stream().pipeThrough(new DecompressionStream('gzip'));
-            const animationData = await new Response(stream).json();
-
-            if (destroyed || currentLoadId !== loadId || !node.isConnected) return;
-
-            animation = lottie.loadAnimation({
-              ...baseOptions,
-              animationData
-            });
-            return;
-          } catch (error) {
-            // Fall back to a JSON export with the same name if the browser cannot decode .tgs.
-          }
-        }
-
-        if (destroyed || currentLoadId !== loadId || !node.isConnected) return;
-
-        animation = lottie.loadAnimation({
-          ...baseOptions,
-          path: nextPath.replace(/\.tgs$/i, '.json')
-        });
-      } catch (error) {
-        node.innerHTML = '';
-      }
-    }
-
-    load(path);
-
-    return {
-      update(nextPath) {
-        if (nextPath !== path) {
-          path = nextPath;
-          load(path);
-        }
-      },
-      destroy() {
-        destroyed = true;
-        loadId += 1;
-        try {
-          animation?.destroy?.();
-        } catch (error) {
-          // Ignore cleanup issues from route changes.
-        }
-        animation = null;
-        if (node) node.innerHTML = '';
-      }
-    };
-  }
-
   const chartItems = [
     { label: '18k', value: 18, suffix: 'k', height: 44 },
     { label: '90k', value: 90, suffix: 'k', height: 62 },
@@ -5465,25 +5362,21 @@
     <div class={`mobile-hero-card-stack${mobileHeroCardsReady ? ' is-ready' : ''}`} aria-hidden="true">
       <article class="mobile-hero-card mobile-hero-card-one">
         <span>01</span>
-        <div class="mobile-hero-card-sticker" use:lottieSticker={'/stickers/scale.tgs'} aria-hidden="true"></div>
         <strong>Gameplay That Scales</strong>
         <small>Scalable gameplay built for growth, performance, and longevity.</small>
       </article>
       <article class="mobile-hero-card mobile-hero-card-two">
         <span>02</span>
-        <div class="mobile-hero-card-sticker" use:lottieSticker={'/stickers/high.tgs'} aria-hidden="true"></div>
         <strong>High Engagement</strong>
         <small>Experiences that capture attention and drive player interaction.</small>
       </article>
       <article class="mobile-hero-card mobile-hero-card-three">
         <span>03</span>
-        <div class="mobile-hero-card-sticker" use:lottieSticker={'/stickers/term.tgs'} aria-hidden="true"></div>
         <strong>Long Term Retention</strong>
         <small>Systems designed to keep players invested for the long run.</small>
       </article>
       <article class="mobile-hero-card mobile-hero-card-four">
         <span>04</span>
-        <div class="mobile-hero-card-sticker" use:lottieSticker={'/stickers/performance.tgs'} aria-hidden="true"></div>
         <strong>Proven Brand Performance</strong>
         <small>A track record of growth, results, and successful game launches.</small>
       </article>
@@ -8409,7 +8302,8 @@
     align-self: flex-start;
     justify-self: start;
     justify-content: flex-start !important;
-    min-width: clamp(138px, 11.8vw, 188px) !important;
+    width: fit-content !important;
+    min-width: 0 !important;
     min-height: clamp(20px, 1.45vw, 23px) !important;
     padding: 0 clamp(15px, 1.1vw, 20px) !important;
     margin: clamp(9px, .85vw, 13px) 0 0 !important;
@@ -9187,36 +9081,6 @@
       z-index: 2 !important;
     }
 
-
-    .mobile-hero-card-sticker {
-      position: absolute !important;
-      top: 18px !important;
-      right: 18px !important;
-      z-index: 3 !important;
-      display: block !important;
-      width: clamp(58px, 17vw, 72px) !important;
-      height: clamp(58px, 17vw, 72px) !important;
-      line-height: 0 !important;
-      pointer-events: none !important;
-      opacity: .98 !important;
-      transform: translateZ(0) scale(1.04) !important;
-      transform-origin: center !important;
-      filter: drop-shadow(0 12px 18px rgba(0,0,0,.24));
-    }
-
-    .mobile-hero-card-sticker :global(.mobile-hero-card-sticker-mount),
-    .mobile-hero-card-sticker :global(.mobile-hero-card-sticker-mount > div),
-    .mobile-hero-card-sticker :global(svg),
-    .mobile-hero-card-sticker :global(canvas) {
-      display: block !important;
-      width: 100% !important;
-      height: 100% !important;
-    }
-
-    .mobile-hero-card-sticker :global(svg) {
-      overflow: visible !important;
-    }
-
     .mobile-hero-card span {
       position: absolute !important;
       top: 24px !important;
@@ -9260,6 +9124,57 @@
       min-height: 0 !important;
       padding: 22px !important;
       border-radius: 34px !important;
+    }
+  }
+
+
+  /* final tiny fix: mobile first-row stray circle only */
+  @media (max-width: 680px) {
+    .about-features .feature-row:first-child .feature-visual,
+    .about-features .feature-row:first-child .svg-shell {
+      overflow: hidden !important;
+    }
+
+    .about-features .feature-row:first-child .svg-shell :global(svg) {
+      overflow: hidden !important;
+    }
+  }
+
+  /* final correction: keep team pill alignment only, and make mobile CTA solid with the desktop CTA copy */
+  .team-card span {
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+
+  @media (max-width: 680px) {
+    .about-mobile-launch-card {
+      background: #7300FF !important;
+      background-image: none !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.18),
+        0 18px 52px rgba(115,0,255,.24) !important;
+    }
+
+    .about-mobile-launch-card::before,
+    .about-mobile-launch-card::after {
+      content: none !important;
+      display: none !important;
+      background: none !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+  }
+
+
+  /* final tiny fix: reduce team job-title pill length on smaller screens only */
+  @media (max-width: 680px) {
+    .team-card span {
+      width: fit-content !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+      display: inline-flex !important;
+      align-self: flex-start !important;
+      justify-self: start !important;
     }
   }
 
