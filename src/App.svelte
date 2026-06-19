@@ -2,18 +2,21 @@
   import { onMount, tick as svelteTick } from 'svelte';
   import Navbar from './components/Navbar.svelte';
   import Footer from './components/Footer.svelte';
+  import WorkWithUsForm from './components/WorkWithUsForm.svelte';
 
-  const pagePaths = new Set(['/', '/about', '/games', '/careers', '/legal']);
+  const pagePaths = new Set(['/', '/about', '/games', '/careers', '/legal', '/work-with-us']);
   const pageLoaders = {
     '/': () => import('./routes/Home.svelte'),
     '/about': () => import('./about/AboutPage.svelte'),
     '/games': () => import('./games/GamesPage.svelte'),
     '/careers': () => import('./careers/CareersPage.svelte'),
-    '/legal': () => import('./legal/LegalPage.svelte')
+    '/legal': () => import('./legal/LegalPage.svelte'),
+    '/work-with-us': () => import('./work-with-us/WorkWithUsPage.svelte')
   };
 
   let currentPath = typeof window !== 'undefined' ? normalizePath(window.location.pathname) : '/';
   let RoutePage = null;
+  let routeReady = false;
   let routeLoadToken = 0;
 
   function normalizePath(path) {
@@ -66,21 +69,34 @@
     window.dispatchEvent(new CustomEvent('airo:route-hero-scroll', { detail: { path } }));
   }
 
+  function shouldShowWorkWithUsForm(path) {
+    return path === '/' || path === '/about' || path === '/games' || path === '/careers';
+  }
+
+  function workWithUsInitialTab(path) {
+    return path === '/careers' ? 'Careers' : 'Game';
+  }
+
   async function loadRoutePage(path) {
     const token = ++routeLoadToken;
     const loader = pageLoaders[path] || pageLoaders['/'];
+
+    routeReady = false;
+    RoutePage = null;
 
     try {
       const module = await loader();
 
       if (token === routeLoadToken) {
         RoutePage = module.default;
+        routeReady = true;
       }
     } catch (error) {
       console.error(`Could not load route: ${path}`, error);
 
       if (token === routeLoadToken) {
         RoutePage = null;
+        routeReady = true;
       }
     }
   }
@@ -103,8 +119,8 @@
       window.history.replaceState({}, '', nextPath);
     }
 
-    await loadRoutePage(nextPath);
     currentPath = nextPath;
+    await loadRoutePage(nextPath);
     await svelteTick();
 
     requestAnimationFrame(() => {
@@ -136,8 +152,8 @@
 
     const handlePopState = async () => {
       const nextPath = normalizePath(window.location.pathname);
-      await loadRoutePage(nextPath);
       currentPath = nextPath;
+      await loadRoutePage(nextPath);
       requestAnimationFrame(() => scrollToRouteHero(currentPath, 'auto'));
     };
 
@@ -155,18 +171,31 @@
   class:careers-route={currentPath === '/careers'}
   class:games-route={currentPath === '/games'}
   class:legal-route={currentPath === '/legal'}
+  class:work-with-us-route={currentPath === '/work-with-us'}
 >
   <Navbar activePath={currentPath} onNavigate={handleNavbarNavigate} />
 
-  {#if RoutePage}
-    {#if currentPath === '/' || currentPath === '/legal'}
-      <svelte:component this={RoutePage} onNavigate={handleNavbarNavigate} />
-    {:else}
-      <svelte:component this={RoutePage} />
+  {#if routeReady}
+    {#if RoutePage}
+      {#if currentPath === '/' || currentPath === '/legal'}
+        <svelte:component this={RoutePage} onNavigate={handleNavbarNavigate} />
+      {:else}
+        <svelte:component this={RoutePage} />
+      {/if}
     {/if}
-  {/if}
 
-  {#if currentPath === '/' || currentPath === '/about' || currentPath === '/games' || currentPath === '/careers' || currentPath === '/legal'}
+    {#if shouldShowWorkWithUsForm(currentPath) || (currentPath === '/work-with-us' && !RoutePage)}
+      <WorkWithUsForm initialTab={workWithUsInitialTab(currentPath)} />
+    {/if}
+
     <Footer onNavigate={handleNavbarNavigate} />
+  {:else}
+    <div class="route-loading-spacer" aria-hidden="true"></div>
   {/if}
 </main>
+
+<style>
+  .route-loading-spacer {
+    min-height: 100vh;
+  }
+</style>

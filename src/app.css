@@ -4679,6 +4679,18 @@ a { color: inherit; text-decoration: none; }
   white-space: nowrap !important;
 }
 
+.stats-title-sticker,
+.stats-panel-section .award-sticker {
+  contain: layout paint style !important;
+  content-visibility: auto !important;
+}
+
+.story-video-thumb,
+.hero-game-card-image,
+.top-hit-art img {
+  content-visibility: auto !important;
+}
+
 @media (max-width: 900px) {
   .stats-row {
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
@@ -6453,9 +6465,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 
-/* PHASE 2 ROUTE SPLIT STABILITY FIX
-   Keep images/Lottie/video visible while the browser paints.
-   This removes the pop-in/cutoff behavior caused by content-visibility on animated media. */
+/* SAFE MEDIA PAINT FIX 2026-06-19
+   Restores original hero animation/design. Only stops browser from hiding/cutting media while painting. */
 .stats-title-sticker,
 .stats-panel-section .award-sticker,
 .story-video-thumb,
@@ -6468,47 +6479,4 @@ a { color: inherit; text-decoration: none; }
 .hero-game-card-image,
 .top-hit-art img {
   contain: none !important;
-}
-
-
-/* HOME SMOOTHNESS FIX 2026-06-19
-   Keeps the same visual direction, but stops hero stats from forcing layout work while the deck animates. */
-.hero-card-rig,
-.hero-card-track,
-.hero-game-card,
-.hero-game-card-inner,
-.hero-game-card-image,
-.stats-row,
-.stat-item,
-.stat-icon.connected-stat-box {
-  backface-visibility: hidden !important;
-  transform-style: preserve-3d !important;
-}
-
-.hero-card-rig,
-.stats-row {
-  contain: layout paint style !important;
-  transform: translateZ(0) !important;
-}
-
-.hero-game-card {
-  animation-duration: 42s !important;
-  will-change: transform, opacity !important;
-}
-
-.hero-game-card-image {
-  transform: translateZ(0) !important;
-}
-
-.stat-item strong,
-.stat-item span {
-  transition: none !important;
-  animation: none !important;
-}
-
-/* WorkWithUs form is no longer mounted globally from App.svelte.
-   This rule is only a safety guard for old cached DOM during hot reload. */
-.site-shell:not(.careers-route) > .work-with-us-section:first-of-type,
-.site-shell:not(.careers-route) > .contact-section:first-of-type {
-  display: none;
 }
