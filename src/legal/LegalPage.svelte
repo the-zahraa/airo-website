@@ -1,5 +1,6 @@
 <script>
   import { onMount, tick } from 'svelte';
+  import WorkWithUsForm from '../components/WorkWithUsForm.svelte';
 
   export let onNavigate = () => {};
 
@@ -438,6 +439,10 @@
       </a>
     </article>
   </section>
+
+  <div class="legal-work-with-us">
+    <WorkWithUsForm initialTab="Careers" />
+  </div>
 </div>
 
 <style>
@@ -445,20 +450,22 @@
     background: #030006;
   }
 
-  :global(.site-shell.legal-route .hero-section.empty-route-section),
-  :global(body:has(.legal-page) .hero-section.empty-route-section) {
-    display: none;
+  :global(.site-shell.legal-route .hero-section.empty-route-section) {
     min-height: 0;
-    padding: 0;
-    margin: 0;
+    padding-top: 0;
   }
 
-  :global(.site-shell.legal-route .airo-footer),
-  :global(body:has(.legal-page) .airo-footer) {
-    margin-top: -18px;
-    box-shadow:
-      0 -2px 0 #030006,
-      0 -18px 34px 12px rgba(3, 0, 6, .88);
+  :global(.site-shell.legal-route .airo-footer) {
+    margin-top: -96px;
+    padding-top: calc(clamp(96px, 9vw, 148px) + 78px);
+    background: linear-gradient(to bottom, rgba(2, 0, 4, 0) 0%, rgba(3, 0, 6, .16) 20%, rgba(3, 0, 6, .58) 50%, #030006 76%, #030006 100%);
+  }
+
+  :global(.site-shell.legal-route .airo-footer::before) {
+    top: calc(-1 * var(--footer-top-bleed) - 78px);
+    height: calc(100% + var(--footer-top-bleed) + 78px);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.18) 9%, rgba(0,0,0,.58) 25%, #000 42%, #000 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.18) 9%, rgba(0,0,0,.58) 25%, #000 42%, #000 100%);
   }
 
   .legal-page {
@@ -471,7 +478,7 @@
     color: #fff;
     background:
       radial-gradient(ellipse at 50% 390px, rgba(115, 0, 255, .3) 0%, rgba(115, 0, 255, .16) 36%, rgba(115, 0, 255, .055) 58%, transparent 78%),
-      linear-gradient(180deg, #010002 0%, #010002 118px, #020004 245px, #06000d 470px, #07000f 660px, #030006 980px, #030006 100%);
+      linear-gradient(180deg, #010002 0%, #010002 118px, #020004 245px, #06000d 470px, #07000f 660px, #030006 980px, #020004 100%);
     isolation: isolate;
   }
 
@@ -588,6 +595,12 @@
   .legal-layout {
     position: relative;
     z-index: 3;
+  }
+
+  .legal-work-with-us {
+    position: relative;
+    z-index: 4;
+    isolation: isolate;
   }
 
   .legal-hero {
@@ -802,7 +815,7 @@
 
   .legal-content {
     max-width: 720px;
-    padding-bottom: clamp(70px, 7vw, 112px);
+    padding-bottom: clamp(150px, 12vw, 198px);
   }
 
   .policy-section {
@@ -933,6 +946,18 @@
     }
   }
 
+  @media (max-width: 1120px) {
+    :global(.site-shell.legal-route .airo-footer) {
+      margin-top: -84px;
+      padding-top: calc(112px + 66px);
+    }
+
+    :global(.site-shell.legal-route .airo-footer::before) {
+      top: calc(-1 * var(--footer-top-bleed) - 66px);
+      height: calc(100% + var(--footer-top-bleed) + 66px);
+    }
+  }
+
   @media (max-width: 1100px) {
     .legal-layout {
       width: min(960px, calc(100vw - 56px));
@@ -1027,8 +1052,20 @@
       width: 100%;
       max-width: none;
       margin: 0;
-      padding-bottom: 72px;
+      padding-bottom: 128px;
       text-align: left;
+    }
+  }
+
+  @media (max-width: 700px) {
+    :global(.site-shell.legal-route .airo-footer) {
+      margin-top: -64px;
+      padding-top: calc(82px + 46px);
+    }
+
+    :global(.site-shell.legal-route .airo-footer::before) {
+      top: calc(-1 * var(--footer-top-bleed) - 46px);
+      height: calc(100% + var(--footer-top-bleed) + 46px);
     }
   }
 
