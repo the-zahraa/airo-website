@@ -9292,4 +9292,42 @@
     }
   }
 
+
+  /* final tiny fix: mobile What-we-do icon plates should stay behind icons */
+  @media (max-width: 680px) {
+    .about-features .feature-row:first-child .feature-visual {
+      overflow: visible !important;
+      clip-path: inset(-44px -16px -44px -16px);
+    }
+
+    .about-features .feature-row:first-child .svg-shell {
+      overflow: visible !important;
+      position: relative !important;
+    }
+
+    .about-features .feature-row:first-child .svg-shell :global(svg) {
+      overflow: visible !important;
+      position: relative !important;
+      z-index: 1 !important;
+    }
+
+    .about-features .feature-row:first-child .svg-feature-1 :global(circle[r="36.7268"]) {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      fill: #09070f !important;
+      fill-opacity: 1 !important;
+      stroke: rgba(255,255,255,.34) !important;
+      stroke-opacity: 1 !important;
+    }
+
+    .about-features .feature-row:first-child .svg-feature-1 :global(g[filter*="filter23"]),
+    .about-features .feature-row:first-child .svg-feature-1 :global(g[filter*="filter25"]),
+    .about-features .feature-row:first-child .svg-feature-1 :global(g[filter*="filter27"]) {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+  }
+
 </style>
