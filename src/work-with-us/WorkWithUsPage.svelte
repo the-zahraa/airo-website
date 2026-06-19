@@ -189,7 +189,7 @@
 
   <form class="work-form-card" aria-label="Work with us enquiry form">
     <div class="tabs-block">
-      <span class="field-label">What are you applying for ?</span>
+      <span class="field-label">What are you applying for?</span>
       <div class="work-tabs" role="tablist" aria-label="Application type">
         {#each tabs as tab}
           <button
@@ -260,7 +260,7 @@
     </div>
 
     <div class="field-group message-field">
-      <label for="work-message"><span></span>Why are you contacting us ?</label>
+      <label for="work-message"><span></span>Why are you contacting us?</label>
       <textarea id="work-message" placeholder={messagePlaceholder}></textarea>
     </div>
 

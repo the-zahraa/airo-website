@@ -1005,7 +1005,7 @@
     <span class="brands-corner brands-corner-bl"></span>
     <span class="brands-corner brands-corner-br"></span>
   </div>
-  <h2>Trusted By Teams Worldwide</h2>
+  <h2>Trusted by Teams Worldwide</h2>
   <p>From brand partners to owned content, Airo works across games, studios, and creator-led experiences built to reach players around the world.</p>
 
   <div class="brand-badges">
