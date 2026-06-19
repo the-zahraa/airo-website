@@ -225,8 +225,6 @@
     return paths[name] || paths.spark;
   }
 
-
-
   function perkStickerSrc(name) {
     const stickers = {
       remote: '/stickers/remote.tgs',
@@ -234,7 +232,7 @@
       tc: '/stickers/tc.tgs',
       salary: '/stickers/salary.tgs',
       health: '/stickers/health.tgs',
-      network: '/stickers/network.tgs?v=network-v62'
+      network: '/stickers/network.tgs'
     };
 
     return stickers[name] || '/stickers/remote.tgs';
@@ -444,11 +442,7 @@
             style={cardStyle(index)}
           >
             <span class="card-icon" aria-hidden="true">
-              {#if perk.icon === 'network'}
-                <tgs-player class="perk-tgs perk-tgs-network" src="/stickers/network.tgs?v=network-v62" autoplay loop mode="normal"></tgs-player>
-              {:else}
-                <tgs-player class="perk-tgs" src={perkStickerSrc(perk.icon)} autoplay loop mode="normal"></tgs-player>
-              {/if}
+              <tgs-player src={perkStickerSrc(perk.icon)} autoplay loop mode="normal"></tgs-player>
             </span>
             <div>
               <h3>{perk.title}</h3>
@@ -596,7 +590,7 @@
                 </svg>
                 <span class="task-ring-content">
                   <strong>Progress</strong>
-                  <b>98%</b>
+                  <b>94%</b>
                 </span>
               </div>
             </div>
@@ -1181,6 +1175,13 @@
     stroke-linejoin: round;
   }
 
+  .card-icon :global(tgs-player) {
+    display: block;
+    width: 72%;
+    height: 72%;
+    pointer-events: none;
+  }
+
   .perk-card h3,
   .process-card h3,
   .job-card h3,
@@ -1434,6 +1435,12 @@
     width: clamp(24px, 2.4vw, 34px);
     height: clamp(24px, 2.4vw, 34px);
     stroke-width: 1.9;
+    filter: drop-shadow(0 0 10px rgba(255,255,255,.22));
+  }
+
+  .perks-stage .card-icon :global(tgs-player) {
+    width: 82%;
+    height: 82%;
     filter: drop-shadow(0 0 10px rgba(255,255,255,.22));
   }
 
@@ -6666,159 +6673,4 @@
       transition: none !important;
     }
   }
-
-  /* final-v61-sticker-and-process-fixes */
-  .perks-stage .card-icon tgs-player {
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-    pointer-events: none !important;
-  }
-
-  .hiring-process-grid .process-card-checklist::after {
-    content: none !important;
-    display: none !important;
-  }
-
-  .task-ring .ring-progress {
-    stroke-dasharray: 282.743 !important;
-    stroke-dashoffset: 5.655 !important;
-    stroke-linecap: butt !important;
-    stroke-linejoin: round !important;
-    animation: taskRingProgress98V61 2.45s cubic-bezier(.22,.8,.22,1) infinite !important;
-    filter: none !important;
-  }
-
-  @keyframes taskRingProgress98V61 {
-    0% { stroke-dashoffset: 282.743; opacity: .72; }
-    48%, 78% { stroke-dashoffset: 5.655; opacity: 1; }
-    100% { stroke-dashoffset: 282.743; opacity: .72; }
-  }
-
-  @media (max-width: 980px) {
-    .offer-timeline {
-      position: relative !important;
-      overflow: visible !important;
-    }
-
-    .offer-runner {
-      left: 5px !important;
-      top: 50% !important;
-      width: 13px !important;
-      height: 13px !important;
-      margin-top: -6.5px !important;
-      border-radius: 999px !important;
-      background: rgba(245, 211, 255, .95) !important;
-      box-shadow:
-        0 0 14px rgba(245,211,255,.95),
-        0 0 34px rgba(115,0,255,.9),
-        0 0 70px rgba(115,0,255,.5) !important;
-      animation: offerRunnerMobileDesktopMotionV61 3.6s cubic-bezier(.22,.8,.22,1) infinite !important;
-      z-index: 3 !important;
-    }
-
-    .offer-runner::after {
-      inset: -18px !important;
-      background: radial-gradient(circle, rgba(255,255,255,.42), rgba(115,0,255,.26) 38%, transparent 72%) !important;
-      filter: blur(8px) !important;
-      opacity: .92 !important;
-    }
-  }
-
-  @keyframes offerRunnerMobileDesktopMotionV61 {
-    0%, 8% { left: 5px; opacity: 0; transform: scale(.85); }
-    14% { opacity: 1; transform: scale(1); }
-    76%, 88% { left: calc(100% - 13px); opacity: 1; transform: scale(1); }
-    100% { left: calc(100% - 13px); opacity: 0; transform: scale(.92); }
-  }
-
-
-  /* final-v62-explicit-network-offer-progress-fixes */
-  .perks-stage .card-icon .perk-tgs,
-  .perks-stage .card-icon tgs-player {
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-width: 100% !important;
-    min-height: 100% !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: none !important;
-    transform: translateZ(0) !important;
-  }
-
-  .perks-stage .card-icon .perk-tgs-network {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-
-  .hiring-process-grid .process-card-checklist::after {
-    content: none !important;
-    display: none !important;
-    opacity: 0 !important;
-  }
-
-  .task-ring,
-  .task-ring svg {
-    overflow: visible !important;
-  }
-
-  .task-ring .ring-progress {
-    stroke-dasharray: 282.743 !important;
-    stroke-dashoffset: 5.655 !important;
-    stroke-linecap: butt !important;
-    stroke-linejoin: round !important;
-    filter: none !important;
-    animation: taskRingProgress98V62 2.35s cubic-bezier(.22,.8,.22,1) infinite !important;
-  }
-
-  @keyframes taskRingProgress98V62 {
-    0% { stroke-dashoffset: 282.743; opacity: .74; }
-    56%, 78% { stroke-dashoffset: 5.655; opacity: 1; }
-    100% { stroke-dashoffset: 282.743; opacity: .74; }
-  }
-
-  @media (max-width: 980px) {
-    .process-offer,
-    .offer-timeline {
-      overflow: visible !important;
-    }
-
-    .offer-runner {
-      display: block !important;
-      position: absolute !important;
-      left: 5px !important;
-      top: 50% !important;
-      width: 13px !important;
-      height: 13px !important;
-      margin-top: -6.5px !important;
-      border-radius: 999px !important;
-      background: rgba(245, 211, 255, .95) !important;
-      box-shadow:
-        0 0 14px rgba(245,211,255,.95),
-        0 0 34px rgba(115,0,255,.9),
-        0 0 70px rgba(115,0,255,.5) !important;
-      opacity: 1;
-      z-index: 4 !important;
-      animation: offerRunnerMobileMotionV62 3.6s cubic-bezier(.22,.8,.22,1) infinite !important;
-    }
-
-    .offer-runner::after {
-      content: '' !important;
-      position: absolute !important;
-      inset: -18px !important;
-      border-radius: inherit !important;
-      background: radial-gradient(circle, rgba(255,255,255,.42), rgba(115,0,255,.26) 38%, transparent 72%) !important;
-      filter: blur(8px) !important;
-      opacity: .92 !important;
-    }
-  }
-
-  @keyframes offerRunnerMobileMotionV62 {
-    0%, 8% { left: 5px; opacity: 0; transform: scale(.85); }
-    14% { opacity: 1; transform: scale(1); }
-    76%, 88% { left: calc(100% - 13px); opacity: 1; transform: scale(1); }
-    100% { left: calc(100% - 13px); opacity: 0; transform: scale(.92); }
-  }
-
 </style>

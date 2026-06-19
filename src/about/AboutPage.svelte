@@ -8822,4 +8822,191 @@
     }
   }
 
+
+  /* last requested correction: mobile Home CTA color, desktop-like mobile hero cards, desktop team alignment only */
+  @media (max-width: 680px) {
+    .about-mobile-launch-card {
+      background:
+        radial-gradient(circle at 9% 48%, rgba(149, 64, 255, .96) 0%, rgba(124, 7, 242, .78) 28%, transparent 47%),
+        linear-gradient(103deg, #7C07F2 0%, #7B16E3 48%, #783EB4 100%) !important;
+      background-image:
+        radial-gradient(circle at 9% 48%, rgba(149, 64, 255, .96) 0%, rgba(124, 7, 242, .78) 28%, transparent 47%),
+        linear-gradient(103deg, #7C07F2 0%, #7B16E3 48%, #783EB4 100%) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 18px 52px rgba(124,7,242,.24) !important;
+    }
+
+    .about-mobile-launch-card::before {
+      content: '' !important;
+      display: block !important;
+      position: absolute !important;
+      inset: -20% -4% -20% 35% !important;
+      z-index: 0 !important;
+      background:
+        linear-gradient(108deg, transparent 0 10%, rgba(55,0,104,.28) 11% 24%, rgba(255,255,255,.07) 25% 26%, transparent 27% 39%, rgba(55,0,104,.23) 40% 55%, rgba(255,255,255,.07) 56% 57%, transparent 58% 100%) !important;
+      transform: skewX(-12deg) !important;
+      opacity: .88 !important;
+      pointer-events: none !important;
+    }
+
+    .about-mobile-launch-card::after {
+      content: '' !important;
+      display: block !important;
+      position: absolute !important;
+      right: 6% !important;
+      top: 12% !important;
+      z-index: 0 !important;
+      width: 34% !important;
+      height: 82% !important;
+      border-radius: 22px !important;
+      border: 2px solid rgba(255,255,255,.1) !important;
+      transform: rotate(-8deg) !important;
+      opacity: .45 !important;
+      pointer-events: none !important;
+      background: transparent !important;
+    }
+
+    .mobile-hero-card-stack {
+      width: min(302px, 78vw) !important;
+      gap: 16px !important;
+      margin: clamp(30px, 7vw, 42px) auto 0 !important;
+    }
+
+    .mobile-hero-card {
+      aspect-ratio: 1 / 1 !important;
+      min-height: 0 !important;
+      width: 100% !important;
+      padding: 24px 24px 25px !important;
+      justify-content: flex-end !important;
+      align-items: flex-start !important;
+      border-radius: clamp(31px, 10vw, 43px) !important;
+      transform: none !important;
+      rotate: 0deg !important;
+      background:
+        radial-gradient(97% 97% at 50% 3%, rgba(115,0,255,.62) 0%, rgba(202,158,255,.28) 100%),
+        linear-gradient(141deg, rgba(115,0,255,.58) 14%, rgba(115,0,255,.46) 94%) !important;
+      border: 1.35px solid rgba(219,190,255,.46) !important;
+      box-shadow:
+        inset 0 -12px 18px rgba(0,0,0,.58),
+        inset 0 0 22px 3px rgba(216,255,134,.13),
+        0 20px 48px rgba(0,0,0,.42) !important;
+    }
+
+    .mobile-hero-card::before {
+      content: '' !important;
+      position: absolute !important;
+      inset: 12px !important;
+      width: auto !important;
+      border-radius: clamp(22px, 7.5vw, 31px) !important;
+      border: 1px solid rgba(255,255,255,.13) !important;
+      background:
+        repeating-linear-gradient(125deg, rgba(255,255,255,.11) 0 1px, transparent 1px 11px) !important;
+      box-shadow: inset 0 0 0 1px rgba(115,0,255,.20) !important;
+      opacity: .24 !important;
+      pointer-events: none !important;
+    }
+
+    .mobile-hero-card::after {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 0 !important;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(252,255,224,.30), transparent 17%),
+        linear-gradient(180deg, rgba(255,255,255,.13), transparent 38%) !important;
+      pointer-events: none !important;
+    }
+
+    .mobile-hero-card-one,
+    .mobile-hero-card-three {
+      background:
+        radial-gradient(97% 97% at 50% 3%, rgba(255,174,0,.54) 0%, rgba(255,222,157,.20) 100%),
+        linear-gradient(141deg, rgba(255,174,0,.48) 14%, rgba(92,55,0,.66) 94%) !important;
+      border-color: rgba(255,210,119,.42) !important;
+      box-shadow:
+        inset 0 -12px 18px rgba(0,0,0,.58),
+        inset 0 0 22px 3px rgba(255,221,118,.12),
+        0 20px 48px rgba(0,0,0,.42) !important;
+    }
+
+    .mobile-hero-card span {
+      position: absolute !important;
+      top: 24px !important;
+      left: 24px !important;
+      color: rgba(255,255,255,.56) !important;
+      font-size: 12px !important;
+      letter-spacing: .16em !important;
+      font-weight: 900 !important;
+    }
+
+    .mobile-hero-card strong {
+      width: min(210px, 100%) !important;
+      margin: 0 !important;
+      color: #fff !important;
+      font-size: clamp(23px, 7.15vw, 31px) !important;
+      line-height: .98 !important;
+      letter-spacing: -.055em !important;
+      font-weight: 900 !important;
+    }
+
+    .mobile-hero-card small {
+      margin-top: 11px !important;
+      color: rgba(255,255,255,.72) !important;
+      font-size: clamp(12px, 3.55vw, 14px) !important;
+      line-height: 1.2 !important;
+      font-weight: 650 !important;
+      letter-spacing: -.01em !important;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .mobile-hero-card-stack {
+      width: min(286px, 76vw) !important;
+      gap: 14px !important;
+    }
+
+    .mobile-hero-card {
+      min-height: 0 !important;
+      padding: 22px !important;
+      border-radius: 34px !important;
+    }
+  }
+
+  @media (min-width: 901px) {
+    .team-card {
+      display: grid !important;
+      grid-template-rows: 1fr clamp(44px, 3.45vw, 56px) clamp(22px, 1.55vw, 25px) clamp(100px, 7.1vw, 118px) !important;
+      row-gap: clamp(4px, .35vw, 6px) !important;
+      align-content: end !important;
+    }
+
+    .team-card h3 {
+      grid-row: 2 !important;
+      order: initial !important;
+      align-self: end !important;
+      display: flex !important;
+      align-items: flex-end !important;
+      height: auto !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+    }
+
+    .team-card span {
+      grid-row: 3 !important;
+      order: initial !important;
+      align-self: start !important;
+      justify-self: start !important;
+      margin: 0 !important;
+    }
+
+    .team-card p {
+      grid-row: 4 !important;
+      order: initial !important;
+      align-self: start !important;
+      height: auto !important;
+      min-height: 0 !important;
+      margin: clamp(13px, .95vw, 16px) 0 0 !important;
+      overflow: visible !important;
+    }
+  }
+
 </style>
