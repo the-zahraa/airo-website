@@ -73,6 +73,7 @@
     </div>
   </div>
 
+
   <div class="footer-vector-dots" aria-hidden="true"></div>
 
   <div class="footer-shell">
@@ -163,39 +164,33 @@
 
 <style>
   .airo-footer {
-    --footer-overlap: 300px;
     position: relative;
     z-index: 1;
     isolation: isolate;
     width: 100%;
-    margin: calc(var(--footer-overlap) * -1) 0 0;
-    padding: calc(clamp(96px, 9vw, 148px) + var(--footer-overlap)) 0 clamp(22px, 2.2vw, 32px);
+    margin: 0;
+    padding: clamp(96px, 9vw, 148px) 0 clamp(22px, 2.2vw, 32px);
     color: #fff;
-    background:
-      linear-gradient(to bottom,
-        rgba(3, 0, 6, 0) 0%,
-        rgba(3, 0, 6, .18) 18%,
-        rgba(3, 0, 6, .56) 42%,
-        #030006 68%,
-        #030006 100%);
-    overflow: hidden;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    background: linear-gradient(to bottom, rgba(3, 0, 6, 0) 0%, rgba(3, 0, 6, .72) 34%, #030006 64%, #030006 100%);
+    overflow: visible;
   }
 
   .airo-footer::before {
     content: '';
     position: absolute;
     z-index: 0;
-    inset: 0;
+    left: 0;
+    right: 0;
+    top: -420px;
+    height: calc(100% + 420px);
     pointer-events: none;
     background:
       linear-gradient(to bottom,
         rgba(0, 0, 0, 0) 0%,
-        rgba(3, 0, 6, .12) 18%,
-        rgba(3, 0, 6, .42) 42%,
-        rgba(3, 0, 6, .34) 60%,
-        rgba(115, 0, 255, .14) 80%,
+        rgba(3, 0, 6, .18) 16%,
+        rgba(3, 0, 6, .46) 39%,
+        rgba(3, 0, 6, .34) 58%,
+        rgba(115, 0, 255, .14) 78%,
         rgba(115, 0, 255, .22) 100%);
   }
 
@@ -209,7 +204,10 @@
   .footer-light {
     position: absolute;
     z-index: 0;
-    inset: 0;
+    left: 0;
+    right: 0;
+    top: -420px;
+    bottom: 0;
     pointer-events: none;
     overflow: hidden;
     background: transparent;
@@ -239,8 +237,7 @@
     position: absolute;
     border-radius: 9999px;
     pointer-events: none;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
+    will-change: filter;
   }
 
   .footer-ellipse-2 {
@@ -250,7 +247,6 @@
     bottom: -840px;
     background: #7300ff;
     filter: blur(478.985px);
-    -webkit-filter: blur(478.985px);
     opacity: 1;
     transform: rotate(-90deg);
   }
@@ -262,7 +258,6 @@
     bottom: -955px;
     background: #af8bf9;
     filter: blur(210px);
-    -webkit-filter: blur(210px);
     opacity: 1;
     transform: rotate(-90deg);
   }
@@ -274,24 +269,26 @@
     bottom: -705px;
     background: #e8e4ff;
     filter: blur(115px);
-    -webkit-filter: blur(115px);
     opacity: 1;
     transform: rotate(-90deg);
   }
 
+
   .footer-vector-dots {
     position: absolute;
     z-index: 2;
-    inset: 0;
+    left: 0;
+    right: 0;
+    top: -420px;
+    bottom: 0;
     opacity: .7;
-    background-image: radial-gradient(rgba(88, 31, 155, .72) 1px, transparent 1.25px);
+    background-image:
+      radial-gradient(rgba(88, 31, 155, .72) 1px, transparent 1.25px);
     background-size: 32px 32px;
     background-position: center top;
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.42) 22%, #000 48%, #000 100%);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.42) 22%, #000 48%, #000 100%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,.05) 0%, rgba(0,0,0,.55) 19%, #000 42%, #000 100%);
     pointer-events: none;
   }
-
 
   .footer-main {
     display: grid;
@@ -409,6 +406,7 @@
   .footer-bottom {
     margin-top: clamp(34px, 3.4vw, 48px);
     padding-top: clamp(18px, 1.7vw, 24px);
+    border-top: 2px solid rgba(255,255,255,.25);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -447,8 +445,13 @@
 
   @media (max-width: 1120px) {
     .airo-footer {
-      --footer-overlap: 260px;
-      padding-top: calc(112px + var(--footer-overlap));
+      padding-top: 112px;
+    }
+
+    .airo-footer::before,
+    .footer-light,
+    .footer-vector-dots {
+      top: -340px;
     }
 
     .footer-shell {
@@ -480,7 +483,6 @@
       left: calc(50% - 1320px / 2);
       bottom: -650px;
       filter: blur(360px);
-      -webkit-filter: blur(360px);
       opacity: 1;
     }
 
@@ -490,7 +492,6 @@
       left: calc(50% - 486px / 2);
       bottom: -735px;
       filter: blur(168px);
-      -webkit-filter: blur(168px);
       opacity: 1;
     }
 
@@ -500,22 +501,24 @@
       left: calc(50% - 397px / 2);
       bottom: -490px;
       filter: blur(92px);
-      -webkit-filter: blur(92px);
       opacity: 1;
     }
   }
 
   @media (max-width: 700px) {
     .airo-footer {
-      --footer-overlap: 170px;
-      padding: calc(82px + var(--footer-overlap)) 0 26px;
-      background:
-        linear-gradient(to bottom,
-          rgba(3, 0, 6, 0) 0%,
-          rgba(3, 0, 6, .24) 24%,
-          rgba(3, 0, 6, .72) 52%,
-          #030006 76%,
-          #030006 100%);
+      padding: 82px 0 26px;
+      background: linear-gradient(to bottom, rgba(3, 0, 6, 0) 0%, rgba(3, 0, 6, .72) 34%, #030006 64%, #030006 100%);
+    }
+
+    .airo-footer::before,
+    .footer-light,
+    .footer-vector-dots {
+      top: -240px;
+    }
+
+    .airo-footer::before {
+      height: calc(100% + 240px);
     }
 
     .footer-shell {
@@ -549,7 +552,6 @@
       left: calc(50% - 980px / 2);
       bottom: -560px;
       filter: blur(250px);
-      -webkit-filter: blur(250px);
       opacity: 1;
       transform: translateZ(0) rotate(-90deg);
     }
@@ -560,7 +562,6 @@
       left: calc(50% - 360px / 2);
       bottom: -545px;
       filter: blur(124px);
-      -webkit-filter: blur(124px);
       opacity: 1;
       transform: translateZ(0) rotate(-90deg);
     }
@@ -571,7 +572,6 @@
       left: calc(50% - 294px / 2);
       bottom: -420px;
       filter: blur(72px);
-      -webkit-filter: blur(72px);
       opacity: 1;
       transform: translateZ(0) rotate(-90deg);
     }
@@ -579,10 +579,7 @@
     .footer-vector-dots {
       background-size: 24px 24px;
       opacity: .54;
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.38) 25%, #000 55%, #000 100%);
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.38) 25%, #000 55%, #000 100%);
     }
-
 
     .footer-logo {
       width: 86px;
@@ -646,6 +643,7 @@
     .footer-bottom {
       margin-top: 30px;
       padding-top: 14px;
+      border-top-width: 1px;
       gap: 16px;
       font-size: 12px;
       font-weight: 500;
