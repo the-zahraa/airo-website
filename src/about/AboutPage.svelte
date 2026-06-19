@@ -5456,25 +5456,25 @@
     <div class={`mobile-hero-card-stack${mobileHeroCardsReady ? ' is-ready' : ''}`} aria-hidden="true">
       <article class="mobile-hero-card mobile-hero-card-one">
         <span>01</span>
-        <div class="mobile-hero-sticker" use:mobileHeroSticker={'/stickers/icon/scale.tgs'} aria-hidden="true"></div>
+        <div class="mobile-hero-sticker" use:mobileHeroSticker={'/stickers/scale.tgs'} aria-hidden="true"></div>
         <strong>Gameplay That Scales</strong>
         <small>Scalable gameplay built for growth, performance, and longevity.</small>
       </article>
       <article class="mobile-hero-card mobile-hero-card-two">
         <span>02</span>
-        <div class="mobile-hero-sticker" use:mobileHeroSticker={'/stickers/icon/high.tgs'} aria-hidden="true"></div>
+        <div class="mobile-hero-sticker" use:mobileHeroSticker={'/stickers/high.tgs'} aria-hidden="true"></div>
         <strong>High Engagement</strong>
         <small>Experiences that capture attention and drive player interaction.</small>
       </article>
       <article class="mobile-hero-card mobile-hero-card-three">
         <span>03</span>
-        <div class="mobile-hero-sticker" use:mobileHeroSticker={'/stickers/icon/term.tgs'} aria-hidden="true"></div>
+        <div class="mobile-hero-sticker" use:mobileHeroSticker={'/stickers/term.tgs'} aria-hidden="true"></div>
         <strong>Long Term Retention</strong>
         <small>Systems designed to keep players invested for the long run.</small>
       </article>
       <article class="mobile-hero-card mobile-hero-card-four">
         <span>04</span>
-        <div class="mobile-hero-sticker" use:mobileHeroSticker={'/stickers/icon/performance.tgs'} aria-hidden="true"></div>
+        <div class="mobile-hero-sticker" use:mobileHeroSticker={'/stickers/performance.tgs'} aria-hidden="true"></div>
         <strong>Proven Brand Performance</strong>
         <small>A track record of growth, results, and successful game launches.</small>
       </article>
@@ -5582,7 +5582,7 @@
                           class:hot={chartIndex === chartItems.length - 1}
                           style={`height:${Math.max(4, item.height * barProgress(chartIndex, chartProgress))}px`}
                         ></i>
-                        <span class="chart-label">{item.label}</span>
+                        <label>{item.label}</label>
                       </div>
                     {/each}
                   </div>
@@ -6347,6 +6347,21 @@
     overflow: visible;
   }
 
+  .update-bottom button i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0;
+    animation: updatePop 5.6s ease-in-out infinite;
+  }
+
+  .update-bottom button i:nth-child(1) { transform: translate(18px,-20px); animation-delay: .12s; }
+  .update-bottom button i:nth-child(2) { transform: translate(30px,2px); animation-delay: .22s; }
+  .update-bottom button i:nth-child(3) { transform: translate(12px,18px); animation-delay: .32s; }
 
   .chart-widget { width: min(450px, 96%); animation-name: visualDriftThree; }
 
@@ -6480,7 +6495,7 @@
     transition: none;
   }
 
-  .chart-column .chart-label {
+  .chart-column label {
     display: none;
     position: absolute;
     left: 50%;
@@ -7327,6 +7342,9 @@
     box-shadow: inset 0 0 0 1px rgba(202,158,255,.12), 0 8px 24px rgba(0,0,0,.22);
   }
 
+  .update-bottom button i {
+    display: none !important;
+  }
 
   .chart-card::before,
   .chart-column i.hot {
