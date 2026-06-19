@@ -438,6 +438,7 @@
       </a>
     </article>
   </section>
+  <div class="legal-footer-seam-guard" aria-hidden="true"></div>
 </div>
 
 <style>
@@ -457,6 +458,7 @@
 
   .legal-page {
     position: relative;
+    z-index: 2;
     width: 100%;
     min-height: 100vh;
     padding: clamp(74px, 6.6vw, 100px) 0 0;
@@ -467,6 +469,18 @@
       radial-gradient(ellipse at 50% 390px, rgba(115, 0, 255, .3) 0%, rgba(115, 0, 255, .16) 36%, rgba(115, 0, 255, .055) 58%, transparent 78%),
       linear-gradient(180deg, #010002 0%, #010002 118px, #020004 245px, #06000d 470px, #07000f 660px, #030006 980px, #030006 100%);
     isolation: isolate;
+  }
+
+  .legal-footer-seam-guard {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 12px;
+    z-index: 6;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(3, 0, 6, 0) 0%, #030006 44%, #030006 100%);
+    transform: translateZ(0);
   }
 
   .legal-page::before {
