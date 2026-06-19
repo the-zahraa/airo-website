@@ -445,19 +445,20 @@
     background: #030006;
   }
 
-  :global(.site-shell.legal-route .hero-section.empty-route-section) {
+  :global(.site-shell.legal-route .hero-section.empty-route-section),
+  :global(body:has(.legal-page) .hero-section.empty-route-section) {
     display: none;
     min-height: 0;
-    margin: 0;
     padding: 0;
-    border: 0;
-    box-shadow: none;
-    background: transparent;
+    margin: 0;
   }
 
-  :global(.site-shell.legal-route .airo-footer) {
+  :global(.site-shell.legal-route .airo-footer),
+  :global(body:has(.legal-page) .airo-footer) {
     margin-top: -18px;
-    background: #030006;
+    box-shadow:
+      0 -2px 0 #030006,
+      0 -18px 34px 12px rgba(3, 0, 6, .88);
   }
 
   .legal-page {
