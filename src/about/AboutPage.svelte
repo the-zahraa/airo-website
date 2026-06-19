@@ -5620,6 +5620,26 @@
           {#if index === 0}
             <div class="svg-shell">
               {@html rowOneSvg}
+              <div class="what-normal-icons" aria-hidden="true">
+                <span class="what-normal-icon what-normal-icon-1">
+                  <svg viewBox="0 0 24 24" focusable="false">
+                    <path d="M7 7.5h10M7 12h7M7 16.5h10" />
+                  </svg>
+                </span>
+                <span class="what-normal-icon what-normal-icon-2">
+                  <svg viewBox="0 0 24 24" focusable="false">
+                    <path d="M6 16.5l4.2-4.2 3.2 3.1L18.5 9" />
+                    <path d="M16 9h2.5v2.5" />
+                  </svg>
+                </span>
+                <span class="what-normal-icon what-normal-icon-3">
+                  <svg viewBox="0 0 24 24" focusable="false">
+                    <path d="M12 5.5v13" />
+                    <path d="M6.5 11l5.5-5.5 5.5 5.5" />
+                    <path d="M7 18.5h10" />
+                  </svg>
+                </span>
+              </div>
             </div>
           {:else if index === 1}
             <div class="update-widget">
@@ -6267,6 +6287,42 @@
     display: block;
     overflow: visible;
   }
+
+  .what-normal-icons {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .what-normal-icon {
+    position: absolute;
+    width: clamp(52px, 14vw, 73px);
+    height: clamp(52px, 14vw, 73px);
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    background: rgba(9, 7, 15, .96);
+    border: 1.5px solid rgba(255, 255, 255, .34);
+    box-shadow: 0 10px 22px rgba(0,0,0,.34), 0 0 13px rgba(255,255,255,.06);
+  }
+
+  .what-normal-icon svg {
+    width: 45%;
+    height: 45%;
+    display: block;
+    fill: none;
+    stroke: rgba(255,255,255,.92);
+    stroke-width: 1.85;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .what-normal-icon-1 { left: 16.2%; top: 63.5%; }
+  .what-normal-icon-2 { left: 50%; top: 30.5%; }
+  .what-normal-icon-3 { left: 83.8%; top: 63.5%; }
 
   .svg-shell :global(line),
   .svg-shell :global(path[stroke]) {
@@ -9410,31 +9466,10 @@
   }
 
 
-  /* iOS Safari fix: keep first-row What-we-do icon plates visible without relying on SVG filters */
-  @supports (-webkit-touch-callout: none) {
-    @media (max-width: 680px) {
-      .svg-feature-1 :global(g[filter]),
-      .svg-feature-1 :global(g[filter*="filter23"]),
-      .svg-feature-1 :global(g[filter*="filter25"]),
-      .svg-feature-1 :global(g[filter*="filter27"]) {
-        display: inline !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        filter: none !important;
-        -webkit-filter: none !important;
-      }
-
-      .svg-feature-1 :global(circle[r="36.7268"]) {
-        display: inline !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        fill: #09070f !important;
-        fill-opacity: 1 !important;
-        stroke: rgba(255,255,255,.34) !important;
-        stroke-opacity: 1 !important;
-        filter: none !important;
-        -webkit-filter: none !important;
-        transform: none !important;
+  @media (max-width: 680px) {
+    @supports (-webkit-touch-callout: none) {
+      .svg-feature-1 .what-normal-icons {
+        display: block;
       }
     }
   }
