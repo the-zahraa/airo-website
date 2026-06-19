@@ -6698,4 +6698,23 @@
     }
   }
 
+
+
+  /* Culture card placement: keep the lower cards swapped and let the top card cover the beam endpoints. */
+  @media (min-width: 981px) {
+    .culture-stage-built .value-left {
+      left: auto;
+      right: clamp(34px, 5vw, 74px);
+    }
+
+    .culture-stage-built .value-right {
+      left: clamp(34px, 5vw, 74px);
+      right: auto;
+    }
+
+    .culture-stage-built .value-top {
+      top: clamp(46px, 4vw, 58px);
+    }
+  }
+
 </style>

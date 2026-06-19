@@ -233,8 +233,12 @@
     z-index: 1;
     left: 50%;
     top: clamp(190px, 18vw, 252px);
-    width: min(1970px, 136vw);
-    aspect-ratio: 1970 / 1011.291;
+    /* Stretch only horizontally on very wide / zoomed-out viewports.
+       Keep the original light height so its visible level never shifts down. */
+    width: 100vw;
+    min-width: min(1970px, 136vw);
+    height: min(1011.291px, 69.82vw);
+    aspect-ratio: auto;
     transform: translateX(-50%);
     overflow: hidden;
     pointer-events: none;
@@ -743,6 +747,9 @@
     .work-form-lighting {
       top: 230px;
       width: 158vw;
+      min-width: 0;
+      height: auto;
+      aspect-ratio: 1970 / 1011.291;
     }
 
     .work-form-card {
