@@ -108,21 +108,21 @@
       title: 'The same goal',
       copy: 'We operate with efficiency since we all have the same goal: innovation',
       tone: 'purple',
-      icon: 'target'
+      icon: 'goal'
     },
     {
-      number: '3.',
+      number: '2.',
       title: 'Be a team',
       copy: 'Airo is tight-knit and supportive — we win, learn, and ship together.',
       tone: 'green',
       icon: 'team'
     },
     {
-      number: '2.',
+      number: '3.',
       title: 'Speed with care',
       copy: 'We move fast, but never let speed erode our craft, quality, or communication.',
       tone: 'gold',
-      icon: 'bolt'
+      icon: 'speed'
     }
   ];
 
@@ -236,6 +236,17 @@
     return paths[name] || paths.target;
   }
 
+  function valueStickerSrc(name) {
+    const stickers = {
+      goal: '/stickers/goal.tgs',
+      team: '/stickers/team.tgs',
+      speed: '/stickers/speed.tgs'
+    };
+
+    return stickers[name] || '/stickers/goal.tgs';
+  }
+
+
   function processIconPath(name) {
     const paths = {
       upload: 'M12 16V6m0 0 4 4m-4-4-4 4M5.5 16.5a4 4 0 0 1 2.2-7.35A5 5 0 0 1 17.4 11H18a3.5 3.5 0 0 1 0 7H7.6',
@@ -247,6 +258,18 @@
     };
 
     return paths[name] || paths.upload;
+  }
+
+
+  function processStickerSrc(name) {
+    const stickers = {
+      apply: '/stickers/apply.tgs',
+      phone: '/stickers/chat.tgs',
+      craft: '/stickers/show.tgs',
+      offer: '/stickers/offer.tgs'
+    };
+
+    return stickers[name] || '/stickers/apply.tgs';
   }
 
 
@@ -440,7 +463,7 @@
 
       <article class="value-card value-top tone-purple" style="--value-delay: 90ms;">
         <span class="value-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d={valueIconPath(values[0].icon)} /></svg>
+          <tgs-player src={valueStickerSrc(values[0].icon)} autoplay loop mode="normal"></tgs-player>
         </span>
         <div>
           <h3><span>{values[0].number}</span> {values[0].title}</h3>
@@ -450,7 +473,7 @@
 
       <article class="value-card value-left tone-green" style="--value-delay: 240ms;">
         <span class="value-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d={valueIconPath(values[1].icon)} /></svg>
+          <tgs-player src={valueStickerSrc(values[1].icon)} autoplay loop mode="normal"></tgs-player>
         </span>
         <div>
           <h3><span>{values[1].number}</span> {values[1].title}</h3>
@@ -460,7 +483,7 @@
 
       <article class="value-card value-right tone-gold" style="--value-delay: 330ms;">
         <span class="value-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d={valueIconPath(values[2].icon)} /></svg>
+          <tgs-player src={valueStickerSrc(values[2].icon)} autoplay loop mode="normal"></tgs-player>
         </span>
         <div>
           <h3><span>{values[2].number}</span> {values[2].title}</h3>
@@ -491,7 +514,7 @@
         <article class={`process-card process-card-${item.type}`} use:reveal={index * 70}>
           <div class="process-top">
             <span class="card-icon process-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d={processIconPath(item.icon)} /></svg>
+              <tgs-player src={processStickerSrc(item.icon)} autoplay loop mode="normal"></tgs-player>
             </span>
             <div>
               <h3>{item.title}</h3>
@@ -503,10 +526,7 @@
             <div class="process-upload" aria-hidden="true">
               <div class="upload-row">
                 <span class="upload-icon upload-cloud-icon">
-                  <svg viewBox="0 0 24 24">
-                    <path class="upload-cloud-shape" d="M18 19a3.5 3.5 0 0 0 0-7h-.6A5 5 0 0 0 7.7 9.15 4 4 0 0 0 5.5 16.5" />
-                    <path class="upload-cloud-arrow" d="M12 16V8m0 0 3 3m-3-3-3 3" />
-                  </svg>
+                  <tgs-player src="/stickers/upload.tgs" autoplay loop mode="normal"></tgs-player>
                 </span>
                 <strong>Upload your portfolio</strong>
                 <em>(PDF–JPEG–WEBP)</em>
@@ -2446,6 +2466,16 @@
     animation: valueIconDraw 5.4s ease-in-out infinite;
   }
 
+  .culture-stage-built .value-icon tgs-player {
+    width: 78%;
+    height: 78%;
+    display: block;
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+    filter: drop-shadow(0 0 12px rgba(255,255,255,.28));
+  }
+
   .culture-stage-built .value-card h3 {
     font-size: clamp(16px, 1.48vw, 19.5px);
     line-height: 1.12;
@@ -2850,6 +2880,18 @@
     height: 55%;
     stroke-width: 1.55;
     animation: processIconDraw 4.6s ease-in-out infinite;
+  }
+
+  .hiring-process-grid .process-icon :global(tgs-player) {
+    display: block;
+    width: 72%;
+    height: 72%;
+  }
+
+  .upload-icon :global(tgs-player) {
+    display: block;
+    width: 30px;
+    height: 30px;
   }
 
   .hiring-process-grid .process-card h3 {

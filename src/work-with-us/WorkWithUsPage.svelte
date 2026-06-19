@@ -9,12 +9,22 @@
     { code: 'GBP', symbol: '£', label: 'British Pound' }
   ];
 
+  const jobRoles = [
+    'Game Scout',
+    'Roblox Developer',
+    'UI/UX Designer',
+    'Motion Designer',
+    'Community Manager',
+    'Other'
+  ];
+
   function normalizeTab(tab) {
     return tabs.includes(tab) ? tab : tabs[0];
   }
 
   let selectedTab = normalizeTab(initialTab);
   let selectedCurrency = 'USD';
+  let selectedJobRole = '';
   let syncedInitialTab = initialTab;
 
   $: if (initialTab !== syncedInitialTab) {
@@ -26,7 +36,9 @@
 
   $: helperText = selectedTab === 'Careers'
     ? 'Applying to join the Airo team'
-    : 'Selling or partnering on a Roblox';
+    : selectedTab === 'UGC'
+      ? 'UGC items, accessories, or wearables'
+      : 'Selling or partnering on a Roblox';
 
   $: linkLabel = selectedTab === 'Careers' ? 'Portfolio / resume link' : 'Group link';
   $: linkPlaceholder = selectedTab === 'Careers' ? 'https://your-portfolio.com' : 'https://www-roblox.com/groups/...';
@@ -204,6 +216,21 @@
         <input id="work-group-link" type="url" placeholder={linkPlaceholder} />
       </div>
     </div>
+
+    {#if selectedTab === 'Careers'}
+      <div class="field-group role-field">
+        <label for="work-job-role"><span></span>Job role</label>
+        <div class="role-select">
+          <select id="work-job-role" aria-label="Job role" bind:value={selectedJobRole}>
+            <option value="" disabled>Choose job role</option>
+            {#each jobRoles as role}
+              <option value={role}>{role}</option>
+            {/each}
+          </select>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
+        </div>
+      </div>
+    {/if}
 
     <div class="field-group price-field">
       <label for="work-asking-price"><span></span>{priceLabel}</label>
@@ -510,7 +537,8 @@
 
   .field-group input,
   .field-group textarea,
-  .currency-select {
+  .currency-select,
+  .role-select {
     width: 100%;
     border: 1px solid rgba(237,237,237,.62);
     border-radius: 219px;
@@ -527,7 +555,8 @@
   }
 
   .field-group input,
-  .currency-select {
+  .currency-select,
+  .role-select {
     height: clamp(44px, 3.7vw, 52px);
     padding: 0 clamp(17px, 2.1vw, 26px);
   }
@@ -550,7 +579,8 @@
     font-weight: 600;
   }
 
-  .currency-select:focus-within {
+  .currency-select:focus-within,
+  .role-select:focus-within {
     border-color: rgba(237,237,237,.62);
     background:
       linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03)),
@@ -558,6 +588,7 @@
     box-shadow: inset 0 0 34px rgba(202,158,255,.08);
   }
 
+  .role-field,
   .price-field {
     margin-top: clamp(18px, 2.4vw, 28px);
   }
@@ -613,6 +644,49 @@
     grid-column: 3;
     grid-row: 1;
     justify-self: end;
+    pointer-events: none;
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: rgba(255,255,255,.78);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .role-select {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .role-select select {
+    width: 100%;
+    min-width: 0;
+    padding-right: 28px;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    font: inherit;
+    font-size: clamp(11px, .95vw, 13.5px);
+    line-height: 1;
+    font-weight: 400;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .role-select select:invalid {
+    color: rgba(255,255,255,.5);
+  }
+
+  .role-select option {
+    color: #111;
+  }
+
+  .role-select svg {
+    position: absolute;
+    right: clamp(17px, 2.1vw, 26px);
     pointer-events: none;
     width: 16px;
     height: 16px;
@@ -770,11 +844,13 @@
     }
 
     .price-row {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(116px, 132px) 1fr;
+      gap: 10px;
     }
 
     .currency-select {
-      width: min(210px, 100%);
+      width: 100%;
+      min-width: 0;
     }
 
     .form-submit-row {
@@ -818,9 +894,10 @@
     }
 
     .work-form-heading h2 {
-      font-size: clamp(34px, 9.8vw, 52px);
+      font-size: clamp(24px, 6.9vw, 38px);
       line-height: 1.08;
       letter-spacing: -.035em;
+      white-space: nowrap;
     }
 
     .work-form-heading p {
@@ -865,12 +942,14 @@
     }
 
     .field-group input,
-    .currency-select {
+    .currency-select,
+    .role-select {
       height: 48px;
       padding-inline: 16px;
       font-size: 12px;
     }
 
+    .role-field,
     .price-field,
     .message-field {
       margin-top: 24px;
@@ -884,6 +963,10 @@
       padding-left: 10px;
       padding-right: 24px;
       font-size: 15px;
+    }
+
+    .role-select select {
+      font-size: 12px;
     }
 
     .field-group textarea {
