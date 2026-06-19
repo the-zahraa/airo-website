@@ -451,7 +451,8 @@
   }
 
   :global(.site-shell.legal-route .airo-footer) {
-    margin-top: -20px;
+    margin-top: -18px;
+    overflow: visible;
   }
 
   .legal-page {
