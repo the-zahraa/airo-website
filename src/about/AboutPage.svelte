@@ -196,6 +196,71 @@
     let isAnimatingStats = false;
     const cycle = 5600;
     const desktopHeroQuery = window.matchMedia('(min-width: 681px)');
+    const smallScreenQuery = window.matchMedia('(max-width: 680px)');
+
+    function isIosLikeSafari() {
+      const userAgent = navigator.userAgent || '';
+      const isiOS = /iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      const webkitTouch = typeof CSS !== 'undefined' && CSS.supports?.('-webkit-touch-callout', 'none');
+      return smallScreenQuery.matches && (isiOS || webkitTouch);
+    }
+
+    function clearIosFeatureIconPlates() {
+      document
+        .querySelectorAll('.about-features .feature-row:first-child svg [data-ios-feature-plate="true"]')
+        .forEach((plate) => plate.remove());
+    }
+
+    function applyIosFeatureIconPlates() {
+      clearIosFeatureIconPlates();
+
+      if (!isIosLikeSafari()) return;
+
+      const svg = document.querySelector('.about-features .feature-row:first-child .svg-shell svg');
+      if (!svg || typeof svg.createSVGPoint !== 'function') return;
+
+      const circles = Array.from(svg.querySelectorAll('circle')).filter((circle) => {
+        const radius = Number.parseFloat(circle.getAttribute('r') || '0');
+        return Math.abs(radius - 36.7268) < 0.08;
+      });
+
+      if (!circles.length) return;
+
+      circles.slice(0, 3).forEach((circle) => {
+        const cx = Number.parseFloat(circle.getAttribute('cx') || '0');
+        const cy = Number.parseFloat(circle.getAttribute('cy') || '0');
+        const r = Number.parseFloat(circle.getAttribute('r') || '0');
+        const matrix = circle.getCTM?.();
+        const point = svg.createSVGPoint();
+        point.x = cx;
+        point.y = cy;
+
+        const transformedPoint = matrix ? point.matrixTransform(matrix) : point;
+        const scaleX = matrix ? Math.hypot(matrix.a, matrix.b) : 1;
+        const scaleY = matrix ? Math.hypot(matrix.c, matrix.d) : 1;
+        const scale = (scaleX + scaleY) / 2 || 1;
+
+        const plate = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        plate.setAttribute('data-ios-feature-plate', 'true');
+        plate.setAttribute('aria-hidden', 'true');
+        plate.setAttribute('cx', `${transformedPoint.x}`);
+        plate.setAttribute('cy', `${transformedPoint.y}`);
+        plate.setAttribute('r', `${r * scale}`);
+        plate.setAttribute('fill', '#09070f');
+        plate.setAttribute('fill-opacity', '1');
+        plate.setAttribute('stroke', '#ffffff');
+        plate.setAttribute('stroke-opacity', '.34');
+        plate.setAttribute('stroke-width', '3');
+        plate.setAttribute('vector-effect', 'non-scaling-stroke');
+
+        let topLevel = circle;
+        while (topLevel.parentElement && topLevel.parentElement !== svg) {
+          topLevel = topLevel.parentElement;
+        }
+
+        svg.insertBefore(plate, topLevel || svg.firstChild);
+      });
+    }
 
     function updateDesktopHeroState(event = desktopHeroQuery) {
       showDesktopHeroArt = event.matches;
@@ -231,7 +296,11 @@
     });
 
     updateDesktopHeroState();
+    applyIosFeatureIconPlates();
     desktopHeroQuery.addEventListener?.('change', updateDesktopHeroState);
+    smallScreenQuery.addEventListener?.('change', applyIosFeatureIconPlates);
+    window.addEventListener('orientationchange', applyIosFeatureIconPlates);
+    window.addEventListener('resize', applyIosFeatureIconPlates);
 
     const features = document.querySelector('.about-features');
     const statsObserver = typeof IntersectionObserver === 'undefined'
@@ -255,6 +324,10 @@
       stopStatsAnimation();
       statsObserver?.disconnect();
       desktopHeroQuery.removeEventListener?.('change', updateDesktopHeroState);
+      smallScreenQuery.removeEventListener?.('change', applyIosFeatureIconPlates);
+      window.removeEventListener('orientationchange', applyIosFeatureIconPlates);
+      window.removeEventListener('resize', applyIosFeatureIconPlates);
+      clearIosFeatureIconPlates();
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       cancelAnimationFrame(mobileHeroCardsRaf);
       cancelAnimationFrame(mobileHeroCardsReadyRaf);
@@ -5620,26 +5693,6 @@
           {#if index === 0}
             <div class="svg-shell">
               {@html rowOneSvg}
-              <div class="what-normal-icons" aria-hidden="true">
-                <span class="what-normal-icon what-normal-icon-1">
-                  <svg viewBox="0 0 24 24" focusable="false">
-                    <path d="M7 7.5h10M7 12h7M7 16.5h10" />
-                  </svg>
-                </span>
-                <span class="what-normal-icon what-normal-icon-2">
-                  <svg viewBox="0 0 24 24" focusable="false">
-                    <path d="M6 16.5l4.2-4.2 3.2 3.1L18.5 9" />
-                    <path d="M16 9h2.5v2.5" />
-                  </svg>
-                </span>
-                <span class="what-normal-icon what-normal-icon-3">
-                  <svg viewBox="0 0 24 24" focusable="false">
-                    <path d="M12 5.5v13" />
-                    <path d="M6.5 11l5.5-5.5 5.5 5.5" />
-                    <path d="M7 18.5h10" />
-                  </svg>
-                </span>
-              </div>
             </div>
           {:else if index === 1}
             <div class="update-widget">
@@ -6287,42 +6340,6 @@
     display: block;
     overflow: visible;
   }
-
-  .what-normal-icons {
-    display: none;
-    position: absolute;
-    inset: 0;
-    z-index: 4;
-    pointer-events: none;
-  }
-
-  .what-normal-icon {
-    position: absolute;
-    width: clamp(52px, 14vw, 73px);
-    height: clamp(52px, 14vw, 73px);
-    border-radius: 999px;
-    display: grid;
-    place-items: center;
-    transform: translate(-50%, -50%);
-    background: rgba(9, 7, 15, .96);
-    border: 1.5px solid rgba(255, 255, 255, .34);
-    box-shadow: 0 10px 22px rgba(0,0,0,.34), 0 0 13px rgba(255,255,255,.06);
-  }
-
-  .what-normal-icon svg {
-    width: 45%;
-    height: 45%;
-    display: block;
-    fill: none;
-    stroke: rgba(255,255,255,.92);
-    stroke-width: 1.85;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .what-normal-icon-1 { left: 16.2%; top: 63.5%; }
-  .what-normal-icon-2 { left: 50%; top: 30.5%; }
-  .what-normal-icon-3 { left: 83.8%; top: 63.5%; }
 
   .svg-shell :global(line),
   .svg-shell :global(path[stroke]) {
@@ -9462,15 +9479,6 @@
     .mobile-hero-sticker {
       width: clamp(52px, 18vw, 64px) !important;
       height: clamp(52px, 18vw, 64px) !important;
-    }
-  }
-
-
-  @media (max-width: 680px) {
-    @supports (-webkit-touch-callout: none) {
-      .svg-feature-1 .what-normal-icons {
-        display: block;
-      }
     }
   }
 
