@@ -196,71 +196,6 @@
     let isAnimatingStats = false;
     const cycle = 5600;
     const desktopHeroQuery = window.matchMedia('(min-width: 681px)');
-    const smallScreenQuery = window.matchMedia('(max-width: 680px)');
-
-    function isIosLikeSafari() {
-      const userAgent = navigator.userAgent || '';
-      const isiOS = /iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-      const webkitTouch = typeof CSS !== 'undefined' && CSS.supports?.('-webkit-touch-callout', 'none');
-      return smallScreenQuery.matches && (isiOS || webkitTouch);
-    }
-
-    function clearIosFeatureIconPlates() {
-      document
-        .querySelectorAll('.about-features .feature-row:first-child svg [data-ios-feature-plate="true"]')
-        .forEach((plate) => plate.remove());
-    }
-
-    function applyIosFeatureIconPlates() {
-      clearIosFeatureIconPlates();
-
-      if (!isIosLikeSafari()) return;
-
-      const svg = document.querySelector('.about-features .feature-row:first-child .svg-shell svg');
-      if (!svg || typeof svg.createSVGPoint !== 'function') return;
-
-      const circles = Array.from(svg.querySelectorAll('circle')).filter((circle) => {
-        const radius = Number.parseFloat(circle.getAttribute('r') || '0');
-        return Math.abs(radius - 36.7268) < 0.08;
-      });
-
-      if (!circles.length) return;
-
-      circles.slice(0, 3).forEach((circle) => {
-        const cx = Number.parseFloat(circle.getAttribute('cx') || '0');
-        const cy = Number.parseFloat(circle.getAttribute('cy') || '0');
-        const r = Number.parseFloat(circle.getAttribute('r') || '0');
-        const matrix = circle.getCTM?.();
-        const point = svg.createSVGPoint();
-        point.x = cx;
-        point.y = cy;
-
-        const transformedPoint = matrix ? point.matrixTransform(matrix) : point;
-        const scaleX = matrix ? Math.hypot(matrix.a, matrix.b) : 1;
-        const scaleY = matrix ? Math.hypot(matrix.c, matrix.d) : 1;
-        const scale = (scaleX + scaleY) / 2 || 1;
-
-        const plate = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        plate.setAttribute('data-ios-feature-plate', 'true');
-        plate.setAttribute('aria-hidden', 'true');
-        plate.setAttribute('cx', `${transformedPoint.x}`);
-        plate.setAttribute('cy', `${transformedPoint.y}`);
-        plate.setAttribute('r', `${r * scale}`);
-        plate.setAttribute('fill', '#09070f');
-        plate.setAttribute('fill-opacity', '1');
-        plate.setAttribute('stroke', '#ffffff');
-        plate.setAttribute('stroke-opacity', '.34');
-        plate.setAttribute('stroke-width', '3');
-        plate.setAttribute('vector-effect', 'non-scaling-stroke');
-
-        let topLevel = circle;
-        while (topLevel.parentElement && topLevel.parentElement !== svg) {
-          topLevel = topLevel.parentElement;
-        }
-
-        svg.insertBefore(plate, topLevel || svg.firstChild);
-      });
-    }
 
     function updateDesktopHeroState(event = desktopHeroQuery) {
       showDesktopHeroArt = event.matches;
@@ -296,11 +231,7 @@
     });
 
     updateDesktopHeroState();
-    applyIosFeatureIconPlates();
     desktopHeroQuery.addEventListener?.('change', updateDesktopHeroState);
-    smallScreenQuery.addEventListener?.('change', applyIosFeatureIconPlates);
-    window.addEventListener('orientationchange', applyIosFeatureIconPlates);
-    window.addEventListener('resize', applyIosFeatureIconPlates);
 
     const features = document.querySelector('.about-features');
     const statsObserver = typeof IntersectionObserver === 'undefined'
@@ -324,10 +255,6 @@
       stopStatsAnimation();
       statsObserver?.disconnect();
       desktopHeroQuery.removeEventListener?.('change', updateDesktopHeroState);
-      smallScreenQuery.removeEventListener?.('change', applyIosFeatureIconPlates);
-      window.removeEventListener('orientationchange', applyIosFeatureIconPlates);
-      window.removeEventListener('resize', applyIosFeatureIconPlates);
-      clearIosFeatureIconPlates();
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       cancelAnimationFrame(mobileHeroCardsRaf);
       cancelAnimationFrame(mobileHeroCardsReadyRaf);
