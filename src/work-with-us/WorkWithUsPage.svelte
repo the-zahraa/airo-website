@@ -6,7 +6,8 @@
   const currencies = [
     { code: 'USD', symbol: '$', label: 'US Dollar' },
     { code: 'EUR', symbol: '€', label: 'Euro' },
-    { code: 'GBP', symbol: '£', label: 'British Pound' }
+    { code: 'GBP', symbol: '£', label: 'British Pound' },
+    { code: 'CAD', symbol: '$', label: 'Canadian Dollar' }
   ];
 
   const jobRoles = [
@@ -249,7 +250,7 @@
           <span class="currency-icon" aria-hidden="true">{selectedCurrencyData.symbol}</span>
           <select aria-label="Currency" bind:value={selectedCurrency}>
             {#each currencies as currency}
-              <option value={currency.code}>{currency.symbol} {currency.code}</option>
+              <option value={currency.code}>{currency.code}</option>
             {/each}
           </select>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
@@ -890,13 +891,19 @@
     }
 
     .price-row {
-      grid-template-columns: minmax(116px, 132px) 1fr;
-      gap: 10px;
+      grid-template-columns: minmax(134px, 142px) minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    .price-row > input {
+      min-width: 0;
     }
 
     .currency-select {
       width: 100%;
       min-width: 0;
+      padding-inline: 11px;
+      gap: 6px;
     }
 
     .form-submit-row {
@@ -1005,18 +1012,25 @@
     }
 
     .currency-select {
-      gap: 10px;
+      gap: 6px;
+      padding-inline: 10px;
+    }
+
+    .currency-select .currency-icon {
+      width: 16px;
+      font-size: 14px;
     }
 
     .currency-select select {
-      padding-left: 10px;
-      padding-right: 24px;
-      font-size: 15px;
+      padding-left: 8px;
+      padding-right: 18px;
+      font-size: 14px;
     }
 
     .role-select select {
       font-size: 12px;
     }
+
 
     .field-group textarea {
       height: 164px;
@@ -1070,6 +1084,24 @@
     .work-form-card {
       transition: none !important;
       transform: none !important;
+    }
+  }
+
+
+  @media (max-width: 380px) {
+    .price-row {
+      grid-template-columns: minmax(126px, 132px) minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    .currency-select {
+      padding-inline: 9px;
+    }
+
+    .currency-select select {
+      padding-left: 7px;
+      padding-right: 16px;
+      font-size: 13px;
     }
   }
 

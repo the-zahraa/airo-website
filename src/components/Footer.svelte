@@ -165,7 +165,10 @@
     --footer-lavender-center: 87px;
     --footer-white-x: 1438px;
     --footer-white-y: 727px;
-    --footer-white-center: 101px;
+    --footer-white-center: 92px;
+    --footer-white-core-x: 620px;
+    --footer-white-core-y: 245px;
+    --footer-white-core-center: 49px;
 
     position: relative;
     z-index: 1;
@@ -191,6 +194,30 @@
     pointer-events: none;
     background-image:
       radial-gradient(rgba(88, 31, 155, var(--footer-dot-alpha)) 1px, transparent 1.25px),
+      radial-gradient(ellipse var(--footer-white-core-x) var(--footer-white-core-y) at 50% calc(100% + var(--footer-white-core-center)),
+        rgba(255, 255, 255, 1) 0%,
+        rgba(248, 246, 255, 1) 18%,
+        rgba(232, 228, 255, .94) 36%,
+        rgba(232, 228, 255, .54) 58%,
+        transparent 84%),
+      radial-gradient(ellipse var(--footer-white-x) var(--footer-white-y) at 50% calc(100% + var(--footer-white-center)),
+        rgba(232, 228, 255, .98) 0%,
+        rgba(232, 228, 255, .90) 16%,
+        rgba(232, 228, 255, .60) 34%,
+        rgba(232, 228, 255, .28) 58%,
+        transparent 86%),
+      radial-gradient(ellipse var(--footer-lavender-x) var(--footer-lavender-y) at 50% calc(100% + var(--footer-lavender-center)),
+        rgba(175, 139, 249, 1) 0%,
+        rgba(175, 139, 249, .82) 18%,
+        rgba(175, 139, 249, .48) 38%,
+        rgba(175, 139, 249, .22) 60%,
+        transparent 84%),
+      radial-gradient(ellipse var(--footer-purple-x) var(--footer-purple-y) at 50% calc(100% + var(--footer-purple-center)),
+        rgba(115, 0, 255, 1) 0%,
+        rgba(115, 0, 255, .82) 24%,
+        rgba(115, 0, 255, .50) 48%,
+        rgba(115, 0, 255, .24) 70%,
+        transparent 94%),
       linear-gradient(to bottom,
         rgba(0, 0, 0, 0) 0%,
         rgba(3, 0, 6, .08) 12%,
@@ -198,39 +225,24 @@
         rgba(3, 0, 6, .42) 48%,
         rgba(3, 0, 6, .30) 64%,
         rgba(115, 0, 255, .12) 82%,
-        rgba(115, 0, 255, .20) 100%),
-      radial-gradient(ellipse var(--footer-white-x) var(--footer-white-y) at 50% calc(100% + var(--footer-white-center)),
-        rgba(232, 228, 255, .90) 0%,
-        rgba(232, 228, 255, .72) 7%,
-        rgba(232, 228, 255, .38) 18%,
-        rgba(232, 228, 255, .16) 32%,
-        transparent 56%),
-      radial-gradient(ellipse var(--footer-lavender-x) var(--footer-lavender-y) at 50% calc(100% + var(--footer-lavender-center)),
-        rgba(175, 139, 249, .86) 0%,
-        rgba(175, 139, 249, .58) 18%,
-        rgba(175, 139, 249, .28) 38%,
-        rgba(175, 139, 249, .11) 58%,
-        transparent 82%),
-      radial-gradient(ellipse var(--footer-purple-x) var(--footer-purple-y) at 50% calc(100% + var(--footer-purple-center)),
-        rgba(115, 0, 255, .82) 0%,
-        rgba(115, 0, 255, .58) 24%,
-        rgba(115, 0, 255, .31) 48%,
-        rgba(115, 0, 255, .14) 68%,
-        transparent 92%);
+        rgba(115, 0, 255, .20) 100%);
     background-size:
       var(--footer-dot-size) var(--footer-dot-size),
+      100% 100%,
       100% 100%,
       100% 100%,
       100% 100%,
       100% 100%;
     background-position:
       center top,
-      center top,
       center bottom,
       center bottom,
-      center bottom;
+      center bottom,
+      center bottom,
+      center top;
     background-repeat:
       repeat,
+      no-repeat,
       no-repeat,
       no-repeat,
       no-repeat,
@@ -446,7 +458,10 @@
       --footer-lavender-center: 42px;
       --footer-white-x: 1150px;
       --footer-white-y: 581px;
-      --footer-white-center: 7px;
+      --footer-white-center: 2px;
+      --footer-white-core-x: 530px;
+      --footer-white-core-y: 210px;
+      --footer-white-core-center: 7px;
       padding-top: 112px;
     }
 
@@ -481,7 +496,10 @@
       --footer-lavender-center: 32px;
       --footer-white-x: 859px;
       --footer-white-y: 438px;
-      --footer-white-center: 63px;
+      --footer-white-center: 55px;
+      --footer-white-core-x: 430px;
+      --footer-white-core-y: 176px;
+      --footer-white-core-center: 44px;
       --footer-dot-size: 24px;
       --footer-dot-alpha: .54;
       padding: 82px 0 26px;
