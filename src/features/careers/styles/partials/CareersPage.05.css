@@ -1,0 +1,1228 @@
+
+
+  .careers-page .voice-running-line i {
+    position: relative !important;
+    z-index: 2 !important;
+    animation: waveformDanceActually 880ms ease-in-out infinite !important;
+    animation-delay: calc(var(--wave-index) * -42ms) !important;
+  }
+
+  /* 3) Right phone icon: cleaner filled receiver */
+  .careers-page .clean-phone-icon {
+    background: rgba(231,211,255,.96) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.48),
+      0 0 14px rgba(115,0,255,.18) !important;
+  }
+
+  .careers-page .clean-phone-icon svg {
+    width: 23px !important;
+    height: 23px !important;
+    fill: #7300FF !important;
+    stroke: none !important;
+    transform: translateY(.25px) !important;
+  }
+
+  .careers-page .clean-phone-icon svg path {
+    fill: #7300FF !important;
+    stroke: none !important;
+  }
+
+  /* 4) Third card progress circle: delete the square/pill and prevent flat square cap */
+  .careers-page .task-ring small,
+  .careers-page .task-ring-content small {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .careers-page .task-ring .ring-progress {
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    filter: drop-shadow(0 0 12px rgba(115,0,255,.74)) !important;
+  }
+
+  .careers-page .task-ring-content {
+    gap: 4px !important;
+  }
+
+  .careers-page .task-ring-content strong {
+    margin-top: 0 !important;
+  }
+
+  @keyframes voiceLineRunActually {
+    0% { width: 8%; opacity: .52; }
+    54% { width: 78%; opacity: 1; }
+    100% { width: 8%; opacity: .52; }
+  }
+
+  @keyframes voiceSweepActually {
+    0% { transform: translateX(0); opacity: 0; }
+    22% { opacity: .8; }
+    72% { transform: translateX(260px); opacity: .8; }
+    100% { transform: translateX(260px); opacity: 0; }
+  }
+
+  @keyframes waveformDanceActually {
+    0%, 100% { transform: scaleY(.52); opacity: .62; }
+    50% { transform: scaleY(1.15); opacity: 1; }
+  }
+
+  @media (max-width: 980px) {
+    .careers-page .job-card-figma:nth-child(3)::before {
+      left: 50% !important;
+      right: auto !important;
+      top: auto !important;
+      bottom: -42px !important;
+      width: 78% !important;
+      height: 18px !important;
+      transform: translateX(-50%) !important;
+    }
+
+    .careers-page .job-card-figma:nth-child(3)::after {
+      left: 50% !important;
+      right: auto !important;
+      top: auto !important;
+      bottom: -31px !important;
+      width: 56% !important;
+      height: 5px !important;
+      transform: translateX(-50%) !important;
+    }
+  }
+
+
+  /* v48-career-final: requested fixes only — behind-card lighting, voice line, right icon, task-ring artifact */
+  .careers-page .jobs-grid-figma {
+    position: relative !important;
+    isolation: isolate !important;
+    overflow: visible !important;
+  }
+
+  .careers-page .job-card-figma {
+    position: relative !important;
+    z-index: auto !important;
+    overflow: visible !important;
+    isolation: auto !important;
+    background: #070509 !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.075),
+      0 16px 38px rgba(0,0,0,.34) !important;
+  }
+
+  .careers-page .job-card-figma > * {
+    position: relative !important;
+    z-index: 4 !important;
+  }
+
+  .careers-page .job-card-figma::before,
+  .careers-page .job-card-figma::after {
+    content: '' !important;
+    position: absolute !important;
+    pointer-events: none !important;
+    border-radius: 999px !important;
+    mix-blend-mode: screen !important;
+  }
+
+  .careers-page .job-card-figma::before {
+    z-index: -2 !important;
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: -56px !important;
+    width: 72% !important;
+    height: 24px !important;
+    transform: translateX(-50%) !important;
+    background: rgba(115, 0, 255, .86) !important;
+    filter: blur(20px) !important;
+    opacity: .18 !important;
+  }
+
+  .careers-page .job-card-figma::after {
+    z-index: -1 !important;
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: -35px !important;
+    width: 42% !important;
+    height: 5px !important;
+    transform: translateX(-50%) !important;
+    background: rgba(232, 228, 255, .78) !important;
+    filter: blur(7px) !important;
+    opacity: .13 !important;
+    box-shadow: none !important;
+  }
+
+  .careers-page .job-card-figma:nth-child(1)::before {
+    top: -56px !important;
+    bottom: auto !important;
+  }
+
+  .careers-page .job-card-figma:nth-child(1)::after {
+    top: -35px !important;
+    bottom: auto !important;
+  }
+
+  .careers-page .job-card-figma:nth-child(2)::before {
+    bottom: -56px !important;
+    top: auto !important;
+  }
+
+  .careers-page .job-card-figma:nth-child(2)::after {
+    bottom: -35px !important;
+    top: auto !important;
+  }
+
+  .careers-page .job-card-figma:nth-child(3)::before {
+    left: auto !important;
+    right: -58px !important;
+    top: 50% !important;
+    bottom: auto !important;
+    width: 24px !important;
+    height: 62% !important;
+    transform: translateY(-50%) !important;
+    background: rgba(115, 0, 255, .82) !important;
+    filter: blur(20px) !important;
+    opacity: .16 !important;
+  }
+
+  .careers-page .job-card-figma:nth-child(3)::after {
+    left: auto !important;
+    right: -34px !important;
+    top: 50% !important;
+    bottom: auto !important;
+    width: 5px !important;
+    height: 36% !important;
+    transform: translateY(-50%) !important;
+    background: rgba(232, 228, 255, .72) !important;
+    filter: blur(7px) !important;
+    opacity: .12 !important;
+  }
+
+  .careers-page .jobs-grid-figma.expanded .job-card-figma:nth-child(n+4)::before {
+    top: auto !important;
+    bottom: -56px !important;
+    left: 50% !important;
+    right: auto !important;
+    width: 72% !important;
+    height: 24px !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .careers-page .jobs-grid-figma.expanded .job-card-figma:nth-child(n+4)::after {
+    top: auto !important;
+    bottom: -35px !important;
+    left: 50% !important;
+    right: auto !important;
+    width: 42% !important;
+    height: 5px !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .careers-page .audio-player {
+    overflow: hidden !important;
+  }
+
+  .careers-page .voice-running-line {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    min-height: 30px !important;
+    padding: 0 9px !important;
+    overflow: hidden !important;
+    border-radius: 999px !important;
+    background: linear-gradient(90deg, rgba(35, 0, 75, .20), rgba(255,255,255,.08), rgba(35, 0, 75, .18)) !important;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.08) !important;
+  }
+
+  .careers-page .voice-progress-line {
+    display: block !important;
+    position: absolute !important;
+    z-index: 1 !important;
+    left: 10px !important;
+    top: 50% !important;
+    width: 16% !important;
+    height: 3px !important;
+    transform: translateY(-50%) !important;
+    border-radius: 999px !important;
+    background: linear-gradient(90deg, rgba(255,255,255,.08), rgba(255,255,255,.9), rgba(255,255,255,.18)) !important;
+    box-shadow: 0 0 14px rgba(255,255,255,.52) !important;
+    animation: voiceLineRunV48 2.4s cubic-bezier(.42,0,.25,1) infinite !important;
+  }
+
+  .careers-page .voice-progress-line::after {
+    content: '' !important;
+    position: absolute !important;
+    right: -4px !important;
+    top: 50% !important;
+    width: 7px !important;
+    height: 7px !important;
+    transform: translateY(-50%) !important;
+    border-radius: 999px !important;
+    background: #fff !important;
+    box-shadow: 0 0 13px rgba(255,255,255,.95) !important;
+  }
+
+  .careers-page .voice-running-line::before {
+    content: '' !important;
+    position: absolute !important;
+    z-index: 1 !important;
+    top: 3px !important;
+    bottom: 3px !important;
+    left: -30% !important;
+    width: 28% !important;
+    border-radius: inherit !important;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.20), transparent) !important;
+    animation: voiceSweepV48 2.4s cubic-bezier(.42,0,.25,1) infinite !important;
+  }
+
+  .careers-page .voice-running-line i {
+    position: relative !important;
+    z-index: 2 !important;
+    background: rgba(255,255,255,.86) !important;
+    box-shadow: 0 0 8px rgba(255,255,255,.22) !important;
+    transform-origin: center !important;
+    animation: waveformDanceV48 820ms ease-in-out infinite !important;
+    animation-delay: calc(var(--wave-index) * -39ms) !important;
+  }
+
+  .careers-page .clean-phone-icon {
+    background:
+      radial-gradient(circle at 34% 22%, rgba(255,255,255,.82), rgba(255,255,255,.16) 30%, transparent 55%),
+      rgba(231,211,255,.94) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.62),
+      inset 0 -8px 14px rgba(115,0,255,.10),
+      0 0 18px rgba(255,255,255,.12) !important;
+  }
+
+  .careers-page .clean-phone-icon svg {
+    width: 22px !important;
+    height: 22px !important;
+    fill: none !important;
+    stroke: #7300FF !important;
+    stroke-width: 2.1 !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    transform: none !important;
+  }
+
+  .careers-page .clean-phone-icon svg path {
+    fill: none !important;
+    stroke: #7300FF !important;
+    stroke-width: 2.1 !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+  }
+
+  .careers-page .task-ring,
+  .careers-page .task-ring svg {
+    overflow: visible !important;
+  }
+
+  .careers-page .task-ring svg {
+    filter: none !important;
+  }
+
+  .careers-page .task-ring circle,
+  .careers-page .task-ring .ring-progress {
+    vector-effect: non-scaling-stroke !important;
+  }
+
+  .careers-page .task-ring .ring-progress {
+    animation: taskRingProgress98 2.6s cubic-bezier(.22,.8,.22,1) infinite;
+    stroke: #8c16ff !important;
+    stroke-dasharray: 282.743;
+    stroke-dashoffset: 11.31;
+    stroke-linecap: butt !important;
+    stroke-linejoin: round !important;
+    filter: drop-shadow(0 0 10px rgba(115,0,255,.62)) !important;
+  }
+
+  .careers-page .task-ring small,
+  .careers-page .task-ring-content small,
+  .careers-page .task-ring::before,
+  .careers-page .task-ring::after,
+  .careers-page .task-ring-content::before,
+  .careers-page .task-ring-content::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  @keyframes voiceLineRunV48 {
+    0% { width: 12%; opacity: .45; transform: translateY(-50%) translateX(0); }
+    48% { width: calc(100% - 28px); opacity: .96; transform: translateY(-50%) translateX(0); }
+    78% { width: calc(100% - 28px); opacity: .72; transform: translateY(-50%) translateX(8px); }
+    100% { width: 12%; opacity: .45; transform: translateY(-50%) translateX(0); }
+  }
+
+  @keyframes voiceSweepV48 {
+    0% { transform: translateX(0); opacity: 0; }
+    18% { opacity: .7; }
+    78% { transform: translateX(430%); opacity: .7; }
+    100% { transform: translateX(430%); opacity: 0; }
+  }
+
+  @keyframes waveformDanceV48 {
+    0%, 100% { transform: scaleY(.5); opacity: .64; }
+    50% { transform: scaleY(1.24); opacity: 1; }
+  }
+
+
+  @media (max-width: 980px) {
+    .careers-page .job-card-figma:nth-child(3)::before {
+      left: 50% !important;
+      right: auto !important;
+      top: auto !important;
+      bottom: -56px !important;
+      width: 72% !important;
+      height: 24px !important;
+      transform: translateX(-50%) !important;
+    }
+
+    .careers-page .job-card-figma:nth-child(3)::after {
+      left: 50% !important;
+      right: auto !important;
+      top: auto !important;
+      bottom: -35px !important;
+      width: 42% !important;
+      height: 5px !important;
+      transform: translateX(-50%) !important;
+    }
+  }
+
+
+  /* v49: Careers typography consistency + bigger hero sticker + page-dot cleanup only */
+  .careers-page .career-bg .career-dots,
+  .careers-page .career-dots {
+    display: none !important;
+  }
+
+  .careers-page .section-heading,
+  .careers-page .perks-heading,
+  .careers-page .process-section .section-heading,
+  .careers-page .jobs-section-figma .jobs-heading,
+  .careers-page .values-section > .section-heading {
+    width: min(760px, 100%) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: clamp(34px, 4.6vw, 58px) !important;
+    text-align: center !important;
+  }
+
+  .careers-page .section-kicker.small,
+  .careers-page .perks-heading .section-kicker.small,
+  .careers-page .process-section .section-kicker.small,
+  .careers-page .jobs-section-figma .section-kicker.small {
+    min-width: 138px !important;
+    height: 42px !important;
+    margin-bottom: clamp(20px, 2.4vw, 30px) !important;
+    font-size: clamp(15px, 1.25vw, 19px) !important;
+    line-height: 42px !important;
+    font-weight: 600 !important;
+    letter-spacing: .035em !important;
+  }
+
+  .careers-page .section-kicker.small .corner,
+  .careers-page .perks-heading .section-kicker.small .corner,
+  .careers-page .process-section .section-kicker.small .corner,
+  .careers-page .jobs-section-figma .section-kicker.small .corner {
+    width: 10px !important;
+    height: 10px !important;
+    border-width: 2px !important;
+  }
+
+  .careers-page .section-heading h2,
+  .careers-page .perks-heading h2,
+  .careers-page .process-section h2,
+  .careers-page .jobs-section-figma h2,
+  .careers-page .values-section > .section-heading h2 {
+    font-size: clamp(40px, 4.65vw, 64px) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -.018em !important;
+    font-weight: 600 !important;
+    text-shadow: 0 0 42px rgba(255,255,255,.2) !important;
+  }
+
+  .careers-page .section-heading p,
+  .careers-page .perks-heading p,
+  .careers-page .process-section > .section-heading > p,
+  .careers-page .jobs-section-figma .jobs-heading p {
+    width: min(690px, 100%) !important;
+    margin: clamp(16px, 1.8vw, 24px) auto 0 !important;
+    color: rgba(255,255,255,.7) !important;
+    font-size: clamp(14px, 1.34vw, 18.5px) !important;
+    line-height: 1.58 !important;
+    font-weight: 400 !important;
+    letter-spacing: 0 !important;
+  }
+
+  @media (max-width: 860px) {
+    .careers-page .career-hero {
+      height: clamp(680px, 132vw, 760px) !important;
+      min-height: clamp(680px, 132vw, 760px) !important;
+    }
+
+    .careers-page .hero-content {
+      height: 590px !important;
+    }
+
+    .careers-page .career-hero h1 {
+      top: clamp(78px, 17vw, 94px) !important;
+    }
+
+    .careers-page .career-hero p {
+      top: clamp(156px, 34vw, 184px) !important;
+    }
+
+    .careers-page .hero-careers-sticker {
+      top: clamp(274px, 56vw, 322px) !important;
+      width: clamp(116px, 27vw, 144px) !important;
+      height: clamp(116px, 27vw, 144px) !important;
+    }
+
+    .careers-page .hero-actions {
+      top: clamp(432px, 86vw, 486px) !important;
+    }
+
+    .careers-page .section-heading h2,
+    .careers-page .perks-heading h2,
+    .careers-page .process-section h2,
+    .careers-page .jobs-section-figma h2,
+    .careers-page .values-section > .section-heading h2 {
+      font-size: clamp(34px, 9.8vw, 52px) !important;
+      line-height: 1.08 !important;
+      white-space: normal !important;
+      letter-spacing: -.035em !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .careers-page .career-hero {
+      height: 710px !important;
+      min-height: 710px !important;
+    }
+
+    .careers-page .hero-content {
+      height: 590px !important;
+    }
+
+    .careers-page .career-hero h1 {
+      top: 78px !important;
+    }
+
+    .careers-page .career-hero p {
+      top: 164px !important;
+    }
+
+    .careers-page .hero-careers-sticker {
+      top: 304px !important;
+      width: 122px !important;
+      height: 122px !important;
+    }
+
+    .careers-page .hero-actions {
+      top: 452px !important;
+    }
+
+    .careers-page .section-heading,
+    .careers-page .perks-heading,
+    .careers-page .process-section .section-heading,
+    .careers-page .jobs-section-figma .jobs-heading,
+    .careers-page .values-section > .section-heading {
+      margin-bottom: 34px !important;
+    }
+  }
+
+
+  /* v50: requested micro-adjustment only — kicker/title spacing, kicker scale, sticker size/no glow */
+  .careers-page .hero-kicker {
+    font-size: 21px !important;
+  }
+
+  .careers-page .career-hero h1 {
+    top: 85px !important;
+  }
+
+  .careers-page .hero-careers-sticker {
+    width: clamp(150px, 14.4vw, 190px) !important;
+    height: clamp(150px, 14.4vw, 190px) !important;
+    filter: none !important;
+  }
+
+  .careers-page .section-kicker.small,
+  .careers-page .perks-heading .section-kicker.small,
+  .careers-page .process-section .section-kicker.small,
+  .careers-page .jobs-section-figma .section-kicker.small {
+    margin-bottom: clamp(18px, 2.1vw, 26px) !important;
+    font-size: clamp(16.5px, 1.38vw, 20.9px) !important;
+  }
+
+  @media (max-width: 860px) {
+    .careers-page .hero-kicker {
+      font-size: clamp(18px, 4.3vw, 21px) !important;
+    }
+
+    .careers-page .career-hero h1 {
+      top: clamp(75px, 16vw, 90px) !important;
+    }
+
+    .careers-page .hero-careers-sticker {
+      width: clamp(136px, 31vw, 166px) !important;
+      height: clamp(136px, 31vw, 166px) !important;
+      filter: none !important;
+    }
+
+    .careers-page .section-kicker.small,
+    .careers-page .perks-heading .section-kicker.small,
+    .careers-page .process-section .section-kicker.small,
+    .careers-page .jobs-section-figma .section-kicker.small {
+      margin-bottom: clamp(16px, 3.6vw, 23px) !important;
+      font-size: clamp(15px, 3.7vw, 18.5px) !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .careers-page .career-hero h1 {
+      top: 75px !important;
+    }
+
+    .careers-page .hero-careers-sticker {
+      width: 144px !important;
+      height: 144px !important;
+      filter: none !important;
+    }
+
+    .careers-page .section-kicker.small,
+    .careers-page .perks-heading .section-kicker.small,
+    .careers-page .process-section .section-kicker.small,
+    .careers-page .jobs-section-figma .section-kicker.small {
+      margin-bottom: 18px !important;
+      font-size: 15px !important;
+    }
+  }
+
+
+  /* v51: requested focused fixes — kicker/title spacing, fit-content labels, larger sticker, closer perks, removed placeholders */
+  .careers-page .hero-kicker,
+  .careers-page .section-kicker.small,
+  .careers-page .perks-heading .section-kicker.small,
+  .careers-page .process-section .section-kicker.small,
+  .careers-page .jobs-section-figma .section-kicker.small {
+    width: fit-content !important;
+    min-width: 0 !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    white-space: nowrap !important;
+  }
+
+  .careers-page .hero-kicker {
+    height: 66px !important;
+    font-size: 21px !important;
+    line-height: 66px !important;
+  }
+
+  .careers-page .career-hero {
+    height: clamp(980px, 84vw, 1080px) !important;
+    min-height: clamp(980px, 84vw, 1080px) !important;
+  }
+
+  .careers-page .hero-content {
+    height: 900px !important;
+  }
+
+  .careers-page .career-hero h1 {
+    top: 82px !important;
+  }
+
+  .careers-page .hero-careers-sticker {
+    top: 250px !important;
+    width: clamp(300px, 28.8vw, 380px) !important;
+    height: clamp(300px, 28.8vw, 380px) !important;
+    filter: none !important;
+  }
+
+  .careers-page .hero-actions {
+    top: 700px !important;
+  }
+
+  .careers-page .section-kicker.small,
+  .careers-page .perks-heading .section-kicker.small,
+  .careers-page .process-section .section-kicker.small,
+  .careers-page .jobs-section-figma .section-kicker.small {
+    height: 42px !important;
+    margin-bottom: clamp(15px, 1.8vw, 22px) !important;
+    font-size: clamp(16.5px, 1.38vw, 20.9px) !important;
+    line-height: 42px !important;
+  }
+
+  .careers-page .section-heading,
+  .careers-page .perks-heading,
+  .careers-page .process-section .section-heading,
+  .careers-page .jobs-section-figma .jobs-heading,
+  .careers-page .values-section > .section-heading {
+    margin-bottom: clamp(28px, 3.9vw, 50px) !important;
+  }
+
+  .careers-page .perks-heading {
+    margin-bottom: clamp(18px, 2.3vw, 30px) !important;
+  }
+
+  .careers-page .perks-heading h2 {
+    white-space: nowrap !important;
+    width: max-content !important;
+    max-width: none !important;
+    margin-left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .careers-page .perks-stage {
+    height: clamp(405px, 34vw, 455px) !important;
+    margin-top: clamp(-8px, -0.7vw, -4px) !important;
+  }
+
+  .careers-page .perks-stage::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  @media (max-width: 860px) {
+    .careers-page .career-hero {
+      height: 940px !important;
+      min-height: 940px !important;
+    }
+
+    .careers-page .hero-content {
+      height: 850px !important;
+    }
+
+    .careers-page .career-hero h1 {
+      top: clamp(72px, 15vw, 86px) !important;
+    }
+
+    .careers-page .hero-careers-sticker {
+      top: clamp(250px, 52vw, 292px) !important;
+      width: clamp(250px, 58vw, 330px) !important;
+      height: clamp(250px, 58vw, 330px) !important;
+      filter: none !important;
+    }
+
+    .careers-page .hero-actions {
+      top: clamp(650px, 122vw, 690px) !important;
+    }
+
+    .careers-page .section-kicker.small,
+    .careers-page .perks-heading .section-kicker.small,
+    .careers-page .process-section .section-kicker.small,
+    .careers-page .jobs-section-figma .section-kicker.small {
+      margin-bottom: clamp(14px, 3vw, 20px) !important;
+    }
+
+    .careers-page .perks-heading h2 {
+      white-space: normal !important;
+      width: min(100%, 680px) !important;
+      max-width: 100% !important;
+      margin-left: auto !important;
+      transform: none !important;
+    }
+
+    .careers-page .perks-stage {
+      height: clamp(440px, 92vw, 520px) !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .careers-page .career-hero {
+      height: 900px !important;
+      min-height: 900px !important;
+    }
+
+    .careers-page .hero-content {
+      height: 820px !important;
+    }
+
+    .careers-page .career-hero h1 {
+      top: 72px !important;
+    }
+
+    .careers-page .hero-careers-sticker {
+      top: 270px !important;
+      width: 270px !important;
+      height: 270px !important;
+      filter: none !important;
+    }
+
+    .careers-page .hero-actions {
+      top: 650px !important;
+    }
+
+    .careers-page .section-kicker.small,
+    .careers-page .perks-heading .section-kicker.small,
+    .careers-page .process-section .section-kicker.small,
+    .careers-page .jobs-section-figma .section-kicker.small {
+      margin-bottom: 15px !important;
+    }
+
+    .careers-page .perks-stage {
+      height: 455px !important;
+    }
+  }
+
+
+  /* v53: only core-values card color consistency + solid numbers */
+  .careers-page .culture-stage-built .tone-green,
+  .careers-page .culture-stage-built .tone-gold {
+    --value-glow-1: rgba(232,228,255,.9);
+    --value-glow-2: rgba(115,0,255,.8);
+    --value-edge-glow: rgba(115,0,255,.28);
+    --value-glass-tint: rgba(152,70,255,.42);
+    --icon-color: linear-gradient(180deg, rgba(174,113,255,.98) 0%, rgba(115,0,255,.92) 100%);
+    --icon-glow: rgba(115,0,255,.72);
+    --value-hot-x: 62%;
+    --value-hot-y: 78%;
+  }
+
+  .careers-page .culture-stage-built .value-card h3 span {
+    color: #fff !important;
+    opacity: 1 !important;
+  }
+
+
+  /* v54: requested only — tighter section spacing, remove center light, lower/larger values logo */
+  .careers-page .perks-section {
+    margin-top: clamp(10px, 1.7vw, 28px) !important;
+  }
+
+  .careers-page .values-section {
+    margin-top: clamp(48px, 5.2vw, 76px) !important;
+  }
+
+  .careers-page .process-section {
+    margin-top: clamp(48px, 5.2vw, 76px) !important;
+  }
+
+  .careers-page .jobs-section,
+  .careers-page .jobs-section-figma {
+    margin-top: clamp(54px, 5.8vw, 88px) !important;
+  }
+
+  .careers-page .culture-stage-built .culture-floor-glow {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  .careers-page .culture-stage-built .values-logo {
+    top: 55.5% !important;
+    width: clamp(104px, 9.89vw, 129px) !important;
+  }
+
+  @media (max-width: 980px) {
+    .careers-page .perks-section {
+      margin-top: clamp(8px, 2.4vw, 22px) !important;
+    }
+
+    .careers-page .values-section,
+    .careers-page .process-section,
+    .careers-page .jobs-section,
+    .careers-page .jobs-section-figma {
+      margin-top: clamp(42px, 8vw, 70px) !important;
+    }
+
+    .careers-page .culture-stage-built .values-logo {
+      top: clamp(152px, 31vw, 226px) !important;
+      width: clamp(115px, 27.6vw, 163px) !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .careers-page .values-section,
+    .careers-page .process-section,
+    .careers-page .jobs-section,
+    .careers-page .jobs-section-figma {
+      margin-top: 42px !important;
+    }
+
+    .careers-page .culture-stage-built .values-logo {
+      top: clamp(130px, 36vw, 167px) !important;
+      width: clamp(99px, 27.6vw, 129px) !important;
+    }
+  }
+
+
+  /* v55: requested only — remove process bulb, add value number spacing, remove connector-line shadow */
+  .careers-page .glow-center {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  .careers-page .culture-stage-built .culture-beams-combined {
+    filter: none !important;
+  }
+
+
+  /* v56: requested only — perks bottom light removal, purple rail, tighter hero/perks gap, process-card theme for core values */
+  .careers-page .perks-section {
+    margin-top: clamp(0px, .6vw, 10px) !important;
+  }
+
+  .careers-page .perks-sticky {
+    padding-top: 0 !important;
+  }
+
+  .careers-page .perks-stage::before,
+  .careers-page .perks-aurora {
+    content: none !important;
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  .careers-page .perks-progress {
+    background: linear-gradient(180deg, transparent, rgba(115,0,255,.28), rgba(169,84,255,.22), transparent) !important;
+  }
+
+  .careers-page .perks-progress span {
+    background: linear-gradient(180deg, rgba(115,0,255,0), #7300ff, #a954ff, rgba(115,0,255,0)) !important;
+    box-shadow: 0 0 18px rgba(115,0,255,.72), 0 0 34px rgba(169,84,255,.34) !important;
+  }
+
+  .careers-page .culture-stage-built .value-card {
+    border: 1.8px solid rgba(218,183,255,.5) !important;
+    background:
+      radial-gradient(circle at 7% 12%, rgba(115,0,255,.24), transparent 28%),
+      radial-gradient(circle at 98% 88%, rgba(115,0,255,.18), transparent 36%),
+      linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012)),
+      rgba(4, 2, 8, .86) !important;
+    background-blend-mode: normal !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.12),
+      inset 0 -1px 0 rgba(255,255,255,.04),
+      0 26px 90px rgba(0,0,0,.34) !important;
+    backdrop-filter: blur(18px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(140%) !important;
+  }
+
+  .careers-page .culture-stage-built .value-card::before {
+    inset: 0 !important;
+    height: auto !important;
+    background:
+      radial-gradient(circle at 6% 9%, rgba(255,255,255,.22), transparent 10%),
+      radial-gradient(circle at 2% 18%, rgba(139,35,255,.9), rgba(115,0,255,.2) 17%, transparent 35%) !important;
+    filter: blur(7px) !important;
+    opacity: .72 !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .careers-page .culture-stage-built .value-card::after {
+    inset: auto auto -24px -60px !important;
+    width: 250px !important;
+    height: 150px !important;
+    border-radius: 50% !important;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,.7), rgba(115,0,255,.7) 32%, transparent 70%) !important;
+    filter: blur(18px) !important;
+    opacity: .35 !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .careers-page .culture-stage-built .value-card > div::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  .careers-page .culture-stage-built .value-card h3 span {
+    color: #fff !important;
+    opacity: 1 !important;
+  }
+
+
+  /* v57: requested only — no hero text glow/lines */
+  .careers-page .career-hero h1 {
+    text-shadow: none !important;
+  }
+
+  .careers-page .career-lines {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+
+
+  /* v58: restore the staggered perks motion shape, remove requested job glows only */
+  .careers-page .jobs-view-all button {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.22) !important;
+  }
+
+  .careers-page .open-roles-pill {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.36) !important;
+  }
+
+
+  /* final requested only — navbar CTA purple for purple buttons */
+
+  .careers-page .primary-btn,
+  .careers-page .ghost-btn,
+  .careers-page .job-card button,
+  .careers-page .jobs-more button,
+  .careers-page .job-card-figma button,
+  .careers-page .jobs-view-all button,
+  .careers-page .jobs-filter button,
+  .careers-page .jobs-filter button.active {
+    background: #7300ff !important;
+    background-image: none !important;
+    background-blend-mode: normal !important;
+    color: #fff !important;
+  }
+
+  .careers-page .primary-btn::before,
+  .careers-page .ghost-btn::before,
+  .careers-page .job-card button::before,
+  .careers-page .jobs-more button::before,
+  .careers-page .job-card-figma button::before,
+  .careers-page .jobs-view-all button::before {
+    content: none !important;
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+
+
+  /* v59-phone-only-requested-fixes: mobile-only spacing, static perks, removed corner shadows, solid process icons, safer upload arrow, 98% ring, complete offer runner */
+  @media (max-width: 560px) {
+    /* tighter phone title/subheading rhythm */
+    .careers-page .section-heading,
+    .careers-page .perks-heading,
+    .careers-page .process-section .section-heading,
+    .careers-page .jobs-heading {
+      margin-bottom: 18px !important;
+    }
+
+    .careers-page .section-kicker.small,
+    .careers-page .perks-heading .section-kicker.small,
+    .careers-page .process-section .section-kicker.small,
+    .careers-page .jobs-section-figma .section-kicker.small {
+      margin-bottom: 10px !important;
+    }
+
+    .careers-page .section-heading h2,
+    .careers-page .perks-heading h2,
+    .careers-page .process-section h2,
+    .careers-page .jobs-heading h2 {
+      margin-top: 0 !important;
+    }
+
+    .careers-page .section-heading p,
+    .careers-page .perks-heading p,
+    .careers-page .process-section > .section-heading > p,
+    .careers-page .jobs-heading p {
+      margin-top: 8px !important;
+      line-height: 1.36 !important;
+    }
+
+    .careers-page .career-hero p {
+      top: 128px !important;
+      line-height: 1.42 !important;
+    }
+
+    /* lift hero buttons and remove inner arrows on phone only */
+    .careers-page .hero-actions {
+      top: 610px !important;
+      gap: 9px !important;
+    }
+
+    .careers-page .hero-actions .hero-arrow {
+      display: none !important;
+      opacity: 0 !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+
+    .careers-page .hero-actions .primary-btn,
+    .careers-page .hero-actions .ghost-btn {
+      gap: 0 !important;
+      padding-inline: 18px !important;
+    }
+
+    /* perks: static cards on phone, no back-to-back loop */
+    .careers-page .perks-section {
+      margin-top: 0 !important;
+    }
+
+    .careers-page .perks-sticky {
+      padding-bottom: 22px !important;
+    }
+
+    .careers-page .perks-stage {
+      display: grid !important;
+      gap: 12px !important;
+      height: auto !important;
+      min-height: 0 !important;
+      width: 100% !important;
+      perspective: none !important;
+      contain: layout !important;
+      overflow: visible !important;
+    }
+
+    .careers-page .perks-progress,
+    .careers-page .perks-stage::before,
+    .careers-page .perks-stage::after,
+    .careers-page .perks-aurora {
+      content: none !important;
+      display: none !important;
+      opacity: 0 !important;
+    }
+
+    .careers-page .perks-stage .perk-card,
+    .careers-page .perks-stage .perk-card:nth-of-type(odd),
+    .careers-page .perks-stage .perk-card:nth-of-type(even) {
+      position: relative !important;
+      left: auto !important;
+      top: auto !important;
+      width: 100% !important;
+      height: auto !important;
+      min-height: 112px !important;
+      opacity: 1 !important;
+      filter: none !important;
+      transform: none !important;
+      pointer-events: auto !important;
+      will-change: auto !important;
+      z-index: auto !important;
+    }
+
+    .careers-page .perks-stage .perk-card::before {
+      opacity: .18 !important;
+      transform: none !important;
+    }
+
+    .careers-page .perks-stage .perk-card::after {
+      opacity: .2 !important;
+    }
+
+    .careers-page .perks-stage .card-icon,
+    .careers-page .perks-stage .card-icon svg {
+      animation: none !important;
+      transform: none !important;
+    }
+
+    /* culture: keep cards below heading and remove the top-left shadow corner */
+    .careers-page .values-section > .section-heading {
+      position: relative !important;
+      z-index: 6 !important;
+      margin-bottom: 18px !important;
+    }
+
+    .careers-page .culture-stage-built {
+      position: relative !important;
+      z-index: 1 !important;
+      margin-top: 18px !important;
+      padding-top: clamp(172px, 46vw, 212px) !important;
+    }
+
+    .careers-page .culture-stage-built .value-card,
+    .careers-page .culture-stage-built .value-top,
+    .careers-page .culture-stage-built .value-left,
+    .careers-page .culture-stage-built .value-right {
+      background:
+        radial-gradient(circle at 98% 88%, rgba(115,0,255,.16), transparent 36%),
+        linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012)),
+        rgba(4, 2, 8, .88) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.12),
+        inset 0 -1px 0 rgba(255,255,255,.04),
+        0 18px 54px rgba(0,0,0,.28) !important;
+    }
+
+    .careers-page .culture-stage-built .value-card::before,
+    .careers-page .culture-stage-built .value-card::after,
+    .careers-page .culture-stage-built .value-card > div::before {
+      content: none !important;
+      display: none !important;
+      opacity: 0 !important;
+    }
+
+    /* process: remove top-left corner shadow and make title icons solid/static */
+    .careers-page .hiring-process-grid .process-card {
+      background:
+        radial-gradient(circle at 98% 88%, rgba(115,0,255,.16), transparent 36%),
+        linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012)),
+        rgba(4, 2, 8, .88) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.12),
+        inset 0 -1px 0 rgba(255,255,255,.04),
+        0 18px 54px rgba(0,0,0,.28) !important;
+    }
+
+    .careers-page .hiring-process-grid .process-card::before {
+      content: none !important;
+      display: none !important;
+      opacity: 0 !important;
+    }
+
+    .careers-page .hiring-process-grid .process-icon,
+    .careers-page .hiring-process-grid .process-icon svg,
+    .careers-page .hiring-process-grid .process-card-progress .process-icon svg {
+      animation: none !important;
+      transform: none !important;
+      filter: none !important;
+      stroke-dasharray: none !important;
+    }
+
+    /* upload: arrow moves safely without hitting the cloud */
+    .careers-page .upload-cloud-arrow {
+      animation: cloudArrowSafePhone 2.2s ease-in-out infinite !important;
+      transform-origin: 12px 12px !important;
+    }
+
+    .careers-page .upload-icon svg {
+      animation: none !important;
+      transform: none !important;
+    }
+
+    /* show your craft: no glow loop; circle fills once to the actual 98% value */
+    .careers-page .hiring-process-grid .process-card-checklist::after {
+      content: none !important;
+      display: none !important;
+      opacity: 0 !important;
+    }
+
+    .careers-page .process-craft .task-list i {
+      animation: none !important;
+      box-shadow: none !important;
+    }
+
+    .careers-page .task-ring .ring-progress {
+      stroke-dasharray: 282.743;
+      stroke-dashoffset: 11.31;
+      stroke-linecap: butt !important;
+      animation: taskRingProgress98 2.6s cubic-bezier(.22,.8,.22,1) infinite;
+      filter: none !important;
+    }
+
+    .careers-page .task-ring,
+    .careers-page .task-ring svg {
+      overflow: visible !important;
+    }
+
+    /* offer: make the ball reach the final Complete circle */
+    .careers-page .offer-timeline {
+      position: relative !important;
+      overflow: visible !important;
+    }
+
+    .careers-page .offer-runner {
+      left: 5px;
+      top: 50% !important;
+      width: 12px !important;
+      height: 12px !important;
+      margin-top: -6px !important;
+      transform: none;
+      animation: runnerReachCompletePhone 3.35s cubic-bezier(.22,.8,.22,1) infinite !important;
+    }
+
+    .careers-page .offer-runner::after {
+      opacity: .58 !important;
+      filter: blur(6px) !important;
+    }
+  }

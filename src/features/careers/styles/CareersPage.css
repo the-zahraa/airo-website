@@ -1,0 +1,10 @@
+/*
+ * This entrypoint preserves the source declaration order of the original CSS.
+ * Split files keep large page styles easier to navigate without changing cascade order.
+ */
+@import './partials/CareersPage.01.css';
+@import './partials/CareersPage.02.css';
+@import './partials/CareersPage.03.css';
+@import './partials/CareersPage.04.css';
+@import './partials/CareersPage.05.css';
+@import './partials/CareersPage.06.css';

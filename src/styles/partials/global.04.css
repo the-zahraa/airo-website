@@ -1,0 +1,1161 @@
+
+
+.hits-head .view-btn {
+  background: #7300ff !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  box-shadow: none !important;
+  color: #fff !important;
+}
+
+.hits-head .view-btn::after {
+  content: none !important;
+  display: none !important;
+}
+
+.hits-head .view-btn:hover {
+  filter: brightness(1.05) !important;
+  box-shadow: none !important;
+}
+
+/* CODED FIGMA HERO LIGHT PATCH 2026-06-17
+   Replaces the exported bc1 image idea with CSS-only ellipses + vertical line effect.
+   Home hero only, behind hero text/cards/stats, no separate rectangular image layer.
+*/
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+}
+
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section::before,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 50% !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* Figma-style purple/white light ellipses, coded instead of PNG. */
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section::before {
+  top: clamp(120px, 15vw, 205px) !important;
+  width: min(1720px, 132vw) !important;
+  height: clamp(520px, 66vw, 920px) !important;
+  transform: translateX(-50%) !important;
+  background:
+    radial-gradient(ellipse at 50% 52%, rgba(248,244,255,.80) 0%, rgba(232,228,255,.56) 7.5%, rgba(232,228,255,.20) 14%, transparent 25%),
+    radial-gradient(ellipse at 50% 52%, rgba(175,139,249,.68) 0%, rgba(175,139,249,.38) 18%, rgba(175,139,249,.12) 34%, transparent 52%),
+    radial-gradient(ellipse at 50% 52%, rgba(115,0,255,.74) 0%, rgba(115,0,255,.50) 23%, rgba(115,0,255,.18) 46%, transparent 70%),
+    radial-gradient(ellipse at 18% 55%, rgba(115,0,255,.48) 0%, rgba(115,0,255,.20) 24%, transparent 48%),
+    radial-gradient(ellipse at 82% 55%, rgba(115,0,255,.48) 0%, rgba(115,0,255,.20) 24%, transparent 48%);
+  filter: blur(46px) saturate(118%) !important;
+  opacity: .78 !important;
+  mix-blend-mode: screen !important;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 48%, #000 0%, #000 34%, rgba(0,0,0,.70) 52%, rgba(0,0,0,.22) 72%, transparent 88%) !important;
+  mask-image: radial-gradient(ellipse at 50% 48%, #000 0%, #000 34%, rgba(0,0,0,.70) 52%, rgba(0,0,0,.22) 72%, transparent 88%) !important;
+}
+
+/* Figma vertical soft-light line effect, coded with repeating gradients. */
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section::after {
+  top: clamp(205px, 22vw, 330px) !important;
+  width: min(1622px, 126vw) !important;
+  height: clamp(440px, 58vw, 760px) !important;
+  transform: translateX(calc(-50% - 70px)) !important;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0) 0px,
+      rgba(255,255,255,.015) 44px,
+      rgba(255,255,255,.105) 94px,
+      rgba(255,255,255,.045) 116px,
+      rgba(255,255,255,0) 125px
+    );
+  background-blend-mode: soft-light !important;
+  opacity: .46 !important;
+  mix-blend-mode: soft-light !important;
+  -webkit-mask-image:
+    linear-gradient(180deg, transparent 0%, rgba(0,0,0,.28) 10%, #000 30%, #000 72%, transparent 100%),
+    radial-gradient(ellipse at 55% 46%, #000 0%, #000 48%, rgba(0,0,0,.48) 66%, transparent 86%) !important;
+  mask-image:
+    linear-gradient(180deg, transparent 0%, rgba(0,0,0,.28) 10%, #000 30%, #000 72%, transparent 100%),
+    radial-gradient(ellipse at 55% 46%, #000 0%, #000 48%, rgba(0,0,0,.48) 66%, transparent 86%) !important;
+}
+
+/* Keep all real hero elements above the coded light/lines. */
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-copy,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-card-rig,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stats-row {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Let the global dots remain visible over the coded hero light so it feels like one page background. */
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .dot-field-main {
+  z-index: 1 !important;
+  opacity: .42 !important;
+  mix-blend-mode: screen !important;
+}
+
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .soft-columns {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section::before {
+    top: 160px !important;
+    width: 150vw !important;
+    height: 620px !important;
+    opacity: .62 !important;
+    filter: blur(40px) saturate(116%) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section::after {
+    top: 250px !important;
+    width: 150vw !important;
+    height: 520px !important;
+    transform: translateX(calc(-50% - 34px)) !important;
+    opacity: .34 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section::before {
+    top: 178px !important;
+    width: 178vw !important;
+    height: 480px !important;
+    opacity: .54 !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section::after {
+    top: 272px !important;
+    width: 178vw !important;
+    height: 390px !important;
+    opacity: .25 !important;
+  }
+}
+
+/* FINAL TARGETED PATCH 2026-06-17 — requested hero/story refinements only */
+/* Make the coded hero center brighter/whiter while keeping it behind hero content only. */
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section::before {
+  background:
+    radial-gradient(ellipse at 50% 52%, rgba(255,255,255,.98) 0%, rgba(248,244,255,.86) 6.5%, rgba(232,228,255,.42) 13%, rgba(232,228,255,.12) 21%, transparent 31%),
+    radial-gradient(ellipse at 50% 52%, rgba(202,174,255,.80) 0%, rgba(175,139,249,.50) 18%, rgba(175,139,249,.16) 36%, transparent 55%),
+    radial-gradient(ellipse at 50% 52%, rgba(115,0,255,.78) 0%, rgba(115,0,255,.52) 25%, rgba(115,0,255,.18) 48%, transparent 72%),
+    radial-gradient(ellipse at 18% 55%, rgba(115,0,255,.48) 0%, rgba(115,0,255,.20) 24%, transparent 48%),
+    radial-gradient(ellipse at 82% 55%, rgba(115,0,255,.48) 0%, rgba(115,0,255,.20) 24%, transparent 48%) !important;
+  opacity: .88 !important;
+  filter: blur(42px) saturate(122%) brightness(1.08) !important;
+}
+
+/* Soften the top/bottom endings of the vertical line effect. */
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section::after {
+  opacity: .42 !important;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.06) 7%, rgba(0,0,0,.42) 18%, #000 36%, #000 62%, rgba(0,0,0,.34) 78%, transparent 96%) !important;
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.06) 7%, rgba(0,0,0,.42) 18%, #000 36%, #000 62%, rgba(0,0,0,.34) 78%, transparent 96%) !important;
+}
+
+/* Make the animated hero cards 20% smaller without changing the animation path. */
+.hero-card-rig {
+  --card-w: clamp(152px, 12.48vw, 190px) !important;
+  --card-h: clamp(220px, 17.84vw, 270px) !important;
+}
+
+@media (max-width: 900px) {
+  .hero-card-rig {
+    --card-w: clamp(120px, 25.6vw, 152px) !important;
+    --card-h: clamp(174px, 35.2vw, 220px) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-card-rig {
+    --card-w: clamp(106px, 30.4vw, 122px) !important;
+    --card-h: clamp(157px, 44.8vw, 178px) !important;
+  }
+}
+
+/* Remove the Our Story title icon only. */
+.story-section .play-mark {
+  display: none !important;
+}
+
+/* Keep only the global dot pattern; remove Home-only/story-only dot overlays. */
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .dot-field-main,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .dot-field-lower {
+  display: none !important;
+}
+
+.story-section::before {
+  content: none !important;
+  display: none !important;
+}
+
+.site-shell::before {
+  opacity: .30 !important;
+}
+
+/* Bigger, centered, rounded play icon. */
+.story-play-button svg {
+  width: 54% !important;
+  height: 54% !important;
+  margin-left: 4px !important;
+  display: block !important;
+}
+
+.story-play-triangle {
+  fill: #7300ff !important;
+  stroke: #7300ff !important;
+  stroke-width: 1.1 !important;
+  stroke-linejoin: round !important;
+  stroke-linecap: round !important;
+}
+
+/* Show a pause button only while the running video is hovered. */
+.story-video-pause-trigger {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+  transition: opacity .22s ease;
+}
+
+.video-card.is-playing:not(.is-paused):hover .story-video-pause-trigger {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.story-pause-button {
+  width: clamp(68px, 6.2vw, 92px);
+  height: clamp(68px, 6.2vw, 92px);
+  display: inline-grid;
+  grid-template-columns: repeat(2, 9px);
+  place-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  background: #fff;
+  border: 2px solid #7300ff;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.94), 0 20px 54px rgba(115,0,255,.34);
+  transform: scale(.96);
+  transition: transform .22s ease, filter .22s ease;
+}
+
+.story-video-pause-trigger:hover .story-pause-button {
+  transform: scale(1.03);
+  filter: brightness(1.03);
+}
+
+.story-pause-button span {
+  width: 9px;
+  height: 31px;
+  border-radius: 999px;
+  background: #7300ff;
+}
+
+
+/* FINAL HERO.PNG BACKGROUND PATCH 2026-06-17
+   Uses the exported transparent hero artwork as part of the main Home background.
+   No hero overlay slab/layer is added; old coded hero pseudo-light is disabled.
+   Put the asset at: public/hero.png
+*/
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) {
+  background:
+    url('/hero.png?v=2') center clamp(70px, 6vw, 104px) / min(1495px, 108vw) clamp(760px, 72vw, 980px) no-repeat,
+    linear-gradient(180deg, #020004 0%, #050107 36%, #050107 62%, #030005 100%) !important;
+}
+
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section::before,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section::after {
+  content: none !important;
+  display: none !important;
+}
+
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .ambient-hero,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .ambient-low,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-main-light,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .soft-columns {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) {
+    background:
+      url('/hero.png?v=2') center 106px / 166vw 690px no-repeat,
+      linear-gradient(180deg, #020004 0%, #050107 36%, #050107 62%, #030005 100%) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) {
+    background:
+      url('/hero.png?v=2') center 128px / 230vw 560px no-repeat,
+      linear-gradient(180deg, #020004 0%, #050107 36%, #050107 62%, #030005 100%) !important;
+  }
+}
+
+
+/* FINAL PERFORMANCE + BRANDS + TOP HITS PATCH 2026-06-17
+   Targeted only to hero image loading, Trusted Brands styling, and Top Hits row cleanup.
+*/
+.brands-section .brands-kicker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 112px;
+  height: 32px;
+  margin: 0 auto 8px;
+  color: #fff;
+  font-size: clamp(10px, .88vw, 13px);
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: .035em;
+}
+
+.brands-section .brands-kicker strong {
+  font: inherit;
+}
+
+.brands-section .brands-corner {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: rgba(255,255,255,.9);
+}
+
+.brands-section .brands-corner-tl {
+  left: 0;
+  top: 4px;
+  border-left: 1.5px solid;
+  border-top: 1.5px solid;
+}
+
+.brands-section .brands-corner-tr {
+  right: 0;
+  top: 4px;
+  border-right: 1.5px solid;
+  border-top: 1.5px solid;
+}
+
+.brands-section .brands-corner-bl {
+  left: 0;
+  bottom: 4px;
+  border-left: 1.5px solid;
+  border-bottom: 1.5px solid;
+}
+
+.brands-section .brands-corner-br {
+  right: 0;
+  bottom: 4px;
+  border-right: 1.5px solid;
+  border-bottom: 1.5px solid;
+}
+
+.brands-section h2 .trusted-word {
+  color: #7300ff;
+}
+
+.top-hits-row-wrap {
+  width: min(1243.75px, 100%) !important;
+  margin: 0 auto !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  padding: 0 6px 12px !important;
+  scrollbar-width: none !important;
+  scroll-snap-type: x mandatory !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+.top-hits-row-wrap::-webkit-scrollbar {
+  display: none !important;
+}
+
+.top-hits-row {
+  --top-hit-card-w: clamp(186px, 14.3vw, 206.17px);
+  display: flex !important;
+  grid-template-columns: none !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  gap: clamp(14px, 1.55vw, 22px) !important;
+  width: max-content !important;
+  min-width: max-content !important;
+}
+
+.top-hit-card {
+  flex: 0 0 var(--top-hit-card-w) !important;
+  border: 0 !important;
+  box-shadow: 0 20px 46px rgba(0,0,0,.34) !important;
+  scroll-snap-align: start !important;
+}
+
+.top-hit-card::before,
+.top-hit-card::after {
+  content: none !important;
+  display: none !important;
+}
+
+.top-hit-card:hover {
+  border-color: transparent !important;
+  box-shadow: 0 24px 50px rgba(0,0,0,.42) !important;
+}
+
+.top-hit-content h3 {
+  display: block !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  -webkit-line-clamp: unset !important;
+  -webkit-box-orient: unset !important;
+  line-height: 1.12 !important;
+}
+
+.top-hit-art img {
+  backface-visibility: hidden;
+  transform: translateZ(0) scale(1.015);
+  will-change: transform;
+}
+
+.top-hits-scroll-line {
+  width: min(430px, 62vw);
+  height: 3px;
+  margin: clamp(20px, 3vw, 34px) auto 0;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255,255,255,.12);
+}
+
+.top-hits-scroll-line span {
+  display: block;
+  width: 36%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, #7300ff, transparent);
+  animation: topHitsScrollCue 3.8s ease-in-out infinite;
+}
+
+@keyframes topHitsScrollCue {
+  0% { transform: translateX(-60%); }
+  50% { transform: translateX(230%); }
+  100% { transform: translateX(-60%); }
+}
+
+@media (max-width: 760px) {
+  .top-hits-row {
+    --top-hit-card-w: 168px;
+    gap: 16px !important;
+  }
+
+  .top-hit-card {
+    flex-basis: var(--top-hit-card-w) !important;
+  }
+}
+
+/* FINAL TYPOGRAPHY + TOP HITS SCROLL REFINEMENT 2026-06-17
+   Focused only on Home section typography, Trusted Brands copy, and Top Hits scrolling/card readability.
+*/
+.story-section .section-title h2,
+.brands-section h2,
+.hits-head h2 {
+  font-size: clamp(40px, 4.65vw, 64px) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -.018em !important;
+  font-weight: 600 !important;
+  text-shadow: 0 0 42px rgba(255,255,255,.2) !important;
+}
+
+.section-lead,
+.brands-section p,
+.hits-head p {
+  width: min(760px, 100%) !important;
+  margin: clamp(16px, 1.8vw, 24px) auto 0 !important;
+  color: rgba(255,255,255,.7) !important;
+  font-size: clamp(14px, 1.34vw, 18.5px) !important;
+  line-height: 1.58 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+.brands-section .brands-kicker {
+  width: fit-content !important;
+  min-width: 0 !important;
+  height: 42px !important;
+  margin: 0 auto clamp(15px, 1.8vw, 22px) !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  font-size: clamp(16.5px, 1.38vw, 20.9px) !important;
+  line-height: 42px !important;
+  font-weight: 600 !important;
+  letter-spacing: .035em !important;
+  white-space: nowrap !important;
+}
+
+.brands-section .brands-corner {
+  width: 10px !important;
+  height: 10px !important;
+  border-width: 2px !important;
+}
+
+.brands-section .brands-corner-tl,
+.brands-section .brands-corner-tr { top: 4px !important; }
+.brands-section .brands-corner-bl,
+.brands-section .brands-corner-br { bottom: 4px !important; }
+
+.brands-section p {
+  width: min(820px, calc(100vw - 44px)) !important;
+  max-width: 820px !important;
+}
+
+.brands-section .brand-copy-break {
+  display: block;
+}
+
+.top-hits-row-wrap {
+  width: min(1243.75px, 100%) !important;
+  margin: 0 auto !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  padding: 0 6px 12px !important;
+  scrollbar-width: none !important;
+  scroll-snap-type: x mandatory !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+.top-hits-row-wrap::-webkit-scrollbar {
+  display: none !important;
+}
+
+.top-hits-row {
+  --top-hit-card-w: clamp(232px, 18.4vw, 270px) !important;
+  display: flex !important;
+  grid-template-columns: none !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  gap: clamp(14px, 1.35vw, 20px) !important;
+  width: max-content !important;
+  min-width: max-content !important;
+}
+
+.top-hit-card {
+  flex: 0 0 var(--top-hit-card-w) !important;
+  width: var(--top-hit-card-w) !important;
+  opacity: 1 !important;
+  border: 0 !important;
+  box-shadow: 0 20px 46px rgba(0,0,0,.34) !important;
+  scroll-snap-align: start !important;
+}
+
+.top-hit-card::before,
+.top-hit-card::after {
+  content: none !important;
+  display: none !important;
+}
+
+.top-hit-content h3 {
+  display: block !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  -webkit-line-clamp: unset !important;
+  -webkit-box-orient: unset !important;
+  line-height: 1.12 !important;
+  font-size: clamp(14px, 1.08vw, 16.5px) !important;
+}
+
+.top-hit-card:hover {
+  border-color: transparent !important;
+  box-shadow: 0 24px 50px rgba(0,0,0,.42) !important;
+}
+
+.top-hits-scroll-line {
+  --thumb-width: 36%;
+  width: min(430px, 62vw) !important;
+  height: 3px !important;
+  margin: clamp(20px, 3vw, 34px) auto 0 !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+  background: rgba(255,255,255,.12) !important;
+}
+
+.top-hits-scroll-line span {
+  display: block !important;
+  width: var(--thumb-width) !important;
+  height: 100% !important;
+  border-radius: inherit !important;
+  background: #7300ff !important;
+  animation: none !important;
+  transform: translateX(calc(var(--scroll-progress, 0) * 178%)) !important;
+  transition: transform .08s linear !important;
+}
+
+@media (max-width: 860px) {
+  .story-section .section-title h2,
+  .brands-section h2,
+  .hits-head h2 {
+    font-size: clamp(34px, 9.8vw, 52px) !important;
+    line-height: 1.08 !important;
+    white-space: normal !important;
+    letter-spacing: -.035em !important;
+  }
+
+  .brands-section .brands-kicker {
+    margin-bottom: clamp(16px, 3.6vw, 23px) !important;
+    font-size: clamp(15px, 3.7vw, 18.5px) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .top-hits-row {
+    --top-hit-card-w: clamp(218px, 66vw, 250px) !important;
+    gap: 16px !important;
+  }
+
+  .top-hit-card {
+    flex-basis: var(--top-hit-card-w) !important;
+    width: var(--top-hit-card-w) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .brands-section .brands-kicker {
+    margin-bottom: 18px !important;
+    font-size: 15px !important;
+  }
+
+  .brands-section .brand-copy-break {
+    display: none;
+  }
+}
+
+/* FINAL STATS SECTION PATCH 2026-06-17
+   Only affects the section directly under Top Hits: removes the old first-row stats banner in markup,
+   adds the matching section heading/sticker, and scales the Bloxy Award card/sticker.
+*/
+.stats-panel-section {
+  margin-top: clamp(72px, 8vw, 116px) !important;
+}
+
+.stats-section-head {
+  width: min(var(--section-max), calc(100vw - 44px)) !important;
+  margin: 0 auto clamp(22px, 3.2vw, 42px) !important;
+  text-align: center !important;
+}
+
+.stats-section-head .stats-kicker {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: fit-content !important;
+  min-width: 0 !important;
+  height: 42px !important;
+  margin: 0 auto clamp(15px, 1.8vw, 22px) !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  color: #fff !important;
+  font-size: clamp(16.5px, 1.38vw, 20.9px) !important;
+  line-height: 42px !important;
+  font-weight: 600 !important;
+  letter-spacing: .035em !important;
+  white-space: nowrap !important;
+}
+
+.stats-section-head .stats-kicker strong {
+  font: inherit !important;
+}
+
+.stats-section-head .brands-corner {
+  position: absolute !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-color: rgba(255,255,255,.9) !important;
+  border-width: 2px !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+  background: rgba(255,255,255,.12) !important;
+}
+
+.stats-section-head .brands-corner-tl {
+  left: 0 !important;
+  top: 4px !important;
+  border-left: 2px solid !important;
+  border-top: 2px solid !important;
+}
+
+.stats-section-head .brands-corner-tr {
+  right: 0 !important;
+  top: 4px !important;
+  border-right: 2px solid !important;
+  border-top: 2px solid !important;
+}
+
+.stats-section-head .brands-corner-bl {
+  left: 0 !important;
+  bottom: 4px !important;
+  border-left: 2px solid !important;
+  border-bottom: 2px solid !important;
+}
+
+.stats-section-head .brands-corner-br {
+  right: 0 !important;
+  bottom: 4px !important;
+  border-right: 2px solid !important;
+  border-bottom: 2px solid !important;
+}
+
+.stats-section-head h2 {
+  margin: 0 !important;
+  font-size: clamp(40px, 4.65vw, 64px) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -.018em !important;
+  font-weight: 600 !important;
+  text-shadow: 0 0 42px rgba(255,255,255,.2) !important;
+}
+
+.stats-title-sticker {
+  width: clamp(96px, 9vw, 132px) !important;
+  height: clamp(96px, 9vw, 132px) !important;
+  margin: clamp(14px, 1.8vw, 22px) auto 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  pointer-events: none !important;
+}
+
+.stats-title-sticker svg {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: visible !important;
+}
+
+.award-card {
+  min-height: clamp(152px, 12.2vw, 188px) !important;
+  padding: clamp(24px, 2.7vw, 36px) !important;
+  padding-right: clamp(192px, 20vw, 270px) !important;
+  border-radius: clamp(28px, 3vw, 42px) !important;
+}
+
+.award-icon {
+  width: clamp(58px, 5vw, 76px) !important;
+  height: clamp(58px, 5vw, 76px) !important;
+  border-radius: clamp(16px, 1.6vw, 22px) !important;
+}
+
+.award-card h3 {
+  font-size: clamp(28px, 2.7vw, 40px) !important;
+}
+
+.award-card p {
+  font-size: clamp(13px, 1.15vw, 17px) !important;
+  line-height: 1.35 !important;
+}
+
+.stats-panel-section .award-sticker {
+  right: clamp(-18px, -1.1vw, -8px) !important;
+  bottom: clamp(-18px, -1.2vw, -9px) !important;
+  width: clamp(178px, 19vw, 246px) !important;
+  height: clamp(154px, 16.8vw, 214px) !important;
+}
+
+@media (max-width: 900px) {
+  .stats-section-head h2 {
+    font-size: clamp(34px, 9.8vw, 52px) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -.035em !important;
+  }
+
+  .stats-section-head .stats-kicker {
+    margin-bottom: clamp(16px, 3.6vw, 23px) !important;
+    font-size: clamp(15px, 3.7vw, 18.5px) !important;
+  }
+
+  .stats-title-sticker {
+    width: clamp(88px, 22vw, 118px) !important;
+    height: clamp(88px, 22vw, 118px) !important;
+  }
+
+  .award-card {
+    min-height: 154px !important;
+    padding: 22px !important;
+    padding-right: 178px !important;
+  }
+
+  .stats-panel-section .award-sticker {
+    width: 178px !important;
+    height: 158px !important;
+    right: -26px !important;
+    bottom: -14px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .stats-panel-section {
+    margin-top: 72px !important;
+  }
+
+  .stats-section-head {
+    width: calc(100vw - 24px) !important;
+    margin-bottom: 24px !important;
+  }
+
+  .stats-section-head .stats-kicker {
+    margin-bottom: 18px !important;
+    font-size: 15px !important;
+  }
+
+  .stats-title-sticker {
+    width: 86px !important;
+    height: 86px !important;
+    margin-top: 14px !important;
+  }
+
+  .award-card {
+    min-height: 136px !important;
+    padding: 18px !important;
+    padding-right: 126px !important;
+    border-radius: 24px !important;
+  }
+
+  .award-icon {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 13px !important;
+  }
+
+  .award-card h3 {
+    font-size: 22px !important;
+  }
+
+  .award-card p {
+    font-size: 11px !important;
+  }
+
+  .stats-panel-section .award-sticker {
+    width: 132px !important;
+    height: 118px !important;
+    right: -22px !important;
+    bottom: -10px !important;
+  }
+}
+
+/* FINAL STATS ALIGNMENT + STICKER LOAD PATCH 2026-06-17
+   Only fixes the Stats heading alignment/corners and keeps the section centered.
+*/
+.stats-panel-section {
+  width: min(860px, calc(100vw - 54px)) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.stats-section-head {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+.stats-section-head .stats-kicker {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: fit-content !important;
+  min-width: 0 !important;
+  height: 42px !important;
+  margin: 0 auto clamp(15px, 1.8vw, 22px) !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  color: #fff !important;
+  font-size: clamp(16.5px, 1.38vw, 20.9px) !important;
+  line-height: 42px !important;
+  font-weight: 600 !important;
+  letter-spacing: .035em !important;
+  white-space: nowrap !important;
+}
+
+.stats-section-head .stats-kicker strong {
+  font: inherit !important;
+}
+
+.stats-section-head .brands-corner {
+  position: absolute !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-color: rgba(255,255,255,.9) !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+
+.stats-section-head .brands-corner-tl {
+  left: 0 !important;
+  top: 4px !important;
+  border-left: 2px solid !important;
+  border-top: 2px solid !important;
+  border-right: 0 !important;
+  border-bottom: 0 !important;
+}
+
+.stats-section-head .brands-corner-tr {
+  right: 0 !important;
+  top: 4px !important;
+  border-right: 2px solid !important;
+  border-top: 2px solid !important;
+  border-left: 0 !important;
+  border-bottom: 0 !important;
+}
+
+.stats-section-head .brands-corner-bl {
+  left: 0 !important;
+  bottom: 4px !important;
+  border-left: 2px solid !important;
+  border-bottom: 2px solid !important;
+  border-right: 0 !important;
+  border-top: 0 !important;
+}
+
+.stats-section-head .brands-corner-br {
+  right: 0 !important;
+  bottom: 4px !important;
+  border-right: 2px solid !important;
+  border-bottom: 2px solid !important;
+  border-left: 0 !important;
+  border-top: 0 !important;
+}
+
+@media (max-width: 560px) {
+  .stats-panel-section {
+    width: calc(100vw - 24px) !important;
+  }
+}
+
+/* FINAL TARGETED STATS + TOP HITS ADJUSTMENT 2026-06-17
+   Only adjusts the Stats sticker/title, Bloxy sticker placement, Top Hits card height/borders, and draggable scroll line.
+*/
+.stats-title-sticker {
+  width: clamp(160px, 16vw, 232px) !important;
+  height: clamp(160px, 16vw, 232px) !important;
+  margin: clamp(12px, 1.5vw, 18px) auto 0 !important;
+}
+
+.award-card {
+  overflow: hidden !important;
+}
+
+.stats-panel-section .award-sticker {
+  right: clamp(8px, 1.2vw, 18px) !important;
+  bottom: 0 !important;
+  width: clamp(176px, 18vw, 238px) !important;
+  height: clamp(152px, 15.8vw, 210px) !important;
+}
+
+.top-hit-card {
+  height: clamp(330px, 26vw, 368px) !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  box-shadow: 0 20px 44px rgba(0,0,0,.34) !important;
+}
+
+.top-hit-card:hover {
+  border-color: rgba(255,255,255,.24) !important;
+  box-shadow: 0 22px 48px rgba(0,0,0,.4) !important;
+}
+
+.top-hit-art {
+  inset: 10px 10px 104px !important;
+}
+
+.top-hit-content {
+  bottom: 22px !important;
+}
+
+.top-hits-scroll-line {
+  position: relative !important;
+  height: 18px !important;
+  background: transparent !important;
+  overflow: visible !important;
+  cursor: grab !important;
+  touch-action: none !important;
+  user-select: none !important;
+}
+
+.top-hits-scroll-line:active {
+  cursor: grabbing !important;
+}
+
+.top-hits-scroll-line::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 50% !important;
+  height: 3px !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.12) !important;
+  transform: translateY(-50%) !important;
+  pointer-events: none !important;
+}
+
+.top-hits-scroll-line span {
+  position: absolute !important;
+  left: 0 !important;
+  top: 50% !important;
+  height: 3px !important;
+  transform: translate3d(calc(var(--scroll-progress, 0) * 178%), -50%, 0) !important;
+}
+
+@media (max-width: 900px) {
+  .stats-title-sticker {
+    width: clamp(132px, 32vw, 178px) !important;
+    height: clamp(132px, 32vw, 178px) !important;
+  }
+
+  .top-hit-card {
+    height: clamp(320px, 82vw, 352px) !important;
+  }
+
+  .top-hit-art {
+    inset: 10px 10px 100px !important;
+  }
+
+  .stats-panel-section .award-sticker {
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 158px !important;
+    height: 138px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .stats-title-sticker {
+    width: 132px !important;
+    height: 132px !important;
+  }
+
+  .top-hit-card {
+    height: 310px !important;
+  }
+
+  .top-hit-art {
+    inset: 9px 9px 94px !important;
+  }
+
+  .top-hit-content {
+    bottom: 18px !important;
+  }
+
+  .stats-panel-section .award-sticker {
+    right: -6px !important;
+    bottom: 0 !important;
+    width: 118px !important;
+    height: 104px !important;
+  }
+}
+
+
+/* FINAL MICRO POLISH 2026-06-17 — requested Stats/Bloxy/Top Hits only */
+.stats-section-head h2 {
+  font-size: clamp(30px, 3.35vw, 46px) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.045em !important;
+}
+
+.stats-title-sticker {
+  width: clamp(218px, 20vw, 310px) !important;
+  height: clamp(218px, 20vw, 310px) !important;
+  margin-top: clamp(8px, 1.1vw, 14px) !important;
+}
+
+.award-icon {
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.award-card {
+  overflow: visible !important;
+}
+
+.stats-panel-section .award-sticker {
+  right: clamp(-18px, -1.1vw, -8px) !important;
+  bottom: clamp(-18px, -1.2vw, -9px) !important;
+  width: clamp(178px, 19vw, 246px) !important;
+  height: clamp(154px, 16.8vw, 214px) !important;
+}
+
+.top-hit-card,
+.top-hit-card:hover,
+.top-hit-card:focus,
+.top-hit-card:focus-within {
+  border-color: rgba(255,255,255,.18) !important;
+  box-shadow: 0 20px 44px rgba(0,0,0,.34) !important;
+  filter: none !important;
+}
+
+.top-hit-card::before,
+.top-hit-card::after,
+.top-hit-card:hover::before,
+.top-hit-card:hover::after {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+  box-shadow: none !important;
+}
+
+.top-hit-card:hover .top-hit-art img {
+  filter: none !important;
+}
+
+.top-hits-scroll-line {
+  --thumb-width: clamp(92px, 23vw, 156px);
+  height: 28px !important;
+  cursor: grab !important;
+  touch-action: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.top-hits-scroll-line:active {
+  cursor: grabbing !important;
+}
+
+.top-hits-scroll-line::before {
+  height: 4px !important;
+  background: rgba(255,255,255,.13) !important;
+}
+
+.top-hits-scroll-line span {
+  width: var(--thumb-width) !important;
+  height: 4px !important;
+  left: calc(var(--scroll-progress, 0) * (100% - var(--thumb-width))) !important;
+  transform: translate3d(0, -50%, 0) !important;
+  transition: left .16s cubic-bezier(.22, .61, .36, 1) !important;
+  background: #7300ff !important;
+  box-shadow: none !important;
+}
+
+.top-hits-scroll-line:active span {
+  transition-duration: .06s !important;
+}
+
+@media (max-width: 900px) {
+  .stats-section-head h2 {
+    font-size: clamp(28px, 7.4vw, 40px) !important;
+  }
+
+  .stats-title-sticker {
+    width: clamp(178px, 42vw, 246px) !important;
+    height: clamp(178px, 42vw, 246px) !important;
+  }
+
+  .stats-panel-section .award-sticker {
+    width: 178px !important;
+    height: 158px !important;
+    right: -26px !important;
+    bottom: -14px !important;
+  }
+}

@@ -1,0 +1,890 @@
+
+  .airo-navbar {
+    position: fixed;
+    top: clamp(24px, 1.95vw, 32px);
+    left: 0;
+    right: 0;
+    z-index: 2147483647;
+    width: min(1328px, calc(100vw - 28px));
+    height: 58px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 164px;
+    translate: -24px 0;
+    isolation: isolate;
+    transition:
+      width 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      height 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      gap 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      top 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      translate 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .airo-navbar.scrolled {
+    width: min(1188px, calc(100vw - 28px));
+    gap: 0;
+  }
+
+  @media (min-width: 861px) {
+    .airo-navbar.scrolled {
+      translate: 0 0;
+    }
+  }
+
+  .airo-navbar.nav-hidden {
+    transform: translateY(calc(-100% - 46px));
+    pointer-events: none;
+  }
+
+  .airo-navbar .airo-logo {
+    flex: 0 0 auto;
+    width: 112px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    line-height: 0;
+    margin-right: 0;
+    transform-origin: left center;
+    transition:
+      width 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      margin-right 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 360ms ease,
+      transform 560ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .airo-navbar.scrolled .airo-logo {
+    width: 0;
+    opacity: 0;
+    transform: translateX(36px) scale(0.76);
+    margin-right: 0;
+    pointer-events: none;
+  }
+
+  .airo-navbar .airo-logo img,
+  .airo-navbar .airo-pill-logo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+  }
+
+  .airo-navbar .airo-nav-pill {
+    position: relative;
+    width: auto;
+    height: 58px;
+    margin-left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 78px;
+    padding: 9px 20px;
+    border-radius: 138.089px;
+    background: rgba(2, 0, 4, 0.1);
+    box-shadow:
+      inset 0 0 0 1.45px rgba(231, 211, 255, 0.13),
+      inset 0 1px 0 rgba(255, 255, 255, 0.035),
+      inset 0 -1px 0 rgba(231, 211, 255, 0.032),
+      0 14px 38px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    overflow: hidden;
+    transition:
+      width 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      height 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      padding 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      gap 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 560ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .airo-navbar.scrolled .airo-nav-pill {
+    width: auto;
+    padding-left: 20px;
+  }
+
+  .airo-navbar .airo-nav-pill::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1.45px;
+    border-radius: inherit;
+    background:
+      linear-gradient(102deg,
+        rgba(24, 1, 48, 0.92) 0%,
+        rgba(231, 211, 255, 0.54) 12%,
+        rgba(231, 211, 255, 0.18) 31%,
+        rgba(231, 211, 255, 0.14) 50%,
+        rgba(231, 211, 255, 0.18) 69%,
+        rgba(231, 211, 255, 0.48) 88%,
+        rgba(24, 1, 48, 0.86) 100%);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .airo-navbar .airo-nav-pill::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at 8% 10%, rgba(231, 211, 255, 0.07), transparent 24%),
+      radial-gradient(circle at 94% 86%, rgba(231, 211, 255, 0.045), transparent 28%),
+      linear-gradient(180deg, rgba(255,255,255,0.012), rgba(0,0,0,0.055));
+    pointer-events: none;
+  }
+
+  .airo-navbar .airo-pill-logo {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+    width: 0;
+    height: 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    line-height: 0;
+    opacity: 0;
+    transform: translateX(-18px) scale(0.78);
+    transform-origin: left center;
+    pointer-events: none;
+    overflow: hidden;
+    transition:
+      width 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 360ms ease 80ms,
+      transform 560ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+
+  .airo-navbar:not(.scrolled) .airo-pill-logo {
+    display: none;
+  }
+
+  .airo-navbar.scrolled .airo-pill-logo {
+    width: 88px;
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .airo-navbar .airo-nav-links {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 56px;
+    height: 100%;
+  }
+
+  .airo-navbar .airo-nav-links a,
+  .airo-navbar .airo-mobile-menu a {
+    position: relative;
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: 17.5px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #fff;
+    white-space: nowrap;
+    transition: opacity 260ms ease;
+  }
+
+  .airo-navbar .airo-nav-links a {
+    height: 100%;
+    display: inline-grid;
+    place-items: center;
+    text-align: center;
+  }
+
+  .airo-navbar .airo-nav-links a::before {
+    content: attr(data-label);
+    grid-area: 1 / 1;
+    font-weight: 600;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .airo-navbar .airo-nav-links a::after {
+    content: '';
+    position: absolute;
+    left: calc(50% - 17px);
+    bottom: 4px;
+    width: 34px;
+    height: 2.5px;
+    border-radius: 25.7767px;
+    background: #7300ff;
+    opacity: 1;
+    transform: scaleX(0);
+    transform-origin: right center;
+    will-change: transform;
+    transition:
+      transform 440ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 260ms ease;
+  }
+
+  .airo-navbar .airo-nav-links a:hover::after,
+  .airo-navbar .airo-nav-links a:focus-visible::after,
+  .airo-navbar .airo-nav-links a.active::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+
+  .airo-navbar .airo-nav-links a.active::after {
+    opacity: 1;
+  }
+
+  .airo-navbar .airo-nav-links a:hover::after,
+  .airo-navbar .airo-nav-links a:focus-visible::after,
+  .airo-navbar .airo-nav-links a.drawing::after {
+    opacity: 1;
+  }
+
+  .airo-navbar .airo-nav-links a.drawing::after {
+    animation: airoNavLineDraw 460ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .airo-navbar .airo-nav-links a span {
+    grid-area: 1 / 1;
+    font-weight: 400;
+    transition: font-weight 180ms ease, opacity 240ms ease;
+  }
+
+  .airo-navbar .airo-nav-links a.active span,
+  .airo-navbar .airo-mobile-menu a.active {
+    font-weight: 600;
+  }
+
+  .airo-navbar .airo-nav-links a:hover,
+  .airo-navbar .airo-mobile-menu a:hover {
+    opacity: 0.92;
+  }
+
+  .airo-navbar .airo-contact {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+    width: 142px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 48.5px;
+    background: #7300ff;
+    color: #fff;
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 600;
+    overflow: hidden;
+    box-shadow: none;
+  }
+
+  .airo-navbar .airo-contact span,
+  .airo-navbar .airo-contact svg {
+    position: relative;
+    z-index: 1;
+  }
+
+  .airo-navbar .airo-contact svg {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+  }
+
+  .airo-navbar .airo-contact path {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+  }
+
+  .airo-navbar .airo-contact:hover path {
+    animation: airoArrowDraw 1380ms cubic-bezier(.19, 1, .22, 1) both;
+  }
+
+  .airo-navbar .airo-contact:hover .arrow-head {
+    animation-delay: 260ms;
+  }
+
+  .airo-navbar .airo-mobile-actions,
+  .airo-navbar .airo-mobile-menu {
+    display: none;
+  }
+
+  @keyframes airoNavLineDraw {
+    0% {
+      transform: scaleX(0);
+      transform-origin: left center;
+    }
+    100% {
+      transform: scaleX(1);
+      transform-origin: left center;
+    }
+  }
+
+  @keyframes airoArrowDraw {
+    0% { stroke-dashoffset: 100; }
+    100% { stroke-dashoffset: 0; }
+  }
+
+  @media (max-width: 1200px) {
+    .airo-navbar {
+      gap: clamp(102px, 9.4vw, 138px);
+    }
+
+    .airo-navbar.scrolled {
+      gap: 0;
+    }
+
+    .airo-navbar.nav-hidden {
+      transform: translateY(calc(-100% - 46px));
+    }
+
+    .airo-navbar .airo-logo {
+      width: clamp(96px, 9.2vw, 112px);
+      height: auto;
+      aspect-ratio: 141 / 40;
+      margin-right: 0;
+    }
+
+    .airo-navbar .airo-nav-pill {
+      width: auto;
+      justify-content: flex-start;
+      padding-left: 20px;
+      gap: clamp(50px, 5.8vw, 72px);
+    }
+
+    .airo-navbar.scrolled .airo-nav-pill {
+      width: auto;
+      padding-left: 20px;
+    }
+
+    .airo-navbar.scrolled .airo-pill-logo {
+      width: clamp(74px, 8.1vw, 88px);
+    }
+
+    .airo-navbar .airo-nav-links {
+      gap: clamp(30px, 3.8vw, 52px);
+    }
+
+    .airo-navbar .airo-nav-links a {
+      font-size: clamp(15.5px, 1.45vw, 17.5px);
+    }
+
+    .airo-navbar .airo-contact {
+      width: clamp(126px, 12.4vw, 142px);
+      height: 40px;
+      font-size: clamp(13.5px, 1.2vw, 15px);
+      gap: clamp(7px, .8vw, 8px);
+    }
+  }
+
+  @media (max-width: 860px) {
+    html.airo-mobile-menu-locked,
+    body.airo-mobile-menu-locked {
+      overflow: hidden;
+      overscroll-behavior: none;
+      touch-action: none;
+    }
+
+    .airo-navbar,
+    .airo-navbar.scrolled {
+      top: 0;
+      left: 0;
+      right: 0;
+      translate: 0 0;
+      width: 100%;
+      max-width: none;
+      height: 72px;
+      margin: 0;
+      padding: 0 24px;
+      gap: 0;
+      justify-content: space-between;
+      background: #000;
+      border-radius: 0;
+      box-shadow: 0 10px 34px rgba(0, 0, 0, 0.28);
+      transition:
+        transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
+        background 260ms ease,
+        box-shadow 260ms ease;
+    }
+
+    .airo-navbar.nav-hidden {
+      transform: translateY(-100%);
+    }
+
+    .airo-navbar .airo-logo,
+    .airo-navbar.scrolled .airo-logo {
+      position: relative;
+      z-index: 5;
+      width: 78px;
+      height: auto;
+      aspect-ratio: 141 / 40;
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+      margin-right: 0;
+    }
+
+    .airo-navbar .airo-nav-pill {
+      display: none;
+    }
+
+    .airo-navbar .airo-pill-logo {
+      display: none;
+    }
+
+    .airo-navbar .airo-mobile-actions {
+      position: relative;
+      z-index: 5;
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .airo-navbar .airo-contact-mobile {
+      display: none;
+    }
+
+    .airo-navbar .airo-contact-menu {
+      width: fit-content;
+      height: auto;
+      margin: 18px 0 0 0;
+      padding: 8px 14px 8px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      border-radius: 0;
+      font-size: 32px;
+      line-height: 1.08;
+      font-weight: 500;
+      color: #fff;
+      text-decoration: none;
+      white-space: nowrap;
+      background: transparent;
+      box-shadow: none;
+      overflow: visible;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition:
+        color 200ms ease,
+        opacity 200ms ease,
+        transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .airo-navbar.menu-open .airo-contact-menu {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 390ms;
+    }
+
+    .airo-navbar .airo-contact-menu::before {
+      display: block;
+      box-shadow: 0 0 18px rgba(115, 0, 255, 0.94);
+      opacity: 1;
+    }
+
+    .airo-navbar .airo-contact-menu svg {
+      display: block;
+      width: 19px;
+      height: 19px;
+      margin-top: -6px;
+      transform: rotate(180deg);
+      filter: drop-shadow(0 0 8px rgba(115, 0, 255, 0.65));
+    }
+
+    .airo-navbar .airo-menu-toggle {
+      width: 26px;
+      height: 22px;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: visible;
+    }
+
+    .airo-navbar .airo-menu-toggle::before {
+      display: none;
+    }
+
+    .airo-navbar .airo-menu-toggle span {
+      width: 24px;
+      height: 2px;
+      border-radius: 99px;
+      background: #fff;
+      transform-origin: center;
+      transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), opacity 220ms ease;
+    }
+
+    .airo-navbar.menu-open .airo-menu-toggle span:first-child {
+      transform: translateY(4px) rotate(45deg);
+    }
+
+    .airo-navbar.menu-open .airo-menu-toggle span:last-child {
+      transform: translateY(-4px) rotate(-45deg);
+    }
+
+    .airo-navbar .airo-mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 4;
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      pointer-events: none;
+      visibility: hidden;
+      transition: visibility 0s linear 520ms;
+    }
+
+    .airo-navbar.menu-open .airo-mobile-menu {
+      pointer-events: auto;
+      visibility: visible;
+      transition-delay: 0s;
+    }
+
+    .airo-navbar .airo-mobile-menu-background {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: #000;
+      transform: translateY(-100%);
+      will-change: transform;
+      transition: transform 420ms cubic-bezier(0.4, 0, 0.2, 1) 110ms;
+    }
+
+    .airo-navbar.menu-open .airo-mobile-menu-background {
+      transform: translateY(0);
+      transition-delay: 0s;
+    }
+
+    .airo-navbar .airo-mobile-menu-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      padding: 112px 18px 26px;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition:
+        opacity 180ms ease,
+        transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .airo-navbar.menu-open .airo-mobile-menu-content {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 160ms ease 210ms,
+        transform 260ms cubic-bezier(0.4, 0, 0.2, 1) 210ms;
+    }
+
+    .airo-navbar .airo-mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .airo-navbar .airo-mobile-menu a {
+      position: relative;
+      z-index: 1;
+      width: fit-content;
+      font-family: 'Poppins', system-ui, sans-serif;
+      font-size: 32px;
+      line-height: 1.08;
+      font-weight: 400;
+      color: #fff;
+      text-decoration: none;
+      white-space: nowrap;
+      padding: 8px 14px 8px 18px;
+      transition: color 200ms ease, opacity 200ms ease, transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .airo-navbar .airo-mobile-nav-list a {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+
+    .airo-navbar.menu-open .airo-mobile-nav-list a {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: calc(230ms + (var(--mobile-link-index) * 30ms));
+    }
+
+    .airo-navbar .airo-mobile-menu a::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 12px;
+      bottom: 10px;
+      width: 3px;
+      border-radius: 999px;
+      background: #7300ff;
+      opacity: 0.85;
+    }
+
+    .airo-navbar .airo-mobile-menu .airo-contact-menu::before {
+      opacity: 1;
+      box-shadow: 0 0 12px rgba(115, 0, 255, 0.92), 0 0 28px rgba(115, 0, 255, 0.64);
+    }
+
+    .airo-navbar .airo-mobile-menu a:hover {
+      color: rgba(255, 255, 255, 0.72);
+      opacity: 1;
+    }
+
+    .airo-navbar .airo-mobile-menu a.active {
+      font-weight: 500;
+    }
+
+    .airo-navbar .airo-mobile-menu a.active::after {
+      display: none;
+    }
+
+    .airo-navbar .airo-mobile-info {
+      margin-top: auto;
+      padding: 30px 18px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      color: #fff;
+      font-family: 'Poppins', system-ui, sans-serif;
+    }
+
+    .airo-navbar .airo-mobile-info::after {
+      content: '';
+      width: 82px;
+      aspect-ratio: 141 / 40;
+      display: block;
+      margin-top: 2px;
+      pointer-events: none;
+    }
+
+    .airo-navbar .airo-mobile-info img {
+      width: 82px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      margin-top: 2px;
+      margin-bottom: 0;
+    }
+
+    .airo-navbar .airo-mobile-info p,
+    .airo-navbar .airo-mobile-info span,
+    .airo-navbar .airo-mobile-info a {
+      max-width: 330px;
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.86);
+      white-space: normal;
+    }
+
+    .airo-navbar .airo-mobile-info-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 340px;
+    }
+
+    .airo-navbar .airo-mobile-info-copy span {
+      display: block;
+      max-width: none;
+      font-size: inherit;
+      line-height: inherit;
+      font-weight: inherit;
+      color: inherit;
+    }
+
+    .airo-navbar .airo-mobile-contact-details {
+      margin-top: 0;
+      margin-bottom: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .airo-navbar .airo-mobile-info-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: fit-content;
+      margin-left: 0;
+    }
+
+    .airo-navbar .airo-mobile-info-row svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: #7300ff;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .airo-navbar .airo-mobile-info-link {
+      width: fit-content;
+      border-bottom: 0;
+      padding-bottom: 0;
+      margin-left: 0;
+      transform: none;
+    }
+
+    .airo-navbar .airo-mobile-info a::before {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .airo-navbar,
+    .airo-navbar.scrolled {
+      height: 64px;
+      padding: 0 16px;
+    }
+
+    .airo-navbar .airo-logo,
+    .airo-navbar.scrolled .airo-logo {
+      width: 66px;
+    }
+
+    .airo-navbar .airo-mobile-actions {
+      gap: 10px;
+    }
+
+    .airo-navbar .airo-contact-menu {
+      width: fit-content;
+      height: auto;
+      margin-top: 16px;
+      font-size: 30px;
+      gap: 9px;
+    }
+
+    .airo-navbar .airo-contact-menu svg {
+      width: 18px;
+      height: 18px;
+      margin-top: -5px;
+    }
+
+    .airo-navbar .airo-menu-toggle {
+      width: 22px;
+      height: 20px;
+      gap: 5px;
+    }
+
+    .airo-navbar .airo-menu-toggle span {
+      width: 21px;
+      height: 2px;
+    }
+
+    .airo-navbar.menu-open .airo-menu-toggle span:first-child {
+      transform: translateY(3.5px) rotate(45deg);
+    }
+
+    .airo-navbar.menu-open .airo-menu-toggle span:last-child {
+      transform: translateY(-3.5px) rotate(-45deg);
+    }
+
+    .airo-navbar .airo-mobile-menu-content {
+      padding: 100px 16px 24px;
+    }
+
+    .airo-navbar .airo-mobile-menu a {
+      font-size: 30px;
+      padding: 8px 12px 8px 18px;
+    }
+
+    .airo-navbar .airo-mobile-info {
+      padding: 28px 18px 0;
+      gap: 14px;
+    }
+
+    .airo-navbar .airo-mobile-info::after {
+      width: 74px;
+    }
+
+    .airo-navbar .airo-mobile-info img {
+      width: 74px;
+    }
+
+    .airo-navbar .airo-mobile-info p,
+    .airo-navbar .airo-mobile-info span,
+    .airo-navbar .airo-mobile-info a {
+      max-width: 300px;
+      font-size: 12.5px;
+    }
+
+    .airo-navbar .airo-mobile-info-copy {
+      max-width: 310px;
+    }
+
+    .airo-navbar .airo-mobile-contact-details {
+      margin-top: 0;
+      margin-bottom: 2px;
+      gap: 3px;
+    }
+
+    .airo-navbar .airo-mobile-info .airo-mobile-info-row,
+    .airo-navbar .airo-mobile-info .airo-mobile-info-link {
+      margin-left: 0;
+      padding-left: 0;
+      transform: none;
+    }
+
+    .airo-navbar .airo-mobile-info .airo-mobile-info-link {
+      padding: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .airo-navbar,
+    .airo-navbar .airo-logo,
+    .airo-navbar .airo-pill-logo,
+    .airo-navbar .airo-nav-pill,
+    .airo-navbar .airo-contact,
+    .airo-navbar .airo-nav-links a,
+    .airo-navbar .airo-nav-links a::after,
+    .airo-navbar .airo-mobile-menu,
+    .airo-navbar .airo-mobile-menu-background,
+    .airo-navbar .airo-mobile-menu-content,
+    .airo-navbar .airo-menu-toggle span {
+      transition: none;
+      animation: none;
+    }
+
+    .airo-navbar .airo-contact:hover path,
+    .airo-navbar .airo-nav-links a.drawing::after {
+      animation: none;
+    }
+  }

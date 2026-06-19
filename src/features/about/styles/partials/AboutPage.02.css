@@ -1,0 +1,1161 @@
+
+
+  @keyframes orbitFloat {
+    to { translate: 0 -8px; }
+  }
+
+  @keyframes heroFloat { to { transform: translateX(-1.5%) translateY(-12px); } }
+  @keyframes visualDriftOne { to { transform: translate3d(0,-7px,0) rotate(-1deg); } }
+  @keyframes visualDriftTwo { to { transform: translate3d(0,-6px,0) rotate(.5deg); } }
+  @keyframes visualDriftThree { to { transform: translate3d(0,-6px,0) rotate(-.45deg); } }
+  @keyframes connectorFlow { to { stroke-dashoffset: -24.56; } }
+
+  @keyframes waveDraw {
+    0% { stroke-dashoffset: 360; opacity: .36; }
+    32%, 68% { stroke-dashoffset: 0; opacity: .95; }
+    100% { stroke-dashoffset: -360; opacity: .42; }
+  }
+
+  @keyframes nodeSettle {
+    0%, 100% { transform: translateY(0) scale(1); opacity: .55; }
+    45% { transform: translateY(-3px) scale(1.02); opacity: .78; }
+  }
+
+  @keyframes iconPlateFloat {
+    0%,100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-4px) scale(1.025); }
+  }
+
+  @keyframes iconStrokeDraw {
+    0% { stroke-dashoffset: 120; opacity: .55; }
+    34%, 74% { stroke-dashoffset: 0; opacity: 1; }
+    100% { stroke-dashoffset: -120; opacity: .58; }
+  }
+
+  @keyframes iconHaloBreath {
+    0%,100% { opacity: .46; }
+    50% { opacity: .72; }
+  }
+
+  @keyframes sunSpin {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes sunPulse {
+    0%,100% { opacity: .78; filter: drop-shadow(0 0 8px rgba(154,53,255,.58)); }
+    50% { opacity: 1; filter: drop-shadow(0 0 18px rgba(154,53,255,.95)); }
+  }
+
+  @keyframes sunDraw {
+    0% { stroke-dashoffset: 90; opacity: .55; }
+    34%, 74% { stroke-dashoffset: 0; opacity: 1; }
+    100% { stroke-dashoffset: -90; opacity: .6; }
+  }
+
+
+  @keyframes arrowDraw {
+    0% { stroke-dashoffset: 26; }
+    100% { stroke-dashoffset: 0; }
+  }
+
+  @media (max-width: 1180px) {
+    .about-page .feature-row {
+      grid-template-columns: minmax(0, .98fr) minmax(330px, .86fr);
+      gap: clamp(28px, 4vw, 56px);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .about-page { padding-inline: 18px; }
+    .about-page .about-hero {
+      min-height: clamp(560px,130vw,820px);
+      margin-inline: -18px;
+      padding-inline: 18px;
+    }
+    .about-page .hero-art { width: min(920px,162vw); }
+    .about-page .about-copy-section { margin-top: -40px; }
+
+    .about-page .about-features {
+      width: min(760px, 100%);
+      margin-top: 34px;
+    }
+
+    .about-page .feature-row {
+      grid-template-columns: minmax(0, 1fr) minmax(170px, 42%);
+      gap: clamp(12px, 3.2vw, 24px);
+      min-height: clamp(156px, 36vw, 220px);
+      padding: clamp(28px, 6vw, 42px) 0;
+      align-items: center;
+    }
+
+    .about-page .feature-copy { text-align: left; }
+
+    .about-page .feature-copy h3 {
+      font-size: clamp(16px, 4.15vw, 24px);
+      line-height: 1.32;
+      letter-spacing: -.015em;
+    }
+
+    .about-page .feature-copy p {
+      max-width: 330px;
+      margin-top: 7px;
+      font-size: clamp(11px, 2.95vw, 15px);
+      line-height: 1.48;
+      letter-spacing: .025em;
+    }
+
+    .about-page .feature-visual {
+      min-height: clamp(128px, 33vw, 180px);
+      justify-items: end;
+    }
+
+    .about-page .svg-shell { width: min(246px, 49vw); }
+    .about-page .update-widget { width: min(226px, 47vw); }
+    .about-page .chart-widget { width: min(220px, 46vw); }
+    .about-page .update-card { min-height: 150px; padding: 22px; border-radius: 30px; }
+    .about-page .update-track { height: 12px; margin-top: 12px; }
+    .about-page .update-bottom { margin-top: 18px; gap: 8px; }
+    .about-page .update-bottom span { font-size: 7px; padding: 3px 8px; }
+    .about-page .update-bottom button { font-size: 7px; padding: 6px 10px; }
+    .about-page .chart-card { min-height: 148px; }
+    .about-page .chart-area { --chart-start: 44px; height: 128px; padding-left: 30px; }
+    .about-page .chart-bars { right: 8px; height: 120px; }
+    .about-page .chart-column { width: 22px; height: 120px; }
+    .about-page .chart-column i { width: 18px; }
+    .about-page .chart-top { margin-bottom: 8px; }
+    .about-page .chart-top strong { font-size: 12px; }
+    .about-page .chart-top span { font-size: 7px; padding: 5px 8px; }
+
+    .about-page .team-grid { grid-template-columns: repeat(2,1fr); }
+    .about-page .about-cta { flex-direction: column; align-items: flex-start; border-radius: 42px; padding: 34px 28px; min-height: 390px; }
+    .about-page .cta-copy { width: min(390px, 100%); }
+    .about-page .cta-button { position: relative; right: auto; bottom: auto; margin: 0; transform: translateY(0); }
+    .about-page .cta-button:hover { transform: translateX(2px); }
+    .about-page .cta-tiles { left: 4%; top: 34%; transform: scale(.8); transform-origin: left top; }
+  }
+
+  @media (max-width: 560px) {
+    .about-page .hero-head h1 { font-size: 43px; }
+    .about-page .about-hero {
+      min-height: 610px;
+      padding-top: 48px;
+    }
+    .about-page .hero-art { width: min(780px,190vw); }
+
+    .about-page .hero-first-card-neer-right svg {
+      right: -118px;
+      top: -104px;
+      width: 320px;
+    }
+
+    .about-page .about-copy-section h2,
+    .about-page .team-section h2 {
+      font-size: clamp(28px, 8vw, 34px);
+    }
+
+    .about-page .feature-row {
+      grid-template-columns: minmax(0, 1fr) minmax(128px, 41%);
+      gap: 10px;
+      min-height: 150px;
+    }
+
+    .about-page .feature-copy h3 { font-size: clamp(15px, 4.35vw, 18px); }
+    .about-page .feature-copy p { font-size: clamp(10px, 2.9vw, 12px); }
+    .about-page .svg-shell { width: min(190px, 48vw); }
+    .about-page .update-widget { width: min(178px, 45vw); }
+    .about-page .chart-widget { width: min(174px, 44vw); }
+
+    .about-page .team-grid { grid-template-columns: 1fr; }
+    .about-page .cta-tiles { transform: scale(.62); }
+  }
+
+  @media (max-width: 390px) {
+    .about-page .feature-row {
+      grid-template-columns: minmax(0, 1fr) minmax(116px, 39%);
+      gap: 8px;
+    }
+
+    .about-page .feature-copy h3 { font-size: 14px; }
+    .about-page .feature-copy p { font-size: 9.8px; line-height: 1.43; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-page .hero-art,
+    .about-page .reveal-block,
+    .about-page .svg-shell,
+    .about-page .svg-shell *,
+    .about-page .feature-visual *,
+    .about-page .update-widget,
+    .about-page .chart-widget {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+    }
+
+    .about-scroll-reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+      will-change: auto !important;
+    }
+  }
+
+  /* v typography alignment with latest Careers reference + 20% smaller What we do rows */
+  .about-page h1,
+  .about-page h2,
+  .about-page h3,
+  .about-page p {
+    margin: 0;
+  }
+
+  .about-page .section-kicker {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: auto;
+    min-width: max-content;
+    height: 42px;
+    padding: 0 18px;
+    margin-bottom: clamp(20px, 2.4vw, 30px);
+    color: #fff;
+    font-size: clamp(15px, 1.25vw, 19px);
+    line-height: 42px;
+    font-weight: 600;
+    letter-spacing: .035em;
+    text-align: center;
+  }
+
+  .about-page .section-kicker.hero-kicker {
+    height: 66px;
+    padding: 0 22px;
+    margin-bottom: 0;
+    font-size: 19px;
+    line-height: 66px;
+    font-weight: 500;
+    letter-spacing: .06em;
+  }
+
+  .about-page .section-kicker strong {
+    font: inherit;
+    display: block;
+    white-space: nowrap;
+  }
+
+  .about-page .section-kicker span,
+  .about-page .section-kicker span:last-child,
+  .about-page .section-kicker .corner {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 0;
+    transform: none !important;
+    pointer-events: none;
+    color: rgba(255,255,255,.9);
+    background: transparent;
+  }
+
+  .about-page .section-kicker .corner-tl {
+    left: 0;
+    top: 7px;
+    border-left: 2px solid currentColor;
+    border-top: 2px solid currentColor;
+  }
+
+  .about-page .section-kicker .corner-tr {
+    right: 0;
+    top: 7px;
+    border-right: 2px solid currentColor;
+    border-top: 2px solid currentColor;
+  }
+
+  .about-page .section-kicker .corner-bl {
+    left: 0;
+    bottom: 7px;
+    border-left: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+  }
+
+  .about-page .section-kicker .corner-br {
+    right: 0;
+    bottom: 7px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+  }
+
+  .about-page .section-kicker.hero-kicker .corner {
+    width: 9px;
+    height: 9px;
+  }
+
+  .about-page .section-kicker.hero-kicker .corner-tl,
+  .about-page .section-kicker.hero-kicker .corner-tr {
+    top: 19px;
+  }
+
+  .about-page .section-kicker.hero-kicker .corner-bl,
+  .about-page .section-kicker.hero-kicker .corner-br {
+    bottom: 14px;
+  }
+
+  .about-page .hero-head h1,
+  .about-page .about-copy-section h2,
+  .about-page .team-section > h2 {
+    font-size: clamp(40px, 4.65vw, 64px);
+    line-height: 1.12;
+    letter-spacing: -.018em;
+    font-weight: 600;
+    text-shadow: 0 0 42px rgba(255,255,255,.20);
+  }
+
+  .about-page .hero-head h1 {
+    margin-top: 22px;
+  }
+
+  .about-page .about-copy-section {
+    width: min(760px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .about-page .about-copy-section p,
+  .about-page .team-section > p {
+    width: min(690px, 100%);
+    margin: clamp(16px, 1.8vw, 24px) auto 0;
+    color: rgba(255,255,255,.7);
+    font-size: clamp(14px, 1.34vw, 18.5px);
+    line-height: 1.58;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  .about-page .about-features {
+    width: min(910px, 100%);
+    margin-top: clamp(18px, 2.8vw, 38px);
+  }
+
+  .about-page .feature-row {
+    grid-template-columns: minmax(0, 1.04fr) minmax(288px, .96fr);
+    gap: clamp(30px, 4.8vw, 74px);
+    min-height: clamp(168px, 16.8vw, 240px);
+    padding: clamp(26px, 3.05vw, 43px) 0;
+  }
+
+  .about-page .feature-copy h3 {
+    max-width: 515px;
+    font-size: clamp(19px, 2.04vw, 30px);
+    line-height: 1.31;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  .about-page .feature-copy p {
+    max-width: 506px;
+    margin-top: clamp(8px, .96vw, 11px);
+    font-size: clamp(11.2px, 1.16vw, 16.8px);
+    line-height: 1.59;
+    letter-spacing: .04em;
+    font-weight: 500;
+  }
+
+  .about-page .feature-visual {
+    min-height: clamp(144px, 14.4vw, 216px);
+  }
+
+  .about-page .svg-shell {
+    width: min(411px, 100%);
+  }
+
+  .about-page .update-widget {
+    width: min(374px, 98%);
+  }
+
+  .about-page .update-card {
+    min-height: 218px;
+    padding: 35px 37px 27px;
+    border-radius: 48px;
+  }
+
+  .about-page .chart-widget {
+    width: min(360px, 96%);
+  }
+
+  .about-page .chart-card {
+    min-height: 186px;
+  }
+
+  @media (max-width: 900px) {
+    .about-page .section-kicker.small {
+      height: 38px;
+      padding: 0 16px;
+      margin-bottom: clamp(18px, 3.6vw, 26px);
+      font-size: clamp(13px, 3.2vw, 17px);
+      line-height: 38px;
+    }
+
+    .about-page .section-kicker.hero-kicker {
+      height: 58px;
+      font-size: clamp(15px, 4vw, 18px);
+      line-height: 58px;
+    }
+
+    .about-page .hero-head h1,
+    .about-page .about-copy-section h2,
+    .about-page .team-section > h2 {
+      font-size: clamp(34px, 9.8vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -.035em;
+    }
+
+    .about-page .about-features {
+      width: min(608px, 100%);
+      margin-top: 24px;
+    }
+
+    .about-page .feature-row {
+      grid-template-columns: minmax(0, 1fr) minmax(136px, 42%);
+      gap: clamp(10px, 2.55vw, 19px);
+      min-height: clamp(125px, 28.8vw, 176px);
+      padding: clamp(22px, 4.8vw, 34px) 0;
+    }
+
+    .about-page .feature-copy h3 {
+      font-size: clamp(13px, 3.32vw, 19px);
+    }
+
+    .about-page .feature-copy p {
+      max-width: 264px;
+      margin-top: 6px;
+      font-size: clamp(9px, 2.36vw, 12px);
+      line-height: 1.48;
+      letter-spacing: .02em;
+    }
+
+    .about-page .feature-visual {
+      min-height: clamp(102px, 26.4vw, 144px);
+    }
+
+    .about-page .svg-shell { width: min(197px, 39vw); }
+    .about-page .update-widget { width: min(181px, 38vw); }
+    .about-page .chart-widget { width: min(176px, 37vw); }
+    .about-page .update-card { min-height: 120px; padding: 18px; border-radius: 24px; }
+    .about-page .chart-card { min-height: 118px; }
+  }
+
+  @media (max-width: 560px) {
+    .about-page .hero-head h1 {
+      font-size: clamp(34px, 9.8vw, 43px);
+    }
+
+    .about-page .about-copy-section h2,
+    .about-page .team-section > h2 {
+      font-size: clamp(34px, 9.8vw, 43px);
+    }
+
+    .about-page .feature-row {
+      grid-template-columns: minmax(0, 1fr) minmax(102px, 41%);
+      gap: 8px;
+      min-height: 120px;
+    }
+
+    .about-page .feature-copy h3 { font-size: clamp(12px, 3.48vw, 14.5px); }
+    .about-page .feature-copy p { font-size: clamp(8px, 2.32vw, 9.6px); }
+    .about-page .svg-shell { width: min(152px, 38vw); }
+    .about-page .update-widget { width: min(142px, 36vw); }
+    .about-page .chart-widget { width: min(139px, 35vw); }
+  }
+
+
+  /* Targeted fixes: clean four-corner kickers + requested What we do/Team refinements */
+  .about-page .section-kicker .corner {
+    z-index: 3;
+    display: block !important;
+    opacity: 1 !important;
+    background: transparent !important;
+  }
+
+  .about-page .section-kicker .corner::before,
+  .about-page .section-kicker .corner::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .about-page .section-kicker .corner-br {
+    right: 0 !important;
+    bottom: 7px !important;
+    border-right: 2px solid currentColor !important;
+    border-bottom: 2px solid currentColor !important;
+  }
+
+  .about-page .section-kicker.hero-kicker .corner-br {
+    bottom: 14px !important;
+  }
+
+  .about-page .svg-shell {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .about-page .svg-feature-1 svg > g[opacity="0.2"],
+  .about-page .svg-feature-1 circle[r="12.2802"] {
+    display: none !important;
+  }
+
+  .about-page .svg-feature-1 circle[r="36.7268"] {
+    animation: none !important;
+    transform: none !important;
+    fill: rgba(9, 7, 15, .82) !important;
+    stroke: rgba(255, 255, 255, .30) !important;
+    stroke-width: 3px !important;
+    filter: drop-shadow(0 10px 22px rgba(0,0,0,.34)) drop-shadow(0 0 13px rgba(255,255,255,.06)) !important;
+  }
+
+  .about-page .svg-feature-1 path[stroke-linecap="round"],
+  .about-page .svg-feature-1 line[stroke-linecap="round"],
+  .about-page .svg-feature-1 polyline[stroke-linecap="round"] {
+    stroke-dasharray: 120;
+    stroke-dashoffset: 120;
+    animation: iconStrokeDraw 2.8s cubic-bezier(.22,.61,.36,1) infinite !important;
+  }
+
+  .about-page .svg-feature-1 g[mask] path[stroke] {
+    animation-duration: 2.8s !important;
+  }
+
+  .about-page .svg-feature-1 g[filter*="filter23"],
+  .about-page .svg-feature-1 g[filter*="filter25"],
+  .about-page .svg-feature-1 g[filter*="filter27"] {
+    opacity: .42 !important;
+    animation: iconHaloBreath 2.8s ease-in-out infinite !important;
+  }
+
+  .about-page .update-card::before {
+    display: none !important;
+  }
+
+  .about-page .update-track i {
+    box-shadow: 0 0 10px rgba(127,0,255,.46);
+  }
+
+  .about-page .update-bottom button {
+    border: 1px solid rgba(255,255,255,.26) !important;
+    background: rgba(7,5,9,.72) !important;
+    box-shadow: inset 0 0 0 1px rgba(202,158,255,.12), 0 8px 24px rgba(0,0,0,.22);
+  }
+
+
+  .about-page .chart-card::before,
+  .about-page .chart-column i.hot {
+    box-shadow: none !important;
+  }
+
+  .about-page .chart-card::before {
+    display: none !important;
+  }
+
+  .about-page .chart-top {
+    justify-content: flex-start;
+  }
+
+  .about-page .chart-area > em,
+  .about-page .chart-area > small {
+    line-height: 1;
+    transform: translateY(50%);
+  }
+
+  .about-page .chart-area > em:nth-of-type(1) { bottom: 164px; }
+  .about-page .chart-area > em:nth-of-type(2) { bottom: 120px; }
+  .about-page .chart-area > em:nth-of-type(3) { bottom: 76px; }
+  .about-page .chart-area > small { bottom: 0; }
+
+  @media (min-width: 901px) {
+    .about-page .team-section {
+      width: min(980px, 100%);
+    }
+
+    .about-page .team-grid {
+      width: min(920px, 100%);
+      margin: 42px auto 0;
+      gap: 16px;
+    }
+
+    .about-page .team-card {
+      min-height: clamp(325px, 29vw, 430px);
+      padding: clamp(142px, 13vw, 205px) clamp(14px, 1.15vw, 20px) clamp(28px, 2.4vw, 38px);
+    }
+  }
+
+
+  /* responsive refinement: hero + what we do only */
+  @media (max-width: 900px) {
+    .about-page .about-hero {
+      min-height: clamp(690px, 126vw, 920px);
+      padding-top: clamp(94px, 12vw, 118px);
+    }
+
+    .about-page .hero-head {
+      width: min(520px, 92vw);
+      margin: 0 auto;
+    }
+
+    .about-page .hero-head h1 {
+      font-size: clamp(36px, 8.4vw, 52px);
+      line-height: 1.06;
+    }
+
+    .about-page .hero-art {
+      width: 100%;
+      height: clamp(880px, 116vw, 1030px);
+      margin-top: clamp(8px, 1vw, 14px);
+      transform: none;
+    }
+
+    .about-page .hero-first-card-wrap,
+    .about-page .hero-rest-cards-svg {
+      --hero-card-scale: .9;
+      left: calc(50% - 334px);
+      top: clamp(88px, 10vw, 112px);
+      transform: scale(var(--hero-card-scale));
+      transform-origin: 334px top;
+    }
+
+    .about-page .hero-high-engagement-card-svg {
+      left: 169.53px;
+      top: -99.3px;
+    }
+
+    .about-page .hero-long-retention-card-svg {
+      left: -29px;
+      top: 482px;
+    }
+
+    .about-page .hero-proven-brand-card-svg {
+      left: 243.05px;
+      top: 376px;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .about-page .about-hero {
+      min-height: clamp(920px, 206vw, 1040px);
+      padding-top: 102px;
+    }
+
+    .about-page .hero-head h1 {
+      font-size: clamp(34px, 9.4vw, 46px);
+    }
+
+    .about-page .hero-art {
+      height: clamp(930px, 206vw, 1040px);
+      margin-top: 2px;
+    }
+
+    .about-page .hero-first-card-wrap,
+    .about-page .hero-rest-cards-svg {
+      --hero-card-scale: .8;
+      left: calc(50% - 334px);
+      top: clamp(94px, 14vw, 110px);
+      transform-origin: 334px top;
+    }
+
+    .about-page .about-copy-section {
+      width: min(420px, 100%);
+      margin-top: clamp(18px, 6vw, 40px);
+    }
+
+    .about-page .about-copy-section h2 {
+      font-size: clamp(30px, 8.6vw, 40px);
+      line-height: 1.08;
+    }
+
+    .about-page .about-copy-section p {
+      width: min(360px, 92vw);
+      font-size: clamp(12.5px, 3.5vw, 15px);
+      line-height: 1.52;
+    }
+
+    .about-page .about-features {
+      width: min(420px, 100%);
+      margin-top: 24px;
+    }
+
+    .about-page .feature-row {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      min-height: auto;
+      padding: 30px 0;
+      text-align: center;
+    }
+
+    .about-page .feature-copy {
+      text-align: center;
+    }
+
+    .about-page .feature-copy h3 {
+      max-width: 360px;
+      margin-inline: auto;
+      font-size: clamp(21px, 6.6vw, 30px);
+      line-height: 1.18;
+    }
+
+    .about-page .feature-copy p {
+      max-width: 350px;
+      margin-inline: auto;
+      margin-top: 10px;
+      font-size: clamp(12px, 3.55vw, 15px);
+      line-height: 1.5;
+      letter-spacing: 0;
+    }
+
+    .about-page .feature-visual {
+      justify-items: center;
+      min-height: 190px;
+    }
+
+    .about-page .svg-shell {
+      width: min(310px, 86vw);
+    }
+
+    .about-page .update-widget {
+      width: min(286px, 84vw);
+    }
+
+    .about-page .chart-widget {
+      width: min(286px, 84vw);
+    }
+
+    .about-page .update-card {
+      min-height: 176px;
+      padding: 26px 28px 22px;
+      border-radius: 34px;
+    }
+
+    .about-page .chart-card {
+      min-height: 168px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .about-page .about-hero {
+      min-height: clamp(900px, 214vw, 1010px);
+      padding-top: 104px;
+    }
+
+    .about-page .section-kicker.hero-kicker {
+      height: 46px;
+      padding-inline: 18px;
+      font-size: 14px;
+      line-height: 46px;
+    }
+
+    .about-page .section-kicker.hero-kicker .corner-tl,
+    .about-page .section-kicker.hero-kicker .corner-tr {
+      top: 13px;
+    }
+
+    .about-page .section-kicker.hero-kicker .corner-bl,
+    .about-page .section-kicker.hero-kicker .corner-br {
+      bottom: 10px !important;
+    }
+
+    .about-page .hero-head h1 {
+      margin-top: 12px;
+      font-size: clamp(31px, 9.4vw, 40px);
+      letter-spacing: -.04em;
+    }
+
+    .about-page .hero-art {
+      height: clamp(900px, 214vw, 1000px);
+      margin-top: 0;
+    }
+
+    .about-page .hero-first-card-wrap,
+    .about-page .hero-rest-cards-svg {
+      --hero-card-scale: .72;
+      left: calc(50% - 334px);
+      top: clamp(92px, 16vw, 104px);
+      transform-origin: 334px top;
+    }
+
+    .about-page .about-copy-section {
+      margin-top: clamp(18px, 6vw, 36px);
+    }
+
+    .about-page .feature-row {
+      padding: 28px 0;
+      gap: 14px;
+    }
+
+    .about-page .feature-visual {
+      min-height: 172px;
+    }
+
+    .about-page .svg-shell {
+      width: min(286px, 84vw);
+    }
+
+    .about-page .update-widget,
+    .about-page .chart-widget {
+      width: min(270px, 82vw);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about-page .hero-first-card-wrap,
+    .about-page .hero-rest-cards-svg {
+      --hero-card-scale: .62;
+      left: calc(50% - 334px);
+      transform-origin: 334px top;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .about-page .hero-first-card-wrap,
+    .about-page .hero-rest-cards-svg {
+      --hero-card-scale: .55;
+      left: calc(50% - 334px);
+      transform-origin: 334px top;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .about-page .about-hero {
+      min-height: 860px;
+      padding-top: 100px;
+    }
+
+    .about-page .hero-head h1 {
+      font-size: clamp(29px, 9.6vw, 36px);
+    }
+
+    .about-page .hero-art {
+      height: 850px;
+      margin-top: 0;
+    }
+
+    .about-page .hero-first-card-wrap,
+    .about-page .hero-rest-cards-svg {
+      --hero-card-scale: .5;
+      left: calc(50% - 334px);
+      top: 92px;
+      transform-origin: 334px top;
+    }
+
+    .about-page .about-copy-section {
+      margin-top: 18px;
+    }
+
+    .about-page .feature-copy h3 {
+      font-size: clamp(20px, 6.4vw, 24px);
+    }
+
+    .about-page .feature-copy p {
+      font-size: clamp(11.5px, 3.45vw, 13px);
+    }
+
+    .about-page .feature-visual {
+      min-height: 156px;
+    }
+
+    .about-page .svg-shell {
+      width: min(256px, 82vw);
+    }
+
+    .about-page .update-widget,
+    .about-page .chart-widget {
+      width: min(246px, 80vw);
+    }
+  }
+
+
+  /* small screens only: last row spacing + chart title placement */
+  @media (max-width: 900px) {
+    .about-page .about-features .feature-row:nth-child(3) {
+      grid-template-columns: minmax(0, .86fr) minmax(230px, 48%);
+      gap: clamp(52px, 9vw, 92px);
+    }
+
+    .about-page .about-features .feature-row:nth-child(3) .feature-visual {
+      padding-left: clamp(24px, 5vw, 54px);
+      justify-items: end;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .about-page .about-features .feature-row:nth-child(3) {
+      grid-template-columns: 1fr;
+      gap: 66px;
+    }
+
+    .about-page .about-features .feature-row:nth-child(3) .feature-visual {
+      padding-left: 0;
+      justify-items: center;
+      margin-top: 24px;
+    }
+
+    .about-page .about-features .feature-row:nth-child(3) .chart-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .about-page .about-features .feature-row:nth-child(3) .chart-area {
+      order: 1;
+    }
+
+    .about-page .about-features .feature-row:nth-child(3) .chart-top {
+      order: 2;
+      justify-content: center;
+      margin: 14px 0 0;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .about-page .about-features .feature-row:nth-child(3) {
+      gap: 60px;
+    }
+
+    .about-page .about-features .feature-row:nth-child(3) .feature-visual {
+      margin-top: 22px;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .about-page .about-features .feature-row:nth-child(3) {
+      gap: 54px;
+    }
+  }
+
+
+  /* smaller screens only: tighten hero-to-What-we-do spacing, solid row-one icon plates, and narrower bottom-aligned team cards */
+  @media (max-width: 680px) {
+    .about-page .about-hero {
+      min-height: clamp(820px, 188vw, 930px);
+    }
+
+    .about-page .hero-art {
+      height: clamp(820px, 188vw, 930px);
+    }
+
+    .about-page .about-copy-section {
+      margin-top: clamp(-84px, -13vw, -46px);
+    }
+
+    .about-page .svg-feature-1 circle[r="36.7268"] {
+      opacity: 1 !important;
+      fill: #09070f !important;
+      fill-opacity: 1 !important;
+      stroke-opacity: 1 !important;
+    }
+
+    .about-page .svg-feature-1 g[filter*="filter23"],
+    .about-page .svg-feature-1 g[filter*="filter25"],
+    .about-page .svg-feature-1 g[filter*="filter27"] {
+      opacity: 1 !important;
+    }
+
+    .about-page .team-section {
+      width: min(420px, 100%);
+    }
+
+    .about-page .team-grid {
+      width: min(326px, 86vw);
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: 18px;
+      margin: 34px auto 0;
+    }
+
+    .about-page .team-card {
+      width: 100%;
+      min-height: clamp(392px, 106vw, 468px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(172px, 42vw, 220px) 22px 30px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .about-page .about-hero {
+      min-height: clamp(760px, 190vw, 870px);
+    }
+
+    .about-page .hero-art {
+      height: clamp(760px, 190vw, 870px);
+    }
+
+    .about-page .about-copy-section {
+      margin-top: clamp(-94px, -16vw, -58px);
+    }
+
+    .about-page .team-grid {
+      width: min(312px, 84vw);
+      margin-top: 30px;
+    }
+
+    .about-page .team-card {
+      min-height: clamp(404px, 116vw, 472px);
+      padding: clamp(184px, 50vw, 232px) 22px 30px;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .about-page .about-hero {
+      min-height: 730px;
+    }
+
+    .about-page .hero-art {
+      height: 720px;
+    }
+
+    .about-page .about-copy-section {
+      margin-top: -64px;
+    }
+
+    .about-page .team-grid {
+      width: min(296px, 84vw);
+    }
+
+    .about-page .team-card {
+      min-height: 420px;
+      padding: 198px 20px 28px;
+    }
+  }
+
+
+  /* targeted refinements: desktop CTA grid, solid first-row icons, bottom-aligned team text */
+  .about-page .svg-feature-1 circle[r="36.7268"] {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    fill: #09070f !important;
+    fill-opacity: 1 !important;
+    stroke: rgba(255,255,255,.34) !important;
+    stroke-opacity: 1 !important;
+  }
+
+  .about-page .svg-feature-1 path[stroke-linecap="round"],
+  .about-page .svg-feature-1 line[stroke-linecap="round"],
+  .about-page .svg-feature-1 polyline[stroke-linecap="round"],
+  .about-page .svg-feature-1 g[mask] path[stroke] {
+    animation: none !important;
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  .about-page .svg-feature-1 g[filter*="filter23"],
+  .about-page .svg-feature-1 g[filter*="filter25"],
+  .about-page .svg-feature-1 g[filter*="filter27"] {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  .about-page .team-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .about-page .team-card span {
+    margin-bottom: clamp(20px, 2vw, 30px);
+  }
+
+  .about-page .team-card h3 {
+    margin: 0 0 6px;
+  }
+
+  @media (min-width: 901px) {
+    .about-page .about-cta::after {
+      display: none;
+    }
+
+    .about-page .cta-tiles {
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 49%;
+      transform: none;
+      transform-origin: center;
+    }
+
+    .about-page .cta-tile {
+      width: clamp(58px, 6.8vw, 98px);
+      height: clamp(86px, 9vw, 124px);
+      border-radius: clamp(16px, 1.75vw, 24px);
+      border-width: 1.4px;
+      box-shadow: 0 18px 46px rgba(2,0,4,.72);
+    }
+
+    .about-page .cta-tile-1 { left: 4%; top: 12%; }
+    .about-page .cta-tile-2 { left: 32%; top: 12%; }
+    .about-page .cta-tile-3 { left: calc(100% - clamp(26px, 3.2vw, 46px)); top: 12%; }
+    .about-page .cta-tile-4 { left: 4%; top: 58%; }
+    .about-page .cta-tile-5 { left: 32%; top: 58%; }
+    .about-page .cta-tile-6 { left: calc(100% - clamp(26px, 3.2vw, 46px)); top: 58%; }
+    .about-page .cta-tile-7 { display: none; }
+  }
+
+  @media (max-width: 680px) {
+    .about-page .team-card span {
+      margin-bottom: 24px;
+    }
+  }
+
+
+  /* focused requested refinements: team title level, smaller mobile cards, desktop CTA layout, solid first-row What-we-do icons */
+  .about-page .svg-feature-1 .svg-shell,
+  .about-page .svg-feature-1 .svg-shell * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .about-page .svg-feature-1 circle[r="36.7268"] {
+    opacity: 1 !important;
+    fill: #09070f !important;
+    fill-opacity: 1 !important;
+    stroke: rgba(255,255,255,.34) !important;
+    stroke-opacity: 1 !important;
+  }
+
+  .about-page .svg-feature-1 g[filter*="filter23"],
+  .about-page .svg-feature-1 g[filter*="filter25"],
+  .about-page .svg-feature-1 g[filter*="filter27"] {
+    opacity: 1 !important;
+  }
+
+  @media (min-width: 901px) {
+    .about-page .team-card span {
+      margin-bottom: clamp(22px, 1.9vw, 30px);
+    }
+
+    .about-page .team-card h3 {
+      display: flex;
+      align-items: flex-end;
+      min-height: clamp(26px, 2.2vw, 34px);
+      margin: 0 0 clamp(12px, 1.15vw, 18px);
+    }
+
+    .about-page .team-card p {
+      min-height: clamp(72px, 5.8vw, 88px);
+    }
+
+    .about-page .cta-tiles {
+      left: 54%;
+      right: -2%;
+    }
+
+    .about-page .cta-tile {
+      width: clamp(70px, 7.7vw, 112px);
+      height: clamp(102px, 10.4vw, 146px);
+    }
+
+    .about-page .cta-tile-1 { left: 24%; top: 7%; }
+    .about-page .cta-tile-2 { left: 51%; top: 7%; }
+    .about-page .cta-tile-3 { left: calc(100% - clamp(34px, 4vw, 58px)); top: 7%; }
+    .about-page .cta-tile-4 { left: 24%; top: 55%; }
+    .about-page .cta-tile-5 { left: 51%; top: 55%; }
+    .about-page .cta-tile-6 { left: calc(100% - clamp(34px, 4vw, 58px)); top: 55%; }
+    .about-page .cta-tile-7 { display: block; left: 0; top: 31%; }
+  }

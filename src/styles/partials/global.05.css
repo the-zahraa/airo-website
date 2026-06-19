@@ -1,0 +1,1151 @@
+
+
+@media (max-width: 560px) {
+  .stats-section-head h2 {
+    font-size: 30px !important;
+  }
+
+  .stats-title-sticker {
+    width: 172px !important;
+    height: 172px !important;
+  }
+
+  .stats-panel-section .award-sticker {
+    width: 132px !important;
+    height: 118px !important;
+    right: -22px !important;
+    bottom: -10px !important;
+  }
+}
+
+/* FINAL HERO STATS + PERFORMANCE PATCH 2026-06-17
+   Only freezes the hero stat icons, keeps hero stats in one row on small screens,
+   and adds non-blocking loading helpers for heavy visual assets.
+*/
+.stat-icon.connected-stat-box,
+.stat-icon.connected-stat-box * {
+  animation: none !important;
+  transition: none !important;
+}
+
+.stats-motion-icon .stats-line,
+.stats-motion-icon .stats-dot {
+  animation: none !important;
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.stats-motion-icon .stats-dot {
+  fill: #f1eaff !important;
+  stroke: none !important;
+}
+
+.stat-item strong {
+  font-variant-numeric: tabular-nums !important;
+  white-space: nowrap !important;
+}
+
+.stat-item span {
+  white-space: nowrap !important;
+}
+
+.stats-title-sticker,
+.stats-panel-section .award-sticker {
+  contain: layout paint style !important;
+  content-visibility: auto !important;
+}
+
+.story-video-thumb,
+.hero-game-card-image,
+.top-hit-art img {
+  content-visibility: auto !important;
+}
+
+@media (max-width: 900px) {
+  .stats-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    width: calc(100vw - 24px) !important;
+    gap: clamp(6px, 1.8vw, 12px) !important;
+    margin-top: clamp(2px, 1vw, 10px) !important;
+  }
+
+  .stat-item {
+    grid-template-columns: auto minmax(0, 1fr) !important;
+    gap: clamp(5px, 1vw, 8px) !important;
+    min-width: 0 !important;
+  }
+
+  .stat-icon,
+  .stat-icon.connected-stat-box {
+    width: clamp(28px, 5vw, 38px) !important;
+    height: clamp(28px, 5vw, 38px) !important;
+    border-radius: clamp(9px, 1.5vw, 13px) !important;
+  }
+
+  .stat-icon.connected-stat-box .connected-stat-icon {
+    width: 62% !important;
+    height: 62% !important;
+    stroke-width: 3 !important;
+  }
+
+  .stat-item strong {
+    font-size: clamp(12px, 2.8vw, 18px) !important;
+    line-height: 1.05 !important;
+    letter-spacing: -.045em !important;
+  }
+
+  .stat-item:nth-child(2) strong {
+    font-size: clamp(10px, 2.3vw, 15px) !important;
+  }
+
+  .stat-item span {
+    margin-top: 3px !important;
+    font-size: clamp(8px, 1.75vw, 11px) !important;
+    letter-spacing: -.01em !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .stats-row {
+    width: calc(100vw - 12px) !important;
+    gap: 4px !important;
+    align-items: center !important;
+  }
+
+  .stat-item {
+    gap: 4px !important;
+  }
+
+  .stat-icon,
+  .stat-icon.connected-stat-box {
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: 8px !important;
+  }
+
+  .stat-icon.connected-stat-box .connected-stat-icon {
+    width: 62% !important;
+    height: 62% !important;
+    stroke-width: 3.4 !important;
+  }
+
+  .stat-item strong {
+    font-size: clamp(9px, 2.45vw, 12px) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -.055em !important;
+  }
+
+  .stat-item:nth-child(2) strong {
+    font-size: clamp(7.4px, 2vw, 9.8px) !important;
+  }
+
+  .stat-item span {
+    margin-top: 2px !important;
+    font-size: clamp(6.5px, 1.55vw, 8px) !important;
+    line-height: 1 !important;
+  }
+}
+
+
+/* FINAL MICRO PATCH 2026-06-17 — hero stats mobile centering + trusted word reset only */
+.brands-section h2 .trusted-word {
+  color: #fff !important;
+}
+
+@media (max-width: 900px) {
+  .stats-row {
+    width: min(660px, calc(100vw - 18px)) !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    justify-items: center !important;
+    align-items: center !important;
+    gap: clamp(8px, 2vw, 16px) !important;
+    margin-inline: auto !important;
+  }
+
+  .stat-item {
+    width: 100% !important;
+    max-width: 205px !important;
+    justify-content: center !important;
+    grid-template-columns: auto minmax(0, max-content) !important;
+    gap: clamp(7px, 1.5vw, 12px) !important;
+  }
+
+  .stat-icon,
+  .stat-icon.connected-stat-box {
+    width: clamp(34px, 6.4vw, 52px) !important;
+    height: clamp(34px, 6.4vw, 52px) !important;
+    border-radius: clamp(11px, 1.8vw, 17px) !important;
+  }
+
+  .stat-icon.connected-stat-box .connected-stat-icon {
+    width: 60% !important;
+    height: 60% !important;
+  }
+
+  .stat-item strong {
+    font-size: clamp(16px, 3.35vw, 25px) !important;
+    line-height: 1.04 !important;
+    letter-spacing: -.055em !important;
+  }
+
+  .stat-item:nth-child(2) strong {
+    font-size: clamp(12px, 2.55vw, 19px) !important;
+    letter-spacing: -.07em !important;
+  }
+
+  .stat-item span {
+    margin-top: 4px !important;
+    font-size: clamp(8px, 1.65vw, 12px) !important;
+    line-height: 1 !important;
+    letter-spacing: .01em !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .stats-row {
+    width: min(430px, calc(100vw - 8px)) !important;
+    gap: 2px !important;
+  }
+
+  .stat-item {
+    max-width: none !important;
+    gap: 4px !important;
+  }
+
+  .stat-icon,
+  .stat-icon.connected-stat-box {
+    width: clamp(27px, 8.6vw, 34px) !important;
+    height: clamp(27px, 8.6vw, 34px) !important;
+    border-radius: clamp(8px, 2.5vw, 11px) !important;
+  }
+
+  .stat-item strong {
+    font-size: clamp(13px, 3.8vw, 17px) !important;
+    letter-spacing: -.065em !important;
+  }
+
+  .stat-item:nth-child(2) strong {
+    font-size: clamp(9.7px, 2.95vw, 12.8px) !important;
+    letter-spacing: -.075em !important;
+  }
+
+  .stat-item span {
+    margin-top: 2px !important;
+    font-size: clamp(6.8px, 1.9vw, 8.8px) !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .stats-row {
+    width: calc(100vw - 4px) !important;
+    gap: 0 !important;
+  }
+
+  .stat-icon,
+  .stat-icon.connected-stat-box {
+    width: 25px !important;
+    height: 25px !important;
+    border-radius: 8px !important;
+  }
+
+  .stat-item {
+    gap: 3px !important;
+  }
+
+  .stat-item strong {
+    font-size: 12.2px !important;
+  }
+
+  .stat-item:nth-child(2) strong {
+    font-size: 9px !important;
+    letter-spacing: -.08em !important;
+  }
+
+  .stat-item span {
+    font-size: 6.4px !important;
+  }
+}
+
+
+/* FINAL MICRO PATCH 2026-06-17 — Top Hits 20% smaller only */
+.hits-section {
+  width: min(995px, calc(100vw - 44px)) !important;
+  margin-top: clamp(58px, 7vw, 100px) !important;
+}
+
+.hits-head {
+  gap: clamp(18px, 2vw, 24px) !important;
+  align-items: center !important;
+  margin-bottom: clamp(24px, 3vw, 38px) !important;
+}
+
+.hits-head > div {
+  padding-left: 14px !important;
+}
+
+.hits-head .vertical-accent {
+  width: 4px !important;
+  top: 2px !important;
+  bottom: 2px !important;
+  height: auto !important;
+}
+
+.hits-head h2 {
+  font-size: clamp(32px, 3.72vw, 51px) !important;
+  line-height: 1.12 !important;
+}
+
+.hits-head p {
+  width: min(608px, 100%) !important;
+  margin-top: clamp(8px, 1vw, 14px) !important;
+  font-size: clamp(12px, 1.05vw, 14.8px) !important;
+  line-height: 1.52 !important;
+}
+
+.hits-head .view-btn {
+  height: clamp(42px, 3.2vw, 50px) !important;
+  padding: 0 clamp(20px, 2.1vw, 28px) !important;
+  font-size: clamp(13.5px, 1vw, 15.5px) !important;
+  font-weight: 700 !important;
+  min-width: clamp(128px, 10.5vw, 158px) !important;
+}
+
+.top-hits-row-wrap {
+  width: min(995px, 100%) !important;
+  padding: 0 5px 10px !important;
+}
+
+.top-hits-row {
+  --top-hit-card-w: clamp(186px, 14.8vw, 216px) !important;
+  gap: clamp(11px, 1.08vw, 16px) !important;
+}
+
+.top-hit-card {
+  height: clamp(264px, 20.8vw, 294px) !important;
+  border-radius: clamp(18px, 1.8vw, 24px) !important;
+}
+
+.top-hit-art {
+  inset: 8px 8px 82px !important;
+  border-radius: clamp(14px, 1.5vw, 20px) !important;
+}
+
+.top-hit-content {
+  left: clamp(14px, 1.3vw, 18px) !important;
+  right: clamp(14px, 1.3vw, 18px) !important;
+  bottom: clamp(16px, 1.45vw, 20px) !important;
+  gap: 6px !important;
+}
+
+.top-hit-content h3 {
+  font-size: clamp(12.6px, .92vw, 14.2px) !important;
+  line-height: 1.12 !important;
+}
+
+.top-hit-metric {
+  min-height: clamp(24px, 2.2vw, 29px) !important;
+  padding: 0 clamp(9px, .82vw, 12px) !important;
+  font-size: clamp(10px, .78vw, 11.6px) !important;
+}
+
+.top-hits-scroll-line {
+  width: min(344px, 50vw) !important;
+  margin: clamp(16px, 2.4vw, 27px) auto 0 !important;
+}
+
+@media (max-width: 760px) {
+  .hits-section {
+    width: calc(100vw - 20px) !important;
+  }
+
+  .hits-head {
+    gap: 18px !important;
+    margin-bottom: 27px !important;
+  }
+
+  .hits-head h2 {
+    font-size: clamp(27px, 7.8vw, 42px) !important;
+  }
+
+  .hits-head p {
+    font-size: clamp(11.5px, 3.1vw, 14px) !important;
+  }
+
+  .hits-head .view-btn {
+    height: 42px !important;
+    min-width: 134px !important;
+    font-size: 13px !important;
+    padding: 0 20px !important;
+  }
+
+  .top-hits-row {
+    --top-hit-card-w: clamp(174px, 53vw, 200px) !important;
+    gap: 13px !important;
+  }
+
+  .top-hit-card {
+    height: clamp(236px, 70vw, 258px) !important;
+  }
+
+  .top-hit-art {
+    inset: 7px 7px 74px !important;
+  }
+
+  .top-hit-content {
+    bottom: 14px !important;
+    left: 12px !important;
+    right: 12px !important;
+  }
+
+  .top-hit-content h3 {
+    font-size: 12.5px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .hits-head {
+    gap: 16px !important;
+    margin-bottom: 25px !important;
+  }
+
+  .top-hits-row {
+    --top-hit-card-w: clamp(164px, 56vw, 190px) !important;
+    gap: 12px !important;
+  }
+
+  .top-hit-card {
+    height: clamp(226px, 72vw, 248px) !important;
+  }
+
+  .top-hit-art {
+    inset: 7px 7px 70px !important;
+  }
+
+  .top-hit-content {
+    bottom: 13px !important;
+  }
+
+  .top-hits-scroll-line {
+    width: min(292px, 68vw) !important;
+  }
+}
+
+
+/* FINAL MICRO PATCH 2026-06-18 — Top Hits button/left mobile/exact assets only */
+.hits-head .view-btn,
+.hits-head .view-btn:hover,
+.hits-head .view-btn:focus,
+.hits-head .view-btn:active {
+  background: #7300ff !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+  transition: background-color .22s ease, color .22s ease, border-color .22s ease !important;
+}
+
+.hits-head .view-btn::before,
+.hits-head .view-btn::after,
+.hits-head .view-btn:hover::before,
+.hits-head .view-btn:hover::after {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+  animation: none !important;
+  box-shadow: none !important;
+}
+
+.hits-head .view-btn.shine-btn:hover {
+  transform: none !important;
+}
+
+@media (max-width: 760px) {
+  .hits-section {
+    margin-left: 10px !important;
+    margin-right: auto !important;
+  }
+
+  .hits-head {
+    align-items: flex-start !important;
+    text-align: left !important;
+    justify-content: flex-start !important;
+  }
+
+  .hits-head > div {
+    text-align: left !important;
+  }
+
+  .hits-head .view-btn {
+    align-self: flex-start !important;
+  }
+
+  .top-hits-row-wrap {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+
+  .top-hits-scroll-line {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+}
+
+
+/* FINAL MOBILE REQUEST PATCH 2026-06-18 — clean targeted overrides only */
+@media (max-width: 900px) {
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stats-row {
+    width: min(390px, calc(100vw - 18px)) !important;
+    grid-template-columns: repeat(2, minmax(0, max-content)) !important;
+    justify-content: center !important;
+    justify-items: center !important;
+    align-items: start !important;
+    column-gap: clamp(8px, 2.6vw, 16px) !important;
+    row-gap: 2px !important;
+    margin-top: clamp(8px, 1.8vw, 16px) !important;
+    padding-bottom: clamp(26px, 5vw, 46px) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item {
+    width: clamp(152px, 43vw, 178px) !important;
+    max-width: 178px !important;
+    min-width: 0 !important;
+    grid-template-columns: auto minmax(0, 1fr) !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: clamp(7px, 2vw, 10px) !important;
+    transform: none !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item:nth-child(1) {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item:nth-child(3) {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item:nth-child(2) {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    justify-self: center !important;
+    transform: translateY(clamp(10px, 2.8vw, 18px)) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon.connected-stat-box {
+    width: clamp(46px, 12vw, 58px) !important;
+    height: clamp(46px, 12vw, 58px) !important;
+    border-radius: clamp(14px, 3.8vw, 19px) !important;
+    flex: 0 0 auto !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon.connected-stat-box .connected-stat-icon {
+    width: 62% !important;
+    height: 62% !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item strong {
+    font-size: clamp(18px, 5vw, 25px) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -.065em !important;
+    white-space: nowrap !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item:nth-child(2) strong {
+    font-size: clamp(14px, 4.1vw, 20px) !important;
+    letter-spacing: -.08em !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item span {
+    margin-top: 5px !important;
+    font-size: clamp(9px, 2.55vw, 12px) !important;
+    line-height: 1.05 !important;
+    font-weight: 700 !important;
+    letter-spacing: .005em !important;
+  }
+
+  .story-section {
+    margin-top: clamp(18px, 3.8vw, 34px) !important;
+  }
+
+  .growth-card {
+    min-height: clamp(226px, 38vw, 250px) !important;
+    padding-top: clamp(18px, 4vw, 24px) !important;
+    overflow: hidden !important;
+  }
+
+  .growth-card .growth-label {
+    transform: none !important;
+    margin-top: 0 !important;
+    margin-bottom: clamp(9px, 2vw, 13px) !important;
+    font-weight: 700 !important;
+  }
+
+  .growth-card strong {
+    transform: none !important;
+    margin-top: 0 !important;
+    font-size: clamp(34px, 8.2vw, 46px) !important;
+    line-height: .98 !important;
+  }
+
+  .growth-card small {
+    transform: none !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin-top: clamp(7px, 1.7vw, 10px) !important;
+    font-size: clamp(9.2px, 2.4vw, 11.5px) !important;
+    line-height: 1.34 !important;
+    white-space: nowrap !important;
+  }
+
+  .growth-pill {
+    top: clamp(76px, 15vw, 92px) !important;
+    right: clamp(11px, 3vw, 20px) !important;
+  }
+
+  .launch-card,
+  .launch-card > div {
+    text-align: center !important;
+  }
+
+  .launch-card > div {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+}
+
+.launch-card::before,
+.launch-card::after {
+  display: none !important;
+  content: none !important;
+}
+
+.launch-card,
+.launch-card > div {
+  text-align: center !important;
+}
+
+.launch-card > div {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+@media (max-width: 760px) {
+  .top-hits-row-wrap {
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 4px 10px !important;
+    overflow-x: auto !important;
+    scroll-behavior: smooth !important;
+    scroll-snap-type: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-x: contain !important;
+  }
+
+  .top-hits-row {
+    --top-hit-card-w: clamp(106px, 29.5vw, 132px) !important;
+    gap: 8px !important;
+  }
+
+  .top-hit-card {
+    flex: 0 0 var(--top-hit-card-w) !important;
+    width: var(--top-hit-card-w) !important;
+    height: clamp(166px, 45vw, 188px) !important;
+    border-radius: 17px !important;
+    padding: 6px !important;
+    scroll-snap-align: none !important;
+  }
+
+  .top-hit-art {
+    inset: 6px 6px 58px !important;
+    border-radius: 12px !important;
+  }
+
+  .top-hit-content {
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 10px !important;
+    gap: 5px !important;
+  }
+
+  .top-hit-content h3 {
+    font-size: clamp(9.4px, 2.6vw, 11px) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -.035em !important;
+  }
+
+  .top-hit-metric {
+    min-height: 19px !important;
+    padding: 0 7px !important;
+    font-size: clamp(7.8px, 2.1vw, 9px) !important;
+  }
+
+  .top-hit-live-dot {
+    width: 5px !important;
+    height: 5px !important;
+  }
+
+  .top-hits-scroll-line {
+    width: min(250px, 58vw) !important;
+    margin: 14px auto 0 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-section {
+    min-height: 750px !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stats-row {
+    width: min(360px, calc(100vw - 12px)) !important;
+    column-gap: clamp(6px, 2vw, 10px) !important;
+    row-gap: 0 !important;
+    margin-top: 6px !important;
+    padding-bottom: 38px !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item {
+    width: clamp(148px, 43vw, 166px) !important;
+    max-width: 166px !important;
+    gap: clamp(6px, 1.8vw, 8px) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item:nth-child(2) {
+    transform: translateY(15px) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon.connected-stat-box {
+    width: clamp(44px, 12.4vw, 52px) !important;
+    height: clamp(44px, 12.4vw, 52px) !important;
+    border-radius: clamp(13px, 3.6vw, 17px) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item strong {
+    font-size: clamp(17px, 5vw, 21px) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item:nth-child(2) strong {
+    font-size: clamp(13px, 4.05vw, 16px) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item span {
+    font-size: clamp(8.6px, 2.45vw, 10px) !important;
+    font-weight: 700 !important;
+  }
+
+  .story-section {
+    margin-top: 18px !important;
+  }
+
+  .growth-card {
+    min-height: 230px !important;
+    padding: 19px !important;
+    border-radius: 21px !important;
+  }
+
+  .growth-label {
+    min-height: 32px !important;
+  }
+
+  .growth-card strong {
+    font-size: clamp(34px, 9vw, 40px) !important;
+  }
+
+  .growth-card small {
+    font-size: clamp(8.9px, 2.55vw, 10.6px) !important;
+    line-height: 1.34 !important;
+  }
+
+  .growth-line {
+    bottom: 1% !important;
+    height: 50% !important;
+  }
+
+  .growth-pill {
+    top: 86px !important;
+    right: 11px !important;
+    font-size: 12px !important;
+    padding: 6px 10px !important;
+  }
+
+  .launch-card {
+    align-items: center !important;
+  }
+
+  .launch-card .launch-action {
+    align-self: center !important;
+  }
+
+  .top-hits-row {
+    --top-hit-card-w: clamp(104px, 29.2vw, 124px) !important;
+    gap: 8px !important;
+  }
+
+  .top-hit-card {
+    height: clamp(160px, 43.5vw, 176px) !important;
+    border-radius: 16px !important;
+  }
+
+  .top-hit-art {
+    inset: 6px 6px 54px !important;
+    border-radius: 11px !important;
+  }
+
+  .top-hit-content {
+    bottom: 9px !important;
+  }
+
+  .top-hits-scroll-line {
+    width: min(232px, 62vw) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stats-row {
+    width: min(326px, calc(100vw - 8px)) !important;
+    column-gap: 4px !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item {
+    width: clamp(138px, 43vw, 154px) !important;
+    max-width: 154px !important;
+    gap: 5px !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon.connected-stat-box {
+    width: 43px !important;
+    height: 43px !important;
+    border-radius: 13px !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item strong {
+    font-size: 16px !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item:nth-child(2) strong {
+    font-size: 12.2px !important;
+  }
+
+  .growth-card small {
+    font-size: 8.1px !important;
+  }
+
+  .top-hits-row {
+    --top-hit-card-w: clamp(100px, 28.8vw, 110px) !important;
+    gap: 7px !important;
+  }
+
+  .top-hit-card {
+    height: 154px !important;
+  }
+
+  .top-hit-art {
+    inset: 6px 6px 50px !important;
+  }
+
+  .top-hit-content h3 {
+    font-size: 9px !important;
+  }
+
+  .top-hit-metric {
+    min-height: 18px !important;
+    font-size: 7.4px !important;
+  }
+}
+
+/* FINAL MICRO FIX 2026-06-18 — mobile hero stats, reel play icon, top hits scroll, CTA vertical alignment only */
+.hero-copy .video-btn .reel-play-icon {
+  width: 20px !important;
+  height: 20px !important;
+  flex: 0 0 auto !important;
+  transform: none !important;
+  overflow: visible !important;
+}
+
+.hero-copy .video-btn .play-ring {
+  fill: rgba(255,255,255,.12) !important;
+  stroke: rgba(255,255,255,.72) !important;
+  stroke-width: 1.65 !important;
+}
+
+.hero-copy .video-btn .play-triangle {
+  fill: #fff !important;
+  stroke: none !important;
+  transform-origin: center !important;
+}
+
+.hero-copy .video-btn:hover path,
+.hero-copy .video-btn:hover .play-triangle {
+  animation: none !important;
+}
+
+.hero-copy .video-btn:hover .reel-play-icon {
+  transform: scale(1.04) !important;
+}
+
+.top-hits-scroll-line {
+  --top-hit-scroll-thumb: clamp(32px, 7.2vw, 48px) !important;
+  width: min(174px, 42vw) !important;
+  height: 20px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+.top-hits-scroll-line::before {
+  height: 2px !important;
+  left: 8px !important;
+  right: 8px !important;
+  background: rgba(255,255,255,.16) !important;
+  border-radius: 999px !important;
+}
+
+.top-hits-scroll-line span {
+  width: var(--top-hit-scroll-thumb) !important;
+  height: 5px !important;
+  border-radius: 999px !important;
+  left: calc(8px + (var(--scroll-progress, 0) * (100% - 16px - var(--top-hit-scroll-thumb)))) !important;
+  top: 50% !important;
+  transform: translate3d(0, -50%, 0) !important;
+  background: linear-gradient(90deg, #5f00d8, #9b4dff, #7300ff) !important;
+  box-shadow: 0 0 16px rgba(115,0,255,.55) !important;
+  transition: left .18s cubic-bezier(.22,.61,.36,1), width .18s ease !important;
+}
+
+.launch-card,
+.launch-card > div {
+  text-align: left !important;
+}
+
+.launch-card {
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.launch-card > div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+}
+
+.launch-card .launch-action {
+  align-self: center !important;
+}
+
+@media (max-width: 900px) {
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stats-row {
+    width: max-content !important;
+    max-width: calc(100vw - 14px) !important;
+    grid-template-columns: repeat(2, clamp(162px, 44vw, 188px)) !important;
+    justify-content: center !important;
+    justify-items: center !important;
+    align-items: start !important;
+    column-gap: clamp(0px, 1vw, 6px) !important;
+    row-gap: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: clamp(8px, 2vw, 16px) !important;
+    padding-bottom: clamp(34px, 6vw, 54px) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item {
+    width: clamp(162px, 44vw, 188px) !important;
+    max-width: 188px !important;
+    grid-template-columns: auto minmax(0, 1fr) !important;
+    gap: clamp(8px, 2.2vw, 11px) !important;
+    transform: none !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item:nth-child(1) {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item:nth-child(3) {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item:nth-child(2) {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    justify-self: center !important;
+    transform: translateY(clamp(18px, 4.8vw, 30px)) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon.connected-stat-box {
+    width: clamp(52px, 13.6vw, 66px) !important;
+    height: clamp(52px, 13.6vw, 66px) !important;
+    border-radius: clamp(15px, 4vw, 21px) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon.connected-stat-box .connected-stat-icon {
+    width: 68% !important;
+    height: 68% !important;
+    stroke-width: 3.45 !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item strong {
+    font-size: clamp(20px, 5.8vw, 28px) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -.07em !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item:nth-child(2) strong {
+    font-size: clamp(14.8px, 4.45vw, 21px) !important;
+    letter-spacing: -.085em !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item span {
+    margin-top: 6px !important;
+    font-size: clamp(9.8px, 2.85vw, 12.8px) !important;
+    line-height: 1.04 !important;
+    font-weight: 700 !important;
+  }
+
+  .growth-card {
+    padding-top: clamp(24px, 5.6vw, 34px) !important;
+    overflow: hidden !important;
+  }
+
+  .growth-card .growth-label {
+    transform: none !important;
+    margin-top: 0 !important;
+    margin-bottom: clamp(11px, 2.6vw, 16px) !important;
+    font-weight: 700 !important;
+  }
+
+  .growth-card strong {
+    transform: none !important;
+    margin-top: 0 !important;
+  }
+
+  .growth-card small {
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stats-row {
+    grid-template-columns: repeat(2, clamp(156px, 43.5vw, 174px)) !important;
+    max-width: calc(100vw - 10px) !important;
+    column-gap: clamp(0px, .7vw, 4px) !important;
+    margin-top: 8px !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item {
+    width: clamp(156px, 43.5vw, 174px) !important;
+    max-width: 174px !important;
+    gap: clamp(7px, 2vw, 9px) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon.connected-stat-box {
+    width: clamp(50px, 13.2vw, 59px) !important;
+    height: clamp(50px, 13.2vw, 59px) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item strong {
+    font-size: clamp(19px, 5.5vw, 23px) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item:nth-child(2) strong {
+    font-size: clamp(14.2px, 4.25vw, 17px) !important;
+  }
+
+  .growth-card {
+    min-height: 236px !important;
+    padding-top: 26px !important;
+  }
+
+  .growth-card .growth-label {
+    min-height: 32px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .growth-card small {
+    font-size: clamp(8.7px, 2.48vw, 10.2px) !important;
+    line-height: 1.32 !important;
+  }
+
+  .top-hits-scroll-line {
+    --top-hit-scroll-thumb: 34px !important;
+    width: min(142px, 40vw) !important;
+    margin: 13px auto 0 !important;
+  }
+
+  .launch-card {
+    align-items: flex-start !important;
+    justify-content: center !important;
+  }
+
+  .launch-card > div {
+    align-items: flex-start !important;
+    justify-content: center !important;
+    text-align: left !important;
+  }
+
+  .launch-card .launch-action {
+    align-self: flex-end !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stats-row {
+    grid-template-columns: repeat(2, clamp(145px, 43vw, 158px)) !important;
+    max-width: calc(100vw - 8px) !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item {
+    width: clamp(145px, 43vw, 158px) !important;
+    max-width: 158px !important;
+    gap: 6px !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-icon.connected-stat-box {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item strong {
+    font-size: 18px !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item:nth-child(2) strong {
+    font-size: 13px !important;
+  }
+
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .stat-item span {
+    font-size: 9px !important;
+  }
+
+  .growth-card small {
+    font-size: 8.05px !important;
+  }
+}
+
+
+/* FINAL REQUEST PATCH 2026-06-18 — targeted home-only fixes */
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .hero-copy p {
+  width: min(690px, 92%) !important;
+}
