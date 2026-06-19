@@ -439,10 +439,10 @@
       </a>
     </article>
   </section>
+</div>
 
-  <div class="legal-work-with-us">
-    <WorkWithUsForm initialTab="Careers" />
-  </div>
+<div class="legal-work-with-us">
+  <WorkWithUsForm initialTab="Careers" />
 </div>
 
 <style>
@@ -456,6 +456,8 @@
   }
 
   :global(.site-shell.legal-route .airo-footer) {
+    position: relative;
+    z-index: 0;
     margin-top: -96px;
     padding-top: calc(clamp(96px, 9vw, 148px) + 78px);
     background: linear-gradient(to bottom, rgba(2, 0, 4, 0) 0%, rgba(3, 0, 6, .16) 20%, rgba(3, 0, 6, .58) 50%, #030006 76%, #030006 100%);
@@ -599,7 +601,7 @@
 
   .legal-work-with-us {
     position: relative;
-    z-index: 4;
+    z-index: 2;
     isolation: isolate;
   }
 
