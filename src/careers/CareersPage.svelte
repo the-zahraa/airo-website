@@ -28,6 +28,7 @@
     document.head.appendChild(script);
   };
 
+
   onMount(() => {
     loadTgsPlayer();
 
@@ -212,18 +213,6 @@
     return `--perk-row:${row}; --perk-col:${column}; --perk-phase:${phase.toFixed(4)}; --perk-clarity:${clarity.toFixed(4)}; --loop-x:${x}px; --loop-y:${y}px; --loop-scale:${scale}; --loop-blur:${blur}px; --loop-opacity:${opacity}; --loop-tilt:${tilt}deg; --loop-zindex:${zIndex};`;
   }
 
-  function iconPath(name) {
-    const paths = {
-      spark: 'M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2Zm6.2 12.7.9 3.1 3.1.9-3.1.9-.9 3.1-.9-3.1-3.1-.9 3.1-.9Z',
-      book: 'M5 4.8c0-.9.7-1.6 1.6-1.6H19v15.4H7.2A2.2 2.2 0 0 0 5 20.8v-16Zm2.2 13.8H19M8 7.2h7.6M8 10.3h6.2',
-      rocket: 'M14.7 4.1c2.4-.8 4.5-.6 5.2-.5.1.7.3 2.8-.5 5.2-1 3-3.1 5.9-7.2 8.2l-4.8-4.8c2.3-4.1 5.2-6.2 7.3-8.1Zm-7 8.1-3.1 1.3 5.9 5.9 1.3-3.1M15.7 7.3h.1M5.5 18.5 3 21l3.8-1.2 1.2-3.8-2.5 2.5Z',
-      shield: 'M12 3.4 19 6v5.6c0 4.4-2.9 7.4-7 9-4.1-1.6-7-4.6-7-9V6l7-2.6Zm-3 8.1 2 2 4-4',
-      heart: 'M12 20s-7.5-4.7-8.9-10.1C2.1 6 5.4 3.8 8.2 5.5 9.7 6.4 12 8.9 12 8.9s2.3-2.5 3.8-3.4C18.6 3.8 21.9 6 20.9 9.9 19.5 15.3 12 20 12 20Z',
-      stack: 'M12 3 21 7.3 12 11.7 3 7.3 12 3Zm-7 8 7 3.4 7-3.4M5 15l7 3.4 7-3.4'
-    };
-
-    return paths[name] || paths.spark;
-  }
 
   function perkStickerSrc(name) {
     const stickers = {
@@ -239,15 +228,6 @@
   }
 
 
-  function valueIconPath(name) {
-    const paths = {
-      target: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-4.6a4.4 4.4 0 1 0 0-8.8 4.4 4.4 0 0 0 0 8.8Zm0-2.8a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2Z',
-      bolt: 'M13.2 2.8 4.7 13.4h6.4l-1.2 7.8 9.4-11.7h-6.2l.1-6.7Z',
-      team: 'M8.2 11.8a3.35 3.35 0 1 0 0-6.7 3.35 3.35 0 0 0 0 6.7Zm7.6 0a3.35 3.35 0 1 0 0-6.7 3.35 3.35 0 0 0 0 6.7ZM2.8 20.1c.6-3.5 2.5-5.4 5.3-5.4 1.65 0 3 .65 3.9 1.95.9-1.3 2.25-1.95 3.9-1.95 2.8 0 4.7 1.9 5.3 5.4'
-    };
-
-    return paths[name] || paths.target;
-  }
 
   function valueStickerSrc(name) {
     const stickers = {
@@ -260,18 +240,6 @@
   }
 
 
-  function processIconPath(name) {
-    const paths = {
-      upload: 'M12 16V6m0 0 4 4m-4-4-4 4M5.5 16.5a4 4 0 0 1 2.2-7.35A5 5 0 0 1 17.4 11H18a3.5 3.5 0 0 1 0 7H7.6',
-      apply: 'M7 3.8h7.2L18 7.6v12.6H7V3.8Zm7 0v4h4M9.7 13.2h4.8M9.7 16.2h3.2M11.2 10.2l1.25 1.25 2.45-2.65',
-      phone: 'M7.3 4.7c.4-.4 1-.5 1.5-.2l2 1.1c.6.3.9 1 .6 1.6l-.8 1.9c1 1.9 2.4 3.3 4.3 4.3l1.9-.8c.6-.3 1.3 0 1.6.6l1.1 2c.3.5.2 1.1-.2 1.5l-1.4 1.4c-.7.7-1.8 1-2.8.7C9.8 17.2 6.8 14.2 5.2 8.9c-.3-1 0-2.1.7-2.8l1.4-1.4Z',
-      stats: 'M5 19V9m7 10V5m7 14v-7M4 20h16M8.5 8.5 12 5l3.5 3.5',
-      craft: 'M12 3l1.65 4.35L18 9l-4.35 1.65L12 15l-1.65-4.35L6 9l4.35-1.65L12 3Zm6.5 12 .9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9.9-2.1ZM5 15l.7 1.8 1.8.7-1.8.7L5 20l-.7-1.8-1.8-.7 1.8-.7L5 15Z',
-      offer: 'M12 3.2 19.4 7.4v8.4L12 20l-7.4-4.2V7.4L12 3.2Zm-3.2 8.8 2.1 2.1 4.3-4.6M18.6 5.2l2.2-2.2m-2.2 17.8 2.2 2.2M5.4 5.2 3.2 3M5.4 20.8 3.2 23'
-    };
-
-    return paths[name] || paths.upload;
-  }
 
 
   function processStickerSrc(name) {
@@ -590,7 +558,7 @@
                 </svg>
                 <span class="task-ring-content">
                   <strong>Progress</strong>
-                  <b>94%</b>
+                  <b>98%</b>
                 </span>
               </div>
             </div>
@@ -3225,13 +3193,12 @@
   }
 
   .task-ring .ring-progress {
-    stroke: url(#unused);
     stroke: #8c16ff;
-    stroke-linecap: round;
-    stroke-dasharray: 283;
-    stroke-dashoffset: 17;
-    filter: drop-shadow(0 0 18px rgba(115,0,255,.85));
-    animation: taskRing 3.2s ease-in-out infinite;
+    stroke-linecap: butt;
+    stroke-dasharray: 282.743;
+    stroke-dashoffset: 5.655;
+    filter: drop-shadow(0 0 10px rgba(115,0,255,.62));
+    animation: taskRingProgress98Motion 2.4s cubic-bezier(.22,.8,.22,1) infinite;
   }
 
   .task-ring small {
@@ -3378,11 +3345,6 @@
   @keyframes checkPop {
     0%, 100% { transform: scale(1); }
     42% { transform: scale(1.18); }
-  }
-
-  @keyframes taskRing {
-    0% { stroke-dashoffset: 283; }
-    45%, 100% { stroke-dashoffset: 17; }
   }
 
   @keyframes readyCheck {
@@ -5062,10 +5024,6 @@
     visibility: hidden !important;
   }
 
-  .task-ring .ring-progress {
-    stroke-linecap: round !important;
-  }
-
   .task-ring-content {
     gap: 4px !important;
   }
@@ -5317,12 +5275,6 @@
     padding: 0 !important;
     margin: 0 !important;
     overflow: hidden !important;
-  }
-
-  .task-ring .ring-progress {
-    stroke-linecap: round !important;
-    stroke-linejoin: round !important;
-    filter: drop-shadow(0 0 12px rgba(115,0,255,.74)) !important;
   }
 
   .task-ring-content {
@@ -5611,16 +5563,6 @@
     vector-effect: non-scaling-stroke !important;
   }
 
-  .task-ring .ring-progress {
-    animation: taskRingCleanV49 2.4s cubic-bezier(.22,.8,.22,1) infinite !important;
-    stroke: #8c16ff !important;
-    stroke-dasharray: 282.743 !important;
-    stroke-dashoffset: 16.965 !important;
-    stroke-linecap: butt !important;
-    stroke-linejoin: round !important;
-    filter: drop-shadow(0 0 10px rgba(115,0,255,.62)) !important;
-  }
-
   .task-ring small,
   .task-ring-content small,
   .task-ring::before,
@@ -5648,13 +5590,6 @@
   @keyframes waveformDanceV48 {
     0%, 100% { transform: scaleY(.5); opacity: .64; }
     50% { transform: scaleY(1.24); opacity: 1; }
-  }
-
-  @keyframes taskRingCleanV49 {
-    0% { stroke-dashoffset: 282.743; opacity: .72; }
-    46% { stroke-dashoffset: 16.965; opacity: 1; }
-    78% { stroke-dashoffset: 16.965; opacity: 1; }
-    100% { stroke-dashoffset: 282.743; opacity: .72; }
   }
 
 
@@ -6274,7 +6209,7 @@
 
 
 
-  /* v59-phone-only-requested-fixes: mobile-only spacing, static perks, removed corner shadows, solid process icons, safer upload arrow, 94% ring, complete offer runner */
+  /* v59-phone-only-requested-fixes: mobile-only spacing, static perks, removed corner shadows, solid process icons, safer upload arrow, 98% ring, complete offer runner */
   @media (max-width: 560px) {
     /* tighter phone title/subheading rhythm */
     .section-heading,
@@ -6465,7 +6400,7 @@
       transform: none !important;
     }
 
-    /* show your craft: no glow loop; circle fills once to the actual 94% value */
+    /* show your craft: no glow loop; circle fills once to the actual 98% value */
     .hiring-process-grid .process-card-checklist::after {
       content: none !important;
       display: none !important;
@@ -6475,14 +6410,6 @@
     .process-craft .task-list i {
       animation: none !important;
       box-shadow: none !important;
-    }
-
-    .task-ring .ring-progress {
-      stroke-dasharray: 282.743 !important;
-      stroke-dashoffset: 16.965 !important;
-      stroke-linecap: butt !important;
-      animation: taskRingCleanV49 2.4s cubic-bezier(.22,.8,.22,1) infinite !important;
-      filter: none !important;
     }
 
     .task-ring,
@@ -6495,21 +6422,6 @@
       position: relative !important;
       overflow: visible !important;
     }
-
-    .offer-runner {
-      left: 5px !important;
-      top: 50% !important;
-      width: 12px !important;
-      height: 12px !important;
-      margin-top: -6px !important;
-      transform: none !important;
-      animation: runnerReachCompletePhone 3.35s cubic-bezier(.22,.8,.22,1) infinite !important;
-    }
-
-    .offer-runner::after {
-      opacity: .58 !important;
-      filter: blur(6px) !important;
-    }
   }
 
   @keyframes cloudArrowSafePhone {
@@ -6517,20 +6429,8 @@
     50% { transform: translateY(.2px); opacity: 1; }
   }
 
-  @keyframes taskRingPhone94 {
-    0% { stroke-dashoffset: 283; opacity: .72; }
-    100% { stroke-dashoffset: 17; opacity: 1; }
-  }
 
-  @keyframes runnerReachCompletePhone {
-    0%, 8% { left: 5px; opacity: 0; transform: scale(.88); }
-    14% { opacity: 1; transform: scale(1); }
-    78%, 90% { left: calc(100% - 17px); opacity: 1; transform: scale(1); }
-    100% { left: calc(100% - 17px); opacity: 0; transform: scale(.92); }
-  }
-
-
-  /* v60-phone-only-followup: culture logo only, 94% ring placement, runner reaches complete */
+  /* v60-phone-only-followup: culture logo only, 98% ring placement, runner reaches complete */
   @media (max-width: 560px) {
     /* Our culture: remove the mobile background design, keep only the Airo logo, and pull cards closer to title */
     .values-section > .section-heading {
@@ -6597,15 +6497,6 @@
       stroke-width: 10 !important;
     }
 
-    .task-ring .ring-progress {
-      stroke-dasharray: 282.743 !important;
-      stroke-dashoffset: 16.965 !important;
-      stroke-linecap: butt !important;
-      stroke-linejoin: round !important;
-      animation: taskRingCleanV49 2.4s cubic-bezier(.22,.8,.22,1) infinite !important;
-      filter: none !important;
-    }
-
     .task-ring-content strong {
       font-size: 10px !important;
     }
@@ -6615,29 +6506,57 @@
     }
 
     /* Offer card: keep the runner moving, but let it touch the Complete circle */
+  }
+
+
+
+  /* Active fixes: 98% progress motion and phone offer runner. Kept at the end so older mobile rules cannot override it. */
+  .task-ring .ring-progress {
+    stroke: #8c16ff !important;
+    stroke-dasharray: 282.743 !important;
+    stroke-dashoffset: 5.655 !important;
+    stroke-linecap: butt !important;
+    stroke-linejoin: round !important;
+    animation: taskRingProgress98Motion 2.4s cubic-bezier(.22,.8,.22,1) infinite !important;
+    filter: drop-shadow(0 0 10px rgba(115,0,255,.62)) !important;
+  }
+
+  @keyframes taskRingProgress98Motion {
+    0% { stroke-dashoffset: 282.743; opacity: .72; }
+    46% { stroke-dashoffset: 5.655; opacity: 1; }
+    78% { stroke-dashoffset: 5.655; opacity: 1; }
+    100% { stroke-dashoffset: 282.743; opacity: .72; }
+  }
+
+  @media (max-width: 560px) {
+    .offer-timeline {
+      position: relative !important;
+      overflow: visible !important;
+      --runner-phone-travel: calc(100% - 22px);
+    }
+
     .offer-runner {
       left: 5px !important;
       top: 50% !important;
       width: 12px !important;
       height: 12px !important;
       margin-top: -6px !important;
-      transform: none !important;
-      animation: runnerReachCompletePhoneV60 3.35s cubic-bezier(.22,.8,.22,1) infinite !important;
+      animation: runnerTravelPhoneSameMotion 3.35s cubic-bezier(.22,.8,.22,1) infinite !important;
+      will-change: transform, opacity;
+    }
+
+    .offer-runner::after {
+      opacity: .92 !important;
+      filter: blur(8px) !important;
     }
   }
 
-  @keyframes taskRingPhoneExact94V60 {
-    0% { stroke-dashoffset: 282.743; opacity: .72; }
-    100% { stroke-dashoffset: 16.965; opacity: 1; }
+  @keyframes runnerTravelPhoneSameMotion {
+    0%, 8% { opacity: 0; transform: translateX(0) scale(.85); }
+    14% { opacity: 1; transform: translateX(0) scale(1); }
+    76% { opacity: 1; transform: translateX(var(--runner-phone-travel)) scale(1); }
+    88%, 100% { opacity: 0; transform: translateX(var(--runner-phone-travel)) scale(.92); }
   }
-
-  @keyframes runnerReachCompletePhoneV60 {
-    0%, 8% { left: 5px; opacity: 0; transform: scale(.88); }
-    14% { opacity: 1; transform: scale(1); }
-    78%, 90% { left: calc(100% - 12px); opacity: 1; transform: scale(1); }
-    100% { left: calc(100% - 12px); opacity: 0; transform: scale(.92); }
-  }
-
 
   @media (max-width: 860px) {
     :global(.site-shell.careers-route) {

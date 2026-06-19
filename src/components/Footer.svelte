@@ -19,7 +19,6 @@
     { label: 'Cookie Policy', href: '/legal' }
   ];
 
-
   function normalizePath(path) {
     const clean = (path || '/').split('#')[0].split('?')[0];
     return clean === '' ? '/' : clean.replace(/\/$/, '') || '/';
@@ -65,16 +64,6 @@
 </script>
 
 <footer class="airo-footer" aria-label="Site footer">
-  <div class="footer-light" aria-hidden="true">
-    <div class="footer-light-stage">
-      <div class="footer-ellipse footer-ellipse-2"></div>
-      <div class="footer-ellipse footer-ellipse-3"></div>
-      <div class="footer-ellipse footer-ellipse-4"></div>
-    </div>
-  </div>
-
-
-  <div class="footer-vector-dots" aria-hidden="true"></div>
 
   <div class="footer-shell">
     <div class="footer-main">
@@ -161,9 +150,20 @@
   </div>
 </footer>
 
-
 <style>
   .airo-footer {
+    --footer-purple-w: 1653px;
+    --footer-purple-h: 1457px;
+    --footer-purple-y: 320px;
+    --footer-lavender-w: 609px;
+    --footer-lavender-h: 1737px;
+    --footer-lavender-y: 345px;
+    --footer-white-w: 497px;
+    --footer-white-h: 1208px;
+    --footer-white-y: 270px;
+    --footer-dot-size: 32px;
+    --footer-dot-alpha: .7;
+
     position: relative;
     z-index: 1;
     isolation: isolate;
@@ -171,27 +171,58 @@
     margin: 0;
     padding: clamp(96px, 9vw, 148px) 0 clamp(22px, 2.2vw, 32px);
     color: #fff;
-    background: linear-gradient(to bottom, rgba(3, 0, 6, 0) 0%, rgba(3, 0, 6, .72) 34%, #030006 64%, #030006 100%);
-    overflow: visible;
-  }
-
-  .airo-footer::before {
-    content: '';
-    position: absolute;
-    z-index: 0;
-    left: 0;
-    right: 0;
-    top: -420px;
-    height: calc(100% + 420px);
-    pointer-events: none;
-    background:
+    background-color: transparent;
+    background-image:
+      radial-gradient(rgba(88, 31, 155, var(--footer-dot-alpha)) 1px, transparent 1.25px),
       linear-gradient(to bottom,
         rgba(0, 0, 0, 0) 0%,
         rgba(3, 0, 6, .18) 16%,
         rgba(3, 0, 6, .46) 39%,
         rgba(3, 0, 6, .34) 58%,
         rgba(115, 0, 255, .14) 78%,
-        rgba(115, 0, 255, .22) 100%);
+        rgba(115, 0, 255, .22) 100%),
+      radial-gradient(ellipse var(--footer-white-w) var(--footer-white-h) at 50% calc(100% + var(--footer-white-y)),
+        rgba(232, 228, 255, .74) 0%,
+        rgba(232, 228, 255, .44) 14%,
+        rgba(232, 228, 255, .17) 34%,
+        transparent 70%),
+      radial-gradient(ellipse var(--footer-lavender-w) var(--footer-lavender-h) at 50% calc(100% + var(--footer-lavender-y)),
+        rgba(175, 139, 249, .70) 0%,
+        rgba(175, 139, 249, .40) 18%,
+        rgba(175, 139, 249, .15) 42%,
+        transparent 74%),
+      radial-gradient(ellipse var(--footer-purple-w) var(--footer-purple-h) at 50% calc(100% + var(--footer-purple-y)),
+        rgba(115, 0, 255, .88) 0%,
+        rgba(115, 0, 255, .54) 18%,
+        rgba(115, 0, 255, .22) 44%,
+        transparent 76%),
+      linear-gradient(to bottom,
+        rgba(3, 0, 6, 0) 0%,
+        rgba(3, 0, 6, .72) 34%,
+        #030006 64%,
+        #030006 100%);
+    background-size:
+      var(--footer-dot-size) var(--footer-dot-size),
+      100% 100%,
+      auto,
+      auto,
+      auto,
+      100% 100%;
+    background-position:
+      center top,
+      center top,
+      center,
+      center,
+      center,
+      center top;
+    background-repeat:
+      repeat,
+      no-repeat,
+      no-repeat,
+      no-repeat,
+      no-repeat,
+      no-repeat;
+    overflow: hidden;
   }
 
   .footer-shell {
@@ -199,94 +230,6 @@
     z-index: 5;
     width: min(1088px, calc(100vw - 96px));
     margin: 0 auto;
-  }
-
-  .footer-light {
-    position: absolute;
-    z-index: 0;
-    left: 0;
-    right: 0;
-    top: -420px;
-    bottom: 0;
-    pointer-events: none;
-    overflow: hidden;
-    background: transparent;
-  }
-
-  .footer-light::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: linear-gradient(to bottom, rgba(0,0,0,.15) 0%, rgba(0,0,0,0) 36%, rgba(0,0,0,0) 100%);
-    opacity: .2;
-  }
-
-  .footer-light::after {
-    content: none;
-  }
-
-  .footer-light-stage {
-    position: absolute;
-    inset: 0;
-    opacity: 1;
-    mix-blend-mode: normal;
-  }
-
-  .footer-ellipse {
-    position: absolute;
-    border-radius: 9999px;
-    pointer-events: none;
-  }
-
-  .footer-ellipse-2 {
-    width: 1653px;
-    height: 1457px;
-    left: calc(50% - 1653px / 2);
-    bottom: -840px;
-    background: #7300ff;
-    filter: blur(478.985px);
-    opacity: 1;
-    transform: rotate(-90deg);
-  }
-
-  .footer-ellipse-3 {
-    width: 609px;
-    height: 1737px;
-    left: calc(50% - 609px / 2);
-    bottom: -955px;
-    background: #af8bf9;
-    filter: blur(210px);
-    opacity: 1;
-    transform: rotate(-90deg);
-  }
-
-  .footer-ellipse-4 {
-    width: 497px;
-    height: 1208px;
-    left: calc(50% - 497px / 2);
-    bottom: -705px;
-    background: #e8e4ff;
-    filter: blur(115px);
-    opacity: 1;
-    transform: rotate(-90deg);
-  }
-
-
-  .footer-vector-dots {
-    position: absolute;
-    z-index: 2;
-    left: 0;
-    right: 0;
-    top: -420px;
-    bottom: 0;
-    opacity: .7;
-    background-image:
-      radial-gradient(rgba(88, 31, 155, .72) 1px, transparent 1.25px);
-    background-size: 32px 32px;
-    background-position: center top;
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,.05) 0%, rgba(0,0,0,.55) 19%, #000 42%, #000 100%);
-    pointer-events: none;
   }
 
   .footer-main {
@@ -405,6 +348,7 @@
   .footer-bottom {
     margin-top: clamp(34px, 3.4vw, 48px);
     padding-top: clamp(18px, 1.7vw, 24px);
+    border-top: 2px solid rgba(255,255,255,.25);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -443,13 +387,16 @@
 
   @media (max-width: 1120px) {
     .airo-footer {
+      --footer-purple-w: 1320px;
+      --footer-purple-h: 1164px;
+      --footer-purple-y: 250px;
+      --footer-lavender-w: 486px;
+      --footer-lavender-h: 1386px;
+      --footer-lavender-y: 290px;
+      --footer-white-w: 397px;
+      --footer-white-h: 966px;
+      --footer-white-y: 205px;
       padding-top: 112px;
-    }
-
-    .airo-footer::before,
-    .footer-light,
-    .footer-vector-dots {
-      top: -340px;
     }
 
     .footer-shell {
@@ -469,114 +416,26 @@
     .footer-bottom {
       margin-top: 48px;
     }
-
-    .footer-light-stage {
-      inset: 0;
-      transform: none;
-    }
-
-    .footer-ellipse-2 {
-      width: 1320px;
-      height: 1164px;
-      left: calc(50% - 1320px / 2);
-      bottom: -650px;
-      filter: blur(360px);
-      opacity: 1;
-    }
-
-    .footer-ellipse-3 {
-      width: 486px;
-      height: 1386px;
-      left: calc(50% - 486px / 2);
-      bottom: -735px;
-      filter: blur(168px);
-      opacity: 1;
-    }
-
-    .footer-ellipse-4 {
-      width: 397px;
-      height: 966px;
-      left: calc(50% - 397px / 2);
-      bottom: -490px;
-      filter: blur(92px);
-      opacity: 1;
-    }
   }
 
   @media (max-width: 700px) {
     .airo-footer {
+      --footer-purple-w: 980px;
+      --footer-purple-h: 864px;
+      --footer-purple-y: 210px;
+      --footer-lavender-w: 360px;
+      --footer-lavender-h: 1027px;
+      --footer-lavender-y: 225px;
+      --footer-white-w: 294px;
+      --footer-white-h: 715px;
+      --footer-white-y: 155px;
+      --footer-dot-size: 24px;
+      --footer-dot-alpha: .54;
       padding: 82px 0 26px;
-      background: #030006;
-    }
-
-    .airo-footer::before,
-    .footer-light,
-    .footer-vector-dots {
-      top: -240px;
-    }
-
-    .airo-footer::before {
-      height: calc(100% + 240px);
     }
 
     .footer-shell {
       width: calc(100vw - 32px);
-    }
-
-    .footer-light {
-      background: transparent;
-      transform: translateZ(0);
-      -webkit-transform: translateZ(0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-
-    .footer-light::before {
-      opacity: .2;
-    }
-
-    .footer-light::after {
-      content: none;
-    }
-
-    .footer-light-stage {
-      inset: 0;
-      transform: none;
-    }
-
-    .footer-ellipse-2 {
-      width: 980px;
-      height: 864px;
-      left: calc(50% - 980px / 2);
-      bottom: -560px;
-      filter: blur(250px);
-      opacity: 1;
-      transform: translateZ(0) rotate(-90deg);
-    }
-
-    .footer-ellipse-3 {
-      width: 360px;
-      height: 1027px;
-      left: calc(50% - 360px / 2);
-      bottom: -545px;
-      filter: blur(124px);
-      opacity: 1;
-      transform: translateZ(0) rotate(-90deg);
-    }
-
-    .footer-ellipse-4 {
-      width: 294px;
-      height: 715px;
-      left: calc(50% - 294px / 2);
-      bottom: -420px;
-      filter: blur(72px);
-      opacity: 1;
-      transform: translateZ(0) rotate(-90deg);
-    }
-
-    .footer-vector-dots {
-      background-size: 24px 24px;
-      opacity: .54;
     }
 
     .footer-logo {
@@ -641,6 +500,7 @@
     .footer-bottom {
       margin-top: 30px;
       padding-top: 14px;
+      border-top-width: 1px;
       gap: 16px;
       font-size: 12px;
       font-weight: 500;
@@ -678,13 +538,4 @@
       font-size: 11px;
     }
   }
-
-  @media (hover: none), (pointer: coarse) {
-    .detail-row:hover,
-    .footer-column a:hover,
-    .footer-touch:hover {
-      transform: none;
-    }
-  }
-
 </style>
