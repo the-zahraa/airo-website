@@ -6480,3 +6480,30 @@ a { color: inherit; text-decoration: none; }
 .top-hit-art img {
   contain: none !important;
 }
+
+
+/* WORK WITH US ROUTE LOAD FIX — prevents Home hero lighting/background from flashing behind the Work With Us page. */
+.site-shell.work-with-us-route:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) {
+  background: #030006 !important;
+  background-image: none !important;
+}
+
+.site-shell.work-with-us-route:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route)::before {
+  opacity: .16 !important;
+}
+
+.site-shell.work-with-us-route .route-loading-spacer {
+  min-height: 100vh !important;
+  background: #030006 !important;
+}
+
+.site-shell.work-with-us-route .dot-field-main,
+.site-shell.work-with-us-route .dot-field-lower,
+.site-shell.work-with-us-route .soft-columns,
+.site-shell.work-with-us-route .ambient-hero,
+.site-shell.work-with-us-route .ambient-low,
+.site-shell.work-with-us-route .hero-main-light,
+.site-shell.work-with-us-route .hero-center-light {
+  display: none !important;
+  opacity: 0 !important;
+}

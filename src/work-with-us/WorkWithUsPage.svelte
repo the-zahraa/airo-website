@@ -51,6 +51,8 @@
 
   let contactStickerEl;
   let contactStickerAnimation;
+  let pageReady = false;
+  let contactStickerTimer;
 
   async function loadContactSticker() {
     if (!contactStickerEl) return;
@@ -97,15 +99,23 @@
   }
 
   onMount(() => {
-    loadContactSticker();
+    pageReady = false;
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        pageReady = true;
+        contactStickerTimer = window.setTimeout(loadContactSticker, 120);
+      });
+    });
 
     return () => {
+      if (contactStickerTimer) window.clearTimeout(contactStickerTimer);
       contactStickerAnimation?.destroy?.();
     };
   });
 </script>
 
-<main class="work-with-us-page">
+<main class="work-with-us-page" class:page-ready={pageReady}>
 <section id="work-with-us" class="work-form-section" aria-labelledby="work-form-title">
   <div class="work-form-lighting" aria-hidden="true">
     <svg class="work-footer-light" viewBox="-265 585.549 1970 1011.291" fill="none" preserveAspectRatio="none">
@@ -280,12 +290,39 @@
 
 <style>
   .work-with-us-page {
+    position: relative;
+    isolation: isolate;
     min-height: 100vh;
     padding-top: clamp(120px, 10vw, 154px);
     padding-bottom: clamp(30px, 4vw, 60px);
     background: #030006;
     overflow-x: clip;
   }
+
+  .section-kicker,
+  .contact-sticker,
+  .work-form-heading h2,
+  .work-form-heading p,
+  .work-form-card {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    will-change: opacity, transform;
+    transition: opacity .72s ease, transform .88s cubic-bezier(.19, 1, .22, 1);
+  }
+
+  .work-with-us-page.page-ready .section-kicker,
+  .work-with-us-page.page-ready .contact-sticker,
+  .work-with-us-page.page-ready .work-form-heading h2,
+  .work-with-us-page.page-ready .work-form-heading p,
+  .work-with-us-page.page-ready .work-form-card {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .work-with-us-page.page-ready .contact-sticker { transition-delay: .06s; }
+  .work-with-us-page.page-ready .work-form-heading h2 { transition-delay: .12s; }
+  .work-with-us-page.page-ready .work-form-heading p { transition-delay: .18s; }
+  .work-with-us-page.page-ready .work-form-card { transition-delay: .26s; }
 
   @supports not (overflow: clip) {
     .work-with-us-page {
@@ -310,13 +347,22 @@
     top: calc(clamp(190px, 18vw, 252px) + var(--contact-sticker-light-offset));
     width: min(1970px, 136vw);
     aspect-ratio: 1970 / 1011.291;
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 28px, 0) scale(.985);
+    transform-origin: center top;
     overflow: hidden;
     pointer-events: none;
     mix-blend-mode: screen;
     filter: blur(6px);
+    opacity: 0;
+    will-change: opacity, transform;
+    transition: opacity .9s ease .34s, transform 1s cubic-bezier(.19, 1, .22, 1) .34s;
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.18) 9%, #000 25%, #000 75%, rgba(0,0,0,.18) 91%, transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.18) 9%, #000 25%, #000 75%, rgba(0,0,0,.18) 91%, transparent 100%);
+  }
+
+  .work-with-us-page.page-ready .work-form-lighting {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0) scale(1);
   }
 
   .work-footer-light {
@@ -875,6 +921,9 @@
     .work-form-lighting {
       top: calc(245px + var(--contact-sticker-light-offset));
       width: 190vw;
+    }
+
+    .work-with-us-page.page-ready .work-form-lighting {
       opacity: .9;
     }
 
@@ -1011,4 +1060,17 @@
       font-size: 13px;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .work-form-lighting,
+    .section-kicker,
+    .contact-sticker,
+    .work-form-heading h2,
+    .work-form-heading p,
+    .work-form-card {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+
 </style>

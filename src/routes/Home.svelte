@@ -68,7 +68,6 @@
   const topHits = [
     { label: 'A1.png', src: '/top-hits/A1.png', fallbacks: ['/top-hits/A1.png'], title: 'Bubble Gum Simulator INFINITY', ccu: '381,647 CCU', alt: 'Bubble Gum Simulator INFINITY artwork' },
     { label: 'A1.jpeg', src: '/top-hits/A1.jpeg', fallbacks: ['/top-hits/A1.jpeg'], title: 'Timebomb Ultimate 💣💥', ccu: '4,516 CCU', alt: 'Timebomb Ultimate artwork' },
-    { label: 'A2.jpeg', src: '/top-hits/A2.jpeg', fallbacks: ['/top-hits/A2.jpeg'], title: 'Airo Partner Experience', ccu: 'Live game', alt: 'Airo partner experience artwork' },
     { label: 'A3.png', src: '/top-hits/A3.png', fallbacks: ['/top-hits/A3.png'], title: '[👊UPDATE] Project Power', ccu: '4,392 CCU', alt: 'Project Power artwork' },
     { label: 'A4.avif', src: '/top-hits/A4.avif', fallbacks: ['/top-hits/A4.avif'], title: 'Tunados Brasil', ccu: '2,491 CCU', alt: 'Tunados Brasil artwork' },
     { label: 'A5.avif', src: '/top-hits/A5.avif', fallbacks: ['/top-hits/A5.avif'], title: 'Be A Blackhole! 🕳️', ccu: '1,002 CCU', alt: 'Be A Blackhole artwork' },
@@ -78,7 +77,6 @@
     { label: 'A9.avif', src: '/top-hits/A9.avif', fallbacks: ['/top-hits/A9.avif'], title: 'Guess The Song Or Die', ccu: '529 CCU', alt: 'Guess The Song Or Die artwork' },
     { label: 'A10.avif', src: '/top-hits/A10.avif', fallbacks: ['/top-hits/A10.avif'], title: 'Haze PVP - Season 2', ccu: '523 CCU', alt: 'Haze PVP Season 2 artwork' }
   ];
-
   function fallbackTopHitImage(event, hit) {
     const image = event?.currentTarget;
     if (!image || !hit) return;
@@ -109,6 +107,11 @@
   let storyVideoStarted = false;
   let storyVideoPreviewing = false;
   let storyVideoPaused = false;
+  let storyVideoMobileFullscreen = false;
+
+  function isSmallScreen() {
+    return typeof window !== 'undefined' && window.matchMedia?.('(max-width: 700px)')?.matches;
+  }
 
   function canUseHoverPreview() {
     return (
@@ -146,23 +149,39 @@
     storyVideoStarted = true;
     storyVideoPaused = false;
     storyVideoPreviewing = false;
+    storyVideoMobileFullscreen = isSmallScreen();
     await svelteTick();
 
     try {
       if (storyVideoEl) {
         storyVideoEl.pause();
         if (restart) storyVideoEl.currentTime = 0;
-        storyVideoEl.controls = false;
+        storyVideoEl.controls = storyVideoMobileFullscreen;
         storyVideoEl.muted = false;
         storyVideoEl.volume = 1;
         storyVideoEl.disablePictureInPicture = true;
       }
 
       await storyVideoEl?.play?.();
+
+      if (storyVideoMobileFullscreen && storyVideoEl) {
+        window.setTimeout(() => {
+          try {
+            if (storyVideoEl.webkitEnterFullscreen) {
+              storyVideoEl.webkitEnterFullscreen();
+            } else if (storyVideoEl.requestFullscreen) {
+              storyVideoEl.requestFullscreen().catch(() => {});
+            }
+          } catch (error) {
+            // Keep inline playback if mobile fullscreen is not allowed by the browser.
+          }
+        }, 60);
+      }
     } catch (error) {
       storyVideoStarted = false;
       storyVideoPaused = false;
       storyVideoPreviewing = false;
+      storyVideoMobileFullscreen = false;
       console.warn('Our Story video could not start. Add the video file at public/videos/our-story.mp4', error);
     }
   }
@@ -174,6 +193,7 @@
     storyVideoEl.muted = true;
     storyVideoEl.controls = false;
     storyVideoPaused = true;
+    storyVideoMobileFullscreen = false;
     storyVideoPreviewing = false;
   }
 
@@ -201,6 +221,7 @@
     storyVideoStarted = false;
     storyVideoPreviewing = false;
     storyVideoPaused = false;
+    storyVideoMobileFullscreen = false;
 
     if (storyVideoEl) {
       storyVideoEl.pause();
@@ -461,7 +482,7 @@
   function animatePeakCounter() {
     resetPeakCounter();
 
-    const duration = 1250;
+    const duration = isSmallScreen() ? 900 : 1250;
     const start = performance.now();
     const easeOutQuart = (progress) => 1 - Math.pow(1 - progress, 4);
 
@@ -934,9 +955,9 @@
       poster={storyVideoThumbSrc}
       playsinline
       muted={!storyVideoStarted || storyVideoPaused}
-      controls={false}
+      controls={storyVideoMobileFullscreen && storyVideoStarted && !storyVideoPaused}
       disablepictureinpicture
-      controlslist="nodownload noplaybackrate noremoteplayback nofullscreen"
+      controlslist="nodownload noplaybackrate noremoteplayback"
       on:ended={resetStoryVideo}
     >
       <source src={storyVideoSrc} type="video/mp4" />
@@ -1206,6 +1227,47 @@
       transform: translateY(0) scale(1) !important;
       animation: none !important;
       filter: none !important;
+    }
+  }
+
+
+
+  @media (max-width: 560px) {
+    .stats-panel-section .award-sticker {
+      width: 138px !important;
+      height: 126px !important;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .growth-card.is-visible .line-haze,
+    .growth-card.is-visible .line-glow,
+    .growth-card.is-visible .line-main {
+      animation-duration: 1.18s !important;
+      animation-delay: .08s !important;
+      animation-timing-function: cubic-bezier(.5, 0, .16, 1) !important;
+    }
+
+    .growth-card.is-visible .line-shine {
+      animation-duration: 1.02s !important;
+      animation-delay: .12s !important;
+      animation-timing-function: cubic-bezier(.5, 0, .16, 1) !important;
+    }
+
+    .growth-card.is-visible .line-end-orb,
+    .growth-card.is-visible .line-end-core {
+      animation-duration: .5s !important;
+      animation-delay: 1.14s !important;
+    }
+
+    .growth-card.is-visible .growth-pill {
+      animation-duration: .9s !important;
+      animation-delay: .76s !important;
+    }
+
+    .growth-card.is-visible .growth-pill::before {
+      animation-duration: .75s !important;
+      animation-delay: .96s !important;
     }
   }
 

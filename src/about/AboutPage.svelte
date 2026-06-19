@@ -5345,6 +5345,28 @@
       </div>
       <h1>Shaping the<br />Future of play</h1>
     </div>
+    <div class="mobile-hero-card-stack" aria-hidden="true">
+      <article class="mobile-hero-card mobile-hero-card-one">
+        <span>01</span>
+        <strong>High engagement</strong>
+        <small>Players stay longer</small>
+      </article>
+      <article class="mobile-hero-card mobile-hero-card-two">
+        <span>02</span>
+        <strong>Long retention</strong>
+        <small>Built for repeat play</small>
+      </article>
+      <article class="mobile-hero-card mobile-hero-card-three">
+        <span>03</span>
+        <strong>Proven brand</strong>
+        <small>Trusted Roblox growth</small>
+      </article>
+      <article class="mobile-hero-card mobile-hero-card-four">
+        <span>04</span>
+        <strong>Gameplay systems</strong>
+        <small>Signals that scale</small>
+      </article>
+    </div>
     <div class="hero-art hero-composition" aria-label="Airo strategy cards and engagement system">
       <div class="hero-rest-cards-svg" aria-hidden="true">
         <div class="hero-rest-cards-base">
@@ -5486,7 +5508,7 @@
 
   <section class="about-cta reveal-block">
     <div class="cta-copy">
-      <h2>Build the next viral<br />experience with us</h2>
+      <h2><span class="cta-title-keep">Build the next viral experience</span> with us</h2>
       <p>We’re always looking to amplify creators and partners.</p>
     </div>
 
@@ -5504,6 +5526,18 @@
         </figure>
       {/each}
     </div>
+
+    <article class="about-mobile-launch-card" aria-label="Get in touch with Airo">
+      <div>
+        <img class="about-mobile-launch-logo" src="/logos/airo.svg" alt="Airo" />
+        <h3>Build the next viral<br />experience with us</h3>
+        <p>We’re always looking to amplify creators and partners.</p>
+      </div>
+      <a class="about-mobile-launch-action" href="#work-with-us" on:click={scrollToWorkForm}>
+        <span>Get in touch</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17h10V7M17 17 7 7" /></svg>
+      </a>
+    </article>
   </section>
 </div>
 
@@ -7579,6 +7613,1212 @@
   @media (max-width: 390px) {
     .about-features .feature-row:nth-child(3) {
       gap: 54px;
+    }
+  }
+
+
+  /* smaller screens only: tighten hero-to-What-we-do spacing, solid row-one icon plates, and narrower bottom-aligned team cards */
+  @media (max-width: 680px) {
+    .about-hero {
+      min-height: clamp(820px, 188vw, 930px);
+    }
+
+    .hero-art {
+      height: clamp(820px, 188vw, 930px);
+    }
+
+    .about-copy-section {
+      margin-top: clamp(-84px, -13vw, -46px);
+    }
+
+    .svg-feature-1 :global(circle[r="36.7268"]) {
+      opacity: 1 !important;
+      fill: #09070f !important;
+      fill-opacity: 1 !important;
+      stroke-opacity: 1 !important;
+    }
+
+    .svg-feature-1 :global(g[filter*="filter23"]),
+    .svg-feature-1 :global(g[filter*="filter25"]),
+    .svg-feature-1 :global(g[filter*="filter27"]) {
+      opacity: 1 !important;
+    }
+
+    .team-section {
+      width: min(420px, 100%);
+    }
+
+    .team-grid {
+      width: min(326px, 86vw);
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: 18px;
+      margin: 34px auto 0;
+    }
+
+    .team-card {
+      width: 100%;
+      min-height: clamp(392px, 106vw, 468px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(172px, 42vw, 220px) 22px 30px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .about-hero {
+      min-height: clamp(760px, 190vw, 870px);
+    }
+
+    .hero-art {
+      height: clamp(760px, 190vw, 870px);
+    }
+
+    .about-copy-section {
+      margin-top: clamp(-94px, -16vw, -58px);
+    }
+
+    .team-grid {
+      width: min(312px, 84vw);
+      margin-top: 30px;
+    }
+
+    .team-card {
+      min-height: clamp(404px, 116vw, 472px);
+      padding: clamp(184px, 50vw, 232px) 22px 30px;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .about-hero {
+      min-height: 730px;
+    }
+
+    .hero-art {
+      height: 720px;
+    }
+
+    .about-copy-section {
+      margin-top: -64px;
+    }
+
+    .team-grid {
+      width: min(296px, 84vw);
+    }
+
+    .team-card {
+      min-height: 420px;
+      padding: 198px 20px 28px;
+    }
+  }
+
+
+  /* targeted refinements: desktop CTA grid, solid first-row icons, bottom-aligned team text */
+  .svg-feature-1 :global(circle[r="36.7268"]) {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    fill: #09070f !important;
+    fill-opacity: 1 !important;
+    stroke: rgba(255,255,255,.34) !important;
+    stroke-opacity: 1 !important;
+  }
+
+  .svg-feature-1 :global(path[stroke-linecap="round"]),
+  .svg-feature-1 :global(line[stroke-linecap="round"]),
+  .svg-feature-1 :global(polyline[stroke-linecap="round"]),
+  .svg-feature-1 :global(g[mask] path[stroke]) {
+    animation: none !important;
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  .svg-feature-1 :global(g[filter*="filter23"]),
+  .svg-feature-1 :global(g[filter*="filter25"]),
+  .svg-feature-1 :global(g[filter*="filter27"]) {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  .team-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .team-card span {
+    margin-bottom: clamp(20px, 2vw, 30px);
+  }
+
+  .team-card h3 {
+    margin: 0 0 6px;
+  }
+
+  @media (min-width: 901px) {
+    .about-cta::after {
+      display: none;
+    }
+
+    .cta-tiles {
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 49%;
+      transform: none;
+      transform-origin: center;
+    }
+
+    .cta-tile {
+      width: clamp(58px, 6.8vw, 98px);
+      height: clamp(86px, 9vw, 124px);
+      border-radius: clamp(16px, 1.75vw, 24px);
+      border-width: 1.4px;
+      box-shadow: 0 18px 46px rgba(2,0,4,.72);
+    }
+
+    .cta-tile-1 { left: 4%; top: 12%; }
+    .cta-tile-2 { left: 32%; top: 12%; }
+    .cta-tile-3 { left: calc(100% - clamp(26px, 3.2vw, 46px)); top: 12%; }
+    .cta-tile-4 { left: 4%; top: 58%; }
+    .cta-tile-5 { left: 32%; top: 58%; }
+    .cta-tile-6 { left: calc(100% - clamp(26px, 3.2vw, 46px)); top: 58%; }
+    .cta-tile-7 { display: none; }
+  }
+
+  @media (max-width: 680px) {
+    .team-card span {
+      margin-bottom: 24px;
+    }
+  }
+
+
+  /* focused requested refinements: team title level, smaller mobile cards, desktop CTA layout, solid first-row What-we-do icons */
+  .svg-feature-1 .svg-shell,
+  .svg-feature-1 .svg-shell :global(*) {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .svg-feature-1 :global(circle[r="36.7268"]) {
+    opacity: 1 !important;
+    fill: #09070f !important;
+    fill-opacity: 1 !important;
+    stroke: rgba(255,255,255,.34) !important;
+    stroke-opacity: 1 !important;
+  }
+
+  .svg-feature-1 :global(g[filter*="filter23"]),
+  .svg-feature-1 :global(g[filter*="filter25"]),
+  .svg-feature-1 :global(g[filter*="filter27"]) {
+    opacity: 1 !important;
+  }
+
+  @media (min-width: 901px) {
+    .team-card span {
+      margin-bottom: clamp(22px, 1.9vw, 30px);
+    }
+
+    .team-card h3 {
+      display: flex;
+      align-items: flex-end;
+      min-height: clamp(26px, 2.2vw, 34px);
+      margin: 0 0 clamp(12px, 1.15vw, 18px);
+    }
+
+    .team-card p {
+      min-height: clamp(72px, 5.8vw, 88px);
+    }
+
+    .cta-tiles {
+      left: 54%;
+      right: -2%;
+    }
+
+    .cta-tile {
+      width: clamp(70px, 7.7vw, 112px);
+      height: clamp(102px, 10.4vw, 146px);
+    }
+
+    .cta-tile-1 { left: 24%; top: 7%; }
+    .cta-tile-2 { left: 51%; top: 7%; }
+    .cta-tile-3 { left: calc(100% - clamp(34px, 4vw, 58px)); top: 7%; }
+    .cta-tile-4 { left: 24%; top: 55%; }
+    .cta-tile-5 { left: 51%; top: 55%; }
+    .cta-tile-6 { left: calc(100% - clamp(34px, 4vw, 58px)); top: 55%; }
+    .cta-tile-7 { display: block; left: 0; top: 31%; }
+  }
+
+  @media (max-width: 680px) {
+    .team-section {
+      width: min(390px, 100%);
+    }
+
+    .team-grid {
+      width: min(292px, 80vw);
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .team-card {
+      min-height: clamp(330px, 92vw, 390px);
+      padding: clamp(140px, 38vw, 184px) 20px 26px;
+    }
+
+    .team-card span {
+      margin-bottom: 24px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .team-grid {
+      width: min(276px, 78vw);
+    }
+
+    .team-card {
+      min-height: clamp(324px, 98vw, 382px);
+      padding: clamp(134px, 44vw, 178px) 19px 25px;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .team-grid {
+      width: min(260px, 78vw);
+    }
+
+    .team-card {
+      min-height: 340px;
+      padding: 150px 18px 24px;
+    }
+  }
+
+
+  /* focused CTA text/card positioning refinements */
+  .about-cta h2 {
+    white-space: nowrap;
+  }
+
+  @media (min-width: 901px) {
+    .cta-tile-3 { left: calc(100% - clamp(70px, 6.5vw, 92px)); }
+    .cta-tile-6 { left: calc(100% - clamp(70px, 6.5vw, 92px)); }
+  }
+
+  @media (max-width: 680px) {
+    .about-cta h2 {
+      font-size: clamp(20px, 6vw, 28px);
+      letter-spacing: -.058em;
+    }
+
+    .cta-tiles {
+      left: 50%;
+      right: auto;
+      top: 42%;
+      bottom: auto;
+      width: min(350px, calc(100% - 18px));
+      height: 218px;
+      transform: translateX(-50%);
+      transform-origin: center top;
+    }
+
+    .cta-tile {
+      width: clamp(58px, 18vw, 78px);
+      height: clamp(84px, 26vw, 112px);
+      border-radius: clamp(15px, 4.8vw, 22px);
+    }
+
+    .cta-tile-1 { left: 18%; top: 0; }
+    .cta-tile-2 { left: 46%; top: 0; }
+    .cta-tile-3 { left: calc(100% - clamp(50px, 15.8vw, 68px)); top: 0; }
+    .cta-tile-7 { display: block; left: 2%; top: 34%; }
+    .cta-tile-4 { left: 18%; top: 62%; }
+    .cta-tile-5 { left: 46%; top: 62%; }
+    .cta-tile-6 { left: calc(100% - clamp(50px, 15.8vw, 68px)); top: 62%; }
+  }
+
+  @media (max-width: 420px) {
+    .about-cta h2 {
+      font-size: clamp(17px, 5.2vw, 21px);
+    }
+
+    .cta-tiles {
+      top: 44%;
+      width: min(320px, calc(100% - 12px));
+      height: 198px;
+    }
+  }
+
+
+  /* final focused CTA + team alignment refinements */
+  .about-cta h2 {
+    font-size: clamp(24px, 2.35vw, 36px);
+    line-height: 1.12;
+  }
+
+  .about-cta p {
+    white-space: nowrap;
+    font-size: clamp(13px, 1.08vw, 17px);
+  }
+
+  .cta-button {
+    background:
+      linear-gradient(135deg, rgba(255,255,255,.22), rgba(255,255,255,.06) 28%, rgba(115,0,255,.44) 100%);
+    border-color: rgba(255,255,255,.68);
+    backdrop-filter: blur(18px) saturate(1.35);
+    -webkit-backdrop-filter: blur(18px) saturate(1.35);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.34),
+      inset 0 -18px 34px rgba(115,0,255,.22),
+      0 14px 38px rgba(0,0,0,.34),
+      0 0 28px rgba(115,0,255,.22);
+  }
+
+  .cta-button:hover {
+    background:
+      linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,255,255,.08) 28%, rgba(115,0,255,.56) 100%);
+    border-color: rgba(255,255,255,.88);
+  }
+
+  @media (min-width: 901px) {
+    .team-card {
+      display: grid;
+      grid-template-rows: 1fr auto auto auto;
+      justify-content: stretch;
+      align-content: end;
+    }
+
+    .team-card span {
+      align-self: end;
+      justify-self: start;
+      margin: 0 0 clamp(18px, 1.55vw, 24px);
+    }
+
+    .team-card h3 {
+      display: flex;
+      align-items: flex-end;
+      height: clamp(42px, 3.1vw, 52px);
+      min-height: 0;
+      margin: 0 0 clamp(12px, 1vw, 16px);
+    }
+
+    .team-card p {
+      height: clamp(78px, 6vw, 96px);
+      min-height: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .cta-copy {
+      width: min(540px, 52%);
+    }
+
+    .cta-tile-3,
+    .cta-tile-6 {
+      left: calc(100% - clamp(116px, 10.4vw, 148px));
+    }
+  }
+
+  @media (max-width: 680px) {
+    .about-cta h2 {
+      font-size: clamp(14px, 4.15vw, 18px);
+      line-height: 1.08;
+      letter-spacing: -.06em;
+    }
+
+    .about-cta p {
+      white-space: nowrap;
+      font-size: clamp(10px, 2.95vw, 13px);
+      line-height: 1.2;
+      margin-top: 12px;
+      letter-spacing: -.015em;
+    }
+  }
+
+
+  /* final focused refinements: CTA balance, top-right tile tint, hero card centering, team spacing */
+  .about-cta {
+    width: min(1260px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .about-cta::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .cta-tile-3 {
+    background: #06020A !important;
+  }
+
+  .cta-tile-3::after {
+    background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(6,2,10,.30)) !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .cta-tile-3 img {
+    filter: saturate(.92) contrast(1.04) !important;
+  }
+
+  .team-card span {
+    margin-bottom: clamp(10px, .9vw, 14px) !important;
+  }
+
+  @media (min-width: 901px) {
+    .hero-first-card-wrap,
+    .hero-rest-cards-svg {
+      left: clamp(-40px, 1vw, 10px);
+    }
+
+    .cta-tiles {
+      left: 53%;
+      right: -1%;
+    }
+
+    .cta-tile-3,
+    .cta-tile-6 {
+      left: calc(100% - clamp(98px, 9vw, 126px));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-first-card-wrap,
+    .hero-rest-cards-svg {
+      left: calc(50% - 348px);
+    }
+  }
+
+  @media (max-width: 680px) {
+    .about-cta {
+      align-items: center;
+      padding-top: 42px;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .cta-copy {
+      width: min(360px, 100%);
+      margin-top: 10px;
+      text-align: left;
+      align-self: flex-start;
+    }
+
+    .about-cta h2 {
+      font-size: clamp(17px, 5.1vw, 22px);
+      line-height: 1.1;
+    }
+
+    .about-cta p {
+      font-size: clamp(11.5px, 3.35vw, 14px);
+      line-height: 1.22;
+      margin-top: 12px;
+    }
+
+    .cta-tiles {
+      left: 50%;
+      width: min(350px, calc(100% - 10px));
+      transform: translateX(-50%);
+    }
+
+    .cta-tile-3,
+    .cta-tile-6 {
+      left: calc(100% - clamp(62px, 18vw, 76px));
+    }
+
+    .team-card span {
+      margin-bottom: 14px !important;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .cta-copy {
+      margin-top: 12px;
+    }
+
+    .about-cta h2 {
+      font-size: clamp(16.5px, 5.35vw, 20px);
+    }
+
+    .about-cta p {
+      font-size: clamp(10.8px, 3.45vw, 12.8px);
+    }
+
+    .cta-tiles {
+      width: min(326px, calc(100% - 8px));
+    }
+  }
+
+
+  /* final requested CTA size/text/mobile-button refinements */
+  .cta-title-keep {
+    white-space: nowrap;
+  }
+
+  @media (min-width: 901px) {
+    .about-cta {
+      width: min(1120px, 94%);
+      min-height: clamp(184px, 17.2vw, 236px);
+      padding: clamp(24px, 3.1vw, 40px) clamp(34px, 4.6vw, 58px);
+      border-radius: clamp(34px, 5.2vw, 76px);
+    }
+
+    .cta-copy {
+      width: min(560px, 55%);
+    }
+
+    .about-cta h2 {
+      max-width: 600px;
+      white-space: normal;
+      font-size: clamp(32px, 3.1vw, 48px);
+      line-height: 1.04;
+      letter-spacing: -.058em;
+    }
+
+    .about-cta p {
+      margin-top: clamp(18px, 1.5vw, 24px);
+      white-space: nowrap;
+      font-size: clamp(15px, 1.3vw, 20px);
+      line-height: 1.22;
+    }
+
+    .cta-tiles {
+      transform: scale(.9);
+      transform-origin: center right;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .cta-button {
+      align-self: flex-start;
+      margin-left: 0;
+    }
+  }
+
+
+  /* final focused CTA card strength + mobile text refinements */
+  .cta-tile {
+    box-shadow: 0 14px 38px rgba(2, 0, 4, .54) !important;
+  }
+
+  .cta-tile::after {
+    background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(6,2,10,.06)) !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .cta-tile img {
+    opacity: 1 !important;
+    filter: saturate(1.2) contrast(1.08) brightness(1.04) !important;
+  }
+
+  .cta-tile-3 img {
+    filter: saturate(1.02) contrast(1.08) brightness(1.03) !important;
+  }
+
+  @media (max-width: 680px) {
+    .about-cta h2 {
+      font-size: clamp(20px, 6.35vw, 26px);
+      line-height: 1.08;
+    }
+
+    .about-cta p {
+      font-size: clamp(13px, 3.85vw, 16px);
+      line-height: 1.24;
+    }
+  }
+
+
+  /* final requested hero centering + mobile CTA title wrap */
+  .hero-art {
+    width: min(1248px, calc(100vw - 2 * clamp(20px, 4vw, 68px)));
+    transform: none !important;
+    animation: none !important;
+  }
+
+  @media (min-width: 901px) {
+    .hero-first-card-wrap,
+    .hero-rest-cards-svg {
+      left: 0 !important;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-art {
+      width: 100%;
+      transform: none !important;
+      animation: none !important;
+    }
+
+    .hero-first-card-wrap,
+    .hero-rest-cards-svg {
+      left: calc(50% - 334px) !important;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .hero-first-card-wrap,
+    .hero-rest-cards-svg {
+      left: calc(50% - 334px) !important;
+    }
+
+    .about-cta h2 {
+      max-width: 100%;
+      white-space: normal !important;
+      overflow: visible;
+    }
+
+    .cta-title-keep {
+      display: block;
+      max-width: 100%;
+      white-space: normal !important;
+    }
+  }
+
+
+  /* requested final pass: mobile hero cards, team job-title pill, and mobile-only home CTA card */
+  .mobile-hero-card-stack,
+  .about-mobile-launch-card {
+    display: none;
+  }
+
+  .team-card h3 {
+    order: 1;
+  }
+
+  .team-card span {
+    order: 2;
+    align-self: flex-start;
+    justify-self: start;
+    justify-content: flex-start !important;
+    min-width: clamp(138px, 11.8vw, 188px) !important;
+    min-height: clamp(20px, 1.45vw, 23px) !important;
+    padding: 0 clamp(15px, 1.1vw, 20px) !important;
+    margin: clamp(9px, .85vw, 13px) 0 0 !important;
+    font-size: clamp(9.5px, .78vw, 12px) !important;
+    text-align: left !important;
+    box-shadow: inset 0 0 0 2px rgba(115,0,255,.82), 0 0 16px rgba(115,0,255,.20) !important;
+  }
+
+  .team-card.gold span,
+  .team-card:nth-child(odd) span {
+    box-shadow: inset 0 0 0 2px rgba(255,174,0,.86), 0 0 16px rgba(255,174,0,.18) !important;
+  }
+
+  .team-card p {
+    order: 3;
+  }
+
+  @media (min-width: 901px) {
+    .team-card h3 {
+      order: 1 !important;
+      display: block !important;
+      height: auto !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+    }
+
+    .team-card span {
+      order: 2 !important;
+      align-self: start !important;
+      justify-self: start !important;
+      margin: clamp(10px, .95vw, 14px) 0 0 !important;
+    }
+
+    .team-card p {
+      order: 3 !important;
+      height: auto !important;
+      min-height: 0 !important;
+      margin: clamp(15px, 1.22vw, 20px) 0 0 !important;
+      overflow: visible !important;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .about-hero {
+      min-height: auto !important;
+      padding-bottom: clamp(34px, 8vw, 52px) !important;
+    }
+
+    .hero-art {
+      display: none !important;
+    }
+
+    .mobile-hero-card-stack {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      width: min(336px, 86vw);
+      margin: clamp(28px, 7vw, 40px) auto 0;
+    }
+
+    .mobile-hero-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: clamp(92px, 25vw, 112px);
+      padding: 18px 22px;
+      border-radius: 26px;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 8% 20%, rgba(255,255,255,.12), transparent 28%),
+        linear-gradient(180deg, rgba(23, 15, 36, .98), rgba(8, 5, 12, .98));
+      border: 1px solid rgba(221, 200, 255, .24);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 16px 38px rgba(0,0,0,.36);
+      transform: none !important;
+    }
+
+    .mobile-hero-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, transparent, rgba(115,0,255,.95), transparent);
+      box-shadow: 0 0 18px rgba(115,0,255,.45);
+    }
+
+    .mobile-hero-card-one::before,
+    .mobile-hero-card-three::before {
+      background: linear-gradient(180deg, transparent, rgba(255,174,0,.95), transparent);
+      box-shadow: 0 0 18px rgba(255,174,0,.35);
+    }
+
+    .mobile-hero-card span {
+      color: rgba(255,255,255,.46);
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+
+    .mobile-hero-card strong {
+      margin-top: 8px;
+      color: #fff;
+      font-size: clamp(18px, 5.2vw, 23px);
+      line-height: 1.08;
+      letter-spacing: -.025em;
+      font-weight: 800;
+    }
+
+    .mobile-hero-card small {
+      margin-top: 7px;
+      color: rgba(255,255,255,.66);
+      font-size: clamp(11px, 3.15vw, 13px);
+      line-height: 1.2;
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+
+    .about-copy-section {
+      margin-top: clamp(28px, 8vw, 44px) !important;
+    }
+
+    .team-card {
+      background: #070509 !important;
+    }
+
+    .team-card h3 {
+      order: 1 !important;
+      margin: 0 !important;
+    }
+
+    .team-card span {
+      order: 2 !important;
+      align-self: flex-start !important;
+      min-width: clamp(154px, 54vw, 216px) !important;
+      min-height: clamp(19px, 5vw, 23px) !important;
+      padding: 0 clamp(16px, 4.8vw, 22px) !important;
+      margin: 12px 0 0 !important;
+      font-size: clamp(10px, 3vw, 12px) !important;
+      justify-content: flex-start !important;
+      text-align: left !important;
+    }
+
+    .team-card p {
+      order: 3 !important;
+      margin-top: 15px !important;
+    }
+
+    .about-cta {
+      display: block !important;
+      width: min(620px, calc(100vw - 24px)) !important;
+      min-height: auto !important;
+      margin-top: clamp(44px, 12vw, 70px) !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+    }
+
+    .about-cta::before,
+    .about-cta::after,
+    .about-cta > .cta-copy,
+    .about-cta > .cta-button,
+    .about-cta > .cta-tiles {
+      display: none !important;
+      content: none !important;
+    }
+
+    .about-mobile-launch-card {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 220px;
+      padding: 25px 24px 72px;
+      border-radius: 34px;
+      overflow: hidden;
+      isolation: isolate;
+      text-align: center;
+      background:
+        radial-gradient(circle at 8% 50%, rgba(126,0,255,.92), transparent 34%),
+        linear-gradient(100deg, #8300ff 0%, #8b19ee 46%, #8e3be2 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.17), 0 18px 52px rgba(115,0,255,.2);
+    }
+
+    .about-mobile-launch-card::before {
+      content: '';
+      position: absolute;
+      inset: -20% -4% -20% 35%;
+      z-index: 0;
+      background:
+        linear-gradient(108deg, transparent 0 10%, rgba(55,0,104,.28) 11% 24%, rgba(255,255,255,.07) 25% 26%, transparent 27% 39%, rgba(55,0,104,.23) 40% 55%, rgba(255,255,255,.07) 56% 57%, transparent 58% 100%);
+      transform: skewX(-12deg);
+      opacity: .88;
+      pointer-events: none;
+    }
+
+    .about-mobile-launch-card::after {
+      content: '';
+      position: absolute;
+      right: 6%;
+      top: 12%;
+      z-index: 0;
+      width: 34%;
+      height: 82%;
+      border-radius: 22px;
+      border: 2px solid rgba(255,255,255,.1);
+      transform: rotate(-8deg);
+      opacity: .45;
+      pointer-events: none;
+    }
+
+    .about-mobile-launch-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .about-mobile-launch-card > div {
+      width: 100%;
+      min-height: 136px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .about-mobile-launch-logo {
+      display: block;
+      width: clamp(64px, 18vw, 82px);
+      height: auto;
+      margin: 0 auto 12px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 20px rgba(32,0,72,.25)) drop-shadow(0 0 16px rgba(255,255,255,.14));
+    }
+
+    .about-mobile-launch-card h3 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(25px, 6.5vw, 34px);
+      line-height: 1.04;
+      letter-spacing: -.055em;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .about-mobile-launch-card p {
+      width: min(310px, 100%);
+      margin: 10px auto 0;
+      color: rgba(255,255,255,.82);
+      font-size: clamp(12px, 3.45vw, 14px);
+      line-height: 1.25;
+      font-weight: 500;
+      letter-spacing: -.01em;
+      white-space: normal;
+    }
+
+    .about-mobile-launch-action,
+    .about-mobile-launch-action:hover,
+    .about-mobile-launch-action:focus,
+    .about-mobile-launch-action:active {
+      position: absolute;
+      left: 50%;
+      right: auto;
+      bottom: 19px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-width: 132px;
+      height: 45px;
+      padding: 0 18px;
+      margin: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border: 1.5px solid rgba(255,255,255,.34);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 12px 30px rgba(0,0,0,.12);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      transform: translateX(-50%);
+      text-decoration: none;
+      transition: none;
+      animation: none;
+      filter: none;
+    }
+
+    .about-mobile-launch-action svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .about-mobile-launch-action path {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .mobile-hero-card-stack {
+      width: min(306px, 84vw);
+      gap: 12px;
+    }
+
+    .mobile-hero-card {
+      min-height: 88px;
+      padding: 16px 19px;
+      border-radius: 23px;
+    }
+
+    .about-mobile-launch-card {
+      min-height: 210px;
+      padding: 22px 20px 66px;
+      border-radius: 30px;
+    }
+
+    .about-mobile-launch-card > div {
+      min-height: 128px;
+    }
+
+    .about-mobile-launch-card h3 {
+      font-size: clamp(23px, 7vw, 30px);
+    }
+
+    .about-mobile-launch-card p {
+      font-size: clamp(11px, 3.35vw, 13px);
+    }
+
+    .about-mobile-launch-action,
+    .about-mobile-launch-action:hover,
+    .about-mobile-launch-action:focus,
+    .about-mobile-launch-action:active {
+      min-width: 124px;
+      height: 42px;
+      bottom: 17px;
+      font-size: 13px;
+    }
+  }
+
+
+  /* final correction: requested CTA, mobile hero cards, and desktop team text alignment only */
+  @media (min-width: 901px) {
+    .team-card {
+      display: grid !important;
+      grid-template-rows: 1fr clamp(44px, 3.5vw, 58px) clamp(22px, 1.6vw, 26px) clamp(92px, 6.7vw, 114px) !important;
+      align-content: end !important;
+      justify-content: stretch !important;
+    }
+
+    .team-card h3 {
+      order: 1 !important;
+      display: flex !important;
+      align-items: flex-end !important;
+      align-self: end !important;
+      height: auto !important;
+      min-height: 0 !important;
+      margin: 0 0 clamp(5px, .45vw, 8px) !important;
+    }
+
+    .team-card span {
+      order: 2 !important;
+      align-self: start !important;
+      justify-self: start !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      margin: 0 !important;
+      text-align: left !important;
+    }
+
+    .team-card p {
+      order: 3 !important;
+      align-self: start !important;
+      height: auto !important;
+      min-height: 0 !important;
+      margin: clamp(14px, 1vw, 18px) 0 0 !important;
+      overflow: visible !important;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .about-hero {
+      background: #030006 !important;
+      overflow: hidden !important;
+    }
+
+    .about-hero::before {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 0 !important;
+      display: block !important;
+      background: #030006 !important;
+      pointer-events: none !important;
+    }
+
+    .about-hero > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .mobile-hero-card-stack {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 14px !important;
+      width: min(342px, 86vw) !important;
+      margin: clamp(30px, 7vw, 42px) auto 0 !important;
+    }
+
+    .mobile-hero-card {
+      position: relative !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      min-height: clamp(106px, 29vw, 124px) !important;
+      padding: 18px 22px !important;
+      border-radius: 30px !important;
+      overflow: hidden !important;
+      isolation: isolate !important;
+      transform: none !important;
+      rotate: 0deg !important;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(202,158,255,.22), transparent 38%),
+        radial-gradient(circle at 10% 15%, rgba(255,255,255,.12), transparent 28%),
+        linear-gradient(135deg, rgba(115,0,255,.78) 0%, rgba(72,0,158,.78) 42%, rgba(18,11,30,.98) 100%) !important;
+      border: 1.4px solid rgba(219,190,255,.42) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.16),
+        inset 0 -28px 54px rgba(0,0,0,.24),
+        0 16px 38px rgba(0,0,0,.34) !important;
+    }
+
+    .mobile-hero-card::before {
+      content: '' !important;
+      position: absolute !important;
+      inset: 10px !important;
+      width: auto !important;
+      border-radius: 23px !important;
+      background: none !important;
+      border: 1px solid rgba(255,255,255,.12) !important;
+      box-shadow: inset 0 0 0 1px rgba(115,0,255,.22) !important;
+      pointer-events: none !important;
+    }
+
+    .mobile-hero-card::after {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 0 !important;
+      background: linear-gradient(118deg, transparent 0 30%, rgba(255,255,255,.08) 31% 32%, transparent 33% 100%) !important;
+      pointer-events: none !important;
+    }
+
+    .mobile-hero-card-one,
+    .mobile-hero-card-three {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,248,228,.18), transparent 38%),
+        radial-gradient(circle at 10% 15%, rgba(255,255,255,.11), transparent 28%),
+        linear-gradient(135deg, rgba(255,174,0,.68) 0%, rgba(130,83,0,.72) 40%, rgba(18,12,5,.98) 100%) !important;
+      border-color: rgba(255,210,119,.40) !important;
+    }
+
+    .mobile-hero-card > * {
+      position: relative !important;
+      z-index: 2 !important;
+    }
+
+    .mobile-hero-card span {
+      color: rgba(255,255,255,.54) !important;
+      font-size: 11px !important;
+      line-height: 1 !important;
+      font-weight: 800 !important;
+      letter-spacing: .14em !important;
+    }
+
+    .mobile-hero-card strong {
+      margin-top: 8px !important;
+      color: #fff !important;
+      font-size: clamp(19px, 5.25vw, 24px) !important;
+      line-height: 1.05 !important;
+      letter-spacing: -.035em !important;
+      font-weight: 900 !important;
+    }
+
+    .mobile-hero-card small {
+      margin-top: 7px !important;
+      color: rgba(255,255,255,.72) !important;
+      font-size: clamp(11px, 3.15vw, 13px) !important;
+      line-height: 1.2 !important;
+      font-weight: 600 !important;
+    }
+
+    .about-mobile-launch-card {
+      background: #7300FF !important;
+      background-image: none !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.18),
+        0 18px 52px rgba(115,0,255,.24) !important;
+    }
+
+    .about-mobile-launch-card::before,
+    .about-mobile-launch-card::after {
+      content: none !important;
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .mobile-hero-card-stack {
+      width: min(314px, 84vw) !important;
+      gap: 12px !important;
+    }
+
+    .mobile-hero-card {
+      min-height: 100px !important;
+      padding: 16px 19px !important;
+      border-radius: 27px !important;
     }
   }
 

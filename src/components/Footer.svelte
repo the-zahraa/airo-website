@@ -217,6 +217,11 @@
     pointer-events: none;
     overflow: hidden;
     background: transparent;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    contain: layout style;
   }
 
   .footer-light::before {
@@ -237,13 +242,20 @@
     inset: 0;
     opacity: 1;
     mix-blend-mode: normal;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    contain: layout style;
   }
 
   .footer-ellipse {
     position: absolute;
     border-radius: 9999px;
     pointer-events: none;
-    will-change: filter;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-origin: center;
   }
 
   .footer-ellipse-2 {
@@ -255,6 +267,7 @@
     filter: blur(478.985px);
     opacity: 1;
     transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
   }
 
   .footer-ellipse-3 {
@@ -266,6 +279,7 @@
     filter: blur(210px);
     opacity: 1;
     transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
   }
 
   .footer-ellipse-4 {
@@ -277,6 +291,7 @@
     filter: blur(115px);
     opacity: 1;
     transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
   }
 
 
@@ -288,7 +303,10 @@
     bottom: 0;
     width: min(1500px, 112vw);
     height: auto;
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
+    -webkit-transform: translate3d(-50%, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     pointer-events: none;
     overflow: hidden;
     opacity: .26;
@@ -336,7 +354,12 @@
       radial-gradient(rgba(88, 31, 155, .72) 1px, transparent 1.25px);
     background-size: 32px 32px;
     background-position: center top;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.05) 0%, rgba(0,0,0,.55) 19%, #000 42%, #000 100%);
     mask-image: linear-gradient(to bottom, rgba(0,0,0,.05) 0%, rgba(0,0,0,.55) 19%, #000 42%, #000 100%);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     pointer-events: none;
   }
 
@@ -531,7 +554,8 @@
 
     .footer-light-stage {
       inset: 0;
-      transform: none;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
 
     .footer-ellipse-2 {
@@ -579,6 +603,7 @@
       width: min(760px, 116vw);
       padding-inline: 12px;
       opacity: .32;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.22) 18%, rgba(0,0,0,.74) 38%, #000 62%, rgba(0,0,0,.16) 92%, rgba(0,0,0,0) 100%);
       mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.22) 18%, rgba(0,0,0,.74) 38%, #000 62%, rgba(0,0,0,.16) 92%, rgba(0,0,0,0) 100%);
     }
 
@@ -614,7 +639,8 @@
 
     .footer-light-stage {
       inset: 0;
-      transform: none;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
 
     .footer-ellipse-2 {
@@ -625,6 +651,7 @@
       filter: blur(250px);
       opacity: 1;
       transform: translateZ(0) rotate(-90deg);
+      -webkit-transform: translateZ(0) rotate(-90deg);
     }
 
     .footer-ellipse-3 {
@@ -635,6 +662,7 @@
       filter: blur(124px);
       opacity: 1;
       transform: translateZ(0) rotate(-90deg);
+      -webkit-transform: translateZ(0) rotate(-90deg);
     }
 
     .footer-ellipse-4 {
@@ -645,6 +673,7 @@
       filter: blur(72px);
       opacity: 1;
       transform: translateZ(0) rotate(-90deg);
+      -webkit-transform: translateZ(0) rotate(-90deg);
     }
 
     .footer-vector-dots {
@@ -729,6 +758,21 @@
       height: 14px;
       stroke-width: 2.2;
     }
+
+    @media (hover: none) {
+      .detail-row,
+      .footer-column a,
+      .footer-touch {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .detail-row:hover,
+      .footer-column a:hover,
+      .footer-touch:hover {
+        transform: none;
+      }
+    }
+
   }
 
   @media (max-width: 430px) {
