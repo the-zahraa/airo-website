@@ -237,7 +237,6 @@
     position: absolute;
     border-radius: 9999px;
     pointer-events: none;
-    will-change: filter;
   }
 
   .footer-ellipse-2 {
@@ -406,7 +405,6 @@
   .footer-bottom {
     margin-top: clamp(34px, 3.4vw, 48px);
     padding-top: clamp(18px, 1.7vw, 24px);
-    border-top: 2px solid rgba(255,255,255,.25);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -508,7 +506,7 @@
   @media (max-width: 700px) {
     .airo-footer {
       padding: 82px 0 26px;
-      background: linear-gradient(to bottom, rgba(3, 0, 6, 0) 0%, rgba(3, 0, 6, .72) 34%, #030006 64%, #030006 100%);
+      background: #030006;
     }
 
     .airo-footer::before,
@@ -643,7 +641,6 @@
     .footer-bottom {
       margin-top: 30px;
       padding-top: 14px;
-      border-top-width: 1px;
       gap: 16px;
       font-size: 12px;
       font-weight: 500;

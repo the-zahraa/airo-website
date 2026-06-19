@@ -6507,13 +6507,3 @@ a { color: inherit; text-decoration: none; }
   display: none !important;
   opacity: 0 !important;
 }
-
-/* MOBILE FOOTER CLIP FIX 2026-06-19
-   Allows the footer glow to blend vertically on phone without changing any light values.
-   Body already handles horizontal clipping, so this only removes the wrapper clipping that made
-   the footer light appear like a separate layer while scrolling. */
-@media (max-width: 700px) {
-  .site-shell {
-    overflow: visible;
-  }
-}
