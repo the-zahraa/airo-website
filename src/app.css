@@ -6595,3 +6595,105 @@ a { color: inherit; text-decoration: none; }
     animation: none !important;
   }
 }
+
+
+/* HOME SCROLL + HERO PNG PAINT STABILITY PATCH 2026-06-19
+   Keeps the same hero.png look, but paints it as a real eager-loaded layer instead of a giant scrolling CSS background.
+   This avoids the cut/repaint effect when scrolling back to the hero and reduces first-load scroll jank. */
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) {
+  background: linear-gradient(180deg, #020004 0%, #050107 36%, #050107 62%, #030005 100%) !important;
+}
+
+.home-hero-bg-art {
+  position: absolute;
+  left: 50%;
+  top: clamp(70px, 6vw, 104px);
+  z-index: 0;
+  display: block;
+  width: min(1495px, 108vw);
+  height: clamp(760px, 72vw, 980px);
+  max-width: none;
+  object-fit: fill;
+  object-position: center top;
+  transform: translate3d(-50%, 0, 0);
+  backface-visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  opacity: 1 !important;
+  filter: none !important;
+  animation: none !important;
+  content-visibility: visible !important;
+  contain: paint;
+}
+
+.hero-section {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.hero-section.is-hero-idle .hero-game-card,
+.hero-section.is-hero-idle .hero-card-track,
+.hero-section.is-hero-idle .hero-game-card-inner::after {
+  animation-play-state: paused !important;
+}
+
+@media (max-width: 900px) {
+  .home-hero-bg-art {
+    top: 106px;
+    width: 166vw;
+    height: 690px;
+  }
+}
+
+@media (max-width: 560px) {
+  .home-hero-bg-art {
+    top: 128px;
+    width: 230vw;
+    height: 560px;
+  }
+}
+
+/* The previous reveal used blur/filter on many large sections at once. That looks premium, but it makes scrolling feel heavy.
+   Keep the first appearance smooth with opacity/transform only, and do not animate below-the-fold sections on initial paint. */
+@keyframes homeFirstPaintRevealStable {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-copy,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-card-rig,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .stats-row {
+  filter: none !important;
+  will-change: auto !important;
+  animation-name: homeFirstPaintRevealStable !important;
+  animation-duration: .58s !important;
+  animation-timing-function: cubic-bezier(.18, 1, .32, 1) !important;
+  animation-fill-mode: both !important;
+}
+
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .story-section,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .brands-section,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hits-section,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .stats-panel-section {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  will-change: auto !important;
+  animation: none !important;
+}
+
+.hero-game-card-image,
+.story-video-thumb,
+.top-hit-art img,
+.stats-title-sticker,
+.stats-panel-section .award-sticker {
+  content-visibility: visible !important;
+  contain: none !important;
+}

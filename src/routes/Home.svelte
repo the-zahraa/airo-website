@@ -286,11 +286,17 @@
     const scrollEl = event?.currentTarget || topHitsRowWrapEl;
     if (!scrollEl) return;
 
-    const maxScroll = scrollEl.scrollWidth - scrollEl.clientWidth;
-    topHitsScrollProgress = maxScroll > 0 ? Math.min(1, Math.max(0, scrollEl.scrollLeft / maxScroll)) : 0;
+    if (topHitsProgressRaf) return;
+
+    topHitsProgressRaf = requestAnimationFrame(() => {
+      const maxScroll = scrollEl.scrollWidth - scrollEl.clientWidth;
+      topHitsScrollProgress = maxScroll > 0 ? Math.min(1, Math.max(0, scrollEl.scrollLeft / maxScroll)) : 0;
+      topHitsProgressRaf = null;
+    });
   }
 
   let topHitsScrollRaf;
+  let topHitsProgressRaf;
 
   function setTopHitsScrollFromPointer(event, trackEl) {
     const scrollEl = topHitsRowWrapEl;
@@ -406,6 +412,9 @@
   let peakCounterRaf;
   let heroStatsEl;
   let heroStatsRaf;
+  let heroStatsAnimated = false;
+  let heroSectionEl;
+  let heroActive = true;
   let lottieModulePromise;
   const peakCcuTarget = 385928;
   const peakCcuStart = 246000;
@@ -427,6 +436,7 @@
   }
 
   function animateHeroStats() {
+    heroStatsAnimated = true;
     resetHeroStats();
 
     const duration = 1250;
@@ -769,6 +779,22 @@
     let observer;
     let statsObserver;
     let heroStatsObserver;
+    let heroSectionObserver;
+
+    if (heroSectionEl) {
+      heroSectionObserver = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          heroActive = !!entry?.isIntersecting;
+        },
+        {
+          threshold: [0, 0.01],
+          rootMargin: '180px 0px 180px 0px'
+        }
+      );
+
+      heroSectionObserver.observe(heroSectionEl);
+    }
 
     if (statsBannerEl) {
       statsObserver = new IntersectionObserver(
@@ -793,10 +819,8 @@
           const entry = entries[0];
           const ratio = entry?.intersectionRatio || 0;
 
-          if (entry?.isIntersecting && ratio >= 0.35) {
+          if (entry?.isIntersecting && ratio >= 0.35 && !heroStatsAnimated) {
             animateHeroStats();
-          } else if (!entry?.isIntersecting || ratio <= 0.08) {
-            resetHeroStats();
           }
         },
         {
@@ -844,9 +868,11 @@
       if (peakCounterRaf) cancelAnimationFrame(peakCounterRaf);
       if (heroStatsRaf) cancelAnimationFrame(heroStatsRaf);
       if (topHitsScrollRaf) cancelAnimationFrame(topHitsScrollRaf);
+      if (topHitsProgressRaf) cancelAnimationFrame(topHitsProgressRaf);
       observer?.disconnect();
       statsObserver?.disconnect();
       heroStatsObserver?.disconnect();
+      heroSectionObserver?.disconnect();
       stickerAnimations.forEach((animation) => animation.destroy());
       [...activeStickerHandles].forEach((handle) => handle.destroy?.());
       activeStickerHandles.clear();
@@ -866,11 +892,22 @@
   <link rel="prefetch" href="/stickers/pu.tgs" as="fetch" crossorigin="anonymous" />
 </svelte:head>
 
+<img
+  class="home-hero-bg-art"
+  src="/hero.png?v=2"
+  alt=""
+  aria-hidden="true"
+  loading="eager"
+  fetchpriority="high"
+  decoding="async"
+  draggable="false"
+/>
+
 <div class="dot-field dot-field-main"></div>
 <div class="dot-field dot-field-lower"></div>
 <div class="soft-columns"></div>
 
-<section class="hero-section">
+<section bind:this={heroSectionEl} class={`hero-section${heroActive ? ' is-hero-active' : ' is-hero-idle'}`}>
   <div class="hero-copy">
     <h1 class="hero-main-title"><span class="hero-title-line hero-title-line-one">Your Game</span> <span class="hero-title-line hero-title-line-two">Could Be Next</span></h1>
     <p>Airo backs Roblox games others overlook, helping them reach more players, stronger revenue,<br/>and real momentum.</p>
@@ -894,8 +931,8 @@
               class="hero-game-card-image"
               src={card.src}
               alt={card.alt}
-              loading={index < 3 ? "eager" : "lazy"}
-              fetchpriority={index < 3 ? "high" : "auto"}
+              loading="eager"
+              fetchpriority={index < 4 ? "high" : "auto"}
               decoding="async"
               data-fallback-attempt="0"
               on:error={(event) => fallbackTopHitImage(event, card)}
@@ -1005,7 +1042,7 @@
     <span class="brands-corner brands-corner-bl"></span>
     <span class="brands-corner brands-corner-br"></span>
   </div>
-  <h2>Trusted by Teams Worldwide</h2>
+  <h2>Trusted By Teams Worldwide</h2>
   <p>From brand partners to owned content, Airo works across games, studios, and creator-led experiences built to reach players around the world.</p>
 
   <div class="brand-badges">
