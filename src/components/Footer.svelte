@@ -152,83 +152,104 @@
 
 <style>
   .airo-footer {
-    --footer-purple-w: 1653px;
-    --footer-purple-h: 1457px;
-    --footer-purple-y: 320px;
-    --footer-lavender-w: 609px;
-    --footer-lavender-h: 1737px;
-    --footer-lavender-y: 345px;
-    --footer-white-w: 497px;
-    --footer-white-h: 1208px;
-    --footer-white-y: 270px;
+    --footer-top-bleed: 420px;
     --footer-dot-size: 32px;
     --footer-dot-alpha: .7;
+
+    /* Original footer ellipse values converted into one stable painted background. */
+    --footer-purple-x: 2415px;
+    --footer-purple-y: 2611px;
+    --footer-purple-center: 112px;
+    --footer-lavender-x: 2157px;
+    --footer-lavender-y: 1029px;
+    --footer-lavender-center: 87px;
+    --footer-white-x: 1438px;
+    --footer-white-y: 727px;
+    --footer-white-center: 101px;
 
     position: relative;
     z-index: 1;
     isolation: isolate;
     width: 100%;
+    max-width: 100%;
     margin: 0;
     padding: clamp(96px, 9vw, 148px) 0 clamp(22px, 2.2vw, 32px);
     color: #fff;
-    background-color: transparent;
+    background: linear-gradient(to bottom, rgba(3, 0, 6, 0) 0%, rgba(3, 0, 6, .72) 34%, #030006 64%, #030006 100%);
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  .airo-footer::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    right: 0;
+    top: calc(-1 * var(--footer-top-bleed));
+    height: calc(100% + var(--footer-top-bleed));
+    pointer-events: none;
     background-image:
       radial-gradient(rgba(88, 31, 155, var(--footer-dot-alpha)) 1px, transparent 1.25px),
       linear-gradient(to bottom,
         rgba(0, 0, 0, 0) 0%,
-        rgba(3, 0, 6, .18) 16%,
-        rgba(3, 0, 6, .46) 39%,
-        rgba(3, 0, 6, .34) 58%,
-        rgba(115, 0, 255, .14) 78%,
-        rgba(115, 0, 255, .22) 100%),
-      radial-gradient(ellipse var(--footer-white-w) var(--footer-white-h) at 50% calc(100% + var(--footer-white-y)),
-        rgba(232, 228, 255, .74) 0%,
-        rgba(232, 228, 255, .44) 14%,
-        rgba(232, 228, 255, .17) 34%,
-        transparent 70%),
-      radial-gradient(ellipse var(--footer-lavender-w) var(--footer-lavender-h) at 50% calc(100% + var(--footer-lavender-y)),
-        rgba(175, 139, 249, .70) 0%,
-        rgba(175, 139, 249, .40) 18%,
-        rgba(175, 139, 249, .15) 42%,
-        transparent 74%),
-      radial-gradient(ellipse var(--footer-purple-w) var(--footer-purple-h) at 50% calc(100% + var(--footer-purple-y)),
-        rgba(115, 0, 255, .88) 0%,
-        rgba(115, 0, 255, .54) 18%,
-        rgba(115, 0, 255, .22) 44%,
-        transparent 76%),
-      linear-gradient(to bottom,
-        rgba(3, 0, 6, 0) 0%,
-        rgba(3, 0, 6, .72) 34%,
-        #030006 64%,
-        #030006 100%);
+        rgba(3, 0, 6, .08) 12%,
+        rgba(3, 0, 6, .22) 28%,
+        rgba(3, 0, 6, .42) 48%,
+        rgba(3, 0, 6, .30) 64%,
+        rgba(115, 0, 255, .12) 82%,
+        rgba(115, 0, 255, .20) 100%),
+      radial-gradient(ellipse var(--footer-white-x) var(--footer-white-y) at 50% calc(100% + var(--footer-white-center)),
+        rgba(232, 228, 255, .90) 0%,
+        rgba(232, 228, 255, .72) 7%,
+        rgba(232, 228, 255, .38) 18%,
+        rgba(232, 228, 255, .16) 32%,
+        transparent 56%),
+      radial-gradient(ellipse var(--footer-lavender-x) var(--footer-lavender-y) at 50% calc(100% + var(--footer-lavender-center)),
+        rgba(175, 139, 249, .86) 0%,
+        rgba(175, 139, 249, .58) 18%,
+        rgba(175, 139, 249, .28) 38%,
+        rgba(175, 139, 249, .11) 58%,
+        transparent 82%),
+      radial-gradient(ellipse var(--footer-purple-x) var(--footer-purple-y) at 50% calc(100% + var(--footer-purple-center)),
+        rgba(115, 0, 255, .82) 0%,
+        rgba(115, 0, 255, .58) 24%,
+        rgba(115, 0, 255, .31) 48%,
+        rgba(115, 0, 255, .14) 68%,
+        transparent 92%);
     background-size:
       var(--footer-dot-size) var(--footer-dot-size),
       100% 100%,
-      auto,
-      auto,
-      auto,
+      100% 100%,
+      100% 100%,
       100% 100%;
     background-position:
       center top,
       center top,
-      center,
-      center,
-      center,
-      center top;
+      center bottom,
+      center bottom,
+      center bottom;
     background-repeat:
       repeat,
       no-repeat,
       no-repeat,
       no-repeat,
-      no-repeat,
       no-repeat;
-    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.34) 16%, #000 34%, #000 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.34) 16%, #000 34%, #000 100%);
+  }
+
+  @supports not (overflow: clip) {
+    .airo-footer {
+      overflow-x: hidden;
+    }
   }
 
   .footer-shell {
     position: relative;
     z-index: 5;
     width: min(1088px, calc(100vw - 96px));
+    max-width: calc(100% - 96px);
     margin: 0 auto;
   }
 
@@ -237,6 +258,7 @@
     grid-template-columns: minmax(320px, 1fr) minmax(486px, 548px);
     gap: clamp(52px, 7vw, 104px);
     align-items: start;
+    min-width: 0;
   }
 
   .footer-brand {
@@ -280,6 +302,8 @@
     align-items: center;
     gap: 17px;
     width: fit-content;
+    max-width: 100%;
+    min-width: 0;
     color: rgba(255,255,255,.7);
     font-size: clamp(13px, 1.04vw, 15.5px);
     line-height: 2;
@@ -309,15 +333,22 @@
     fill: none;
   }
 
+  .detail-row span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
   .footer-nav {
     display: grid;
     grid-template-columns: 0.78fr 1.06fr 1fr;
     gap: clamp(38px, 5vw, 72px);
+    min-width: 0;
   }
 
   .footer-column {
     display: grid;
     align-content: start;
+    min-width: 0;
   }
 
   .footer-column h2 {
@@ -331,6 +362,8 @@
 
   .footer-column a {
     width: fit-content;
+    max-width: 100%;
+    min-width: 0;
     color: rgba(255,255,255,.7);
     font-size: clamp(13px, 1.09vw, 16px);
     line-height: 2.33;
@@ -358,6 +391,13 @@
     line-height: 1.4;
     font-weight: 600;
     letter-spacing: -0.04em;
+    min-width: 0;
+  }
+
+  .footer-bottom > span {
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow-wrap: anywhere;
   }
 
   .footer-touch {
@@ -366,6 +406,7 @@
     gap: 12px;
     margin-left: auto;
     white-space: nowrap;
+    flex: 0 0 auto;
     opacity: .88;
     transition: opacity .22s ease, transform .22s ease;
   }
@@ -385,22 +426,33 @@
     transform: translateX(3px) translateY(-2px);
   }
 
+  @media (hover: none) and (pointer: coarse) {
+    .detail-row:hover,
+    .footer-column a:hover,
+    .footer-touch:hover {
+      transform: none;
+    }
+  }
+
+
   @media (max-width: 1120px) {
     .airo-footer {
-      --footer-purple-w: 1320px;
-      --footer-purple-h: 1164px;
-      --footer-purple-y: 250px;
-      --footer-lavender-w: 486px;
-      --footer-lavender-h: 1386px;
-      --footer-lavender-y: 290px;
-      --footer-white-w: 397px;
-      --footer-white-h: 966px;
-      --footer-white-y: 205px;
+      --footer-top-bleed: 340px;
+      --footer-purple-x: 1884px;
+      --footer-purple-y: 2040px;
+      --footer-purple-center: 68px;
+      --footer-lavender-x: 1722px;
+      --footer-lavender-y: 822px;
+      --footer-lavender-center: 42px;
+      --footer-white-x: 1150px;
+      --footer-white-y: 581px;
+      --footer-white-center: 7px;
       padding-top: 112px;
     }
 
     .footer-shell {
-      width: min(920px, calc(100vw - 44px));
+      width: min(920px, calc(100% - 44px));
+      max-width: calc(100% - 44px);
     }
 
     .footer-main {
@@ -420,22 +472,24 @@
 
   @media (max-width: 700px) {
     .airo-footer {
-      --footer-purple-w: 980px;
-      --footer-purple-h: 864px;
-      --footer-purple-y: 210px;
-      --footer-lavender-w: 360px;
-      --footer-lavender-h: 1027px;
-      --footer-lavender-y: 225px;
-      --footer-white-w: 294px;
-      --footer-white-h: 715px;
-      --footer-white-y: 155px;
+      --footer-top-bleed: 240px;
+      --footer-purple-x: 1364px;
+      --footer-purple-y: 1480px;
+      --footer-purple-center: 128px;
+      --footer-lavender-x: 1275px;
+      --footer-lavender-y: 608px;
+      --footer-lavender-center: 32px;
+      --footer-white-x: 859px;
+      --footer-white-y: 438px;
+      --footer-white-center: 63px;
       --footer-dot-size: 24px;
       --footer-dot-alpha: .54;
       padding: 82px 0 26px;
     }
 
     .footer-shell {
-      width: calc(100vw - 32px);
+      width: calc(100% - 32px);
+      max-width: calc(100% - 32px);
     }
 
     .footer-logo {
@@ -504,6 +558,7 @@
       gap: 16px;
       font-size: 12px;
       font-weight: 500;
+      max-width: 100%;
     }
 
     .footer-touch {

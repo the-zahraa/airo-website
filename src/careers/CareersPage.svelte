@@ -8,7 +8,6 @@
   let lastTime = 0;
   let loopSeconds = 0;
   let perksInView = true;
-
   const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
   const smooth = (value) => {
     const t = clamp(value);
@@ -27,7 +26,6 @@
     script.dataset.tgsPlayerLoader = 'true';
     document.head.appendChild(script);
   };
-
 
   onMount(() => {
     loadTgsPlayer();
@@ -74,32 +72,32 @@
     {
       title: 'Remote first',
       copy: 'Work from anywhere with a focused remote setup.',
-      icon: 'remote'
+      icon: '/stickers/remote.tgs'
     },
     {
       title: 'Growth with Airo',
       copy: 'Grow your craft while helping scale Roblox games.',
-      icon: 'growth'
+      icon: '/stickers/growth.tgs'
     },
     {
       title: 'Team outings',
       copy: 'Build stronger bonds through meetups, games, and team fun.',
-      icon: 'tc'
+      icon: '/stickers/tc.tgs'
     },
     {
       title: 'Company salary',
       copy: 'We reward great work with pay that values your skill.',
-      icon: 'salary'
+      icon: '/stickers/salary.tgs'
     },
     {
       title: 'Health&wellness support',
       copy: 'Your well-being matters. We provide support where possible.',
-      icon: 'health'
+      icon: '/stickers/health.tgs'
     },
     {
       title: 'Network',
       copy: 'Connect with Airo team and partners.',
-      icon: 'network'
+      icon: '/stickers/network.tgs'
     }
   ];
 
@@ -109,21 +107,21 @@
       title: 'The same goal',
       copy: 'We operate with efficiency since we all have the same goal: innovation',
       tone: 'purple',
-      icon: 'goal'
-    },
-    {
-      number: '2.',
-      title: 'Be a team',
-      copy: 'Airo is tight-knit and supportive — we win, learn, and ship together.',
-      tone: 'green',
-      icon: 'team'
+      icon: '/stickers/goal.tgs'
     },
     {
       number: '3.',
+      title: 'Be a team',
+      copy: 'Airo is tight-knit and supportive — we win, learn, and ship together.',
+      tone: 'green',
+      icon: '/stickers/team.tgs'
+    },
+    {
+      number: '2.',
       title: 'Speed with care',
       copy: 'We move fast, but never let speed erode our craft, quality, or communication.',
       tone: 'gold',
-      icon: 'speed'
+      icon: '/stickers/speed.tgs'
     }
   ];
 
@@ -212,35 +210,6 @@
 
     return `--perk-row:${row}; --perk-col:${column}; --perk-phase:${phase.toFixed(4)}; --perk-clarity:${clarity.toFixed(4)}; --loop-x:${x}px; --loop-y:${y}px; --loop-scale:${scale}; --loop-blur:${blur}px; --loop-opacity:${opacity}; --loop-tilt:${tilt}deg; --loop-zindex:${zIndex};`;
   }
-
-
-  function perkStickerSrc(name) {
-    const stickers = {
-      remote: '/stickers/remote.tgs',
-      growth: '/stickers/growth.tgs',
-      tc: '/stickers/tc.tgs',
-      salary: '/stickers/salary.tgs',
-      health: '/stickers/health.tgs',
-      network: '/stickers/network.tgs'
-    };
-
-    return stickers[name] || '/stickers/remote.tgs';
-  }
-
-
-
-  function valueStickerSrc(name) {
-    const stickers = {
-      goal: '/stickers/goal.tgs',
-      team: '/stickers/team.tgs',
-      speed: '/stickers/speed.tgs'
-    };
-
-    return stickers[name] || '/stickers/goal.tgs';
-  }
-
-
-
 
   function processStickerSrc(name) {
     const stickers = {
@@ -410,7 +379,7 @@
             style={cardStyle(index)}
           >
             <span class="card-icon" aria-hidden="true">
-              <tgs-player src={perkStickerSrc(perk.icon)} autoplay loop mode="normal"></tgs-player>
+              <tgs-player src={perk.icon} autoplay loop mode="normal"></tgs-player>
             </span>
             <div>
               <h3>{perk.title}</h3>
@@ -444,7 +413,7 @@
 
       <article class="value-card value-top tone-purple" style="--value-delay: 90ms;">
         <span class="value-icon" aria-hidden="true">
-          <tgs-player src={valueStickerSrc(values[0].icon)} autoplay loop mode="normal"></tgs-player>
+          <tgs-player src={values[0].icon} autoplay loop mode="normal"></tgs-player>
         </span>
         <div>
           <h3><span>{values[0].number}</span> {values[0].title}</h3>
@@ -454,7 +423,7 @@
 
       <article class="value-card value-left tone-green" style="--value-delay: 240ms;">
         <span class="value-icon" aria-hidden="true">
-          <tgs-player src={valueStickerSrc(values[1].icon)} autoplay loop mode="normal"></tgs-player>
+          <tgs-player src={values[1].icon} autoplay loop mode="normal"></tgs-player>
         </span>
         <div>
           <h3><span>{values[1].number}</span> {values[1].title}</h3>
@@ -464,7 +433,7 @@
 
       <article class="value-card value-right tone-gold" style="--value-delay: 330ms;">
         <span class="value-icon" aria-hidden="true">
-          <tgs-player src={valueStickerSrc(values[2].icon)} autoplay loop mode="normal"></tgs-player>
+          <tgs-player src={values[2].icon} autoplay loop mode="normal"></tgs-player>
         </span>
         <div>
           <h3><span>{values[2].number}</span> {values[2].title}</h3>
@@ -1145,9 +1114,8 @@
 
   .card-icon :global(tgs-player) {
     display: block;
-    width: 72%;
-    height: 72%;
-    pointer-events: none;
+    width: 22px;
+    height: 22px;
   }
 
   .perk-card h3,
@@ -1407,8 +1375,9 @@
   }
 
   .perks-stage .card-icon :global(tgs-player) {
-    width: 82%;
-    height: 82%;
+    display: block;
+    width: clamp(24px, 2.4vw, 34px);
+    height: clamp(24px, 2.4vw, 34px);
     filter: drop-shadow(0 0 10px rgba(255,255,255,.22));
   }
 
@@ -2460,14 +2429,11 @@
     animation: valueIconDraw 5.4s ease-in-out infinite;
   }
 
-  .culture-stage-built .value-icon tgs-player {
-    width: 78%;
-    height: 78%;
+  .culture-stage-built .value-icon :global(tgs-player) {
     display: block;
-    position: relative;
-    z-index: 1;
-    pointer-events: none;
-    filter: drop-shadow(0 0 12px rgba(255,255,255,.28));
+    width: 54%;
+    height: 54%;
+    filter: drop-shadow(0 0 12px rgba(255,255,255,.4));
   }
 
   .culture-stage-built .value-card h3 {
@@ -2792,7 +2758,7 @@
     border: 1.8px solid rgba(218,183,255,.5);
     background:
       radial-gradient(circle at 7% 12%, rgba(115,0,255,.24), transparent 28%),
-      radial-gradient(circle at 94% 88%, rgba(115,0,255,.18), transparent 36%),
+      radial-gradient(circle at 98% 88%, rgba(115,0,255,.18), transparent 36%),
       linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012)),
       rgba(4, 2, 8, .86);
     box-shadow:
@@ -3196,9 +3162,9 @@
     stroke: #8c16ff;
     stroke-linecap: butt;
     stroke-dasharray: 282.743;
-    stroke-dashoffset: 5.655;
-    filter: drop-shadow(0 0 10px rgba(115,0,255,.62));
-    animation: taskRingProgress98Motion 2.4s cubic-bezier(.22,.8,.22,1) infinite;
+    stroke-dashoffset: 282.743;
+    filter: none;
+    animation: taskRingProgress98 2.6s cubic-bezier(.22,.8,.22,1) infinite;
   }
 
   .task-ring small {
@@ -3345,6 +3311,11 @@
   @keyframes checkPop {
     0%, 100% { transform: scale(1); }
     42% { transform: scale(1.18); }
+  }
+
+  @keyframes taskRingProgress98 {
+    0%, 12% { stroke-dashoffset: 282.743; opacity: .72; }
+    72%, 100% { stroke-dashoffset: 11.31; opacity: 1; }
   }
 
   @keyframes readyCheck {
@@ -4254,7 +4225,7 @@
 
   @keyframes finalGlowSmooth {
     0%, 72% { opacity: 0; transform: scale(.75); }
-    80%, 94% { opacity: .82; transform: scale(1.02); }
+    80%, 98% { opacity: .82; transform: scale(1.02); }
     100% { opacity: 0; transform: scale(.86); }
   }
 
@@ -5024,6 +4995,10 @@
     visibility: hidden !important;
   }
 
+  .task-ring .ring-progress {
+    stroke-linecap: round !important;
+  }
+
   .task-ring-content {
     gap: 4px !important;
   }
@@ -5275,6 +5250,12 @@
     padding: 0 !important;
     margin: 0 !important;
     overflow: hidden !important;
+  }
+
+  .task-ring .ring-progress {
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    filter: drop-shadow(0 0 12px rgba(115,0,255,.74)) !important;
   }
 
   .task-ring-content {
@@ -5561,6 +5542,16 @@
   .task-ring circle,
   .task-ring .ring-progress {
     vector-effect: non-scaling-stroke !important;
+  }
+
+  .task-ring .ring-progress {
+    animation: taskRingProgress98 2.6s cubic-bezier(.22,.8,.22,1) infinite;
+    stroke: #8c16ff !important;
+    stroke-dasharray: 282.743;
+    stroke-dashoffset: 11.31;
+    stroke-linecap: butt !important;
+    stroke-linejoin: round !important;
+    filter: drop-shadow(0 0 10px rgba(115,0,255,.62)) !important;
   }
 
   .task-ring small,
@@ -6113,7 +6104,7 @@
     border: 1.8px solid rgba(218,183,255,.5) !important;
     background:
       radial-gradient(circle at 7% 12%, rgba(115,0,255,.24), transparent 28%),
-      radial-gradient(circle at 94% 88%, rgba(115,0,255,.18), transparent 36%),
+      radial-gradient(circle at 98% 88%, rgba(115,0,255,.18), transparent 36%),
       linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012)),
       rgba(4, 2, 8, .86) !important;
     background-blend-mode: normal !important;
@@ -6345,7 +6336,7 @@
     .culture-stage-built .value-left,
     .culture-stage-built .value-right {
       background:
-        radial-gradient(circle at 94% 88%, rgba(115,0,255,.16), transparent 36%),
+        radial-gradient(circle at 98% 88%, rgba(115,0,255,.16), transparent 36%),
         linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012)),
         rgba(4, 2, 8, .88) !important;
       box-shadow:
@@ -6365,7 +6356,7 @@
     /* process: remove top-left corner shadow and make title icons solid/static */
     .hiring-process-grid .process-card {
       background:
-        radial-gradient(circle at 94% 88%, rgba(115,0,255,.16), transparent 36%),
+        radial-gradient(circle at 98% 88%, rgba(115,0,255,.16), transparent 36%),
         linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012)),
         rgba(4, 2, 8, .88) !important;
       box-shadow:
@@ -6412,6 +6403,14 @@
       box-shadow: none !important;
     }
 
+    .task-ring .ring-progress {
+      stroke-dasharray: 282.743;
+      stroke-dashoffset: 11.31;
+      stroke-linecap: butt !important;
+      animation: taskRingProgress98 2.6s cubic-bezier(.22,.8,.22,1) infinite;
+      filter: none !important;
+    }
+
     .task-ring,
     .task-ring svg {
       overflow: visible !important;
@@ -6422,11 +6421,33 @@
       position: relative !important;
       overflow: visible !important;
     }
+
+    .offer-runner {
+      left: 5px;
+      top: 50% !important;
+      width: 12px !important;
+      height: 12px !important;
+      margin-top: -6px !important;
+      transform: none;
+      animation: runnerReachCompletePhone 3.35s cubic-bezier(.22,.8,.22,1) infinite !important;
+    }
+
+    .offer-runner::after {
+      opacity: .58 !important;
+      filter: blur(6px) !important;
+    }
   }
 
   @keyframes cloudArrowSafePhone {
     0%, 100% { transform: translateY(2.8px); opacity: .78; }
     50% { transform: translateY(.2px); opacity: 1; }
+  }
+
+  @keyframes runnerReachCompletePhone {
+    0%, 8% { left: 5px; opacity: 0; }
+    14% { left: 5px; opacity: 1; }
+    78%, 90% { left: calc(100% - 17px); opacity: 1; }
+    100% { left: calc(100% - 17px); opacity: 0; }
   }
 
 
@@ -6497,6 +6518,15 @@
       stroke-width: 10 !important;
     }
 
+    .task-ring .ring-progress {
+      stroke-dasharray: 282.743;
+      stroke-dashoffset: 11.31;
+      stroke-linecap: butt !important;
+      stroke-linejoin: round !important;
+      animation: taskRingProgress98 2.6s cubic-bezier(.22,.8,.22,1) infinite;
+      filter: none !important;
+    }
+
     .task-ring-content strong {
       font-size: 10px !important;
     }
@@ -6506,57 +6536,24 @@
     }
 
     /* Offer card: keep the runner moving, but let it touch the Complete circle */
-  }
-
-
-
-  /* Active fixes: 98% progress motion and phone offer runner. Kept at the end so older mobile rules cannot override it. */
-  .task-ring .ring-progress {
-    stroke: #8c16ff !important;
-    stroke-dasharray: 282.743 !important;
-    stroke-dashoffset: 5.655 !important;
-    stroke-linecap: butt !important;
-    stroke-linejoin: round !important;
-    animation: taskRingProgress98Motion 2.4s cubic-bezier(.22,.8,.22,1) infinite !important;
-    filter: drop-shadow(0 0 10px rgba(115,0,255,.62)) !important;
-  }
-
-  @keyframes taskRingProgress98Motion {
-    0% { stroke-dashoffset: 282.743; opacity: .72; }
-    46% { stroke-dashoffset: 5.655; opacity: 1; }
-    78% { stroke-dashoffset: 5.655; opacity: 1; }
-    100% { stroke-dashoffset: 282.743; opacity: .72; }
-  }
-
-  @media (max-width: 560px) {
-    .offer-timeline {
-      position: relative !important;
-      overflow: visible !important;
-      --runner-phone-travel: calc(100% - 22px);
-    }
-
     .offer-runner {
-      left: 5px !important;
+      left: 5px;
       top: 50% !important;
       width: 12px !important;
       height: 12px !important;
       margin-top: -6px !important;
-      animation: runnerTravelPhoneSameMotion 3.35s cubic-bezier(.22,.8,.22,1) infinite !important;
-      will-change: transform, opacity;
-    }
-
-    .offer-runner::after {
-      opacity: .92 !important;
-      filter: blur(8px) !important;
+      transform: none;
+      animation: runnerReachCompletePhoneV60 3.35s cubic-bezier(.22,.8,.22,1) infinite !important;
     }
   }
 
-  @keyframes runnerTravelPhoneSameMotion {
-    0%, 8% { opacity: 0; transform: translateX(0) scale(.85); }
-    14% { opacity: 1; transform: translateX(0) scale(1); }
-    76% { opacity: 1; transform: translateX(var(--runner-phone-travel)) scale(1); }
-    88%, 100% { opacity: 0; transform: translateX(var(--runner-phone-travel)) scale(.92); }
+  @keyframes runnerReachCompletePhoneV60 {
+    0%, 8% { left: 5px; opacity: 0; }
+    14% { left: 5px; opacity: 1; }
+    78%, 90% { left: calc(100% - 12px); opacity: 1; }
+    100% { left: calc(100% - 12px); opacity: 0; }
   }
+
 
   @media (max-width: 860px) {
     :global(.site-shell.careers-route) {
@@ -6592,4 +6589,59 @@
       transition: none !important;
     }
   }
+
+  /* final-active-fixes: exact requested mobile/process changes */
+  .task-ring .ring-progress {
+    stroke-dasharray: 282.743;
+    stroke-dashoffset: 282.743;
+    stroke-linecap: butt;
+    filter: none;
+    animation: taskRingProgress98 2.6s cubic-bezier(.22,.8,.22,1) infinite;
+  }
+
+  @media (max-width: 560px) {
+    .task-ring .ring-progress {
+      stroke-dasharray: 282.743;
+      stroke-dashoffset: 282.743;
+      stroke-linecap: butt;
+      filter: none;
+      animation: taskRingProgress98 2.6s cubic-bezier(.22,.8,.22,1) infinite;
+    }
+
+    .offer-runner {
+      left: 5px;
+      animation: runnerReachCompletePhoneV60 3.35s cubic-bezier(.22,.8,.22,1) infinite !important;
+    }
+  }
+
+
+
+  /* final-request: make perk stickers slightly bigger and keep 98% ring visibly open */
+  .perks-stage .card-icon :global(tgs-player) {
+    width: clamp(28px, 2.65vw, 38px) !important;
+    height: clamp(28px, 2.65vw, 38px) !important;
+  }
+
+  .task-ring .ring-progress {
+    stroke-dasharray: 282.743 !important;
+    stroke-dashoffset: 282.743;
+    stroke-linecap: butt !important;
+    animation: taskRingProgress98 2.6s cubic-bezier(.22,.8,.22,1) infinite !important;
+  }
+
+  @media (max-width: 560px) {
+    .perks-stage .card-icon :global(tgs-player) {
+      width: 34px !important;
+      height: 34px !important;
+    }
+
+    .task-ring .ring-progress {
+      stroke-dasharray: 282.743 !important;
+      stroke-dashoffset: 282.743;
+      stroke-linecap: butt !important;
+      animation: taskRingProgress98 2.6s cubic-bezier(.22,.8,.22,1) infinite !important;
+    }
+  }
+
+
 </style>
