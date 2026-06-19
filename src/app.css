@@ -6507,3 +6507,91 @@ a { color: inherit; text-decoration: none; }
   display: none !important;
   opacity: 0 !important;
 }
+
+/* HOME FIRST APPEARANCE SMOOTH REVEAL 2026-06-19
+   Only affects the Home route first paint. No layout, colors, copy, assets, or functionality changed. */
+@keyframes homeFirstPaintReveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(.992);
+    filter: blur(8px);
+  }
+  58% {
+    opacity: 1;
+    transform: translate3d(0, -1px, 0) scale(1.002);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes homeFirstPaintGlowReveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .dot-field-main,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .dot-field-lower,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .soft-columns,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .ambient-hero,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .ambient-low,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-main-light,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-center-light {
+  animation: homeFirstPaintGlowReveal 1.1s cubic-bezier(.18, 1, .32, 1) both;
+}
+
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-copy,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-card-rig,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .stats-row,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .story-section,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .brands-section,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hits-section,
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .stats-panel-section {
+  opacity: 0;
+  will-change: opacity, transform, filter;
+  backface-visibility: hidden;
+  animation: homeFirstPaintReveal .86s cubic-bezier(.18, 1, .32, 1) both;
+}
+
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-copy { animation-delay: .04s; }
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-card-rig { animation-delay: .14s; }
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .stats-row { animation-delay: .24s; }
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .story-section { animation-delay: .34s; }
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .brands-section { animation-delay: .44s; }
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hits-section { animation-delay: .54s; }
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .stats-panel-section { animation-delay: .64s; }
+
+@media (max-width: 700px) {
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-copy,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-card-rig,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .stats-row,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .story-section,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .brands-section,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hits-section,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .stats-panel-section {
+    animation-duration: .72s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .dot-field-main,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .dot-field-lower,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .soft-columns,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .ambient-hero,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .ambient-low,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-main-light,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-center-light,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-copy,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hero-card-rig,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .stats-row,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .story-section,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .brands-section,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .hits-section,
+  .site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route):not(.work-with-us-route) .stats-panel-section {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+}
