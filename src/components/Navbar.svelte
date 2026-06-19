@@ -16,8 +16,11 @@
   const SCROLL_TRIGGER_ENTER = 8;
   const SCROLL_TRIGGER_EXIT = 2;
   const NAV_HIDE_START = 72;
+  const MOBILE_NAV_HIDE_START = 96;
   const DIRECTION_THRESHOLD = 1;
+  const MOBILE_DIRECTION_THRESHOLD = 8;
   const REVEAL_PROTECTION_TIME = 120;
+  const MOBILE_REVEAL_PROTECTION_TIME = 320;
 
   let menuOpen = false;
   let isScrolled = false;
@@ -93,8 +96,24 @@
     return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
   }
 
+  function isMobileViewport() {
+    return typeof window !== 'undefined' && window.matchMedia('(max-width: 860px)').matches;
+  }
+
+  function getNavHideStart() {
+    return isMobileViewport() ? MOBILE_NAV_HIDE_START : NAV_HIDE_START;
+  }
+
+  function getDirectionThreshold() {
+    return isMobileViewport() ? MOBILE_DIRECTION_THRESHOLD : DIRECTION_THRESHOLD;
+  }
+
+  function getRevealProtectionTime() {
+    return isMobileViewport() ? MOBILE_REVEAL_PROTECTION_TIME : REVEAL_PROTECTION_TIME;
+  }
+
   function protectReveal() {
-    revealProtectedUntil = performance.now() + REVEAL_PROTECTION_TIME;
+    revealProtectedUntil = performance.now() + getRevealProtectionTime();
   }
 
   function canHideNow() {
@@ -107,15 +126,17 @@
   }
 
   function hideNavbar() {
-    if (!menuOpen && getScrollY() > NAV_HIDE_START && canHideNow()) {
+    if (!menuOpen && getScrollY() > getNavHideStart() && canHideNow()) {
       isNavHidden = true;
     }
   }
 
   function updateScrollState() {
     const scrollY = Math.max(0, getScrollY());
-    const movingUp = scrollY < lastScrollY;
-    const movingDown = scrollY > lastScrollY;
+    const scrollDelta = scrollY - lastScrollY;
+    const directionThreshold = getDirectionThreshold();
+    const movingUp = scrollDelta < -directionThreshold;
+    const movingDown = scrollDelta > directionThreshold;
 
     isScrolled = scrollY > SCROLL_TRIGGER_ENTER;
 
@@ -128,7 +149,7 @@
 
     if (movingUp) {
       showNavbar();
-    } else if (movingDown && scrollY > NAV_HIDE_START) {
+    } else if (movingDown && scrollY > getNavHideStart()) {
       hideNavbar();
     }
 
@@ -145,12 +166,14 @@
   }
 
   function handleWheel(event) {
-    if (event.deltaY < -DIRECTION_THRESHOLD) {
+    const directionThreshold = getDirectionThreshold();
+
+    if (event.deltaY < -directionThreshold) {
       showNavbar();
       return;
     }
 
-    if (event.deltaY > DIRECTION_THRESHOLD) {
+    if (event.deltaY > directionThreshold) {
       hideNavbar();
     }
   }
@@ -164,9 +187,14 @@
 
     if (!lastTouchY) return;
 
-    if (currentTouchY > lastTouchY) {
+    const touchDelta = currentTouchY - lastTouchY;
+    const directionThreshold = getDirectionThreshold();
+
+    if (Math.abs(touchDelta) < directionThreshold) return;
+
+    if (touchDelta > 0) {
       showNavbar();
-    } else if (currentTouchY < lastTouchY) {
+    } else {
       hideNavbar();
     }
 
@@ -293,7 +321,6 @@
       </a>
 
       <div class="airo-mobile-info">
-        <img src="/logos/airo.svg" alt="Airo" />
         <div class="airo-mobile-contact-details">
           <div class="airo-mobile-info-row">
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -336,12 +363,19 @@
       height 560ms cubic-bezier(0.16, 1, 0.3, 1),
       gap 560ms cubic-bezier(0.16, 1, 0.3, 1),
       top 560ms cubic-bezier(0.16, 1, 0.3, 1),
+      translate 560ms cubic-bezier(0.16, 1, 0.3, 1),
       transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .airo-navbar.scrolled {
     width: min(1188px, calc(100vw - 28px));
     gap: 0;
+  }
+
+  @media (min-width: 861px) {
+    .airo-navbar.scrolled {
+      translate: 0 0;
+    }
   }
 
   .airo-navbar.nav-hidden {
@@ -391,7 +425,7 @@
     align-items: center;
     justify-content: flex-start;
     gap: 78px;
-    padding: 9px 20px 9px 62px;
+    padding: 9px 20px;
     border-radius: 138.089px;
     background: rgba(2, 0, 4, 0.1);
     box-shadow:
@@ -412,7 +446,7 @@
 
   .airo-navbar.scrolled .airo-nav-pill {
     width: auto;
-    padding-left: 62px;
+    padding-left: 20px;
   }
 
   .airo-nav-pill::before {
@@ -671,13 +705,13 @@
     .airo-nav-pill {
       width: auto;
       justify-content: flex-start;
-      padding-left: clamp(44px, 4.8vw, 60px);
+      padding-left: 20px;
       gap: clamp(50px, 5.8vw, 72px);
     }
 
     .airo-navbar.scrolled .airo-nav-pill {
       width: auto;
-      padding-left: clamp(36px, 4vw, 52px);
+      padding-left: 20px;
     }
 
     .airo-navbar.scrolled .airo-pill-logo {
@@ -725,7 +759,7 @@
       border-radius: 0;
       box-shadow: 0 10px 34px rgba(0, 0, 0, 0.28);
       transition:
-        transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
         background 260ms ease,
         box-shadow 260ms ease;
     }
@@ -900,7 +934,7 @@
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
-      padding: 92px 18px 26px;
+      padding: 112px 18px 26px;
       opacity: 0;
       transform: translateY(-6px);
       transition:
@@ -980,13 +1014,22 @@
 
     .airo-mobile-info {
       margin-top: auto;
-      padding: 22px 18px 0;
+      padding: 30px 18px 0;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 10px;
+      gap: 16px;
       color: #fff;
       font-family: 'Poppins', system-ui, sans-serif;
+    }
+
+    .airo-mobile-info::after {
+      content: '';
+      width: 82px;
+      aspect-ratio: 141 / 40;
+      display: block;
+      margin-top: 2px;
+      pointer-events: none;
     }
 
     .airo-mobile-info img {
@@ -994,7 +1037,8 @@
       height: auto;
       display: block;
       object-fit: contain;
-      margin-bottom: 4px;
+      margin-top: 2px;
+      margin-bottom: 0;
     }
 
     .airo-mobile-info p,
@@ -1027,7 +1071,8 @@
     }
 
     .airo-mobile-contact-details {
-      margin-top: 9px;
+      margin-top: 0;
+      margin-bottom: 2px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -1116,7 +1161,7 @@
     }
 
     .airo-mobile-menu-content {
-      padding: 82px 16px 24px;
+      padding: 100px 16px 24px;
     }
 
     .airo-mobile-menu a {
@@ -1125,8 +1170,12 @@
     }
 
     .airo-mobile-info {
-      padding: 20px 18px 0;
-      gap: 9px;
+      padding: 28px 18px 0;
+      gap: 14px;
+    }
+
+    .airo-mobile-info::after {
+      width: 74px;
     }
 
     .airo-mobile-info img {
@@ -1145,7 +1194,8 @@
     }
 
     .airo-mobile-contact-details {
-      margin-top: 8px;
+      margin-top: 0;
+      margin-bottom: 2px;
       gap: 3px;
     }
 

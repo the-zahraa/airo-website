@@ -120,6 +120,37 @@
       stickerAnimation?.destroy?.();
     };
   });
+
+  function reveal(node, delay = 0) {
+    if (typeof window === 'undefined') return {};
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    node.style.setProperty('--reveal-delay', `${delay}ms`);
+    node.classList.add('page-reveal');
+
+    if (reduce) {
+      node.classList.add('page-visible');
+      return {};
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          node.classList.add('page-visible');
+          observer.unobserve(node);
+        }
+      },
+      { threshold: 0.16, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    observer.observe(node);
+
+    return {
+      destroy() {
+        observer.disconnect();
+      }
+    };
+  }
 </script>
 
 <svelte:head>
@@ -132,7 +163,7 @@
   <div class="games-light games-light-right"></div>
 
   <section class="games-hero" aria-label="Airo games hero">
-    <div class="games-label" aria-label="Games">
+    <div class="games-label" aria-label="Games" use:reveal>
       <span class="corner corner-tl"></span>
       <span class="corner corner-tr"></span>
       <strong>Games</strong>
@@ -140,10 +171,10 @@
       <span class="corner corner-br"></span>
     </div>
 
-    <h1>Our experiences</h1>
-    <p>Airo operates a portfolio of games played by millions worldwide.</p>
+    <h1 use:reveal={60}>Our experiences</h1>
+    <p use:reveal={120}>Airo operates a portfolio of games played by millions worldwide.</p>
 
-    <div class="games-mascot-stage" class:has-sticker={catStickerLoaded} aria-label="Games cat sticker placeholder">
+    <div class="games-mascot-stage" class:has-sticker={catStickerLoaded} aria-label="Games cat sticker placeholder" use:reveal={180}>
       <div class="games-mascot-sticker" bind:this={catStickerEl}></div>
 
       {#if !catStickerLoaded}
@@ -157,7 +188,7 @@
   </section>
 
   <section class="games-list-section" aria-label="Airo game cards">
-    <div class="games-sort" role="tablist" aria-label="Sort games">
+    <div class="games-sort" role="tablist" aria-label="Sort games" use:reveal>
       <span>Sort by</span>
       <div class="games-sort-pill">
         {#each modes as mode}
@@ -176,7 +207,7 @@
 
     <div class="games-grid">
       {#each sortedGames as game, index}
-        <article class="portfolio-card">
+        <article class="portfolio-card" use:reveal={(index % 9) * 35}>
           <div class="portfolio-card-sheen"></div>
           <div class={`portfolio-status ${game.tone}`}>
             <span></span>
@@ -676,4 +707,25 @@
       color: #fff !important;
     }
   }
+
+  :global(.page-reveal) {
+    opacity: 0;
+    transform: var(--reveal-from, translate3d(0, 22px, 0));
+    transition: opacity .68s ease var(--reveal-delay, 0ms), transform .68s cubic-bezier(.19, 1, .22, 1) var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  :global(.page-reveal.page-visible) {
+    opacity: 1;
+    transform: var(--reveal-to, translate3d(0, 0, 0));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.page-reveal) {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
 </style>

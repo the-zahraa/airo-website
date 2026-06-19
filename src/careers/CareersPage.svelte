@@ -270,12 +270,12 @@
     scrollToSection('work-with-us', event);
   }
 
-  function reveal(node, delay = 0) {
+  function watchReveal(node, className, delay = 0) {
     if (typeof window === 'undefined') return {};
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     node.style.setProperty('--reveal-delay', `${delay}ms`);
-    node.classList.add('career-reveal');
+    node.classList.add(className);
 
     if (reduce) {
       node.classList.add('career-visible');
@@ -299,6 +299,31 @@
         observer.disconnect();
       }
     };
+  }
+
+  function reveal(node, delay = 0) {
+    return watchReveal(node, 'career-reveal', delay);
+  }
+
+  function getCardRevealDelay(settings = 0) {
+    if (typeof window === 'undefined') return 0;
+
+    const options = typeof settings === 'number' ? { index: settings } : settings || {};
+    const index = options.index || 0;
+    const base = options.base || 0;
+    const step = options.step || 86;
+    const mobileStep = options.mobileStep || 145;
+    const isSmall = window.innerWidth <= 700;
+
+    return base + index * (isSmall ? mobileStep : step);
+  }
+
+  function cardReveal(node, settings = 0) {
+    return reveal(node, getCardRevealDelay(settings));
+  }
+
+  function fadeCardReveal(node, settings = 0) {
+    return watchReveal(node, 'career-fade-card-reveal', getCardRevealDelay(settings));
   }
 </script>
 
@@ -357,7 +382,7 @@
 
   <section id="perks" class="perks-section" aria-labelledby="perks-title" bind:this={perksSection}>
     <div class="perks-sticky">
-      <div class="section-heading perks-heading">
+      <div class="section-heading perks-heading" use:reveal>
         <div class="section-kicker small" aria-label="Perks">
           <span class="corner corner-tl"></span>
           <span class="corner corner-tr"></span>
@@ -369,7 +394,7 @@
         <p>We make sure you're supported with the right balance of growth opportunities, flexibility, and benefits that help you thrive both at work and in life.</p>
       </div>
 
-      <div class="perks-stage" style={`--perks-loop:${perksLoop.toFixed(4)};`} aria-label="Airo career perks">
+      <div class="perks-stage" style={`--perks-loop:${perksLoop.toFixed(4)};`} aria-label="Airo career perks" use:reveal={90}>
         <div class="perks-progress" aria-hidden="true"><span></span></div>
         <div class="perks-aurora" aria-hidden="true"></div>
         {#each perks as perk, index}
@@ -377,6 +402,7 @@
             class:perk-active={cardActive(index)}
             class={`perk-card perk-scroll-card perk-card-${index + 1}`}
             style={cardStyle(index)}
+            use:fadeCardReveal={{ index, step: 76, mobileStep: 135 }}
           >
             <span class="card-icon" aria-hidden="true">
               <tgs-player src={perk.icon} autoplay loop mode="normal"></tgs-player>
@@ -411,7 +437,7 @@
         <img class="culture-beams-combined" src="/culture-beams-combined.svg" alt="" />
       </div>
 
-      <article class="value-card value-top tone-purple" style="--value-delay: 90ms;">
+      <article class="value-card value-top tone-purple" style="--value-delay: 90ms;" use:fadeCardReveal={{ index: 0, step: 100, mobileStep: 145 }}>
         <span class="value-icon" aria-hidden="true">
           <tgs-player src={values[0].icon} autoplay loop mode="normal"></tgs-player>
         </span>
@@ -421,7 +447,7 @@
         </div>
       </article>
 
-      <article class="value-card value-left tone-green" style="--value-delay: 240ms;">
+      <article class="value-card value-left tone-green" style="--value-delay: 240ms;" use:fadeCardReveal={{ index: 1, step: 100, mobileStep: 145 }}>
         <span class="value-icon" aria-hidden="true">
           <tgs-player src={values[1].icon} autoplay loop mode="normal"></tgs-player>
         </span>
@@ -431,7 +457,7 @@
         </div>
       </article>
 
-      <article class="value-card value-right tone-gold" style="--value-delay: 330ms;">
+      <article class="value-card value-right tone-gold" style="--value-delay: 330ms;" use:fadeCardReveal={{ index: 2, step: 100, mobileStep: 145 }}>
         <span class="value-icon" aria-hidden="true">
           <tgs-player src={values[2].icon} autoplay loop mode="normal"></tgs-player>
         </span>
@@ -461,7 +487,7 @@
 
     <div class="process-grid hiring-process-grid">
       {#each process as item, index}
-        <article class={`process-card process-card-${item.type}`} use:reveal={index * 70}>
+        <article class={`process-card process-card-${item.type}`} use:cardReveal={{ index, step: 92, mobileStep: 155 }}>
           <div class="process-top">
             <span class="card-icon process-icon" aria-hidden="true">
               <tgs-player src={processStickerSrc(item.icon)} autoplay loop mode="normal"></tgs-player>
@@ -575,7 +601,7 @@
 
     <div class={`jobs-grid jobs-grid-figma ${showAllRoles ? 'expanded' : ''}`}>
       {#each jobs.slice(0, showAllRoles ? 5 : 3) as job, index}
-        <article class="job-card job-card-figma" use:reveal={index * 35}>
+        <article class="job-card job-card-figma" use:cardReveal={{ index, step: 82, mobileStep: 145 }}>
           <h3>{job.title}</h3>
           <div class="job-tags">
             <span class="tag-growth">{job.team}</span>
@@ -1799,6 +1825,15 @@
   :global(.career-reveal.career-visible) {
     opacity: 1;
     transform: var(--reveal-to, translateY(0));
+  }
+
+  :global(.career-fade-card-reveal) {
+    opacity: 0;
+    transition: opacity .72s ease var(--reveal-delay, 0ms);
+  }
+
+  :global(.career-fade-card-reveal.career-visible) {
+    opacity: 1;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -6643,5 +6678,24 @@
     }
   }
 
+
+
+  /* cards reveal one-by-one on phone without changing the card design */
+  @media (max-width: 700px) {
+    .perks-stage .perk-card.career-fade-card-reveal,
+    .perks-stage .perk-card:nth-of-type(odd).career-fade-card-reveal,
+    .perks-stage .perk-card:nth-of-type(even).career-fade-card-reveal {
+      opacity: 0 !important;
+      transform: translateY(18px) !important;
+      transition: opacity .72s ease var(--reveal-delay, 0ms), transform .72s ease var(--reveal-delay, 0ms) !important;
+    }
+
+    .perks-stage .perk-card.career-fade-card-reveal.career-visible,
+    .perks-stage .perk-card:nth-of-type(odd).career-fade-card-reveal.career-visible,
+    .perks-stage .perk-card:nth-of-type(even).career-fade-card-reveal.career-visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+  }
 
 </style>

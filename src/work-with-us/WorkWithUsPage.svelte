@@ -114,10 +114,41 @@
       contactStickerAnimation?.destroy?.();
     };
   });
+
+  function reveal(node, delay = 0) {
+    if (typeof window === 'undefined') return {};
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    node.style.setProperty('--reveal-delay', `${delay}ms`);
+    node.classList.add('work-scroll-reveal');
+
+    if (reduce) {
+      node.classList.add('work-scroll-visible');
+      return {};
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          node.classList.add('work-scroll-visible');
+          observer.unobserve(node);
+        }
+      },
+      { threshold: 0.16, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    observer.observe(node);
+
+    return {
+      destroy() {
+        observer.disconnect();
+      }
+    };
+  }
 </script>
 
 <main class="work-with-us-page" class:page-ready={pageReady}>
-<section id="work-with-us" class="work-form-section" aria-labelledby="work-form-title">
+<section id="work-with-us" class="work-form-section" aria-labelledby="work-form-title" use:reveal>
   <div class="work-form-lighting" aria-hidden="true">
     <svg class="work-footer-light" viewBox="-265 585.549 1970 1011.291" fill="none" preserveAspectRatio="none">
       <g filter="url(#work_light_blur_main)" opacity="0.82" style="mix-blend-mode:screen">
@@ -188,7 +219,7 @@
   </div>
 
   <form class="work-form-card" aria-label="Work with us enquiry form">
-    <div class="tabs-block">
+    <div class="tabs-block" use:reveal={40}>
       <span class="field-label">What are you applying for?</span>
       <div class="work-tabs" role="tablist" aria-label="Application type">
         {#each tabs as tab}
@@ -206,7 +237,7 @@
       <small>{helperText}</small>
     </div>
 
-    <div class="form-grid two-col">
+    <div class="form-grid two-col" use:reveal={90}>
       <div class="field-group">
         <label for="work-full-name"><span></span>Full name</label>
         <input id="work-full-name" type="text" placeholder="Jane Doe" />
@@ -229,7 +260,7 @@
     </div>
 
     {#if selectedTab === 'Careers'}
-      <div class="field-group role-field">
+      <div class="field-group role-field" use:reveal={120}>
         <label for="work-job-role"><span></span>Job role</label>
         <div class="role-select">
           <select id="work-job-role" aria-label="Job role" bind:value={selectedJobRole}>
@@ -243,7 +274,7 @@
       </div>
     {/if}
 
-    <div class="field-group price-field">
+    <div class="field-group price-field" use:reveal={150}>
       <label for="work-asking-price"><span></span>{priceLabel}</label>
       <div class="price-row">
         <div class="currency-select">
@@ -259,12 +290,12 @@
       </div>
     </div>
 
-    <div class="field-group message-field">
+    <div class="field-group message-field" use:reveal={190}>
       <label for="work-message"><span></span>Why are you contacting us?</label>
       <textarea id="work-message" placeholder={messagePlaceholder}></textarea>
     </div>
 
-    <div class="consent-list">
+    <div class="consent-list" use:reveal={230}>
       <label class="check-row">
         <input type="checkbox" />
         <span class="box"></span>
@@ -278,7 +309,7 @@
       </label>
     </div>
 
-    <div class="form-submit-row">
+    <div class="form-submit-row" use:reveal={270}>
       <p>We typically respond within 2–3 business days.</p>
       <button type="submit" class="submit-btn">
         <span>Submit inquiry</span>
@@ -1075,13 +1106,30 @@
     }
   }
 
+
+
+  :global(.work-scroll-reveal) {
+    opacity: 0;
+    transform: var(--reveal-from, translate3d(0, 22px, 0));
+    transition: opacity .68s ease var(--reveal-delay, 0ms), transform .68s cubic-bezier(.19, 1, .22, 1) var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  :global(.work-scroll-reveal.work-scroll-visible) {
+    opacity: 1;
+    transform: var(--reveal-to, translate3d(0, 0, 0));
+  }
+
+
   @media (prefers-reduced-motion: reduce) {
     .work-form-lighting,
     .section-kicker,
     .contact-sticker,
     .work-form-heading h2,
     .work-form-heading p,
-    .work-form-card {
+    .work-form-card,
+    :global(.work-scroll-reveal) {
+      opacity: 1 !important;
       transition: none !important;
       transform: none !important;
     }

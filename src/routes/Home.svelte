@@ -364,6 +364,45 @@
   }
 
 
+  function homeReveal(node, options = 0) {
+    if (typeof window === 'undefined') return {};
+
+    const settings = typeof options === 'number' ? { delay: options } : options || {};
+    const delay = Number(settings.delay || 0);
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    node.style.setProperty('--home-reveal-delay', `${delay}ms`);
+    node.classList.add('home-reveal');
+
+    if (settings.transform === false) {
+      node.classList.add('home-reveal-opacity-only');
+    }
+
+    if (reduce) {
+      node.classList.add('home-visible');
+      return {};
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          node.classList.add('home-visible');
+          observer.unobserve(node);
+        }
+      },
+      { threshold: 0.18, rootMargin: '0px 0px -10% 0px' }
+    );
+
+    observer.observe(node);
+
+    return {
+      destroy() {
+        observer.disconnect();
+      }
+    };
+  }
+
+
   function getTopHitOffset(index) {
     const length = topHits.length;
     let offset = (index - topHitActiveIndex + length) % length;
@@ -964,12 +1003,13 @@
 </section>
 
 <section class="story-section" id="story">
-  <div class="section-title title-with-icon">
+  <div class="section-title title-with-icon" use:homeReveal>
     <h2>Meet Airo</h2>
   </div>
-  <p class="section-lead">We back overlooked Roblox games and help them grow into something bigger.</p>
+  <p class="section-lead" use:homeReveal={70}>We back overlooked Roblox games and help them grow into something bigger.</p>
   <div
     class="video-card"
+    use:homeReveal={130}
     class:is-playing={storyVideoStarted}
     class:is-previewing={storyVideoPreviewing}
     class:is-paused={storyVideoPaused}
@@ -1035,17 +1075,17 @@
 </section>
 
 <section class="brands-section" id="brands">
-  <div class="brands-kicker" aria-label="Brands">
+  <div class="brands-kicker" aria-label="Brands" use:homeReveal>
     <span class="brands-corner brands-corner-tl"></span>
     <span class="brands-corner brands-corner-tr"></span>
     <strong>Brands</strong>
     <span class="brands-corner brands-corner-bl"></span>
     <span class="brands-corner brands-corner-br"></span>
   </div>
-  <h2>Trusted By Teams Worldwide</h2>
-  <p>From brand partners to owned content, Airo works across games, studios, and creator-led experiences built to reach players around the world.</p>
+  <h2 use:homeReveal={60}>Trusted By Teams Worldwide</h2>
+  <p use:homeReveal={110}>From brand partners to owned content, Airo works across games, studios, and creator-led experiences built to reach players around the world.</p>
 
-  <div class="brand-badges">
+  <div class="brand-badges" use:homeReveal={170}>
     {#each brandBadges as badge}
       <div class="brand-badge">
         <strong>{badge.value}</strong>
@@ -1054,7 +1094,7 @@
     {/each}
   </div>
 
-  <div class="logo-cloud" aria-label="Brand logos">
+  <div class="logo-cloud" aria-label="Brand logos" use:homeReveal={220}>
     {#each brandRows as row, index}
       <div class="logo-row" class:reverse={index === 1}>
         <div class="logo-track">
@@ -1068,7 +1108,7 @@
 </section>
 
 <section class="hits-section is-visible" id="games">
-  <div class="hits-head">
+  <div class="hits-head" use:homeReveal>
     <div>
       <span class="vertical-accent"></span>
       <h2>Our top hits</h2>
@@ -1077,7 +1117,7 @@
     <a class="view-btn shine-btn" href="/games" on:click={navigateToGames}>View all games</a>
   </div>
 
-  <div bind:this={topHitsRowWrapEl} class="top-hits-row-wrap" aria-label="Airo top hit games" on:scroll={updateTopHitsScrollProgress}>
+  <div bind:this={topHitsRowWrapEl} class="top-hits-row-wrap" use:homeReveal={90} aria-label="Airo top hit games" on:scroll={updateTopHitsScrollProgress}>
     <div class="top-hits-row">
       {#each topHits as hit, index}
         <article class="top-hit-card" style={`--i: ${index};`}>
@@ -1101,6 +1141,7 @@
   </div>
   <div
     class="top-hits-scroll-line"
+    use:homeReveal={150}
     role="slider"
     tabindex="0"
     aria-label="Scroll top hit games"
@@ -1114,7 +1155,7 @@
 </section>
 
 <section class="stats-panel-section">
-  <div class="stats-section-head">
+  <div class="stats-section-head" use:homeReveal>
     <div class="brands-kicker stats-kicker" aria-label="Stats">
       <span class="brands-corner brands-corner-tl"></span>
       <span class="brands-corner brands-corner-tr"></span>
@@ -1127,17 +1168,17 @@
   </div>
 
   <div class="mini-panels">
-    <article>
+    <article use:homeReveal={80}>
       <strong>+1B</strong>
       <span>Total visits across all our experiences on ROBLOX.</span>
     </article>
-    <article>
+    <article use:homeReveal={130}>
       <strong>+41</strong>
       <span>Games acquired to-date. we are always scouting for more games & UGC group</span>
     </article>
   </div>
 
-  <article class="award-card">
+  <article class="award-card" use:homeReveal={180}>
     <div class="award-icon">
       <svg viewBox="0 0 64 64" aria-hidden="true">
         <path d="M22 6h20l-5 16H27L22 6Z" fill="currentColor" opacity=".9"/>
@@ -1152,7 +1193,7 @@
     <div class="award-sticker" bind:this={pantherAwardEl} aria-label="Panther award animation"></div>
   </article>
 
-  <article bind:this={growthCardEl} class={`growth-card${growthInView ? ' is-visible' : ''}`}>
+  <article bind:this={growthCardEl} class={`growth-card${growthInView ? ' is-visible' : ''}`} use:homeReveal={{ delay: 230, transform: false }}>
     <span class="growth-label">
       <span
         style="display: inline-block; width: 24px; height: 24px; flex: 0 0 24px; line-height: 0; pointer-events: none;"
@@ -1208,7 +1249,7 @@
     <div class="growth-pill">↗ Growing</div>
   </article>
 
-  <article class="launch-card">
+  <article class="launch-card" use:homeReveal={280}>
     <div>
       <img class="launch-logo" src="/logos/airo.svg" alt="Airo"/>
       <h3>Looking to launch<br/>Your game?</h3>
@@ -1305,6 +1346,39 @@
     .growth-card.is-visible .growth-pill::before {
       animation-duration: .75s !important;
       animation-delay: .96s !important;
+    }
+  }
+
+
+  :global(.home-reveal) {
+    opacity: 0;
+    transform: var(--home-reveal-from, translateY(22px));
+    transition:
+      opacity .68s ease var(--home-reveal-delay, 0ms),
+      transform .68s ease var(--home-reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  :global(.home-reveal.home-reveal-opacity-only) {
+    transform: none;
+    will-change: opacity;
+  }
+
+  :global(.home-reveal.home-visible) {
+    opacity: 1;
+    transform: var(--home-reveal-to, translateY(0));
+  }
+
+  :global(.home-reveal.home-reveal-opacity-only.home-visible) {
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.home-reveal) {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+      will-change: auto !important;
     }
   }
 
