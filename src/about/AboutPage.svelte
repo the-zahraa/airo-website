@@ -17,6 +17,9 @@
   let updateProgress = 0;
   let chartProgress = 0;
   let mobileHeroCardsReady = false;
+  let showDesktopHeroArt = typeof window === 'undefined'
+    ? true
+    : window.matchMedia('(min-width: 681px)').matches;
 
   const chartItems = [
     { label: '18k', value: 18, suffix: 'k', height: 44 },
@@ -58,8 +61,13 @@
     let animation;
     let destroyed = false;
     let version = 0;
+    let loadedPath = '';
+    const mobileQuery = typeof window === 'undefined' ? null : window.matchMedia('(max-width: 680px)');
 
     async function load(nextPath) {
+      if (destroyed || !node.isConnected || (mobileQuery && !mobileQuery.matches)) return;
+      if (animation && loadedPath === nextPath) return;
+
       const currentVersion = ++version;
       node.innerHTML = '';
 
@@ -70,10 +78,11 @@
       }
 
       animation = null;
+      loadedPath = '';
 
       try {
         const lottie = await getMobileHeroStickerModule();
-        if (destroyed || currentVersion !== version || !node.isConnected) return;
+        if (destroyed || currentVersion !== version || !node.isConnected || (mobileQuery && !mobileQuery.matches)) return;
 
         const options = {
           container: node,
@@ -93,47 +102,79 @@
             const stream = new Blob([buffer]).stream().pipeThrough(new DecompressionStream('gzip'));
             const animationData = await new Response(stream).json();
 
-            if (destroyed || currentVersion !== version || !node.isConnected) return;
+            if (destroyed || currentVersion !== version || !node.isConnected || (mobileQuery && !mobileQuery.matches)) return;
 
             animation = lottie.loadAnimation({
               ...options,
               animationData
             });
+            loadedPath = nextPath;
             return;
           } catch (error) {
             // Fall through to JSON fallback.
           }
         }
 
-        if (destroyed || currentVersion !== version || !node.isConnected) return;
+        if (destroyed || currentVersion !== version || !node.isConnected || (mobileQuery && !mobileQuery.matches)) return;
 
         animation = lottie.loadAnimation({
           ...options,
           path: nextPath.replace(/\.tgs$/i, '.json')
         });
+        loadedPath = nextPath;
       } catch (error) {
         node.innerHTML = '';
       }
     }
 
-    load(path);
+    function unload() {
+      version += 1;
+      loadedPath = '';
+      try {
+        animation?.destroy?.();
+      } catch (error) {
+        // Ignore stale animation cleanup errors during route changes.
+      }
+      animation = null;
+      node.innerHTML = '';
+    }
+
+    const observer = typeof IntersectionObserver === 'undefined'
+      ? null
+      : new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) load(path);
+      }, { rootMargin: '260px 0px' });
+
+    function handleMobileChange(event) {
+      if (event.matches) {
+        if (observer) observer.observe(node);
+        else load(path);
+      } else {
+        if (observer) observer.unobserve(node);
+        unload();
+      }
+    }
+
+    if (!mobileQuery || mobileQuery.matches) {
+      if (observer) observer.observe(node);
+      else load(path);
+    }
+
+    mobileQuery?.addEventListener?.('change', handleMobileChange);
 
     return {
       update(nextPath) {
         if (nextPath !== path) {
           path = nextPath;
-          load(path);
+          loadedPath = '';
+          if (!mobileQuery || mobileQuery.matches) load(path);
         }
       },
       destroy() {
         destroyed = true;
-        try {
-          animation?.destroy?.();
-        } catch (error) {
-          // Ignore stale animation cleanup errors during route changes.
-        }
-        animation = null;
-        node.innerHTML = '';
+        observer?.disconnect();
+        mobileQuery?.removeEventListener?.('change', handleMobileChange);
+        unload();
       }
     };
   }
@@ -152,16 +193,15 @@
     let frame;
     let mobileHeroCardsRaf;
     let mobileHeroCardsReadyRaf;
+    let isAnimatingStats = false;
     const cycle = 5600;
+    const desktopHeroQuery = window.matchMedia('(min-width: 681px)');
 
-    mobileHeroCardsReady = false;
-    mobileHeroCardsRaf = requestAnimationFrame(() => {
-      mobileHeroCardsReadyRaf = requestAnimationFrame(() => {
-        mobileHeroCardsReady = true;
-      });
-    });
+    function updateDesktopHeroState(event = desktopHeroQuery) {
+      showDesktopHeroArt = event.matches;
+    }
 
-    const tick = (time) => {
+    function tick(time) {
       const loop = (time % cycle) / cycle;
       const progress = loop < 0.74
         ? easeOutCubic(loop / 0.74)
@@ -170,11 +210,52 @@
       updateProgress = Math.round(progress * updateMax);
       chartProgress = progress;
       frame = requestAnimationFrame(tick);
-    };
+    }
 
-    frame = requestAnimationFrame(tick);
-    return () => {
+    function startStatsAnimation() {
+      if (isAnimatingStats || document.hidden) return;
+      isAnimatingStats = true;
+      frame = requestAnimationFrame(tick);
+    }
+
+    function stopStatsAnimation() {
+      isAnimatingStats = false;
       cancelAnimationFrame(frame);
+    }
+
+    mobileHeroCardsReady = false;
+    mobileHeroCardsRaf = requestAnimationFrame(() => {
+      mobileHeroCardsReadyRaf = requestAnimationFrame(() => {
+        mobileHeroCardsReady = true;
+      });
+    });
+
+    updateDesktopHeroState();
+    desktopHeroQuery.addEventListener?.('change', updateDesktopHeroState);
+
+    const features = document.querySelector('.about-features');
+    const statsObserver = typeof IntersectionObserver === 'undefined'
+      ? null
+      : new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) startStatsAnimation();
+        else stopStatsAnimation();
+      }, { rootMargin: '220px 0px' });
+
+    if (features && statsObserver) statsObserver.observe(features);
+    else startStatsAnimation();
+
+    function handleVisibilityChange() {
+      if (document.hidden) stopStatsAnimation();
+      else if (!statsObserver || features?.getBoundingClientRect().top < window.innerHeight + 220) startStatsAnimation();
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      stopStatsAnimation();
+      statsObserver?.disconnect();
+      desktopHeroQuery.removeEventListener?.('change', updateDesktopHeroState);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       cancelAnimationFrame(mobileHeroCardsRaf);
       cancelAnimationFrame(mobileHeroCardsReadyRaf);
     };
@@ -5479,38 +5560,40 @@
         <small>A track record of growth, results, and successful game launches.</small>
       </article>
     </div>
-    <div class="hero-art hero-composition" aria-label="Airo strategy cards and engagement system">
-      <div class="hero-rest-cards-svg" aria-hidden="true">
-        <div class="hero-rest-cards-base">
-          {@html heroRestCardsSvg}
+    {#if showDesktopHeroArt}
+      <div class="hero-art hero-composition" aria-label="Airo strategy cards and engagement system">
+        <div class="hero-rest-cards-svg" aria-hidden="true">
+          <div class="hero-rest-cards-base">
+            {@html heroRestCardsSvg}
+          </div>
+          <div class="hero-shadow-near-first-card-svg">
+            {@html heroFirstShadowCardSvg}
+          </div>
+          <div class="hero-shadow-near-third-card-svg">
+            {@html heroThirdShadowCardSvg}
+          </div>
+          <div class="hero-high-engagement-card-svg">
+            <div class="hero-high-engagement-neer">{@html heroHighEngagementNeerSvg}</div>
+            {@html heroHighEngagementCardSvg}
+          </div>
+          <div class="hero-long-retention-card-svg">
+            <div class="hero-long-retention-neer">{@html heroLongRetentionNeerSvg}</div>
+            {@html heroLongRetentionCardSvg}
+          </div>
+          <div class="hero-proven-brand-card-svg">
+            <div class="hero-proven-brand-neer">{@html heroProvenBrandNeerSvg}</div>
+            {@html heroProvenBrandCardSvg}
+          </div>
         </div>
-        <div class="hero-shadow-near-first-card-svg">
-          {@html heroFirstShadowCardSvg}
-        </div>
-        <div class="hero-shadow-near-third-card-svg">
-          {@html heroThirdShadowCardSvg}
-        </div>
-        <div class="hero-high-engagement-card-svg">
-          <div class="hero-high-engagement-neer">{@html heroHighEngagementNeerSvg}</div>
-          {@html heroHighEngagementCardSvg}
-        </div>
-        <div class="hero-long-retention-card-svg">
-          <div class="hero-long-retention-neer">{@html heroLongRetentionNeerSvg}</div>
-          {@html heroLongRetentionCardSvg}
-        </div>
-        <div class="hero-proven-brand-card-svg">
-          <div class="hero-proven-brand-neer">{@html heroProvenBrandNeerSvg}</div>
-          {@html heroProvenBrandCardSvg}
+        <div class="hero-first-card-wrap" aria-hidden="true">
+          <div class="hero-first-card-neer">{@html heroNeerSvg}</div>
+          <div class="hero-first-card-neer-right">{@html heroNeerSvg}</div>
+          <div class="hero-gameplay-svg-card">
+            {@html heroGameplayCardSvg}
+          </div>
         </div>
       </div>
-      <div class="hero-first-card-wrap" aria-hidden="true">
-        <div class="hero-first-card-neer">{@html heroNeerSvg}</div>
-        <div class="hero-first-card-neer-right">{@html heroNeerSvg}</div>
-        <div class="hero-gameplay-svg-card">
-          {@html heroGameplayCardSvg}
-        </div>
-      </div>
-    </div>
+    {/if}
   </section>
 
   <section class="about-copy-section reveal-block">
@@ -5582,7 +5665,7 @@
                           class:hot={chartIndex === chartItems.length - 1}
                           style={`height:${Math.max(4, item.height * barProgress(chartIndex, chartProgress))}px`}
                         ></i>
-                        <label>{item.label}</label>
+                        <span class="chart-label">{item.label}</span>
                       </div>
                     {/each}
                   </div>
@@ -5662,6 +5745,14 @@
     background: #030006;
     overflow: hidden;
     isolation: isolate;
+  }
+
+  .about-copy-section,
+  .about-features,
+  .team-section,
+  .about-cta {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 520px;
   }
 
 
@@ -6347,21 +6438,6 @@
     overflow: visible;
   }
 
-  .update-bottom button i {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #fff;
-    opacity: 0;
-    animation: updatePop 5.6s ease-in-out infinite;
-  }
-
-  .update-bottom button i:nth-child(1) { transform: translate(18px,-20px); animation-delay: .12s; }
-  .update-bottom button i:nth-child(2) { transform: translate(30px,2px); animation-delay: .22s; }
-  .update-bottom button i:nth-child(3) { transform: translate(12px,18px); animation-delay: .32s; }
 
   .chart-widget { width: min(450px, 96%); animation-name: visualDriftThree; }
 
@@ -6495,7 +6571,7 @@
     transition: none;
   }
 
-  .chart-column label {
+  .chart-column .chart-label {
     display: none;
     position: absolute;
     left: 50%;
@@ -6852,11 +6928,6 @@
     100% { stroke-dashoffset: -90; opacity: .6; }
   }
 
-  @keyframes updatePop {
-    0%, 66%, 100% { opacity: 0; scale: .5; }
-    72% { opacity: .88; scale: 1; }
-    88% { opacity: 0; scale: 0; translate: 18px -18px; }
-  }
 
   @keyframes arrowDraw {
     0% { stroke-dashoffset: 26; }
@@ -7342,9 +7413,6 @@
     box-shadow: inset 0 0 0 1px rgba(202,158,255,.12), 0 8px 24px rgba(0,0,0,.22);
   }
 
-  .update-bottom button i {
-    display: none !important;
-  }
 
   .chart-card::before,
   .chart-column i.hot {
@@ -9338,6 +9406,36 @@
     .mobile-hero-sticker {
       width: clamp(52px, 18vw, 64px) !important;
       height: clamp(52px, 18vw, 64px) !important;
+    }
+  }
+
+
+  /* iOS Safari fix: keep first-row What-we-do icon plates visible without relying on SVG filters */
+  @supports (-webkit-touch-callout: none) {
+    @media (max-width: 680px) {
+      .svg-feature-1 :global(g[filter]),
+      .svg-feature-1 :global(g[filter*="filter23"]),
+      .svg-feature-1 :global(g[filter*="filter25"]),
+      .svg-feature-1 :global(g[filter*="filter27"]) {
+        display: inline !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+      }
+
+      .svg-feature-1 :global(circle[r="36.7268"]) {
+        display: inline !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        fill: #09070f !important;
+        fill-opacity: 1 !important;
+        stroke: rgba(255,255,255,.34) !important;
+        stroke-opacity: 1 !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        transform: none !important;
+      }
     }
   }
 
