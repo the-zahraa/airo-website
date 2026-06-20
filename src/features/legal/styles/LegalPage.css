@@ -93,6 +93,12 @@
     mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.35) 5%, #000 15%, #000 73%, rgba(0,0,0,.46) 88%, transparent 98%);
   }
 
+  @media (min-width: 1411px) {
+    .legal-page .legal-hero-lighting {
+      width: 146vw;
+    }
+  }
+
   .legal-page .legal-hero-light-svg {
     display: block;
     width: 100%;

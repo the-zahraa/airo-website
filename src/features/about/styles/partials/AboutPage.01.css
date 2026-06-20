@@ -53,6 +53,21 @@
     opacity: 1;
   }
 
+  /* On zoomed-out / ultra-wide desktops, widen only the hero purple artwork.
+     Its vertical composition remains at the original 2805px depth, so it stays
+     naturally blended into the page around the hero and early next section. */
+  @media (min-width: 1441px) {
+    .about-page::after {
+      background-size:
+        818px 737px,
+        854px 770px,
+        1410px 1314px,
+        1468px 1368px,
+        max(1440px, 100vw) 2805px,
+        100% 100%;
+    }
+  }
+
   .about-page::before {
     content: '';
     position: absolute;

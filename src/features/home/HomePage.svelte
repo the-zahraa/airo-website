@@ -1186,11 +1186,11 @@
 
   <div class="mini-panels">
     <article use:homeReveal={80}>
-      <strong>+1B</strong>
+      <strong><span class="mini-panel-stat-value">1B+</span></strong>
       <span>Total visits across all our experiences on ROBLOX.</span>
     </article>
     <article use:homeReveal={130}>
-      <strong>+41</strong>
+      <strong><span class="mini-panel-stat-value">45+</span></strong>
       <span>Games acquired to-date. we are always scouting for more games & UGC group</span>
     </article>
   </div>

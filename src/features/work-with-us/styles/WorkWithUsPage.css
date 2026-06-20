@@ -83,6 +83,19 @@
     opacity: .92;
   }
 
+  @media (min-width: 1449px) {
+    .work-with-us-page .work-form-lighting {
+      width: 136vw;
+      /* Keep the bright side arcs vertically anchored while the SVG expands beyond its original 1970px width. */
+      top: calc(
+        clamp(190px, 18vw, 252px) +
+        var(--contact-sticker-light-offset) -
+        34.4605vw +
+        499.171px
+      );
+    }
+  }
+
   .work-with-us-page .work-form-heading,
   .work-with-us-page .work-form-card {
     position: relative;
@@ -831,3 +844,17 @@
     }
   }
 
+
+/* Standalone Work With Us route: keep the form clear of the footer glow and tighten the page-to-footer handoff. */
+@media (min-width: 901px) {
+  .site-shell.work-with-us-route .work-with-us-page {
+    /* Preserve the footer's original upward light, while allowing the already-positioned form section to layer above it. */
+    z-index: auto;
+    isolation: auto;
+    padding-bottom: clamp(12px, 1.8vw, 28px);
+  }
+
+  .site-shell.work-with-us-route .work-with-us-page .work-form-section {
+    margin-bottom: clamp(28px, 3vw, 46px);
+  }
+}
