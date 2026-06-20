@@ -480,37 +480,35 @@
     letter-spacing: inherit;
   }
 
-/* Home hero dots: the global sheet hides these fields after the hero artwork was added.
-   Restore only the main hero texture above the artwork, while the hero section itself
-   remains later in the stacking order so text, cards, and stats stay untouched. */
-.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .home-page .dot-field-main {
+/* Home hero dots: restore the existing global dot texture instead of creating a new one.
+   This rule only unhides and softly masks the original .dot-field-main layer. */
+.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .dot-field-main {
   display: block !important;
   z-index: 1 !important;
-  opacity: .62 !important;
-  background-image: radial-gradient(circle, rgba(243, 238, 255, .34) 1.2px, transparent 1.55px) !important;
+  opacity: .42 !important;
   mix-blend-mode: screen !important;
-}
-
-/* Home hero dots: extend the visible pattern higher so it reaches more of the title area
-   without changing the artwork or hero layout. */
-.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .home-page .dot-field-main {
-  top: 0 !important;
-  height: clamp(500px, 46vw, 720px) !important;
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.92) 0%, #000 18%, #000 74%, rgba(0,0,0,.34) 90%, transparent 100%) !important;
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,.92) 0%, #000 18%, #000 74%, rgba(0,0,0,.34) 90%, transparent 100%) !important;
-}
-
-/* Keep the hero dot texture continuous across the full hero width instead of ending at the original inner field bounds. */
-.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .home-page .dot-field-main {
-  left: 50% !important;
-  right: auto !important;
-  width: 100vw !important;
-  max-width: none !important;
-  transform: translateX(-50%) !important;
-}
-
-/* Soften the full-width dot field at both edges while keeping dots visible there. */
-.site-shell:not(.about-route):not(.careers-route):not(.games-route):not(.legal-route) .home-page .dot-field-main {
-  -webkit-mask-image: radial-gradient(ellipse 75% 120% at 50% 0%, #000 0 45%, rgba(0,0,0,.86) 59%, rgba(0,0,0,.52) 75%, rgba(0,0,0,.22) 91%, transparent 100%) !important;
-  mask-image: radial-gradient(ellipse 75% 120% at 50% 0%, #000 0 45%, rgba(0,0,0,.86) 59%, rgba(0,0,0,.52) 75%, rgba(0,0,0,.22) 91%, transparent 100%) !important;
+  -webkit-mask-image: radial-gradient(
+    ellipse 92% 82% at 50% 52%,
+    rgba(0, 0, 0, .30) 0%,
+    rgba(0, 0, 0, .48) 16%,
+    rgba(0, 0, 0, .72) 32%,
+    rgba(0, 0, 0, .92) 46%,
+    #000 54%,
+    rgba(0, 0, 0, .90) 64%,
+    rgba(0, 0, 0, .68) 78%,
+    rgba(0, 0, 0, .46) 91%,
+    rgba(0, 0, 0, .28) 100%
+  ) !important;
+  mask-image: radial-gradient(
+    ellipse 92% 82% at 50% 52%,
+    rgba(0, 0, 0, .30) 0%,
+    rgba(0, 0, 0, .48) 16%,
+    rgba(0, 0, 0, .72) 32%,
+    rgba(0, 0, 0, .92) 46%,
+    #000 54%,
+    rgba(0, 0, 0, .90) 64%,
+    rgba(0, 0, 0, .68) 78%,
+    rgba(0, 0, 0, .46) 91%,
+    rgba(0, 0, 0, .28) 100%
+  ) !important;
 }
